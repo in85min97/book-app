@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>동물 놀이터 🐾</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#65a30d 0%,#84cc16 50%,#4d7c0f 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
+.rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#65a30d,#84cc16);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
+.rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
+@keyframes rotateH{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+@media(orientation:portrait){.rotate-notice{display:flex}.container{display:none!important}}
+.container{width:1920px;height:1080px;background:#fff;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;position:absolute}
+
+/* 과목바 */
+.subject-bar{background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;padding:0 20px;height:56px;flex-shrink:0;gap:4px;position:relative}
+.subject-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#fbbf24,#f59e0b,#fbbf24)}
+.sb-tab{padding:8px 30px;border:none;border-radius:12px 12px 0 0;background:0;font-size:18px;font-weight:800;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.sb-tab.active{background:#fff;color:#1e3a8a}
+.sb-tab.locked{cursor:default}
+.sb-tab .lock{font-size:12px;opacity:.5}
+.sb-spacer{flex:1}
+.sb-btns{display:flex;gap:8px}
+.sb-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-size:18px;color:#fff;cursor:pointer;transition:.15s}
+.sb-btn:active{background:rgba(255,255,255,.3)}
+
+/* 메인 */
+.main-layout{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:14px;flex:1;overflow:hidden}
+
+/* 왼쪽 */
+.left-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.profile-section{background:linear-gradient(145deg,#4d7c0f,#65a30d 50%,#84cc16);border-radius:20px;padding:20px;border:3px solid #d9f99d;box-shadow:0 6px 20px rgba(101,163,13,.3);flex-shrink:0;position:relative;overflow:hidden}
+.profile-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='15' cy='15' r='1.5' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='2s' repeatCount='indefinite'/></circle><circle cx='85' cy='25' r='1' fill='white' opacity='.25'><animate attributeName='opacity' values='.25;.08;.25' dur='1.5s' repeatCount='indefinite'/></circle><circle cx='25' cy='75' r='1.2' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='1.8s' repeatCount='indefinite'/></circle></svg>") repeat;pointer-events:none}
+.profile-content{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.profile-avatar{width:90px;height:90px;background:linear-gradient(145deg,#bef264,#a3e635);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #fff;box-shadow:0 4px 15px rgba(190,242,100,.4);animation:avGlow 3s ease-in-out infinite;flex-shrink:0;cursor:pointer}
+@keyframes avGlow{0%,100%{box-shadow:0 4px 15px rgba(190,242,100,.4);transform:scale(1)}50%{box-shadow:0 8px 25px rgba(190,242,100,.6);transform:scale(1.05)}}
+.profile-info{flex:1;color:#fff}
+.profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
+.profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.profile-level{font-size:18px;font-weight:700;color:#d9f99d;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#bef264,#a3e635);color:#365314;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#bef264,#a3e635,#bef264);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
+@keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* 탭 */
+.tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn.active{background:linear-gradient(145deg,#65a30d,#4d7c0f);color:#fff;border-color:#65a30d}
+.tab-btn:active{transform:scale(.97)}
+.tab-content{display:none;flex:1;overflow:hidden}
+.tab-content.active{display:flex;flex-direction:column}
+
+/* 사이드 정보 */
+.side-info{background:linear-gradient(145deg,#f7fee7,#ecfccb);border-radius:16px;padding:15px;border:2px solid #84cc16;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-title{font-size:17px;font-weight:700;color:#365314;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
+.side-val{font-size:20px;font-weight:800;color:#65a30d}
+
+/* 게임 런치 */
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#bef264,#a3e635);color:#365314;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(190,242,100,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+@keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.game-launch-btn:active{transform:scale(.97)}
+
+/* 중앙 */
+.center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.game-view.active{display:flex}
+
+/* ===== 수의사 놀이 ===== */
+.vet-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:8px;padding:10px}
+.vet-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
+.vet-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;width:100%}
+.vet-animal-container{position:relative;width:320px;height:320px;display:flex;align-items:center;justify-content:center}
+.vet-animal-svg{width:280px;height:280px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.15))}
+.vet-sick-indicator{position:absolute;top:10px;right:10px;font-size:40px;animation:sickPulse 1s ease-in-out infinite}
+@keyframes sickPulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.3);opacity:1}}
+.vet-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.vet-heart{position:absolute;font-size:30px;animation:heartFloat 1.5s ease-out forwards;pointer-events:none}
+@keyframes heartFloat{0%{transform:translate(0,0) scale(0);opacity:0}30%{transform:translate(var(--tx),var(--ty)) scale(1.2);opacity:1}100%{transform:translate(var(--tx),calc(var(--ty) - 80px)) scale(.6);opacity:0}}
+.vet-tool-palette{display:flex;gap:16px;padding:12px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:16px;border:2px solid #86efac}
+.vet-tool{width:90px;height:90px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:48px;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);position:relative}
+.vet-tool:active{transform:scale(.9);cursor:grabbing}
+.vet-tool.used{opacity:.3;pointer-events:none;border-color:#d1d5db}
+.vet-tool-label{position:absolute;bottom:-4px;font-size:11px;font-weight:700;color:#365314;background:#ecfccb;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.vet-dropzone{position:absolute;inset:0;border-radius:50%;z-index:5}
+.vet-success-overlay{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:10}
+.vet-sparkle{position:absolute;pointer-events:none;animation:vetSparkle var(--dur,.8s) ease-out forwards}
+@keyframes vetSparkle{0%{transform:translate(0,0) scale(0) rotate(0deg);opacity:0}30%{transform:translate(calc(var(--tx)*.3),calc(var(--ty)*.3)) scale(1.2) rotate(180deg);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0) rotate(360deg);opacity:0}}
+
+/* ===== 밥 줘! ===== */
+.feed-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:12px;padding:10px}
+.feed-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
+.feed-stage{display:flex;align-items:center;justify-content:center;gap:30px;position:relative}
+.feed-animal{width:200px;height:200px;display:flex;align-items:center;justify-content:center;font-size:120px;position:relative;filter:drop-shadow(0 6px 16px rgba(0,0,0,.12))}
+.feed-animal-speech{position:absolute;top:-35px;left:50%;transform:translateX(-50%);background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:6px 14px;font-size:16px;font-weight:700;color:#1e293b;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.1);z-index:5}
+.feed-animal-speech::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid #fff}
+.feed-type-badge{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:800;padding:4px 10px;border-radius:8px;white-space:nowrap}
+.feed-type-herb{background:#dcfce7;color:#166534;border:1px solid #86efac}
+.feed-type-carn{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.feed-type-omni{background:#fef3c7;color:#92400e;border:1px solid #fcd34d}
+.food-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:420px}
+.food-choice{font-size:56px;background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;height:100px;width:130px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.food-choice:active{transform:scale(.9)}
+.food-choice.correct{background:linear-gradient(145deg,#dcfce7,#bbf7d0)!important;border-color:#22c55e!important;animation:correctBounce .5s ease}
+.food-choice.wrong{background:linear-gradient(145deg,#fee2e2,#fecaca)!important;border-color:#ef4444!important;animation:shake .5s}
+@keyframes correctBounce{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.feed-result{font-size:20px;font-weight:700;text-align:center;min-height:36px;padding:8px}
+.feed-spit{position:absolute;pointer-events:none;z-index:15;animation:spitAnim .8s ease-out forwards}
+@keyframes spitAnim{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,80px),var(--ty,-60px)) scale(.3) rotate(360deg);opacity:0}}
+.feed-yum{position:absolute;pointer-events:none;z-index:15;font-size:28px;font-weight:900;animation:feedYum .8s ease-out forwards}
+@keyframes feedYum{0%{transform:translate(-50%,0) scale(0);opacity:0}30%{transform:translate(-50%,-20px) scale(1.2);opacity:1}100%{transform:translate(-50%,-60px) scale(.6);opacity:0}}
+.feed-confetti{position:absolute;width:8px;height:8px;border-radius:2px;pointer-events:none;animation:feedConf var(--dur,1s) ease-out forwards}
+@keyframes feedConf{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,200px)) rotate(720deg);opacity:0}}
+
+/* ===== 변신 앨범 ===== */
+.transform-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:10px;position:relative}
+.transform-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
+.transform-set-name{font-size:20px;font-weight:800;color:#1e293b;margin-bottom:4px}
+.slot-row{display:flex;gap:16px;align-items:center}
+.slot-box{width:150px;height:150px;background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:3px dashed #94a3b8;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;transition:.2s}
+.slot-box.filled{border-style:solid;border-color:#22c55e;background:linear-gradient(145deg,#dcfce7,#bbf7d0)}
+.slot-box.wrong-slot{border-color:#ef4444;background:linear-gradient(145deg,#fee2e2,#fecaca);animation:shake .5s}
+.slot-arrow{font-size:36px;color:#94a3b8;font-weight:900}
+.slot-num{position:absolute;top:6px;left:10px;font-size:14px;font-weight:800;color:#64748b;background:#f1f5f9;padding:2px 8px;border-radius:6px}
+.card-pool{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:700px}
+.stage-card{width:120px;height:120px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);gap:4px}
+.stage-card:active{transform:scale(.9);cursor:grabbing}
+.stage-card .card-emoji{font-size:50px}
+.stage-card .card-label{font-size:13px;font-weight:700;color:#365314}
+.stage-card.placed{opacity:.3;pointer-events:none}
+.transform-anim-overlay{position:absolute;inset:0;pointer-events:none;z-index:20;display:flex;align-items:center;justify-content:center}
+.transform-morph{font-size:120px;animation:morphPop 2s ease-in-out forwards}
+@keyframes morphPop{0%{transform:scale(0) rotate(-30deg);opacity:0}20%{transform:scale(1.3) rotate(10deg);opacity:1}40%{transform:scale(.8) rotate(-5deg);opacity:1}60%{transform:scale(1.1) rotate(3deg);opacity:1}80%{transform:scale(1) rotate(0);opacity:1}100%{transform:scale(1) rotate(0) translateY(-20px);opacity:0}}
+.transform-sparkle-ring{position:absolute;border-radius:50%;pointer-events:none;animation:tSparkRing .8s ease-out forwards}
+@keyframes tSparkRing{0%{transform:translate(-50%,-50%) scale(0);opacity:.8}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.transform-wrong-result{position:absolute;font-size:80px;pointer-events:none;z-index:25;animation:wrongPop 2s ease-out forwards}
+@keyframes wrongPop{0%{transform:translate(-50%,-50%) scale(0) rotate(-20deg);opacity:0}20%{transform:translate(-50%,-50%) scale(1.2) rotate(10deg);opacity:1}100%{transform:translate(-50%,-50%) scale(.6) rotate(0) translateY(-40px);opacity:0}}
+
+/* ===== 내 기록 ===== */
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#f7fee7,#ecfccb);border-radius:12px;border:2px solid #d9f99d}
+.record-num{font-size:32px;font-weight:900;color:#65a30d}
+.record-label{font-size:13px;font-weight:600;color:#365314;margin-top:4px}
+
+/* 오른쪽 */
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn:active{transform:scale(.95)}
+.action-btn.btn-lime{background:linear-gradient(145deg,#84cc16,#65a30d);box-shadow:0 2px 8px rgba(132,204,22,.3)}
+.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
+.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
+.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.action-btn.btn-orange{background:linear-gradient(145deg,#f97316,#ea580c);box-shadow:0 2px 8px rgba(249,115,22,.2)}
+.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+
+/* ===== 히어로: 서식지 분류왕 ===== */
+.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;overflow:hidden}
+.hero-game.hidden{display:none}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.4)}
+.hg-stat{font-size:22px;font-weight:800;color:#1e3a8a}
+.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-combo{font-size:20px;font-weight:800;color:#f59e0b}
+.hg-ctrls{display:flex;gap:8px}
+.hg-ctrl-btn{background:rgba(255,255,255,.6);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569}
+.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-arena{flex:1;position:relative;overflow:hidden}
+.hg-biome{position:absolute;bottom:0;width:50%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:20px;transition:all .5s}
+.hg-biome.left{left:0}
+.hg-biome.right{right:0}
+.hg-biome-label{font-size:28px;font-weight:900;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,.4);padding:8px 24px;border-radius:16px;background:rgba(0,0,0,.25);backdrop-filter:blur(4px);margin-bottom:10px;z-index:5}
+.hg-biome-ground{position:absolute;bottom:0;left:0;right:0;height:15%;border-radius:50% 50% 0 0/20px 20px 0 0;z-index:1}
+.hg-biome-icon{font-size:60px;z-index:2;margin-bottom:10px}
+.hg-divider{position:absolute;left:50%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5}
+/* 3/4 biome mode */
+.hg-biome.third{width:33.33%}
+.hg-biome.third.b0{left:0}
+.hg-biome.third.b1{left:33.33%}
+.hg-biome.third.b2{left:66.66%}
+.hg-biome.fourth{width:25%}
+.hg-biome.fourth.b0{left:0}
+.hg-biome.fourth.b1{left:25%}
+.hg-biome.fourth.b2{left:50%}
+.hg-biome.fourth.b3{left:75%}
+.hg-divider2{position:absolute;left:33.33%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
+.hg-divider3{position:absolute;left:66.66%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
+.hg-divider4{position:absolute;left:25%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
+.hg-divider5{position:absolute;left:75%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
+.falling-animal{position:absolute;z-index:15;font-size:64px;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2));transition:none;touch-action:none}
+.falling-animal.dragging{z-index:50;transform:scale(1.2);filter:drop-shadow(0 8px 20px rgba(0,0,0,.3))}
+.falling-animal.placed{pointer-events:none}
+.hg-flash-green{position:absolute;inset:0;pointer-events:none;z-index:30;animation:screenFlashG .3s ease-out forwards}
+@keyframes screenFlashG{0%{background:rgba(34,197,94,.3)}100%{background:transparent}}
+.hg-flash-red{position:absolute;inset:0;pointer-events:none;z-index:30;animation:screenFlashR .4s ease-out forwards}
+@keyframes screenFlashR{0%{background:rgba(239,68,68,.3)}50%{background:rgba(239,68,68,.15)}100%{background:transparent}}
+.hg-arena-shake{animation:arenaShake .4s ease-out}
+@keyframes arenaShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.hg-animal-confused{animation:confused .5s ease-in-out 2}
+@keyframes confused{0%,100%{transform:rotate(0)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
+.hg-score-pop{position:absolute;font-size:32px;font-weight:900;color:#22c55e;text-shadow:0 2px 6px rgba(0,0,0,.2);pointer-events:none;z-index:40;animation:scorePop .8s ease-out forwards}
+@keyframes scorePop{0%{transform:translate(-50%,0) scale(0);opacity:0}30%{transform:translate(-50%,-15px) scale(1.2);opacity:1}100%{transform:translate(-50%,-50px) scale(.7);opacity:0}}
+.hg-combo-text{position:absolute;top:50%;left:50%;font-size:60px;font-weight:900;color:#f59e0b;text-shadow:0 4px 8px rgba(0,0,0,.3);pointer-events:none;z-index:50;animation:comboPop 1s ease-out forwards}
+@keyframes comboPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-50%) scale(.8);opacity:0}}
+.hg-powerup{position:absolute;font-size:50px;z-index:15;pointer-events:auto;cursor:pointer;animation:powerFloat 2s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(251,191,36,.4))}
+@keyframes powerFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hg-cloud{position:absolute;font-size:36px;opacity:.2;pointer-events:none;animation:cFloat 25s linear infinite;z-index:1}
+@keyframes cFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-overlay.hidden{display:none}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
+.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:28px;font-weight:700;color:#65a30d;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#84cc16,#65a30d);color:#fff}
+.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+.hg-start-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:60;background:rgba(0,0,0,.5);backdrop-filter:blur(8px)}
+.hg-start-screen.hidden{display:none}
+.hg-start-title{font-size:48px;font-weight:900;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,.3)}
+.hg-start-desc{font-size:20px;color:#d9f99d;font-weight:600}
+.hg-start-btn{background:linear-gradient(145deg,#84cc16,#65a30d);color:#fff;border:4px solid #d9f99d;border-radius:24px;padding:24px 60px;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(132,204,22,.4);animation:gPulse 2s ease-in-out infinite}
+.hg-start-btn:active{transform:scale(.95)}
+
+/* 모달 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:20px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.modal-head{background:linear-gradient(145deg,#65a30d,#84cc16);color:#fff;padding:16px 20px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font-size:18px}
+.modal-close{background:0;border:0;color:#fff;font-size:24px;cursor:pointer}
+.modal-body{padding:20px}
+.modal-section{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fafc}
+.modal-section h4{margin:0 0 10px;font-weight:700;color:#374151;font-size:15px}
+.modal-input{width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px}
+.modal-input:focus{outline:none;border-color:#65a30d}
+.modal-btn{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;width:100%;background:linear-gradient(145deg,#65a30d,#84cc16);color:#fff;margin-top:6px}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.char-item.selected{background:linear-gradient(145deg,#bef264,#a3e635);border-color:#a3e635}
+</style>
+</head>
+<body>
+<div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
+
+<div class="container">
+  <div class="subject-bar">
+    <a class="sb-tab" href="hangul.html">📝 한글</a>
+    <a class="sb-tab" href="math.html">🔢 숫자</a>
+    <button class="sb-tab active">🐾 동물</button>
+    <div class="sb-spacer"></div>
+    <div class="sb-btns">
+      <button class="sb-btn" id="sb-sound" onclick="toggleSound()">🔊</button>
+      <button class="sb-btn" onclick="showAdmin()">⚙️</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- 왼쪽 패널 -->
+    <div class="left-panel">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-avatar" onclick="showCharModal()"><span id="pf-char">🐾</span></div>
+          <div class="profile-info">
+            <div class="profile-name" onclick="changeName()"><span id="pf-name">동물박사</span></div>
+            <div class="profile-level-container">
+              <div class="profile-level">
+                <span class="level-badge">LV.<span id="pf-level">1</span></span>
+                <span id="pf-done">0</span>/<span id="pf-total">10</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="pf-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-headers">
+        <button class="tab-btn active" onclick="switchTab('vet')">🩺 수의사</button>
+        <button class="tab-btn" onclick="switchTab('feed')">🍽 밥 줘!</button>
+        <button class="tab-btn" onclick="switchTab('transform')">🦋 변신앨범</button>
+        <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
+      </div>
+
+      <!-- 수의사 사이드 -->
+      <div class="tab-content vet-side active">
+        <div class="side-info">
+          <div class="side-title">🩺 수의사 놀이</div>
+          <div class="side-stat"><span>치료 완료</span><span class="side-val" id="vet-healed">0</span></div>
+          <div class="side-stat"><span>현재 환자</span><span class="side-val" id="vet-patient">?</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="vet-score-side">0</span></div>
+          <div class="side-stat"><span>연속 치료</span><span class="side-val" id="vet-streak">0</span></div>
+        </div>
+      </div>
+
+      <!-- 밥 줘! 사이드 -->
+      <div class="tab-content feed-side">
+        <div class="side-info">
+          <div class="side-title">🍽 밥 줘!</div>
+          <div class="side-stat"><span>먹이기 성공</span><span class="side-val" id="feed-correct-side">0</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="feed-score-side">0</span></div>
+          <div class="side-stat"><span>연속 성공</span><span class="side-val" id="feed-streak-side">0</span></div>
+        </div>
+      </div>
+
+      <!-- 변신앨범 사이드 -->
+      <div class="tab-content transform-side">
+        <div class="side-info">
+          <div class="side-title">🦋 변신 앨범</div>
+          <div class="side-stat"><span>완성한 변신</span><span class="side-val" id="tf-done-side">0</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="tf-score-side">0</span></div>
+          <div class="side-stat"><span>연속 성공</span><span class="side-val" id="tf-streak-side">0</span></div>
+        </div>
+      </div>
+
+      <!-- 기록 사이드 -->
+      <div class="tab-content record-side">
+        <div class="side-info">
+          <div class="side-title">📊 종합 기록</div>
+          <div class="side-stat"><span>총 문제</span><span class="side-val" id="rec-total">0</span></div>
+          <div class="side-stat"><span>정답률</span><span class="side-val" id="rec-rate">0%</span></div>
+        </div>
+      </div>
+
+      <div class="game-launch-btn" onclick="startHeroGame()">🌍 서식지 분류왕 시작!</div>
+    </div>
+
+    <!-- 중앙 패널 -->
+    <div class="center-panel">
+      <!-- 수의사 놀이 -->
+      <div class="game-view vet-view active" id="vet-view">
+        <div class="vet-area" id="vet-area">
+          <div class="vet-info" id="vet-info">🩺 아픈 동물을 치료해 주세요!</div>
+          <div class="vet-stage" id="vet-stage">
+            <div class="vet-animal-container" id="vet-animal-container">
+              <div id="vet-animal-display" style="font-size:160px;position:relative">
+                🐶
+                <div class="vet-sick-indicator" id="vet-sick-indicator">💧</div>
+              </div>
+              <div class="vet-dropzone" id="vet-dropzone"></div>
+              <div class="vet-hearts" id="vet-hearts"></div>
+            </div>
+          </div>
+          <div class="vet-tool-palette" id="vet-tool-palette"></div>
+        </div>
+      </div>
+
+      <!-- 밥 줘! -->
+      <div class="game-view feed-view" id="feed-view">
+        <div class="feed-area" id="feed-area">
+          <div class="feed-info" id="feed-info">🍽 알맞은 먹이를 골라주세요!</div>
+          <div class="feed-stage">
+            <div class="feed-animal" id="feed-animal">
+              <div class="feed-animal-speech" id="feed-speech">배고파요~</div>
+              🐰
+              <div class="feed-type-badge feed-type-herb" id="feed-type-badge">초식</div>
+            </div>
+          </div>
+          <div class="food-choices" id="food-choices"></div>
+          <div class="feed-result" id="feed-result"></div>
+        </div>
+      </div>
+
+      <!-- 변신 앨범 -->
+      <div class="game-view transform-view" id="transform-view">
+        <div class="transform-area" id="transform-area">
+          <div class="transform-info" id="transform-info">🦋 올바른 순서로 변신 카드를 놓아보세요!</div>
+          <div class="transform-set-name" id="transform-set-name">올챙이의 변신</div>
+          <div class="slot-row" id="slot-row"></div>
+          <div class="card-pool" id="card-pool"></div>
+        </div>
+      </div>
+
+      <!-- 내 기록 -->
+      <div class="game-view record-view" id="record-view">
+        <div class="records-area">
+          <div class="record-card">
+            <h3>🏆 종합 성적</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-total">0</div><div class="record-label">총 문제</div></div>
+              <div class="record-item"><div class="record-num" id="r-correct">0</div><div class="record-label">정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-rate">0%</div><div class="record-label">정답률</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🩺 수의사 놀이</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-vet-healed">0</div><div class="record-label">치료 성공</div></div>
+              <div class="record-item"><div class="record-num" id="r-vet-streak">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-vet-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🍽 밥 줘!</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-feed-correct">0</div><div class="record-label">먹이기 성공</div></div>
+              <div class="record-item"><div class="record-num" id="r-feed-streak">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-feed-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🦋 변신 앨범</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-tf-done">0</div><div class="record-label">완성 변신</div></div>
+              <div class="record-item"><div class="record-num" id="r-tf-streak">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-tf-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오른쪽 패널 -->
+    <div class="right-panel" id="right-panel">
+      <button class="action-btn btn-cyan" id="act1" onclick="actionBtn(1)"><span class="icon">💡</span>힌트</button>
+      <button class="action-btn btn-green" id="act2" onclick="actionBtn(2)"><span class="icon">⏭</span>다음</button>
+      <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🔄</span>다시</button>
+    </div>
+  </div>
+</div>
+
+<!-- 히어로 게임: 서식지 분류왕 -->
+<div id="hero-game" class="hero-game hidden" style="background:linear-gradient(180deg,#7dd3fc 0%,#bae6fd 30%,#bbf7d0 70%,#86efac 100%)">
+  <div class="hg-header">
+    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
+    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
+    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="hg-combo" id="hg-combo-display"></div>
+    <div class="hg-ctrls">
+      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+    </div>
+  </div>
+  <div class="hg-arena" id="hg-arena">
+    <div class="hg-divider" id="hg-divider"></div>
+    <div class="hg-divider2" id="hg-divider2"></div>
+    <div class="hg-divider3" id="hg-divider3"></div>
+    <div class="hg-divider4" id="hg-divider4"></div>
+    <div class="hg-divider5" id="hg-divider5"></div>
+  </div>
+  <div id="hg-start" class="hg-start-screen">
+    <div class="hg-start-title">🌍 서식지 분류왕</div>
+    <div class="hg-start-desc">동물을 알맞은 서식지로 보내주세요!</div>
+    <button class="hg-start-btn" onclick="hgStart()">🚀 시작!</button>
+  </div>
+  <div id="hg-over" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>게임 끝!</h2>
+      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="msg" id="hg-over-msg">잘했어요!</div>
+      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-pause-screen" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>⏸ 일시정지</h2>
+      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 관리자 모달 -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>⚙ 설정</h3><button class="modal-close" onclick="hideAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h4>👤 프로필</h4>
+        <input class="modal-input" id="adm-name" placeholder="이름 입력" maxlength="10">
+        <button class="modal-btn" onclick="saveProfileAdmin()">저장</button>
+      </div>
+      <div class="modal-section">
+        <h4>🔄 초기화</h4>
+        <button class="modal-btn" style="background:linear-gradient(145deg,#ef4444,#dc2626)" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 캐릭터 모달 -->
+<div id="char-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>🎭 캐릭터 선택</h3><button class="modal-close" onclick="hideCharModal()">×</button></div>
+    <div class="modal-body">
+      <div class="char-grid" id="char-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 전역 변수 =====
+let currentTab = 'vet';
+let soundEnabled = true;
+const LS = localStorage;
+
+// 프로필
+let profile = {
+  name: LS.getItem('animalName') || '동물박사',
+  char: LS.getItem('animalChar') || '🐾',
+  totalCorrect: parseInt(LS.getItem('animalCorrect')) || 0,
+  totalPlayed: parseInt(LS.getItem('animalPlayed')) || 0
+};
+
+// 수의사 게임 상태
+let vet = {
+  score: 0, streak: 0, healed: parseInt(LS.getItem('vetHealed')) || 0,
+  bestStreak: parseInt(LS.getItem('vetBestStreak')) || 0,
+  bestScore: parseInt(LS.getItem('vetBestScore')) || 0,
+  currentAnimal: null, toolsApplied: 0, toolsNeeded: 0
+};
+
+// 밥 줘! 게임 상태
+let feed = {
+  score: 0, streak: 0, correct: parseInt(LS.getItem('feedCorrect')) || 0,
+  bestStreak: parseInt(LS.getItem('feedBestStreak')) || 0,
+  bestScore: parseInt(LS.getItem('feedBestScore')) || 0,
+  currentAnimal: null, answered: false
+};
+
+// 변신 앨범 상태
+let tf = {
+  score: 0, streak: 0, done: parseInt(LS.getItem('tfDone')) || 0,
+  bestStreak: parseInt(LS.getItem('tfBestStreak')) || 0,
+  bestScore: parseInt(LS.getItem('tfBestScore')) || 0,
+  currentSet: null, filledSlots: [], nextSlotIdx: 0
+};
+
+// 히어로 게임 상태
+let hg = {
+  score: 0, lives: 5, level: 1, running: false, paused: false, started: false,
+  animals: [], spawnTimer: null, animId: null, combo: 0, maxCombo: 0,
+  biomes: [], dragItem: null, dragOffsetX: 0, dragOffsetY: 0
+};
+
+// ===== 데이터 =====
+
+// 수의사 - 아픈 동물들
+const VET_ANIMALS = [
+  { emoji: '🐶', name: '강아지', sick: '감기 걸림', sickEmoji: '🤧', tools: ['🌡️','💊','🩹'], toolNames: ['체온계','약','붕대'] },
+  { emoji: '🐱', name: '고양이', sick: '다리 다침', sickEmoji: '💧', tools: ['🩹','💊','🧊'], toolNames: ['붕대','약','얼음'] },
+  { emoji: '🐰', name: '토끼', sick: '배 아픔', sickEmoji: '😢', tools: ['💊','🥕','❤️‍🩹'], toolNames: ['약','당근','치료'] },
+  { emoji: '🐻', name: '곰', sick: '열이 남', sickEmoji: '🔥', tools: ['🌡️','🧊','💊'], toolNames: ['체온계','얼음','약'] },
+  { emoji: '🐸', name: '개구리', sick: '목이 아픔', sickEmoji: '😖', tools: ['💊','🍯','🩹'], toolNames: ['약','꿀','붕대'] },
+  { emoji: '🐧', name: '펭귄', sick: '감기 걸림', sickEmoji: '🤒', tools: ['🌡️','💊','🧣'], toolNames: ['체온계','약','목도리'] },
+  { emoji: '🦊', name: '여우', sick: '발 다침', sickEmoji: '😿', tools: ['🩹','💊','❤️‍🩹'], toolNames: ['붕대','약','치료'] },
+  { emoji: '🐼', name: '판다', sick: '소화불량', sickEmoji: '🤢', tools: ['💊','🍵','❤️‍🩹'], toolNames: ['약','따뜻한 차','치료'] },
+];
+
+// 밥 줘! - 동물과 먹이
+const FEED_DATA = [
+  { emoji: '🐰', name: '토끼', food: '🥕', foodName: '당근', type: '초식', typeClass: 'feed-type-herb' },
+  { emoji: '🐱', name: '고양이', food: '🐟', foodName: '생선', type: '육식', typeClass: 'feed-type-carn' },
+  { emoji: '🐶', name: '강아지', food: '🦴', foodName: '뼈', type: '잡식', typeClass: 'feed-type-omni' },
+  { emoji: '🦁', name: '사자', food: '🍖', foodName: '고기', type: '육식', typeClass: 'feed-type-carn' },
+  { emoji: '🐵', name: '원숭이', food: '🍌', foodName: '바나나', type: '잡식', typeClass: 'feed-type-omni' },
+  { emoji: '🐼', name: '판다', food: '🎋', foodName: '대나무', type: '초식', typeClass: 'feed-type-herb' },
+];
+const ALL_FOODS = ['🥕','🐟','🦴','🍖','🍌','🎋','🍎','🧀','🍕'];
+
+// 변신 앨범 - 변신 세트
+const TRANSFORM_SETS = [
+  { name: '올챙이의 변신', stages: [
+    { emoji: '🥚', label: '알' },
+    { emoji: '🔵', label: '올챙이' },
+    { emoji: '🦎', label: '뒷다리' },
+    { emoji: '🐸', label: '개구리' }
+  ], final: '🐸' },
+  { name: '나비의 변신', stages: [
+    { emoji: '🥚', label: '알' },
+    { emoji: '🐛', label: '애벌레' },
+    { emoji: '🫘', label: '번데기' },
+    { emoji: '🦋', label: '나비' }
+  ], final: '🦋' },
+  { name: '병아리의 변신', stages: [
+    { emoji: '🥚', label: '알' },
+    { emoji: '🐣', label: '부화' },
+    { emoji: '🐥', label: '병아리' },
+    { emoji: '🐔', label: '닭' }
+  ], final: '🐔' },
+];
+
+// 히어로 - 서식지와 동물
+const BIOME_DATA = {
+  forest: { name: '숲', emoji: '🌲', bg: 'linear-gradient(180deg,#166534,#22c55e)', ground: '#15803d', animals: ['🐿️','🦊','🐻','🦌','🐗','🦉','🐺'] },
+  ocean:  { name: '바다', emoji: '🌊', bg: 'linear-gradient(180deg,#1e40af,#3b82f6)', ground: '#1d4ed8', animals: ['🐳','🐬','🐙','🦈','🐠','🦀','🐚'] },
+  desert: { name: '사막', emoji: '🏜️', bg: 'linear-gradient(180deg,#b45309,#f59e0b)', ground: '#a16207', animals: ['🐪','🦂','🦎','🐍','🦅'] },
+  arctic: { name: '북극', emoji: '❄️', bg: 'linear-gradient(180deg,#e0f2fe,#bae6fd)', ground: '#7dd3fc', animals: ['🐧','🦭','🐻‍❄️','🦌'] }
+};
+
+// ===== TTS =====
+let audioQueue = [];
+let isSpeaking = false;
+function speak(text) {
+  if (!soundEnabled) return;
+  audioQueue.push(text);
+  processQueue();
+}
+function processQueue() {
+  if (isSpeaking || !audioQueue.length) return;
+  isSpeaking = true;
+  const u = new SpeechSynthesisUtterance(audioQueue.shift());
+  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.onend = () => { isSpeaking = false; processQueue(); };
+  u.onerror = () => { isSpeaking = false; processQueue(); };
+  speechSynthesis.speak(u);
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sb-sound').textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) speechSynthesis.cancel();
+}
+
+// ===== 프로필 =====
+function updateProfile() {
+  document.getElementById('pf-name').textContent = profile.name;
+  document.getElementById('pf-char').textContent = profile.char;
+  const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  document.getElementById('pf-level').textContent = lv;
+  const prog = (profile.totalCorrect % 10);
+  document.getElementById('pf-done').textContent = prog;
+  document.getElementById('pf-total').textContent = 10;
+  document.getElementById('pf-bar').style.width = (prog * 10) + '%';
+}
+function changeName() {
+  const n = prompt('이름을 입력하세요:', profile.name);
+  if (n && n.trim()) { profile.name = n.trim(); LS.setItem('animalName', profile.name); updateProfile(); }
+}
+function showCharModal() {
+  document.getElementById('char-modal').classList.remove('hidden');
+  const chars = ['🐾','🐶','🐱','🐰','🐻','🦊','🐸','🐼','🦁','🐯','🐵','🐧','🦋','🐢','🐬'];
+  const g = document.getElementById('char-grid');
+  g.innerHTML = chars.map(c => `<div class="char-item${c===profile.char?' selected':''}" onclick="pickChar('${c}')">${c}</div>`).join('');
+}
+function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
+function pickChar(c) { profile.char = c; LS.setItem('animalChar', c); updateProfile(); hideCharModal(); }
+function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
+function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+function saveProfileAdmin() {
+  const n = document.getElementById('adm-name').value.trim();
+  if (n) { profile.name = n; LS.setItem('animalName', n); updateProfile(); }
+  hideAdmin();
+}
+function resetAll() {
+  if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
+  ['animalName','animalChar','animalCorrect','animalPlayed','vetHealed','vetBestStreak','vetBestScore','feedCorrect','feedBestStreak','feedBestScore','tfDone','tfBestStreak','tfBestScore'].forEach(k => LS.removeItem(k));
+  location.reload();
+}
+function saveStats() {
+  LS.setItem('animalCorrect', profile.totalCorrect);
+  LS.setItem('animalPlayed', profile.totalPlayed);
+  LS.setItem('vetHealed', vet.healed);
+  LS.setItem('vetBestStreak', vet.bestStreak);
+  LS.setItem('vetBestScore', vet.bestScore);
+  LS.setItem('feedCorrect', feed.correct);
+  LS.setItem('feedBestStreak', feed.bestStreak);
+  LS.setItem('feedBestScore', feed.bestScore);
+  LS.setItem('tfDone', tf.done);
+  LS.setItem('tfBestStreak', tf.bestStreak);
+  LS.setItem('tfBestScore', tf.bestScore);
+}
+
+// ===== 탭 전환 =====
+function switchTab(tab) {
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['vet','feed','transform','record'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.' + tab + '-side').classList.add('active');
+  document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.' + tab + '-view').classList.add('active');
+  updateActionButtons();
+  if (tab === 'record') updateRecords();
+}
+
+function updateActionButtons() {
+  const a1 = document.getElementById('act1');
+  const a2 = document.getElementById('act2');
+  const a3 = document.getElementById('act3');
+  if (currentTab === 'vet') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'feed') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'transform') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else {
+    a1.innerHTML = '<span class="icon">📊</span>기록'; a1.className = 'action-btn btn-cyan'; a1.disabled = true;
+    a2.innerHTML = '<span class="icon">—</span>—'; a2.className = 'action-btn btn-green'; a2.disabled = true;
+    a3.innerHTML = '<span class="icon">—</span>—'; a3.className = 'action-btn btn-red'; a3.disabled = true;
+  }
+}
+
+function actionBtn(n) {
+  if (currentTab === 'vet') {
+    if (n === 1) vetHint();
+    else if (n === 2) initVetGame();
+    else initVetGame();
+  } else if (currentTab === 'feed') {
+    if (n === 1) feedHint();
+    else if (n === 2) initFeedGame();
+    else initFeedGame();
+  } else if (currentTab === 'transform') {
+    if (n === 1) tfHint();
+    else if (n === 2) initTransformGame();
+    else initTransformGame();
+  }
+}
+
+// ===== 수의사 놀이 =====
+function initVetGame() {
+  const animal = VET_ANIMALS[Math.floor(Math.random() * VET_ANIMALS.length)];
+  vet.currentAnimal = animal;
+  vet.toolsApplied = 0;
+  vet.toolsNeeded = animal.tools.length;
+
+  document.getElementById('vet-animal-display').innerHTML = animal.emoji + `<div class="vet-sick-indicator" id="vet-sick-indicator">${animal.sickEmoji}</div>`;
+  document.getElementById('vet-info').textContent = `🩺 ${animal.name}(이)가 ${animal.sick}! 치료해 주세요!`;
+  document.getElementById('vet-patient').textContent = animal.emoji;
+
+  speak(`${animal.name}(이)가 ${animal.sick}이에요. 치료해 주세요!`);
+
+  // 도구 팔레트 생성
+  const palette = document.getElementById('vet-tool-palette');
+  palette.innerHTML = animal.tools.map((t, i) =>
+    `<div class="vet-tool" id="vet-tool-${i}" draggable="false" data-idx="${i}">
+      ${t}
+      <div class="vet-tool-label">${animal.toolNames[i]}</div>
+    </div>`
+  ).join('');
+
+  // 드래그 이벤트 설정
+  setupVetDrag();
+
+  document.getElementById('vet-hearts').innerHTML = '';
+}
+
+function setupVetDrag() {
+  const tools = document.querySelectorAll('.vet-tool:not(.used)');
+  const dropzone = document.getElementById('vet-dropzone');
+
+  tools.forEach(tool => {
+    let isDragging = false;
+    let startX, startY, origLeft, origTop;
+
+    const onStart = (e) => {
+      if (tool.classList.contains('used')) return;
+      isDragging = true;
+      const touch = e.touches ? e.touches[0] : e;
+      const rect = tool.getBoundingClientRect();
+      startX = touch.clientX - rect.left;
+      startY = touch.clientY - rect.top;
+      origLeft = rect.left;
+      origTop = rect.top;
+      tool.style.position = 'fixed';
+      tool.style.zIndex = '100';
+      tool.style.left = (touch.clientX - startX) + 'px';
+      tool.style.top = (touch.clientY - startY) + 'px';
+      tool.style.transition = 'none';
+      e.preventDefault();
+    };
+
+    const onMove = (e) => {
+      if (!isDragging) return;
+      const touch = e.touches ? e.touches[0] : e;
+      tool.style.left = (touch.clientX - startX) + 'px';
+      tool.style.top = (touch.clientY - startY) + 'px';
+      e.preventDefault();
+    };
+
+    const onEnd = (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const touch = e.changedTouches ? e.changedTouches[0] : e;
+      const dzRect = dropzone.getBoundingClientRect();
+      const tx = touch.clientX;
+      const ty = touch.clientY;
+
+      if (tx >= dzRect.left && tx <= dzRect.right && ty >= dzRect.top && ty <= dzRect.bottom) {
+        // 드롭 성공!
+        tool.style.position = '';
+        tool.style.zIndex = '';
+        tool.style.left = '';
+        tool.style.top = '';
+        tool.style.transition = '';
+        tool.classList.add('used');
+        applyVetTool(parseInt(tool.dataset.idx));
+      } else {
+        // 원위치
+        tool.style.position = '';
+        tool.style.zIndex = '';
+        tool.style.left = '';
+        tool.style.top = '';
+        tool.style.transition = '';
+      }
+    };
+
+    tool.addEventListener('mousedown', onStart);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    tool.addEventListener('touchstart', onStart, { passive: false });
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onEnd);
+  });
+
+  // 클릭으로도 적용 가능 (모바일 편의)
+  tools.forEach(tool => {
+    tool.addEventListener('click', () => {
+      if (tool.classList.contains('used')) return;
+      tool.classList.add('used');
+      applyVetTool(parseInt(tool.dataset.idx));
+    });
+  });
+}
+
+function applyVetTool(idx) {
+  vet.toolsApplied++;
+  const toolName = vet.currentAnimal.toolNames[idx];
+  speak(`${toolName} 사용!`);
+
+  // 치료 파티클
+  const container = document.getElementById('vet-animal-container');
+  const rect = container.getBoundingClientRect();
+  const sparkles = ['✨','💫','⭐','💚'];
+  for (let i = 0; i < 6; i++) {
+    const s = document.createElement('div');
+    s.className = 'vet-sparkle';
+    const angle = (Math.PI * 2 / 6) * i;
+    const dist = 50 + Math.random() * 60;
+    s.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+    s.style.cssText = `left:50%;top:50%;font-size:${20+Math.random()*14}px;--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--dur:${.5+Math.random()*.3}s`;
+    document.getElementById('vet-hearts').appendChild(s);
+    setTimeout(() => s.remove(), 800);
+  }
+
+  // 모든 도구 적용 완료?
+  if (vet.toolsApplied >= vet.toolsNeeded) {
+    setTimeout(() => vetCureComplete(), 500);
+  }
+}
+
+function vetCureComplete() {
+  vet.score += 10 + vet.streak * 3;
+  vet.streak++;
+  vet.healed++;
+  if (vet.streak > vet.bestStreak) vet.bestStreak = vet.streak;
+  if (vet.score > vet.bestScore) vet.bestScore = vet.score;
+  profile.totalCorrect++;
+  profile.totalPlayed++;
+
+  // 아픈 표시 제거 + 기쁜 표정
+  const display = document.getElementById('vet-animal-display');
+  const indicator = document.getElementById('vet-sick-indicator');
+  if (indicator) indicator.remove();
+  display.innerHTML = vet.currentAnimal.emoji;
+
+  document.getElementById('vet-info').textContent = `🎉 ${vet.currentAnimal.name}(이)가 건강해졌어요!`;
+  speak(`${vet.currentAnimal.name}(이)가 건강해졌어요! 고마워요!`);
+
+  // 하트 파티클
+  const hearts = document.getElementById('vet-hearts');
+  for (let i = 0; i < 12; i++) {
+    setTimeout(() => {
+      const h = document.createElement('div');
+      h.className = 'vet-heart';
+      h.textContent = ['❤️','💚','💛','💖','💕'][Math.floor(Math.random() * 5)];
+      const tx = (Math.random() - 0.5) * 200;
+      const ty = -(50 + Math.random() * 100);
+      h.style.cssText = `left:${40 + Math.random()*20}%;top:${40 + Math.random()*20}%;--tx:${tx}px;--ty:${ty}px`;
+      hearts.appendChild(h);
+      setTimeout(() => h.remove(), 1500);
+    }, i * 100);
+  }
+
+  updateVetUI();
+  updateProfile();
+  saveStats();
+
+  // 다음 동물 (3초 후)
+  setTimeout(() => initVetGame(), 3000);
+}
+
+function vetHint() {
+  if (!vet.currentAnimal) return;
+  const remaining = [];
+  document.querySelectorAll('.vet-tool:not(.used)').forEach(t => {
+    remaining.push(vet.currentAnimal.toolNames[parseInt(t.dataset.idx)]);
+  });
+  if (remaining.length > 0) {
+    speak(`${remaining[0]}을 사용해 보세요!`);
+  }
+}
+
+function updateVetUI() {
+  document.getElementById('vet-healed').textContent = vet.healed;
+  document.getElementById('vet-score-side').textContent = vet.score;
+  document.getElementById('vet-streak').textContent = vet.streak;
+}
+
+// ===== 밥 줘! =====
+function initFeedGame() {
+  const animal = FEED_DATA[Math.floor(Math.random() * FEED_DATA.length)];
+  feed.currentAnimal = animal;
+  feed.answered = false;
+
+  // 동물 표시
+  const animalEl = document.getElementById('feed-animal');
+  animalEl.innerHTML = `<div class="feed-animal-speech" id="feed-speech">배고파요~</div>${animal.emoji}<div class="feed-type-badge ${animal.typeClass}" id="feed-type-badge">${animal.type}</div>`;
+  document.getElementById('feed-info').textContent = `🍽 ${animal.name}에게 알맞은 먹이를 골라주세요!`;
+  document.getElementById('feed-result').textContent = '';
+  document.getElementById('feed-result').style.color = '';
+
+  speak(`${animal.name}(이)가 배고파요. 무엇을 줄까요?`);
+
+  // 먹이 보기 생성 (정답 + 오답 2개)
+  let choices = [animal.food];
+  const others = ALL_FOODS.filter(f => f !== animal.food);
+  while (choices.length < 6) {
+    const r = others[Math.floor(Math.random() * others.length)];
+    if (!choices.includes(r)) choices.push(r);
+  }
+  // 셔플
+  choices.sort(() => Math.random() - 0.5);
+
+  const grid = document.getElementById('food-choices');
+  grid.innerHTML = choices.map(f =>
+    `<div class="food-choice" onclick="feedSelect(this,'${f}')">${f}</div>`
+  ).join('');
+}
+
+function feedSelect(el, food) {
+  if (feed.answered) return;
+  feed.answered = true;
+  profile.totalPlayed++;
+
+  const animal = feed.currentAnimal;
+  const area = document.getElementById('feed-area');
+
+  if (food === animal.food) {
+    // 정답!
+    el.classList.add('correct');
+    feed.score += 10 + feed.streak * 3;
+    feed.streak++;
+    feed.correct++;
+    if (feed.streak > feed.bestStreak) feed.bestStreak = feed.streak;
+    if (feed.score > feed.bestScore) feed.bestScore = feed.score;
+    profile.totalCorrect++;
+
+    document.getElementById('feed-speech').textContent = '맛있다! 냠냠!';
+    document.getElementById('feed-result').textContent = `🎉 정답! ${animal.name}은 ${animal.foodName}을 좋아해요!`;
+    document.getElementById('feed-result').style.color = '#16a34a';
+    speak(`정답! ${animal.name}은 ${animal.foodName}을 좋아해요!`);
+
+    // 먹기 성공 이펙트 - 파티클
+    const rect = el.getBoundingClientRect();
+    const aRect = area.getBoundingClientRect();
+    const cx = rect.left - aRect.left + rect.width/2;
+    const cy = rect.top - aRect.top + rect.height/2;
+    const yumEl = document.createElement('div');
+    yumEl.className = 'feed-yum';
+    yumEl.textContent = '냠냠!';
+    yumEl.style.cssText = `left:${cx}px;top:${cy-10}px;color:#22c55e`;
+    area.appendChild(yumEl);
+    setTimeout(() => yumEl.remove(), 800);
+
+    // 컨페티
+    feedConfettiEffect();
+
+    setTimeout(() => initFeedGame(), 2500);
+  } else {
+    // 오답 - 뱉어냄
+    el.classList.add('wrong');
+    feed.streak = 0;
+
+    document.getElementById('feed-speech').textContent = '이건 아니야~!';
+    document.getElementById('feed-result').textContent = `❌ ${animal.name}은 이걸 안 먹어요! ${animal.foodName}을 줘야 해요`;
+    document.getElementById('feed-result').style.color = '#dc2626';
+    speak(`틀렸어요! ${animal.name}은 ${animal.foodName}을 좋아해요`);
+
+    // 뱉어냄 애니메이션
+    const rect = el.getBoundingClientRect();
+    const aRect = area.getBoundingClientRect();
+    const spit = document.createElement('div');
+    spit.className = 'feed-spit';
+    spit.textContent = food;
+    spit.style.cssText = `left:${rect.left - aRect.left + rect.width/2}px;top:${rect.top - aRect.top}px;font-size:40px;--tx:${(Math.random()>.5?1:-1)*100}px;--ty:-80px`;
+    area.appendChild(spit);
+    setTimeout(() => spit.remove(), 800);
+
+    // 정답 강조
+    setTimeout(() => {
+      document.querySelectorAll('.food-choice').forEach(fc => {
+        if (fc.textContent.trim() === animal.food) fc.classList.add('correct');
+      });
+    }, 800);
+
+    setTimeout(() => initFeedGame(), 3000);
+  }
+
+  updateFeedUI();
+  updateProfile();
+  saveStats();
+}
+
+function feedHint() {
+  if (!feed.currentAnimal || feed.answered) return;
+  const animal = feed.currentAnimal;
+  speak(`${animal.name}은 ${animal.type} 동물이에요!`);
+  document.getElementById('feed-speech').textContent = `나는 ${animal.type} 동물!`;
+}
+
+function feedConfettiEffect() {
+  const area = document.getElementById('feed-area');
+  const colors = ['#22c55e','#84cc16','#fbbf24','#3b82f6','#8b5cf6','#ec4899','#ef4444'];
+  for (let i = 0; i < 25; i++) {
+    const c = document.createElement('div');
+    c.className = 'feed-confetti';
+    c.style.cssText = `left:${Math.random()*100}%;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};--tx:${(Math.random()-.5)*200}px;--ty:${200+Math.random()*300}px;--dur:${.8+Math.random()*.6}s;animation-delay:${Math.random()*.3}s;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'}`;
+    area.appendChild(c);
+    setTimeout(() => c.remove(), 1500);
+  }
+}
+
+function updateFeedUI() {
+  document.getElementById('feed-correct-side').textContent = feed.correct;
+  document.getElementById('feed-score-side').textContent = feed.score;
+  document.getElementById('feed-streak-side').textContent = feed.streak;
+}
+
+// ===== 변신 앨범 =====
+function initTransformGame() {
+  const set = TRANSFORM_SETS[Math.floor(Math.random() * TRANSFORM_SETS.length)];
+  tf.currentSet = set;
+  tf.filledSlots = [];
+  tf.nextSlotIdx = 0;
+
+  document.getElementById('transform-set-name').textContent = set.name;
+  document.getElementById('transform-info').textContent = '🦋 올바른 순서로 변신 카드를 놓아보세요!';
+
+  speak(`${set.name}! 순서대로 카드를 놓아주세요`);
+
+  // 슬롯 생성
+  const slotRow = document.getElementById('slot-row');
+  let slotHtml = '';
+  for (let i = 0; i < set.stages.length; i++) {
+    if (i > 0) slotHtml += '<div class="slot-arrow">→</div>';
+    slotHtml += `<div class="slot-box" id="slot-${i}"><div class="slot-num">${i+1}번째</div>?</div>`;
+  }
+  slotRow.innerHTML = slotHtml;
+
+  // 카드 풀 (셔플)
+  const shuffled = [...set.stages].sort(() => Math.random() - 0.5);
+  const pool = document.getElementById('card-pool');
+  pool.innerHTML = shuffled.map((s, i) =>
+    `<div class="stage-card" id="card-${i}" data-emoji="${s.emoji}" data-label="${s.label}" onclick="tfSelectCard(this)">
+      <div class="card-emoji">${s.emoji}</div>
+      <div class="card-label">${s.label}</div>
+    </div>`
+  ).join('');
+}
+
+function tfSelectCard(card) {
+  if (card.classList.contains('placed')) return;
+  if (tf.nextSlotIdx >= tf.currentSet.stages.length) return;
+
+  const expected = tf.currentSet.stages[tf.nextSlotIdx];
+  const cardEmoji = card.dataset.emoji;
+  const cardLabel = card.dataset.label;
+  const slot = document.getElementById('slot-' + tf.nextSlotIdx);
+
+  profile.totalPlayed++;
+
+  if (cardEmoji === expected.emoji) {
+    // 정답!
+    card.classList.add('placed');
+    slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:60px">${cardEmoji}</span>`;
+    slot.classList.add('filled');
+    speak(`${cardLabel}!`);
+    tf.nextSlotIdx++;
+
+    // 모든 슬롯 채움?
+    if (tf.nextSlotIdx >= tf.currentSet.stages.length) {
+      setTimeout(() => tfComplete(), 500);
+    }
+  } else {
+    // 오답 - 웃긴 결과물
+    slot.classList.add('wrong-slot');
+    slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:50px">${cardEmoji}</span>`;
+    speak('앗! 순서가 달라요!');
+
+    const area = document.getElementById('transform-area');
+    const wrongEmojis = ['😵','🤪','😂','🙃'];
+    const wr = document.createElement('div');
+    wr.className = 'transform-wrong-result';
+    wr.textContent = wrongEmojis[Math.floor(Math.random() * wrongEmojis.length)];
+    wr.style.cssText = 'left:50%;top:45%';
+    area.appendChild(wr);
+    setTimeout(() => wr.remove(), 2000);
+
+    tf.streak = 0;
+
+    setTimeout(() => {
+      slot.classList.remove('wrong-slot');
+      slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div>?`;
+    }, 1000);
+  }
+  saveStats();
+}
+
+function tfComplete() {
+  tf.score += 10 + tf.streak * 5;
+  tf.streak++;
+  tf.done++;
+  if (tf.streak > tf.bestStreak) tf.bestStreak = tf.streak;
+  if (tf.score > tf.bestScore) tf.bestScore = tf.score;
+  profile.totalCorrect++;
+
+  document.getElementById('transform-info').textContent = `🎉 ${tf.currentSet.name} 완성!`;
+  speak(`대단해요! ${tf.currentSet.name} 완성!`);
+
+  // 변신 애니메이션
+  const area = document.getElementById('transform-area');
+  const morph = document.createElement('div');
+  morph.className = 'transform-anim-overlay';
+  morph.innerHTML = `<div class="transform-morph">${tf.currentSet.final}</div>`;
+  area.appendChild(morph);
+
+  // 스파클 링
+  for (let i = 0; i < 3; i++) {
+    setTimeout(() => {
+      const ring = document.createElement('div');
+      ring.className = 'transform-sparkle-ring';
+      const size = 150 + i * 80;
+      const colors = ['#22c55e','#84cc16','#fbbf24'];
+      ring.style.cssText = `left:50%;top:45%;width:${size}px;height:${size}px;border:4px solid ${colors[i]};box-shadow:0 0 20px ${colors[i]}`;
+      area.appendChild(ring);
+      setTimeout(() => ring.remove(), 800);
+    }, i * 200);
+  }
+
+  setTimeout(() => morph.remove(), 2500);
+
+  updateTfUI();
+  updateProfile();
+  saveStats();
+
+  setTimeout(() => initTransformGame(), 3500);
+}
+
+function tfHint() {
+  if (!tf.currentSet || tf.nextSlotIdx >= tf.currentSet.stages.length) return;
+  const next = tf.currentSet.stages[tf.nextSlotIdx];
+  speak(`다음은 ${next.label}이에요!`);
+  document.getElementById('transform-info').textContent = `💡 힌트: 다음은 "${next.label}"!`;
+}
+
+function updateTfUI() {
+  document.getElementById('tf-done-side').textContent = tf.done;
+  document.getElementById('tf-score-side').textContent = tf.score;
+  document.getElementById('tf-streak-side').textContent = tf.streak;
+}
+
+// ===== 내 기록 =====
+function updateRecords() {
+  document.getElementById('r-total').textContent = profile.totalPlayed;
+  document.getElementById('r-correct').textContent = profile.totalCorrect;
+  document.getElementById('r-rate').textContent = profile.totalPlayed ? Math.round(profile.totalCorrect / profile.totalPlayed * 100) + '%' : '0%';
+  document.getElementById('rec-total').textContent = profile.totalPlayed;
+  document.getElementById('rec-rate').textContent = profile.totalPlayed ? Math.round(profile.totalCorrect / profile.totalPlayed * 100) + '%' : '0%';
+  document.getElementById('r-vet-healed').textContent = vet.healed;
+  document.getElementById('r-vet-streak').textContent = vet.bestStreak;
+  document.getElementById('r-vet-score').textContent = vet.bestScore;
+  document.getElementById('r-feed-correct').textContent = feed.correct;
+  document.getElementById('r-feed-streak').textContent = feed.bestStreak;
+  document.getElementById('r-feed-score').textContent = feed.bestScore;
+  document.getElementById('r-tf-done').textContent = tf.done;
+  document.getElementById('r-tf-streak').textContent = tf.bestStreak;
+  document.getElementById('r-tf-score').textContent = tf.bestScore;
+}
+
+// ===== 히어로: 서식지 분류왕 =====
+function startHeroGame() {
+  document.getElementById('hero-game').classList.remove('hidden');
+  document.getElementById('hg-start').classList.remove('hidden');
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause-screen').classList.add('hidden');
+}
+
+function hgStart() {
+  document.getElementById('hg-start').classList.add('hidden');
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.started = true; hg.animals = []; hg.combo = 0; hg.maxCombo = 0;
+  updateHgUI();
+  hgSetupBiomes();
+  addHgClouds();
+  hgLoop();
+}
+
+function hgSetupBiomes() {
+  const arena = document.getElementById('hg-arena');
+  // 기존 바이옴 제거
+  arena.querySelectorAll('.hg-biome').forEach(b => b.remove());
+
+  let biomeKeys;
+  if (hg.level < 3) biomeKeys = ['forest', 'ocean'];
+  else if (hg.level < 6) biomeKeys = ['forest', 'ocean', 'desert'];
+  else biomeKeys = ['forest', 'ocean', 'desert', 'arctic'];
+
+  hg.biomes = biomeKeys;
+  const count = biomeKeys.length;
+
+  // 디바이더 업데이트
+  document.getElementById('hg-divider').style.display = count === 2 ? 'block' : 'none';
+  document.getElementById('hg-divider2').style.display = count >= 3 ? 'block' : 'none';
+  document.getElementById('hg-divider3').style.display = count >= 3 ? 'block' : 'none';
+  document.getElementById('hg-divider4').style.display = count >= 4 ? 'block' : 'none';
+  document.getElementById('hg-divider5').style.display = count >= 4 ? 'block' : 'none';
+
+  if (count === 3) {
+    document.getElementById('hg-divider2').style.left = '33.33%';
+    document.getElementById('hg-divider3').style.left = '66.66%';
+  } else if (count === 4) {
+    document.getElementById('hg-divider4').style.left = '25%';
+    document.getElementById('hg-divider').style.left = '50%';
+    document.getElementById('hg-divider5').style.left = '75%';
+  }
+
+  biomeKeys.forEach((key, i) => {
+    const data = BIOME_DATA[key];
+    const biome = document.createElement('div');
+    let cls = 'hg-biome';
+    if (count === 2) { cls += i === 0 ? ' left' : ' right'; }
+    else if (count === 3) { cls += ` third b${i}`; }
+    else { cls += ` fourth b${i}`; }
+    biome.className = cls;
+    biome.dataset.biome = key;
+    biome.style.background = data.bg;
+    biome.innerHTML = `
+      <div class="hg-biome-ground" style="background:${data.ground}"></div>
+      <div class="hg-biome-icon">${data.emoji}</div>
+      <div class="hg-biome-label">${data.emoji} ${data.name}</div>
+    `;
+    arena.appendChild(biome);
+  });
+}
+
+function addHgClouds() {
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-cloud').forEach(c => c.remove());
+  for (let i = 0; i < 4; i++) {
+    const c = document.createElement('div');
+    c.className = 'hg-cloud'; c.textContent = '☁️';
+    c.style.top = (5 + Math.random() * 25) + '%';
+    c.style.animationDelay = -(Math.random() * 25) + 's';
+    c.style.fontSize = (28 + Math.random() * 28) + 'px';
+    arena.appendChild(c);
+  }
+}
+
+function hgLoop() {
+  const interval = Math.max(1500, 3500 - hg.level * 300);
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  hg.spawnTimer = setInterval(() => {
+    if (!hg.paused && hg.running) hgSpawn();
+  }, interval);
+
+  function tick() {
+    if (!hg.running) return;
+    if (!hg.paused) hgMove();
+    hg.animId = requestAnimationFrame(tick);
+  }
+  hg.animId = requestAnimationFrame(tick);
+}
+
+function hgSpawn() {
+  // 5% 파워업
+  if (Math.random() < 0.05) { hgSpawnPower(); return; }
+
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+
+  // 현재 활성 바이옴에서 랜덤 선택
+  const biomeKey = hg.biomes[Math.floor(Math.random() * hg.biomes.length)];
+  const biomeData = BIOME_DATA[biomeKey];
+  const animalEmoji = biomeData.animals[Math.floor(Math.random() * biomeData.animals.length)];
+
+  const el = document.createElement('div');
+  el.className = 'falling-animal';
+  el.textContent = animalEmoji;
+  el.style.left = (40 + Math.random() * (w - 120)) + 'px';
+  el.style.top = '-80px';
+  arena.appendChild(el);
+
+  const speed = 0.25 + hg.level * 0.06 + Math.random() * 0.1;
+  const sway = (Math.random() - 0.5) * 1.2;
+  const item = { el, y: -80, x: parseFloat(el.style.left), speed, sway, emoji: animalEmoji, biome: biomeKey };
+  hg.animals.push(item);
+
+  // 드래그 이벤트
+  setupAnimalDrag(el, item);
+}
+
+function setupAnimalDrag(el, item) {
+  let isDragging = false;
+  let offsetX = 0, offsetY = 0;
+
+  const onStart = (e) => {
+    if (item.placed) return;
+    isDragging = true;
+    item.dragging = true;
+    el.classList.add('dragging');
+    const touch = e.touches ? e.touches[0] : e;
+    const rect = el.getBoundingClientRect();
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const onMove = (e) => {
+    if (!isDragging) return;
+    const touch = e.touches ? e.touches[0] : e;
+    const arena = document.getElementById('hg-arena');
+    const arenaRect = arena.getBoundingClientRect();
+    const newX = touch.clientX - arenaRect.left - offsetX;
+    const newY = touch.clientY - arenaRect.top - offsetY;
+    item.x = newX;
+    item.y = newY;
+    el.style.left = newX + 'px';
+    el.style.top = newY + 'px';
+    e.preventDefault();
+  };
+
+  const onEnd = (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    item.dragging = false;
+    el.classList.remove('dragging');
+
+    const touch = e.changedTouches ? e.changedTouches[0] : e;
+    const dropBiome = getBiomeAtPoint(touch.clientX, touch.clientY);
+
+    if (dropBiome) {
+      hgPlaceAnimal(item, dropBiome);
+    }
+  };
+
+  el.addEventListener('mousedown', onStart);
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onEnd);
+  el.addEventListener('touchstart', onStart, { passive: false });
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', onEnd);
+}
+
+function getBiomeAtPoint(clientX, clientY) {
+  const biomeEls = document.querySelectorAll('.hg-biome');
+  for (const b of biomeEls) {
+    const rect = b.getBoundingClientRect();
+    if (clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom) {
+      return b.dataset.biome;
+    }
+  }
+  return null;
+}
+
+function hgPlaceAnimal(item, targetBiome) {
+  item.placed = true;
+  item.el.classList.add('placed');
+  const arena = document.getElementById('hg-arena');
+
+  if (targetBiome === item.biome) {
+    // 정답!
+    hg.combo++;
+    if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+    const bonus = Math.min(hg.combo - 1, 5);
+    hg.score += 1 + bonus;
+
+    // 정답 이펙트
+    const flash = document.createElement('div');
+    flash.className = 'hg-flash-green';
+    arena.appendChild(flash);
+    setTimeout(() => flash.remove(), 300);
+
+    const scorePop = document.createElement('div');
+    scorePop.className = 'hg-score-pop';
+    scorePop.textContent = `+${1 + bonus}`;
+    scorePop.style.cssText = `left:${item.x + 32}px;top:${item.y}px`;
+    arena.appendChild(scorePop);
+    setTimeout(() => scorePop.remove(), 800);
+
+    speak('정답!');
+
+    // 콤보 표시
+    if (hg.combo >= 3) {
+      const ce = document.createElement('div');
+      ce.className = 'hg-combo-text';
+      ce.textContent = `${hg.combo} COMBO!`;
+      arena.appendChild(ce);
+      setTimeout(() => ce.remove(), 1000);
+    }
+
+    // 동물 사라짐 애니메이션
+    item.el.style.transition = 'all .4s ease-out';
+    item.el.style.transform = 'scale(0)';
+    item.el.style.opacity = '0';
+    setTimeout(() => item.el.remove(), 400);
+
+    const nl = Math.floor(hg.score / 8) + 1;
+    if (nl > hg.level) {
+      hg.level = nl;
+      hgSetupBiomes();
+      hgUpdateBg();
+    }
+  } else {
+    // 오답!
+    hg.combo = 0;
+    hg.lives--;
+
+    // 당황 애니메이션
+    item.el.classList.add('hg-animal-confused');
+    setTimeout(() => item.el.classList.remove('hg-animal-confused'), 1000);
+
+    const flash = document.createElement('div');
+    flash.className = 'hg-flash-red';
+    arena.appendChild(flash);
+    setTimeout(() => flash.remove(), 400);
+
+    arena.classList.add('hg-arena-shake');
+    setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
+
+    speak('앗! 여기가 아니에요!');
+
+    // 동물 원래 위치로 복귀
+    item.placed = false;
+    item.el.classList.remove('placed');
+
+    if (hg.lives <= 0) {
+      hgEnd();
+      return;
+    }
+  }
+
+  // 리스트에서 제거 (정답일 때만)
+  if (item.placed) {
+    hg.animals = hg.animals.filter(a => a !== item);
+  }
+
+  updateHgUI();
+}
+
+function hgSpawnPower() {
+  const types = [{e:'❤️',fx:'life',name:'생명'},{e:'🛡️',fx:'shield',name:'울타리'},{e:'🥩',fx:'lure',name:'먹이'}];
+  const t = types[Math.floor(Math.random() * types.length)];
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const el = document.createElement('div');
+  el.className = 'hg-powerup';
+  el.textContent = t.e;
+  el.style.left = (Math.random() * (w - 60) + 20) + 'px';
+  el.style.top = '-60px';
+  el.onclick = () => {
+    hgPowerUp(t.fx, el);
+  };
+  arena.appendChild(el);
+  hg.animals.push({ el, y: -60, x: parseFloat(el.style.left), speed: 0.15, sway: 0, isPower: true, fx: t.fx });
+}
+
+function hgPowerUp(fx, el) {
+  if (fx === 'life') { hg.lives = Math.min(hg.lives + 1, 7); speak('생명 추가!'); }
+  else if (fx === 'shield') { speak('울타리 방어!'); /* 다음 1회 미스 방어 */ hg.shielded = true; }
+  else if (fx === 'lure') {
+    speak('먹이로 유인!');
+    // 가장 아래 있는 동물 자동 정답 처리
+    const lowest = hg.animals.filter(a => !a.isPower && !a.placed && !a.dragging).sort((a,b) => b.y - a.y)[0];
+    if (lowest) {
+      lowest.placed = true;
+      lowest.el.style.transition = 'all .5s ease-out';
+      lowest.el.style.transform = 'scale(0)';
+      lowest.el.style.opacity = '0';
+      setTimeout(() => lowest.el.remove(), 500);
+      hg.animals = hg.animals.filter(a => a !== lowest);
+      hg.score += 1;
+    }
+  }
+  hg.animals = hg.animals.filter(a => a.el !== el);
+  el.remove();
+  updateHgUI();
+}
+
+function hgMove() {
+  const arena = document.getElementById('hg-arena');
+  const groundY = arena.offsetHeight * 0.82;
+  const arenaW = arena.offsetWidth;
+  hg.animals = hg.animals.filter(item => {
+    if (item.dragging || item.placed) return true;
+    item.y += item.speed;
+    if (item.sway) {
+      item.x += Math.sin(item.y / 80) * item.sway * 0.3;
+      item.x = Math.max(5, Math.min(arenaW - 65, item.x));
+      item.el.style.left = item.x + 'px';
+    }
+    item.el.style.top = item.y + 'px';
+    if (item.y >= groundY) {
+      if (item.isPower) { item.el.remove(); return false; }
+      // 놓침!
+      if (hg.shielded) {
+        hg.shielded = false;
+        speak('울타리로 막았어요!');
+      } else {
+        hg.lives--;
+        hg.combo = 0;
+        speak('놓쳤어요!');
+        // 미스 이펙트
+        const flash = document.createElement('div');
+        flash.className = 'hg-flash-red';
+        arena.appendChild(flash);
+        setTimeout(() => flash.remove(), 400);
+        arena.classList.add('hg-arena-shake');
+        setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
+      }
+      item.el.remove();
+      updateHgUI();
+      if (hg.lives <= 0) hgEnd();
+      return false;
+    }
+    return true;
+  });
+}
+
+function hgUpdateBg() {
+  const bgs = [
+    'linear-gradient(180deg,#7dd3fc 0%,#bae6fd 30%,#bbf7d0 70%,#86efac 100%)',
+    'linear-gradient(180deg,#fef3c7 0%,#fde68a 30%,#fed7aa 70%,#fdba74 100%)',
+    'linear-gradient(180deg,#1e293b 0%,#334155 30%,#475569 70%,#64748b 100%)',
+    'linear-gradient(180deg,#0f172a 0%,#1e1b4b 30%,#312e81 70%,#4338ca 100%)'
+  ];
+  document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
+}
+
+function updateHgUI() {
+  document.getElementById('hg-score').textContent = hg.score;
+  document.getElementById('hg-level').textContent = hg.level;
+  document.getElementById('hg-hearts').textContent = '❤️'.repeat(Math.max(0, hg.lives)) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+  document.getElementById('hg-combo-display').textContent = hg.combo >= 2 ? `${hg.combo} COMBO` : '';
+}
+
+function hgEnd() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.animals.forEach(a => a.el.remove());
+  hg.animals = [];
+  document.getElementById('hg-final-score').textContent = hg.score;
+  let msg = '잘했어요!';
+  if (hg.score >= 30) msg = '대단해요! 동물 박사!';
+  else if (hg.score >= 20) msg = '와! 정말 잘했어요!';
+  else if (hg.score >= 10) msg = '멋져요! 계속 연습!';
+  document.getElementById('hg-over-msg').textContent = msg;
+  document.getElementById('hg-over').classList.remove('hidden');
+  speak(msg);
+}
+
+function hgRestart() {
+  document.getElementById('hg-over').classList.add('hidden');
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.falling-animal,.hg-powerup,.hg-score-pop,.hg-combo-text').forEach(e => e.remove());
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.animals = []; hg.combo = 0; hg.maxCombo = 0; hg.shielded = false;
+  updateHgUI(); hgSetupBiomes(); hgUpdateBg(); hgLoop();
+}
+
+function hgPause() {
+  hg.paused = !hg.paused;
+  document.getElementById('hg-pause-screen').classList.toggle('hidden', !hg.paused);
+}
+
+function hgExit() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.animals.forEach(a => a.el.remove());
+  hg.animals = [];
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause-screen').classList.add('hidden');
+  document.getElementById('hg-start').classList.remove('hidden');
+  document.getElementById('hero-game').classList.add('hidden');
+}
+
+// ===== 초기화 =====
+document.addEventListener('DOMContentLoaded', function() {
+  // fitScale
+  function fitScale() {
+    const c = document.querySelector('.container');
+    if (!c || getComputedStyle(c).display === 'none') return;
+    const M = 0.03;
+    const aW = window.innerWidth * (1 - M * 2);
+    const aH = window.innerHeight * (1 - M * 2);
+    const s = Math.min(aW / 1920, aH / 1080);
+    c.style.transform = `scale(${s})`;
+    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  fitScale();
+  window.addEventListener('resize', fitScale);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
+
+  // 프로필
+  updateProfile();
+  updateActionButtons();
+
+  // 게임 초기화
+  initVetGame();
+  initFeedGame();
+  initTransformGame();
+});
+
+// 더블탭 방지
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+</script>
+</body>
+</html>

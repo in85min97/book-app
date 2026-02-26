@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>과학 놀이터</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d9488 0%,#14b8a6 50%,#0f766e 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
+.rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0d9488,#14b8a6);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
+.rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
+@keyframes rotateH{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+@media(orientation:portrait){.rotate-notice{display:flex}.container{display:none!important}}
+.container{width:1920px;height:1080px;background:#fff;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;position:absolute}
+.subject-bar{background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;padding:0 20px;height:56px;flex-shrink:0;gap:4px;position:relative}
+.subject-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#5eead4,#2dd4bf,#5eead4)}
+.sb-tab{padding:8px 30px;border:none;border-radius:12px 12px 0 0;background:0;font-size:18px;font-weight:800;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.sb-tab.active{background:#fff;color:#1e3a8a}
+.sb-tab.locked{cursor:default}
+.sb-tab .lock{font-size:12px;opacity:.5}
+.sb-spacer{flex:1}
+.sb-btns{display:flex;gap:8px}
+.sb-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-size:18px;color:#fff;cursor:pointer;transition:.15s}
+.sb-btn:active{background:rgba(255,255,255,.3)}
+.main-layout{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:14px;flex:1;overflow:hidden}
+.left-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.profile-section{background:linear-gradient(145deg,#0d9488,#14b8a6 50%,#5eead4);border-radius:20px;padding:20px;border:3px solid #99f6e4;box-shadow:0 6px 20px rgba(13,148,136,.3);flex-shrink:0;position:relative;overflow:hidden}
+.profile-content{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.profile-avatar{width:90px;height:90px;background:linear-gradient(145deg,#5eead4,#2dd4bf);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #fff;box-shadow:0 4px 15px rgba(94,234,212,.4);animation:avGlow 3s ease-in-out infinite;flex-shrink:0;cursor:pointer}
+@keyframes avGlow{0%,100%{box-shadow:0 4px 15px rgba(94,234,212,.4);transform:scale(1)}50%{box-shadow:0 8px 25px rgba(94,234,212,.6);transform:scale(1.05)}}
+.profile-info{flex:1;color:#fff}
+.profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
+.profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.profile-level{font-size:18px;font-weight:700;color:#ccfbf1;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#5eead4,#2dd4bf);color:#134e4a;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#5eead4,#2dd4bf,#5eead4);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
+@keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn.active{background:linear-gradient(145deg,#14b8a6,#0d9488);color:#fff;border-color:#14b8a6}
+.tab-btn:active{transform:scale(.97)}
+.tab-content{display:none;flex:1;overflow:hidden}
+.tab-content.active{display:flex;flex-direction:column}
+.side-info{background:linear-gradient(145deg,#f0fdfa,#ccfbf1);border-radius:16px;padding:15px;border:2px solid #14b8a6;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-title{font-size:17px;font-weight:700;color:#134e4a;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
+.side-val{font-size:20px;font-weight:800;color:#0d9488}
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#5eead4,#2dd4bf);color:#134e4a;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(94,234,212,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+@keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.game-launch-btn:active{transform:scale(.97)}
+.center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.game-view.active{display:flex}
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn:active{transform:scale(.95)}
+.action-btn.btn-teal{background:linear-gradient(145deg,#14b8a6,#0d9488);box-shadow:0 2px 8px rgba(20,184,166,.3)}
+.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
+.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
+.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.action-btn.btn-orange{background:linear-gradient(145deg,#f97316,#ea580c);box-shadow:0 2px 8px rgba(249,115,22,.2)}
+.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+
+/* Mix */
+.mix-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative}
+.mix-status{font-size:22px;font-weight:800;color:#134e4a;text-align:center;padding:10px 24px;background:linear-gradient(145deg,#ccfbf1,#99f6e4);border-radius:14px;border:2px solid #5eead4}
+.mix-workspace{display:flex;align-items:flex-end;justify-content:center;gap:30px;position:relative}
+.mix-ingredients-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;max-width:600px}
+.mix-ingredient{width:105px;height:105px;background:linear-gradient(145deg,#f0fdfa,#ccfbf1);border:3px solid #99f6e4;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;font-size:13px;font-weight:700;color:#134e4a;gap:2px}
+.mix-ingredient:active{transform:scale(.93)}
+.mix-ingredient .mi-emoji{font-size:40px}
+.mix-ingredient.selected{border-color:#0d9488;background:linear-gradient(145deg,#ccfbf1,#99f6e4);box-shadow:0 0 20px rgba(13,148,136,.4)}
+.mix-ingredient.used{opacity:.35;pointer-events:none}
+.mix-bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);pointer-events:none;animation:bubUp var(--dur,1.5s) ease-out forwards}
+@keyframes bubUp{0%{transform:translateY(0) scale(1);opacity:.8}100%{transform:translateY(var(--ty,-80px)) scale(0);opacity:0}}
+.mix-discovery{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:26px;font-weight:900;color:#134e4a;text-align:center;background:rgba(255,255,255,.95);padding:16px 32px;border-radius:20px;border:3px solid #5eead4;box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:20;animation:discoPop .5s ease-out;pointer-events:none}
+@keyframes discoPop{0%{transform:translate(-50%,-50%) scale(0)}60%{transform:translate(-50%,-50%) scale(1.1)}100%{transform:translate(-50%,-50%) scale(1)}}
+
+/* Weight */
+.weight-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative}
+.weight-question{font-size:24px;font-weight:800;color:#134e4a;background:linear-gradient(145deg,#ccfbf1,#99f6e4);padding:12px 28px;border-radius:16px;border:2px solid #5eead4}
+.weight-items{display:flex;justify-content:center;gap:60px;margin-top:8px}
+.weight-item{width:170px;height:170px;background:linear-gradient(145deg,#f0fdfa,#ccfbf1);border:4px solid #99f6e4;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;gap:6px}
+.weight-item:active{transform:scale(.95)}
+.weight-item:hover{border-color:#0d9488;box-shadow:0 0 20px rgba(13,148,136,.3)}
+.weight-item .wi-emoji{font-size:60px}
+.weight-item .wi-name{font-size:17px;font-weight:700;color:#134e4a}
+.weight-result{font-size:22px;font-weight:800;text-align:center;min-height:36px;color:#0d9488}
+
+/* Light */
+.light-area{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;overflow:hidden}
+.light-mode-btns{display:flex;gap:10px;flex-shrink:0;padding-top:8px}
+.light-mode-btn{padding:10px 22px;border:3px solid #99f6e4;border-radius:14px;background:linear-gradient(145deg,#f0fdfa,#ccfbf1);font-size:15px;font-weight:700;color:#134e4a;cursor:pointer;font-family:inherit;transition:.2s}
+.light-mode-btn.active{background:linear-gradient(145deg,#14b8a6,#0d9488);color:#fff;border-color:#14b8a6}
+.light-canvas{flex:1;width:100%;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);border-radius:16px;border:3px solid #334155}
+.light-info{font-size:16px;font-weight:700;color:#134e4a;text-align:center;padding:4px}
+.color-orb{position:absolute;border-radius:50%;cursor:pointer;transition:.15s;box-shadow:0 0 20px var(--glow,rgba(255,255,255,.3))}
+.color-orb:active{transform:scale(1.15)}
+.light-result-text{position:absolute;font-size:22px;font-weight:900;pointer-events:none;animation:ltPop .8s ease-out forwards;z-index:10}
+@keyframes ltPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}40%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-70%) scale(.8);opacity:0}}
+
+/* Records */
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#f0fdfa,#ccfbf1);border-radius:12px;border:2px solid #99f6e4}
+.record-num{font-size:32px;font-weight:900;color:#0d9488}
+.record-label{font-size:13px;font-weight:600;color:#134e4a;margin-top:4px}
+
+/* Hero */
+.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#134e4a 0%,#0f766e 30%,#14b8a6 70%,#5eead4 100%);overflow:hidden}
+.hero-game.hidden{display:none}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.15);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.2)}
+.hg-stat{font-size:22px;font-weight:800;color:#fff}
+.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-ctrls{display:flex;gap:8px}
+.hg-ctrl-btn{background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.5);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff}
+.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-arena{flex:1;position:relative;overflow:hidden}
+.hg-ground{position:absolute;bottom:0;left:0;right:0;height:14%;background:linear-gradient(180deg,#475569,#334155);border-top:4px solid #64748b}
+.hg-tube{position:absolute;bottom:14%;cursor:pointer;transition:transform .15s;display:flex;flex-direction:column;align-items:center;z-index:5}
+.hg-tube:active{transform:scale(.95)}
+.hg-tube-label{font-size:14px;font-weight:800;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.5);margin-top:4px}
+.falling-item{position:absolute;z-index:8;pointer-events:none;animation:fiFloat 2s linear infinite}
+@keyframes fiFloat{0%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}100%{transform:rotate(-3deg)}}
+.fi-body{width:70px;height:70px;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.05));border:3px solid rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;backdrop-filter:blur(4px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.hg-flash-green{position:absolute;inset:0;pointer-events:none;z-index:30;animation:hgFG .3s ease-out forwards}
+@keyframes hgFG{0%{background:rgba(34,197,94,.3)}100%{background:transparent}}
+.hg-flash-red{position:absolute;inset:0;pointer-events:none;z-index:30;animation:hgFR .4s ease-out forwards}
+@keyframes hgFR{0%{background:rgba(239,68,68,.3)}100%{background:transparent}}
+.hg-shake{animation:hgSk .4s ease-out}
+@keyframes hgSk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.hg-chain-text{position:absolute;font-size:36px;font-weight:900;color:#fbbf24;text-shadow:0 4px 12px rgba(0,0,0,.5);pointer-events:none;z-index:25;animation:chainP 1.2s ease-out forwards}
+@keyframes chainP{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-80%) scale(.8);opacity:0}}
+.hg-particle{position:absolute;border-radius:50%;pointer-events:none;animation:hgPa var(--dur,.7s) ease-out forwards}
+@keyframes hgPa{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-40px)) scale(0);opacity:0}}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-overlay.hidden{display:none}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
+.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:28px;font-weight:700;color:#0d9488;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#14b8a6,#0d9488);color:#fff}
+.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:20px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.modal-head{background:linear-gradient(145deg,#14b8a6,#0d9488);color:#fff;padding:16px 20px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font-size:18px}
+.modal-close{background:0;border:0;color:#fff;font-size:24px;cursor:pointer}
+.modal-body{padding:20px}
+.modal-section{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fafc}
+.modal-section h4{margin:0 0 10px;font-weight:700;color:#374151;font-size:15px}
+.modal-input{width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px}
+.modal-input:focus{outline:none;border-color:#14b8a6}
+.modal-btn{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;width:100%;background:linear-gradient(145deg,#14b8a6,#0d9488);color:#fff;margin-top:6px}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.char-item.selected{background:linear-gradient(145deg,#5eead4,#2dd4bf);border-color:#2dd4bf}
+.success-particle{position:absolute;pointer-events:none;z-index:20;animation:sPa var(--dur,.8s) ease-out forwards}
+@keyframes sPa{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-50px)) scale(0);opacity:0}}
+.dex-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.dex-item{padding:10px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;border:2px solid #e2e8f0;background:#f8fafc}
+.dex-item.discovered{border-color:#2dd4bf;background:linear-gradient(145deg,#f0fdfa,#ccfbf1)}
+.dex-item.failed{border-color:#fca5a5;background:#fef2f2}
+.dex-item .dex-emoji{font-size:28px;display:block;margin-bottom:2px}
+
+/* 파워업 아이템 */
+.hg-powerup{position:absolute;z-index:9;pointer-events:none;animation:puFloat 1.5s ease-in-out infinite}
+@keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.pu-body{width:56px;height:56px;background:linear-gradient(145deg,rgba(251,191,36,.3),rgba(245,158,11,.1));border:3px solid #fbbf24;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 0 20px rgba(251,191,36,.4);animation:puGlow 1s ease-in-out infinite}
+@keyframes puGlow{0%,100%{box-shadow:0 0 20px rgba(251,191,36,.4)}50%{box-shadow:0 0 35px rgba(251,191,36,.7)}}
+.pu-active-indicator{position:absolute;top:60px;left:50%;transform:translateX(-50%);background:linear-gradient(145deg,#fbbf24,#f59e0b);color:#78350f;padding:6px 16px;border-radius:12px;font-size:14px;font-weight:800;white-space:nowrap;z-index:50;animation:puIndPop .3s ease-out}
+@keyframes puIndPop{0%{transform:translateX(-50%) scale(0)}100%{transform:translateX(-50%) scale(1)}}
+
+/* 비커 반응 이펙트 */
+.beaker-foam{position:absolute;border-radius:50%;background:rgba(255,255,255,.7);pointer-events:none;animation:foamRise var(--dur,2s) ease-out forwards}
+@keyframes foamRise{0%{transform:translateY(0) scale(1);opacity:.8}60%{transform:translateY(var(--ty,-60px)) scale(1.2);opacity:.6}100%{transform:translateY(var(--ty2,-100px)) scale(0);opacity:0}}
+.beaker-spark{position:absolute;width:4px;height:4px;background:#fbbf24;border-radius:50%;pointer-events:none;animation:bkSpark var(--dur,.6s) ease-out forwards}
+@keyframes bkSpark{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-30px)) scale(0);opacity:0}}
+
+/* 저울 추가 이펙트 */
+.scale-wobble{animation:scWobble .6s ease-out}
+@keyframes scWobble{0%{transform:rotate(0)}15%{transform:rotate(3deg)}30%{transform:rotate(-3deg)}45%{transform:rotate(2deg)}60%{transform:rotate(-1deg)}100%{transform:rotate(0)}}
+.wt-correct-glow{animation:wtGlow 1s ease-out forwards}
+@keyframes wtGlow{0%{filter:drop-shadow(0 0 0 transparent)}50%{filter:drop-shadow(0 0 30px rgba(34,197,94,.6))}100%{filter:drop-shadow(0 0 0 transparent)}}
+
+/* 히어로 시험관 반응 */
+.tube-react{animation:tubeReact .5s ease-out}
+@keyframes tubeReact{0%{transform:scale(1)}30%{transform:scale(1.08)}60%{transform:scale(.97)}100%{transform:scale(1)}}
+.tube-break{animation:tubeBreak .4s ease-out}
+@keyframes tubeBreak{0%{transform:rotate(0)}25%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}75%{transform:rotate(-3deg)}100%{transform:rotate(0)}}
+.hg-combo-text{position:absolute;font-size:28px;font-weight:900;color:#fbbf24;text-shadow:0 3px 8px rgba(0,0,0,.5);pointer-events:none;z-index:25;animation:comboFly 1s ease-out forwards}
+@keyframes comboFly{0%{transform:translateY(0) scale(0);opacity:0}30%{transform:translateY(-10px) scale(1.2);opacity:1}100%{transform:translateY(-60px) scale(.7);opacity:0}}
+
+/* 히어로 레시피 힌트 */
+.hg-recipe-hint{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border:2px solid rgba(255,255,255,.3);border-radius:16px;padding:10px 24px;font-size:18px;font-weight:800;color:#fff;z-index:15;text-align:center;white-space:nowrap}
+
+/* 프리즘 추가 */
+.prism-glow{animation:prismGlow 2s ease-in-out infinite}
+@keyframes prismGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(94,234,212,.3))}50%{filter:drop-shadow(0 0 30px rgba(94,234,212,.7))}}
+
+/* 색 혼합 결과 이펙트 */
+.color-mix-burst{position:absolute;border-radius:50%;pointer-events:none;animation:cmBurst .8s ease-out forwards;z-index:5}
+@keyframes cmBurst{0%{transform:translate(-50%,-50%) scale(0);opacity:.8}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}
+
+/* 그림자 모드 이펙트 */
+.shadow-info-badge{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(251,191,36,.9);color:#78350f;padding:8px 20px;border-radius:12px;font-size:16px;font-weight:800;z-index:10;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
+
+<div class="container">
+  <div class="subject-bar">
+    <a class="sb-tab" href="hangul.html">📝 한글</a>
+    <a class="sb-tab" href="math.html">🔢 숫자</a>
+    <a class="sb-tab" href="english.html">🔤 영어</a>
+    <a class="sb-tab" href="music.html">🎵 음악</a>
+    <a class="sb-tab" href="art.html">🎨 미술</a>
+    <a class="sb-tab" href="clock.html">🕐 시계</a>
+    <a class="sb-tab" href="economy.html">💰 경제</a>
+    <a class="sb-tab" href="world.html">🌍 세계</a>
+    <a class="sb-tab" href="animal.html">🐾 동물</a>
+    <button class="sb-tab active">🔬 과학</button>
+    <div class="sb-spacer"></div>
+    <div class="sb-btns">
+      <button class="sb-btn" id="sb-sound" onclick="toggleSound()">🔊</button>
+      <button class="sb-btn" onclick="showAdmin()">⚙️</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <div class="left-panel">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-avatar" onclick="showCharModal()"><span id="pf-char">🧒</span></div>
+          <div class="profile-info">
+            <div class="profile-name" onclick="changeName()"><span id="pf-name">과학자</span></div>
+            <div class="profile-level-container">
+              <div class="profile-level">
+                <span class="level-badge">LV.<span id="pf-level">1</span></span>
+                <span id="pf-done">0</span>/<span id="pf-total">10</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="pf-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-headers">
+        <button class="tab-btn active" onclick="switchTab('mix')">🧪 섞어볼까?</button>
+        <button class="tab-btn" onclick="switchTab('weight')">⚖️ 무거운건누구</button>
+        <button class="tab-btn" onclick="switchTab('light')">💡 빛 놀이터</button>
+        <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
+      </div>
+      <div class="tab-content mix-side active">
+        <div class="side-info">
+          <div class="side-title">🧪 실험 도감</div>
+          <div class="side-stat"><span>발견</span><span class="side-val" id="mix-discovered">0</span></div>
+          <div class="side-stat"><span>시도</span><span class="side-val" id="mix-tried">0</span></div>
+          <div class="side-stat"><span>연속 성공</span><span class="side-val" id="mix-streak">0</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="mix-score-side">0</span></div>
+        </div>
+      </div>
+      <div class="tab-content weight-side">
+        <div class="side-info">
+          <div class="side-title">⚖️ 무거운건 누구?</div>
+          <div class="side-stat"><span>문제</span><span class="side-val" id="wt-qnum">1</span></div>
+          <div class="side-stat"><span>정답</span><span class="side-val" id="wt-correct">0</span></div>
+          <div class="side-stat"><span>연속</span><span class="side-val" id="wt-streak">0</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="wt-score-side">0</span></div>
+        </div>
+      </div>
+      <div class="tab-content light-side">
+        <div class="side-info">
+          <div class="side-title">💡 빛 놀이터</div>
+          <div class="side-stat"><span>모드</span><span class="side-val" id="lt-mode">프리즘</span></div>
+          <div class="side-stat"><span>혼합 수</span><span class="side-val" id="lt-mixes">0</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="lt-score-side">0</span></div>
+        </div>
+      </div>
+      <div class="tab-content record-side">
+        <div class="side-info">
+          <div class="side-title">📊 종합 기록</div>
+          <div class="side-stat"><span>총 실험</span><span class="side-val" id="rec-total">0</span></div>
+          <div class="side-stat"><span>성공률</span><span class="side-val" id="rec-rate">0%</span></div>
+        </div>
+      </div>
+      <div class="game-launch-btn" onclick="startHeroGame()">⚡ 실험 체인 시작!</div>
+    </div>
+
+    <div class="center-panel">
+      <!-- Mix -->
+      <div class="game-view mix-view active" id="mix-view">
+        <div class="mix-area" id="mix-area">
+          <div class="mix-status" id="mix-status">재료 2개를 골라 비커에 넣어보세요!</div>
+          <div class="mix-workspace">
+            <div class="mix-ingredients-row" id="mix-ingredients"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0">
+              <svg class="mix-beaker-svg" width="140" height="200" viewBox="0 0 140 200">
+                <defs>
+                  <linearGradient id="beakerGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,.3)"/><stop offset="100%" stop-color="rgba(255,255,255,.05)"/></linearGradient>
+                  <clipPath id="beakerClip"><path d="M25 10 L25 140 Q25 180 50 190 L90 190 Q115 180 115 140 L115 10 Z"/></clipPath>
+                </defs>
+                <path d="M25 10 L25 140 Q25 180 50 190 L90 190 Q115 180 115 140 L115 10" fill="url(#beakerGrad)" stroke="#99f6e4" stroke-width="3"/>
+                <rect id="beaker-liquid" x="25" y="190" width="90" height="0" fill="#5eead4" opacity=".6" clip-path="url(#beakerClip)"/>
+                <line x1="20" y1="10" x2="120" y2="10" stroke="#99f6e4" stroke-width="4" stroke-linecap="round"/>
+                <line x1="30" y1="60" x2="38" y2="60" stroke="#99f6e4" stroke-width="1.5" opacity=".5"/>
+                <line x1="30" y1="100" x2="38" y2="100" stroke="#99f6e4" stroke-width="1.5" opacity=".5"/>
+                <line x1="30" y1="140" x2="38" y2="140" stroke="#99f6e4" stroke-width="1.5" opacity=".5"/>
+              </svg>
+              <div style="font-size:16px;font-weight:700;color:#475569">비커</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:8px">
+            <button style="padding:10px 28px;border:3px solid #5eead4;border-radius:14px;background:linear-gradient(145deg,#14b8a6,#0d9488);color:#fff;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit" onclick="mixConfirm()">🧪 섞기!</button>
+            <button style="padding:10px 28px;border:3px solid #fca5a5;border-radius:14px;background:linear-gradient(145deg,#f87171,#ef4444);color:#fff;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit" onclick="mixReset()">🔄 다시</button>
+            <button style="padding:10px 28px;border:3px solid #99f6e4;border-radius:14px;background:linear-gradient(145deg,#f0fdfa,#ccfbf1);color:#134e4a;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit" onclick="showDex()">📖 도감</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weight -->
+      <div class="game-view weight-view" id="weight-view">
+        <div class="weight-area" id="weight-area">
+          <div class="weight-question" id="wt-question">어떤 게 더 무거울까?</div>
+          <svg id="scale-svg" width="500" height="260" viewBox="0 0 500 260" style="flex-shrink:0">
+            <defs><linearGradient id="scaleBase" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#64748b"/><stop offset="100%" stop-color="#475569"/></linearGradient></defs>
+            <rect x="220" y="200" width="60" height="60" rx="8" fill="url(#scaleBase)"/>
+            <polygon points="200,200 300,200 280,160 220,160" fill="#94a3b8"/>
+            <g id="scale-beam" style="transform-origin:250px 160px;transition:transform .8s cubic-bezier(.34,1.56,.64,1)">
+              <rect x="50" y="155" width="400" height="10" rx="5" fill="#94a3b8"/>
+              <circle cx="250" cy="160" r="12" fill="#64748b" stroke="#94a3b8" stroke-width="2"/>
+              <g id="scale-left-g"><line x1="100" y1="165" x2="100" y2="195" stroke="#64748b" stroke-width="3"/><ellipse cx="100" cy="200" rx="60" ry="12" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/><text id="scale-left-emoji" x="100" y="190" text-anchor="middle" font-size="40"></text></g>
+              <g id="scale-right-g"><line x1="400" y1="165" x2="400" y2="195" stroke="#64748b" stroke-width="3"/><ellipse cx="400" cy="200" rx="60" ry="12" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/><text id="scale-right-emoji" x="400" y="190" text-anchor="middle" font-size="40"></text></g>
+            </g>
+          </svg>
+          <div class="weight-items" id="wt-items"></div>
+          <div class="weight-result" id="wt-result"></div>
+        </div>
+      </div>
+
+      <!-- Light -->
+      <div class="game-view light-view" id="light-view">
+        <div class="light-area">
+          <div class="light-mode-btns">
+            <button class="light-mode-btn active" onclick="setLightMode('prism')">🔺 프리즘</button>
+            <button class="light-mode-btn" onclick="setLightMode('colormix')">🎨 색 혼합</button>
+            <button class="light-mode-btn" onclick="setLightMode('shadow')">👤 그림자</button>
+          </div>
+          <div class="light-canvas" id="light-canvas"></div>
+          <div class="light-info" id="light-info">프리즘에 빛을 통과시켜 무지개를 만들어보세요!</div>
+        </div>
+      </div>
+
+      <!-- Records -->
+      <div class="game-view record-view" id="record-view">
+        <div class="records-area">
+          <div class="record-card"><h3>🏆 종합 성적</h3><div class="record-grid">
+            <div class="record-item"><div class="record-num" id="r-total">0</div><div class="record-label">총 실험</div></div>
+            <div class="record-item"><div class="record-num" id="r-correct">0</div><div class="record-label">성공</div></div>
+            <div class="record-item"><div class="record-num" id="r-rate">0%</div><div class="record-label">성공률</div></div>
+          </div></div>
+          <div class="record-card"><h3>🧪 섞어볼까?</h3><div class="record-grid">
+            <div class="record-item"><div class="record-num" id="r-mix-disc">0</div><div class="record-label">발견</div></div>
+            <div class="record-item"><div class="record-num" id="r-mix-tried">0</div><div class="record-label">시도</div></div>
+            <div class="record-item"><div class="record-num" id="r-mix-score">0</div><div class="record-label">점수</div></div>
+          </div></div>
+          <div class="record-card"><h3>⚖️ 무거운건 누구?</h3><div class="record-grid">
+            <div class="record-item"><div class="record-num" id="r-wt-correct">0</div><div class="record-label">정답</div></div>
+            <div class="record-item"><div class="record-num" id="r-wt-streak">0</div><div class="record-label">최고 연속</div></div>
+            <div class="record-item"><div class="record-num" id="r-wt-score">0</div><div class="record-label">점수</div></div>
+          </div></div>
+          <div class="record-card"><h3>💡 빛 놀이터</h3><div class="record-grid">
+            <div class="record-item"><div class="record-num" id="r-lt-mixes">0</div><div class="record-label">혼합</div></div>
+            <div class="record-item"><div class="record-num" id="r-lt-score">0</div><div class="record-label">점수</div></div>
+            <div class="record-item"><div class="record-num" id="r-hero-best">0</div><div class="record-label">히어로 최고</div></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel" id="right-panel">
+      <button class="action-btn btn-cyan" id="act1" onclick="actionBtn(1)"><span class="icon">💡</span>힌트</button>
+      <button class="action-btn btn-green" id="act2" onclick="actionBtn(2)"><span class="icon">⏭</span>다음</button>
+      <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🔄</span>리셋</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hero Game -->
+<div id="hero-game" class="hero-game hidden">
+  <div class="hg-header">
+    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
+    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
+    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="hg-ctrls">
+      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+    </div>
+  </div>
+  <div class="hg-arena" id="hg-arena">
+    <div class="hg-ground"></div>
+  </div>
+  <div id="hg-over" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>실험 끝!</h2>
+      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="msg" id="hg-over-msg">잘했어요!</div>
+      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-pause" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>⏸ 일시정지</h2>
+      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Modal -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>⚙ 설정</h3><button class="modal-close" onclick="hideAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="modal-section"><h4>👤 프로필</h4><input class="modal-input" id="adm-name" placeholder="이름 입력" maxlength="10"><button class="modal-btn" onclick="saveProfile()">저장</button></div>
+      <div class="modal-section"><h4>🔄 초기화</h4><button class="modal-btn" style="background:linear-gradient(145deg,#ef4444,#dc2626)" onclick="resetAll()">전체 초기화</button></div>
+    </div>
+  </div>
+</div>
+<!-- Char Modal -->
+<div id="char-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>🎭 캐릭터 선택</h3><button class="modal-close" onclick="hideCharModal()">×</button></div>
+    <div class="modal-body"><div class="char-grid" id="char-grid"></div></div>
+  </div>
+</div>
+<!-- Dex Modal -->
+<div id="dex-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>📖 실험 도감</h3><button class="modal-close" onclick="hideDex()">×</button></div>
+    <div class="modal-body"><div class="dex-grid" id="dex-grid"></div></div>
+  </div>
+</div>
+
+<script>
+// ===== Global =====
+let currentTab = 'mix';
+let soundEnabled = true;
+const LS = localStorage;
+
+// Profile
+let profile = {
+  name: LS.getItem('sciName') || '과학자',
+  char: LS.getItem('sciChar') || '🧒',
+  totalCorrect: parseInt(LS.getItem('sciCorrect')) || 0,
+  totalPlayed: parseInt(LS.getItem('sciPlayed')) || 0
+};
+
+// ===== TTS =====
+let audioQueue = [];
+let isSpeaking = false;
+function speak(text) {
+  if (!soundEnabled) return;
+  audioQueue.push(text);
+  processQueue();
+}
+function processQueue() {
+  if (isSpeaking || !audioQueue.length) return;
+  isSpeaking = true;
+  const u = new SpeechSynthesisUtterance(audioQueue.shift());
+  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.onend = () => { isSpeaking = false; processQueue(); };
+  u.onerror = () => { isSpeaking = false; processQueue(); };
+  speechSynthesis.speak(u);
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sb-sound').textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) speechSynthesis.cancel();
+}
+
+// ===== Profile =====
+function updateProfile() {
+  document.getElementById('pf-name').textContent = profile.name;
+  document.getElementById('pf-char').textContent = profile.char;
+  const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  document.getElementById('pf-level').textContent = lv;
+  const prog = (profile.totalCorrect % 10);
+  document.getElementById('pf-done').textContent = prog;
+  document.getElementById('pf-total').textContent = 10;
+  document.getElementById('pf-bar').style.width = (prog * 10) + '%';
+}
+function changeName() {
+  const n = prompt('이름을 입력하세요:', profile.name);
+  if (n && n.trim()) { profile.name = n.trim(); LS.setItem('sciName', profile.name); updateProfile(); }
+}
+function showCharModal() {
+  document.getElementById('char-modal').classList.remove('hidden');
+  const chars = ['🧒','👦','👧','🦸‍♂️','🦸‍♀️','🧙‍♂️','🐱','🐶','🦊','🐻','🐰','🐸','🦁','🐯','🐼'];
+  const g = document.getElementById('char-grid');
+  g.innerHTML = chars.map(c => '<div class="char-item' + (c===profile.char?' selected':'') + '" onclick="pickChar(\'' + c + '\')">' + c + '</div>').join('');
+}
+function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
+function pickChar(c) { profile.char = c; LS.setItem('sciChar', c); updateProfile(); hideCharModal(); }
+function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
+function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+function saveProfile() {
+  const n = document.getElementById('adm-name').value.trim();
+  if (n) { profile.name = n; LS.setItem('sciName', n); updateProfile(); }
+  hideAdmin();
+}
+function resetAll() {
+  if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
+  ['sciName','sciChar','sciCorrect','sciPlayed','mixDisc','mixTried','mixScore','mixBestStreak','mixDex',
+   'wtCorrect','wtScore','wtBestStreak','ltMixes','ltScore','heroBest'].forEach(k => LS.removeItem(k));
+  location.reload();
+}
+function saveStats() {
+  LS.setItem('sciCorrect', profile.totalCorrect);
+  LS.setItem('sciPlayed', profile.totalPlayed);
+  LS.setItem('mixDisc', mix.discovered.size);
+  LS.setItem('mixTried', mix.tried);
+  LS.setItem('mixScore', mix.score);
+  LS.setItem('mixBestStreak', mix.bestStreak);
+  LS.setItem('mixDex', JSON.stringify(Array.from(mix.dex)));
+  LS.setItem('wtCorrect', wt.correctCount);
+  LS.setItem('wtScore', wt.score);
+  LS.setItem('wtBestStreak', wt.bestStreak);
+  LS.setItem('ltMixes', lt.mixes);
+  LS.setItem('ltScore', lt.score);
+  LS.setItem('heroBest', hg.bestScore);
+}
+
+// ===== Tab Switch =====
+function switchTab(tab) {
+  speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['mix','weight','light','record'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.' + tab + '-side').classList.add('active');
+  document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.' + tab + '-view').classList.add('active');
+  updateActionButtons();
+  if (tab === 'record') updateRecords();
+}
+function updateActionButtons() {
+  const a1 = document.getElementById('act1');
+  const a2 = document.getElementById('act2');
+  const a3 = document.getElementById('act3');
+  if (currentTab === 'mix') {
+    a1.innerHTML = '<span class="icon">📖</span>도감'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🧪</span>섞기'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'weight') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'light') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🔄</span>리셋'; a2.className = 'action-btn btn-orange'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">⏭</span>다음'; a3.className = 'action-btn btn-green'; a3.disabled = false;
+  } else {
+    a1.innerHTML = '<span class="icon">📊</span>기록'; a1.className = 'action-btn btn-cyan'; a1.disabled = true;
+    a2.innerHTML = '<span class="icon">—</span>—'; a2.className = 'action-btn btn-green'; a2.disabled = true;
+    a3.innerHTML = '<span class="icon">—</span>—'; a3.className = 'action-btn btn-red'; a3.disabled = true;
+  }
+}
+function actionBtn(n) {
+  if (currentTab === 'mix') { if (n===1) showDex(); else if (n===2) mixConfirm(); else mixReset(); }
+  else if (currentTab === 'weight') { if (n===1) wtHint(); else if (n===2) newWeightQuestion(); else newWeightQuestion(); }
+  else if (currentTab === 'light') { if (n===1) ltHint(); else if (n===2) initLightMode(); else initLightMode(); }
+}
+
+// ===== MIX GAME =====
+const RECIPES = [
+  {a:'식초',b:'베이킹소다',ae:'🫗',be:'🧂',result:'거품 폭발!',re:'🫧',color:'#a7f3d0',desc:'이산화탄소 기체가 나와요'},
+  {a:'물',b:'기름',ae:'💧',be:'🫗',result:'층 분리!',re:'🔵',color:'#93c5fd',desc:'물과 기름은 섞이지 않아요'},
+  {a:'우유',b:'식용색소',ae:'🥛',be:'🎨',result:'마블링!',re:'🌀',color:'#c4b5fd',desc:'색소가 퍼지며 무늬를 만들어요'},
+  {a:'레몬즙',b:'우유',ae:'🍋',be:'🥛',result:'응고!',re:'🧀',color:'#fde68a',desc:'산 때문에 우유가 굳어요'},
+  {a:'소금',b:'얼음',ae:'🧂',be:'🧊',result:'초냉각!',re:'❄️',color:'#bae6fd',desc:'소금이 얼음을 더 차갑게 해요'},
+  {a:'식초',b:'달걀',ae:'🫗',be:'🥚',result:'투명 달걀!',re:'🔮',color:'#fecaca',desc:'식초가 껍데기를 녹여요'},
+  {a:'물',b:'식용색소',ae:'💧',be:'🎨',result:'색 변화!',re:'🌈',color:'#ddd6fe',desc:'색소가 물에 퍼져요'},
+  {a:'베이킹소다',b:'레몬즙',ae:'🧂',be:'🍋',result:'화산 폭발!',re:'🌋',color:'#fed7aa',desc:'산과 염기가 만나 반응해요'},
+  {a:'물',b:'소금',ae:'💧',be:'🧂',result:'소금물!',re:'🫧',color:'#ccfbf1',desc:'소금이 물에 녹아요'},
+  {a:'기름',b:'식용색소',ae:'🫗',be:'🎨',result:'용암 램프!',re:'🔴',color:'#fca5a5',desc:'색소 방울이 기름 속을 돌아다녀요'},
+];
+const INGREDIENTS = ['식초','베이킹소다','물','기름','우유','식용색소','레몬즙','소금','얼음','달걀'];
+const ING_EMOJI = {'식초':'🫗','베이킹소다':'🧂','물':'💧','기름':'🛢️','우유':'🥛','식용색소':'🎨','레몬즙':'🍋','소금':'🧂','얼음':'🧊','달걀':'🥚'};
+
+let mix = {
+  selected: [],
+  tried: parseInt(LS.getItem('mixTried')) || 0,
+  score: parseInt(LS.getItem('mixScore')) || 0,
+  streak: 0,
+  bestStreak: parseInt(LS.getItem('mixBestStreak')) || 0,
+  discovered: new Set(),
+  dex: new Set(JSON.parse(LS.getItem('mixDex') || '[]'))
+};
+mix.discovered = new Set(Array.from(mix.dex));
+
+function initMixGame() {
+  mix.selected = [];
+  const row = document.getElementById('mix-ingredients');
+  // 6개 랜덤 재료
+  const pool = [...INGREDIENTS].sort(() => Math.random() - 0.5).slice(0, 6);
+  row.innerHTML = pool.map((ing, i) =>
+    '<div class="mix-ingredient" data-ing="' + ing + '" onclick="selectIngredient(this,' + i + ')">' +
+    '<div class="mi-emoji">' + (ING_EMOJI[ing]||'🧪') + '</div>' + ing + '</div>'
+  ).join('');
+  document.getElementById('mix-status').textContent = '재료 2개를 골라 비커에 넣어보세요!';
+  // 비커 리셋
+  const liq = document.getElementById('beaker-liquid');
+  liq.setAttribute('y', '190');
+  liq.setAttribute('height', '0');
+  liq.setAttribute('fill', '#5eead4');
+  updateMixUI();
+}
+
+function selectIngredient(el, idx) {
+  if (mix.selected.length >= 2 && !el.classList.contains('selected')) return;
+  el.classList.toggle('selected');
+  const ing = el.dataset.ing;
+  if (el.classList.contains('selected')) {
+    mix.selected.push(ing);
+  } else {
+    mix.selected = mix.selected.filter(s => s !== ing);
+  }
+  if (mix.selected.length === 2) {
+    document.getElementById('mix-status').textContent = mix.selected[0] + ' + ' + mix.selected[1] + ' → 섞기 버튼을 누르세요!';
+  } else if (mix.selected.length === 1) {
+    document.getElementById('mix-status').textContent = mix.selected[0] + ' 선택! 하나 더 골라주세요';
+  } else {
+    document.getElementById('mix-status').textContent = '재료 2개를 골라 비커에 넣어보세요!';
+  }
+}
+
+function mixConfirm() {
+  if (mix.selected.length !== 2) { speak('재료 2개를 골라주세요!'); return; }
+  mix.tried++;
+  profile.totalPlayed++;
+  const a = mix.selected[0], b = mix.selected[1];
+  const recipe = RECIPES.find(r => (r.a===a && r.b===b) || (r.a===b && r.b===a));
+
+  // 비커 채우기 애니메이션
+  const liq = document.getElementById('beaker-liquid');
+  const color = recipe ? recipe.color : '#94a3b8';
+  liq.setAttribute('fill', color);
+  liq.setAttribute('y', '100');
+  liq.setAttribute('height', '90');
+
+  if (recipe) {
+    mix.streak++;
+    mix.score += 10 + mix.streak * 2;
+    if (mix.streak > mix.bestStreak) mix.bestStreak = mix.streak;
+    profile.totalCorrect++;
+    const key = [a,b].sort().join('+');
+    const isNew = !mix.discovered.has(key);
+    mix.discovered.add(key);
+    mix.dex.add(key);
+    // 거품 파티클 + 강화 이펙트
+    mixBubbleEffect(recipe.color);
+    beakerReactionEffect(recipe.color, 'foam');
+    beakerReactionEffect(recipe.color, 'spark');
+    playMixSound();
+    setTimeout(() => {
+      const disc = document.createElement('div');
+      disc.className = 'mix-discovery';
+      disc.innerHTML = recipe.re + ' ' + recipe.result + '<br><span style="font-size:16px;color:#64748b">' + recipe.desc + '</span>' + (isNew ? '<br><span style="color:#f59e0b;font-size:18px">새 발견!</span>' : '');
+      document.getElementById('mix-area').appendChild(disc);
+      speak(recipe.result + '. ' + recipe.desc);
+      setTimeout(() => disc.remove(), 3000);
+    }, 800);
+  } else {
+    mix.streak = 0;
+    document.getElementById('mix-status').textContent = '반응 없음... 다른 조합을 시도해봐!';
+    const key = [a,b].sort().join('+');
+    mix.dex.add('X:' + key);
+    speak('음, 이 조합은 반응이 없네요');
+  }
+  updateMixUI();
+  updateProfile();
+  saveStats();
+  setTimeout(() => initMixGame(), 3500);
+}
+
+function mixBubbleEffect(color) {
+  const area = document.getElementById('mix-area');
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      const b = document.createElement('div');
+      b.className = 'mix-bubble';
+      const size = 8 + Math.random() * 20;
+      const x = 50 + Math.random() * 40 - 20;
+      b.style.cssText = 'left:' + x + '%;bottom:30%;width:' + size + 'px;height:' + size + 'px;background:' + color + ';opacity:.5;--ty:-' + (60 + Math.random()*80) + 'px;--dur:' + (0.8+Math.random()*0.8) + 's';
+      area.appendChild(b);
+      setTimeout(() => b.remove(), 1600);
+    }, i * 80);
+  }
+}
+
+function mixReset() { initMixGame(); }
+
+function updateMixUI() {
+  document.getElementById('mix-discovered').textContent = mix.discovered.size;
+  document.getElementById('mix-tried').textContent = mix.tried;
+  document.getElementById('mix-streak').textContent = mix.streak;
+  document.getElementById('mix-score-side').textContent = mix.score;
+}
+
+function showDex() {
+  document.getElementById('dex-modal').classList.remove('hidden');
+  const grid = document.getElementById('dex-grid');
+  let html = '';
+  RECIPES.forEach(r => {
+    const key = [r.a, r.b].sort().join('+');
+    const found = mix.discovered.has(key);
+    html += '<div class="dex-item ' + (found ? 'discovered' : '') + '"><span class="dex-emoji">' + (found ? r.re : '❓') + '</span>' + (found ? r.a+'+'+r.b+'<br>'+r.result : '???') + '</div>';
+  });
+  grid.innerHTML = html;
+}
+function hideDex() { document.getElementById('dex-modal').classList.add('hidden'); }
+
+// ===== WEIGHT GAME =====
+const OBJECTS = [
+  {name:'코끼리',emoji:'🐘',weight:5000},{name:'고양이',emoji:'🐱',weight:4},
+  {name:'자동차',emoji:'🚗',weight:1500},{name:'자전거',emoji:'🚲',weight:12},
+  {name:'수박',emoji:'🍉',weight:8},{name:'딸기',emoji:'🍓',weight:0.02},
+  {name:'볼링공',emoji:'🎳',weight:6},{name:'풍선',emoji:'🎈',weight:0.003},
+  {name:'책',emoji:'📚',weight:0.5},{name:'깃털',emoji:'🪶',weight:0.001},
+  {name:'금화',emoji:'🪙',weight:0.03},{name:'냉장고',emoji:'🧊',weight:80},
+  {name:'강아지',emoji:'🐶',weight:10},{name:'개미',emoji:'🐜',weight:0.0001},
+  {name:'비행기',emoji:'✈️',weight:80000},{name:'배',emoji:'🚢',weight:50000},
+  {name:'사과',emoji:'🍎',weight:0.2},{name:'바나나',emoji:'🍌',weight:0.12},
+  {name:'피아노',emoji:'🎹',weight:300},{name:'기타',emoji:'🎸',weight:3},
+];
+
+let wt = {
+  left: null, right: null, answer: -1, qNum: 1,
+  correctCount: parseInt(LS.getItem('wtCorrect')) || 0,
+  score: parseInt(LS.getItem('wtScore')) || 0,
+  streak: 0,
+  bestStreak: parseInt(LS.getItem('wtBestStreak')) || 0,
+  answered: false
+};
+
+function newWeightQuestion() {
+  wt.answered = false;
+  const shuffled = [...OBJECTS].sort(() => Math.random() - 0.5);
+  wt.left = shuffled[0];
+  wt.right = shuffled[1];
+  // 같은 무게면 다시
+  if (wt.left.weight === wt.right.weight) { wt.right = shuffled[2]; }
+  wt.answer = wt.left.weight > wt.right.weight ? 0 : 1;
+
+  document.getElementById('wt-question').textContent = '어떤 게 더 무거울까? 🤔';
+  document.getElementById('scale-left-emoji').textContent = wt.left.emoji;
+  document.getElementById('scale-right-emoji').textContent = wt.right.emoji;
+  document.getElementById('scale-beam').style.transform = 'rotate(0deg)';
+  document.getElementById('wt-result').textContent = '';
+
+  const items = document.getElementById('wt-items');
+  items.innerHTML =
+    '<div class="weight-item" onclick="pickWeight(0)"><div class="wi-emoji">' + wt.left.emoji + '</div><div class="wi-name">' + wt.left.name + '</div></div>' +
+    '<div class="weight-item" onclick="pickWeight(1)"><div class="wi-emoji">' + wt.right.emoji + '</div><div class="wi-name">' + wt.right.name + '</div></div>';
+  updateWeightUI();
+}
+
+function pickWeight(choice) {
+  if (wt.answered) return;
+  wt.answered = true;
+  profile.totalPlayed++;
+  wt.qNum++;
+
+  const beam = document.getElementById('scale-beam');
+  const correct = choice === wt.answer;
+  const heavier = wt.answer === 0 ? 'left' : 'right';
+
+  // 저울 기울이기
+  beam.style.transform = heavier === 'left' ? 'rotate(12deg)' : 'rotate(-12deg)';
+
+  if (correct) {
+    wt.correctCount++;
+    wt.streak++;
+    wt.score += 10 + wt.streak * 2;
+    if (wt.streak > wt.bestStreak) wt.bestStreak = wt.streak;
+    profile.totalCorrect++;
+    document.getElementById('wt-result').textContent = '🎉 정답! ' + (wt.answer===0?wt.left.name:wt.right.name) + '이(가) 더 무거워요!';
+    document.getElementById('wt-result').style.color = '#059669';
+    speak('정답! ' + (wt.answer===0?wt.left.name:wt.right.name) + '이 더 무거워요');
+    wtSuccessEffect();
+    scaleWobbleEffect();
+    wtCorrectGlowEffect();
+    wtConfettiEffect();
+    playSuccessSound();
+  } else {
+    wt.streak = 0;
+    document.getElementById('wt-result').textContent = '❌ 아쉬워요! ' + (wt.answer===0?wt.left.name:wt.right.name) + '이(가) 더 무거워요';
+    document.getElementById('wt-result').style.color = '#dc2626';
+    speak('아쉬워요. ' + (wt.answer===0?wt.left.name:wt.right.name) + '이 더 무거워요');
+    scaleWobbleEffect();
+    playFailSound();
+  }
+  updateWeightUI();
+  updateProfile();
+  saveStats();
+  setTimeout(() => newWeightQuestion(), 2500);
+}
+
+function wtSuccessEffect() {
+  const area = document.getElementById('weight-area');
+  const emojis = ['⭐','✨','🌟','💫','🎉'];
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div');
+    p.className = 'success-particle';
+    p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    const x = 30 + Math.random() * 40;
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 60 + Math.random() * 80;
+    p.style.cssText = 'left:' + x + '%;top:50%;font-size:' + (20+Math.random()*16) + 'px;--tx:' + (Math.cos(angle)*dist) + 'px;--ty:' + (Math.sin(angle)*dist) + 'px;--dur:' + (0.6+Math.random()*0.4) + 's';
+    area.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  }
+}
+
+function wtHint() {
+  if (wt.answered) return;
+  const heavier = wt.answer === 0 ? wt.left : wt.right;
+  speak('힌트! ' + heavier.name + '을 생각해보세요');
+  document.getElementById('wt-result').textContent = '💡 크기가 큰 게 항상 무거운 건 아니에요!';
+  document.getElementById('wt-result').style.color = '#0d9488';
+}
+
+function updateWeightUI() {
+  document.getElementById('wt-qnum').textContent = wt.qNum;
+  document.getElementById('wt-correct').textContent = wt.correctCount;
+  document.getElementById('wt-streak').textContent = wt.streak;
+  document.getElementById('wt-score-side').textContent = wt.score;
+}
+
+// ===== LIGHT GAME =====
+let lt = {
+  mode: 'prism',
+  mixes: parseInt(LS.getItem('ltMixes')) || 0,
+  score: parseInt(LS.getItem('ltScore')) || 0,
+  selectedColors: [],
+  prismActive: false
+};
+
+const COLOR_MIXES = [
+  {a:'빨강',b:'파랑',ac:'#ef4444',bc:'#3b82f6',result:'보라',rc:'#8b5cf6'},
+  {a:'빨강',b:'노랑',ac:'#ef4444',bc:'#eab308',result:'주황',rc:'#f97316'},
+  {a:'파랑',b:'노랑',ac:'#3b82f6',bc:'#eab308',result:'초록',rc:'#22c55e'},
+  {a:'빨강',b:'초록',ac:'#ef4444',bc:'#22c55e',result:'갈색',rc:'#92400e'},
+  {a:'빨강',b:'흰색',ac:'#ef4444',bc:'#ffffff',result:'분홍',rc:'#f9a8d4'},
+  {a:'파랑',b:'흰색',ac:'#3b82f6',bc:'#ffffff',result:'하늘',rc:'#7dd3fc'},
+];
+
+function setLightMode(mode) {
+  lt.mode = mode;
+  lt.selectedColors = [];
+  document.querySelectorAll('.light-mode-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.light-mode-btn[onclick*="' + mode + '"]').classList.add('active');
+  document.getElementById('lt-mode').textContent = mode === 'prism' ? '프리즘' : mode === 'colormix' ? '색 혼합' : '그림자';
+  initLightMode();
+}
+
+function initLightMode() {
+  const canvas = document.getElementById('light-canvas');
+  canvas.innerHTML = '';
+  lt.selectedColors = [];
+
+  if (lt.mode === 'prism') {
+    initPrism(canvas);
+  } else if (lt.mode === 'colormix') {
+    initColorMix(canvas);
+  } else {
+    initShadow(canvas);
+  }
+}
+
+function initPrism(canvas) {
+  document.getElementById('light-info').textContent = '프리즘을 클릭하면 빛이 무지개로 나뉘어요!';
+  canvas.innerHTML = '<svg width="100%" height="100%" viewBox="0 0 800 500" style="position:absolute;inset:0">' +
+    '<defs><linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fbbf24"/></linearGradient></defs>' +
+    '<line id="prism-beam" x1="0" y1="250" x2="310" y2="250" stroke="url(#beam)" stroke-width="8" opacity=".8"/>' +
+    '<polygon id="prism-shape" points="350,150 450,350 250,350" fill="rgba(255,255,255,.1)" stroke="#5eead4" stroke-width="3" style="cursor:pointer;filter:drop-shadow(0 0 20px rgba(94,234,212,.5))"/>' +
+    '<g id="rainbow-group" opacity="0"></g>' +
+    '</svg>';
+  document.getElementById('prism-shape').addEventListener('click', activatePrism);
+}
+
+function activatePrism() {
+  if (lt.prismActive) return;
+  lt.prismActive = true;
+  lt.mixes++;
+  lt.score += 15;
+  profile.totalCorrect++;
+  profile.totalPlayed++;
+
+  const rainbow = document.getElementById('rainbow-group');
+  const colors = ['#ef4444','#f97316','#eab308','#22c55e','#3b82f6','#6366f1','#8b5cf6'];
+  const names = ['빨강','주황','노랑','초록','파랑','남색','보라'];
+  let html = '';
+  colors.forEach((c, i) => {
+    const y = 180 + i * 25;
+    const endY = 100 + i * 45;
+    html += '<line x1="420" y1="' + (240+i*5) + '" x2="780" y2="' + endY + '" stroke="' + c + '" stroke-width="6" opacity=".8"><animate attributeName="x2" from="420" to="780" dur="0.8s" fill="freeze"/><animate attributeName="opacity" from="0" to=".8" dur="0.5s" fill="freeze"/></line>';
+    html += '<text x="790" y="' + (endY+5) + '" fill="' + c + '" font-size="16" font-weight="800">' + names[i] + '</text>';
+  });
+  rainbow.innerHTML = html;
+  rainbow.setAttribute('opacity', '1');
+  speak('와! 빛이 프리즘을 통과하면 무지개 7가지 색으로 나뉘어요!');
+  document.getElementById('light-info').textContent = '빛은 프리즘을 통과하면 7가지 색으로 나뉘어요!';
+
+  updateLightUI();
+  updateProfile();
+  saveStats();
+  setTimeout(() => { lt.prismActive = false; }, 2000);
+}
+
+function initColorMix(canvas) {
+  document.getElementById('light-info').textContent = '색 2개를 선택하면 어떤 색이 나오는지 봐요!';
+  const colors = [{name:'빨강',c:'#ef4444'},{name:'파랑',c:'#3b82f6'},{name:'노랑',c:'#eab308'},{name:'초록',c:'#22c55e'},{name:'흰색',c:'#ffffff'}];
+  let html = '';
+  colors.forEach((col, i) => {
+    const x = 100 + i * 140;
+    html += '<div class="color-orb" style="left:' + x + 'px;top:200px;width:80px;height:80px;background:' + col.c + ';--glow:' + col.c + '" onclick="pickColor(\'' + col.name + '\',\'' + col.c + '\',this)" data-color="' + col.name + '"></div>';
+    html += '<div style="position:absolute;left:' + (x+10) + 'px;top:290px;color:#fff;font-size:16px;font-weight:700;width:60px;text-align:center">' + col.name + '</div>';
+  });
+  html += '<div id="mix-result-zone" style="position:absolute;left:50%;top:380px;transform:translateX(-50%);width:120px;height:120px;border-radius:50%;border:4px dashed rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:20px;color:rgba(255,255,255,.5);font-weight:700">결과</div>';
+  canvas.innerHTML = html;
+}
+
+function pickColor(name, color, el) {
+  if (lt.selectedColors.length >= 2) return;
+  el.style.boxShadow = '0 0 30px ' + color + ', 0 0 60px ' + color;
+  el.style.transform = 'scale(1.15)';
+  lt.selectedColors.push({name, color});
+
+  if (lt.selectedColors.length === 2) {
+    const a = lt.selectedColors[0].name, b = lt.selectedColors[1].name;
+    const recipe = COLOR_MIXES.find(r => (r.a===a && r.b===b) || (r.a===b && r.b===a));
+    lt.mixes++;
+    profile.totalPlayed++;
+
+    const zone = document.getElementById('mix-result-zone');
+    if (recipe) {
+      lt.score += 10;
+      profile.totalCorrect++;
+      zone.style.background = recipe.rc;
+      zone.style.border = '4px solid ' + recipe.rc;
+      zone.style.boxShadow = '0 0 40px ' + recipe.rc;
+      zone.style.color = '#fff';
+      zone.textContent = recipe.result + '!';
+      colorMixBurstEffect(canvas, recipe.rc);
+      playSuccessSound();
+      speak(a + '과 ' + b + '을 섞으면 ' + recipe.result + '이 돼요!');
+      document.getElementById('light-info').textContent = a + ' + ' + b + ' = ' + recipe.result + '!';
+    } else {
+      zone.style.background = 'rgba(100,100,100,.5)';
+      zone.style.color = '#fff';
+      zone.textContent = '어둑어둑';
+      speak('이 조합은 좀 어두운 색이 되네요');
+      document.getElementById('light-info').textContent = '모든 색을 섞으면 어두워져요';
+    }
+    updateLightUI();
+    updateProfile();
+    saveStats();
+    setTimeout(() => {
+      lt.selectedColors = [];
+      initColorMix(document.getElementById('light-canvas'));
+    }, 2500);
+  }
+}
+
+function initShadow(canvas) {
+  document.getElementById('light-info').textContent = '손전등을 움직여서 그림자 크기를 바꿔보세요!';
+  canvas.innerHTML =
+    '<svg width="100%" height="100%" viewBox="0 0 800 500" style="position:absolute;inset:0">' +
+    '<circle id="sh-light" cx="100" cy="250" r="30" fill="#fbbf24" opacity=".9" style="cursor:grab;filter:drop-shadow(0 0 30px #fbbf24)"/>' +
+    '<text x="100" y="258" text-anchor="middle" font-size="24" fill="#78350f" style="pointer-events:none">🔦</text>' +
+    '<rect id="sh-object" x="400" y="200" width="60" height="100" rx="8" fill="#64748b" stroke="#94a3b8" stroke-width="2"/>' +
+    '<text x="430" y="260" text-anchor="middle" font-size="30" style="pointer-events:none">🏠</text>' +
+    '<rect id="sh-shadow" x="500" y="180" width="80" height="140" rx="4" fill="rgba(0,0,0,.4)" style="transition:all .3s"/>' +
+    '<line id="sh-beam1" x1="130" y1="240" x2="400" y2="200" stroke="#fbbf24" stroke-width="2" opacity=".3"/>' +
+    '<line id="sh-beam2" x1="130" y1="260" x2="400" y2="300" stroke="#fbbf24" stroke-width="2" opacity=".3"/>' +
+    '</svg>';
+
+  const light = document.getElementById('sh-light');
+  const lightText = canvas.querySelector('text[x="100"]');
+  let dragging = false;
+
+  function updateShadow(lx) {
+    const objX = 400;
+    const dist = Math.max(objX - lx, 50);
+    const scale = Math.max(0.5, 300 / dist);
+    const sw = 60 * scale;
+    const sh = 100 * scale;
+    const shadow = document.getElementById('sh-shadow');
+    shadow.setAttribute('x', 460);
+    shadow.setAttribute('width', sw);
+    shadow.setAttribute('height', sh);
+    shadow.setAttribute('y', 300 - sh);
+
+    document.getElementById('sh-beam1').setAttribute('x1', lx + 30);
+    document.getElementById('sh-beam2').setAttribute('x1', lx + 30);
+    document.getElementById('sh-beam1').setAttribute('y1', 245);
+    document.getElementById('sh-beam2').setAttribute('y1', 255);
+
+    if (dist < 150) {
+      document.getElementById('light-info').textContent = '가까울수록 그림자가 커져요! (그림자: ' + Math.round(scale*100) + '%)';
+    } else if (dist > 250) {
+      document.getElementById('light-info').textContent = '멀수록 그림자가 작아져요! (그림자: ' + Math.round(scale*100) + '%)';
+    } else {
+      document.getElementById('light-info').textContent = '손전등 거리에 따라 그림자 크기가 변해요! (그림자: ' + Math.round(scale*100) + '%)';
+    }
+  }
+
+  const svgEl = canvas.querySelector('svg');
+  svgEl.addEventListener('pointerdown', (e) => {
+    const pt = svgEl.createSVGPoint();
+    pt.x = e.clientX; pt.y = e.clientY;
+    const svgPt = pt.matrixTransform(svgEl.getScreenCTM().inverse());
+    if (Math.hypot(svgPt.x - parseFloat(light.getAttribute('cx')), svgPt.y - parseFloat(light.getAttribute('cy'))) < 50) {
+      dragging = true;
+    }
+  });
+  svgEl.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const pt = svgEl.createSVGPoint();
+    pt.x = e.clientX; pt.y = e.clientY;
+    const svgPt = pt.matrixTransform(svgEl.getScreenCTM().inverse());
+    const nx = Math.max(50, Math.min(350, svgPt.x));
+    light.setAttribute('cx', nx);
+    lightText.setAttribute('x', nx);
+    updateShadow(nx);
+  });
+  svgEl.addEventListener('pointerup', () => { dragging = false; });
+
+  lt.mixes++;
+  profile.totalPlayed++;
+  profile.totalCorrect++;
+  lt.score += 5;
+  updateLightUI();
+  updateProfile();
+  saveStats();
+}
+
+function ltHint() {
+  if (lt.mode === 'prism') speak('프리즘 삼각형을 클릭해보세요!');
+  else if (lt.mode === 'colormix') speak('색 공 2개를 차례로 눌러보세요!');
+  else speak('손전등을 드래그해서 움직여보세요!');
+}
+
+function updateLightUI() {
+  document.getElementById('lt-mixes').textContent = lt.mixes;
+  document.getElementById('lt-score-side').textContent = lt.score;
+}
+
+// ===== RECORDS =====
+function updateRecords() {
+  const total = profile.totalPlayed;
+  const correct = profile.totalCorrect;
+  const rate = total > 0 ? Math.round(correct / total * 100) : 0;
+  document.getElementById('r-total').textContent = total;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-rate').textContent = rate + '%';
+  document.getElementById('rec-total').textContent = total;
+  document.getElementById('rec-rate').textContent = rate + '%';
+  document.getElementById('r-mix-disc').textContent = mix.discovered.size;
+  document.getElementById('r-mix-tried').textContent = mix.tried;
+  document.getElementById('r-mix-score').textContent = mix.score;
+  document.getElementById('r-wt-correct').textContent = wt.correctCount;
+  document.getElementById('r-wt-streak').textContent = wt.bestStreak;
+  document.getElementById('r-wt-score').textContent = wt.score;
+  document.getElementById('r-lt-mixes').textContent = lt.mixes;
+  document.getElementById('r-lt-score').textContent = lt.score;
+  document.getElementById('r-hero-best').textContent = hg.bestScore;
+}
+
+// ===== HERO GAME: Experiment Chain =====
+const HERO_INGREDIENTS = [
+  {name:'물',emoji:'💧'},{name:'식초',emoji:'🫗'},{name:'소다',emoji:'🧂'},
+  {name:'기름',emoji:'🛢️'},{name:'색소',emoji:'🎨'},{name:'레몬',emoji:'🍋'},
+  {name:'소금',emoji:'🧂'},{name:'우유',emoji:'🥛'}
+];
+const HERO_RECIPES = [
+  {a:'식초',b:'소다',result:'거품 폭발!',emoji:'🫧',color:'#a7f3d0'},
+  {a:'물',b:'기름',result:'층 분리!',emoji:'🔵',color:'#93c5fd'},
+  {a:'우유',b:'색소',result:'마블링!',emoji:'🌀',color:'#c4b5fd'},
+  {a:'식초',b:'레몬',result:'산 반응!',emoji:'🌋',color:'#fed7aa'},
+  {a:'물',b:'색소',result:'색 변화!',emoji:'🌈',color:'#ddd6fe'},
+  {a:'물',b:'소금',result:'소금물!',emoji:'🫧',color:'#ccfbf1'},
+];
+
+let hg = {
+  score: 0, lives: 5, level: 1, running: false, paused: false,
+  items: [], spawnTimer: null, animId: null, combo: 0, maxCombo: 0,
+  bestScore: parseInt(LS.getItem('heroBest')) || 0,
+  tubes: [{items:[]},{items:[]},{items:[]}],
+  currentRecipe: null
+};
+
+function startHeroGame() {
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.combo = 0; hg.maxCombo = 0;
+  hg.running = true; hg.paused = false;
+  hg.items = [];
+  hg.tubes = [{items:[]},{items:[]},{items:[]}];
+  document.getElementById('hero-game').classList.remove('hidden');
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause').classList.add('hidden');
+  updateHeroUI();
+  setupTubes();
+  hg.shielded = false;
+  hg.slowMode = false;
+  hg.doublePoints = false;
+  pickHeroRecipe();
+  showRecipeHint();
+  hgSpawnLoop();
+  hgGameLoop();
+  speak('실험 체인 시작!');
+}
+
+function setupTubes() {
+  const arena = document.getElementById('hg-arena');
+  // 기존 튜브 제거
+  arena.querySelectorAll('.hg-tube').forEach(t => t.remove());
+  const positions = ['15%', '42%', '69%'];
+  const colors = ['#ef4444','#3b82f6','#22c55e'];
+  for (let i = 0; i < 3; i++) {
+    const tube = document.createElement('div');
+    tube.className = 'hg-tube';
+    tube.style.left = positions[i];
+    tube.id = 'tube-' + i;
+    tube.onclick = () => dropInTube(i);
+    tube.innerHTML =
+      '<svg width="100" height="160" viewBox="0 0 100 160">' +
+      '<path d="M20 10 L20 130 Q20 155 35 155 L65 155 Q80 155 80 130 L80 10" fill="rgba(255,255,255,.08)" stroke="' + colors[i] + '" stroke-width="3"/>' +
+      '<line x1="15" y1="10" x2="85" y2="10" stroke="' + colors[i] + '" stroke-width="4" stroke-linecap="round"/>' +
+      '<rect id="tube-liquid-' + i + '" x="20" y="155" width="60" height="0" fill="' + colors[i] + '" opacity=".3" rx="4"/>' +
+      '</svg>' +
+      '<div class="hg-tube-label" id="tube-label-' + i + '">시험관 ' + (i+1) + '</div>';
+    arena.appendChild(tube);
+  }
+}
+
+function pickHeroRecipe() {
+  hg.currentRecipe = HERO_RECIPES[Math.floor(Math.random() * HERO_RECIPES.length)];
+}
+
+function hgSpawnLoop() {
+  if (!hg.running) return;
+  const delay = Math.max(800, 2000 - hg.level * 150);
+  hg.spawnTimer = setTimeout(() => {
+    if (!hg.paused && hg.running) spawnHeroItem();
+    hgSpawnLoop();
+  }, delay);
+}
+
+function spawnHeroItem() {
+  spawnPowerup(); // 15% 확률로 파워업 추가
+  const arena = document.getElementById('hg-arena');
+  const rect = arena.getBoundingClientRect();
+  // 현재 레시피의 재료를 높은 확률로
+  let ing;
+  if (Math.random() < 0.6 && hg.currentRecipe) {
+    ing = Math.random() < 0.5 ?
+      HERO_INGREDIENTS.find(i => i.name === hg.currentRecipe.a) :
+      HERO_INGREDIENTS.find(i => i.name === hg.currentRecipe.b);
+  }
+  if (!ing) ing = HERO_INGREDIENTS[Math.floor(Math.random() * HERO_INGREDIENTS.length)];
+
+  const el = document.createElement('div');
+  el.className = 'falling-item';
+  const x = 50 + Math.random() * (rect.width - 150);
+  el.style.left = x + 'px';
+  el.style.top = '-80px';
+  el.innerHTML = '<div class="fi-body">' + ing.emoji + '</div>';
+  el.dataset.name = ing.name;
+  arena.appendChild(el);
+
+  const item = { el, name: ing.name, x, y: -80, speed: 1.5 + hg.level * 0.3 };
+  hg.items.push(item);
+}
+
+function dropInTube(tubeIdx) {
+  if (!hg.running || hg.paused) return;
+  // 가장 가까운 아이템을 이 튜브에 넣기
+  const arena = document.getElementById('hg-arena');
+  const tube = document.getElementById('tube-' + tubeIdx);
+  const tubeRect = tube.getBoundingClientRect();
+  const arenaRect = arena.getBoundingClientRect();
+  const tubeCx = tubeRect.left - arenaRect.left + tubeRect.width / 2;
+
+  let closest = null, closestDist = 200;
+  hg.items.forEach(item => {
+    const dx = Math.abs((item.x + 35) - tubeCx);
+    if (dx < closestDist && item.y > -40 && item.y < arenaRect.height * 0.7) {
+      closest = item;
+      closestDist = dx;
+    }
+  });
+
+  if (!closest) return;
+
+  // 아이템 튜브에 넣기
+  hg.tubes[tubeIdx].items.push(closest.name);
+  closest.el.remove();
+  hg.items = hg.items.filter(i => i !== closest);
+
+  // 액체 레벨 업
+  const liq = document.getElementById('tube-liquid-' + tubeIdx);
+  const h = Math.min(120, hg.tubes[tubeIdx].items.length * 30);
+  liq.setAttribute('height', h);
+  liq.setAttribute('y', 155 - h);
+
+  // 2개 모이면 조합 체크
+  if (hg.tubes[tubeIdx].items.length >= 2) {
+    const items = hg.tubes[tubeIdx].items;
+    const a = items[items.length - 2], b = items[items.length - 1];
+    const recipe = HERO_RECIPES.find(r => (r.a===a && r.b===b) || (r.a===b && r.b===a));
+
+    if (recipe) {
+      hg.combo++;
+      if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+      let pts = 20 + hg.combo * 5;
+      if (hg.doublePoints) pts *= 2;
+      hg.score += pts;
+      hg.tubes[tubeIdx].items = [];
+      liq.setAttribute('height', '0');
+      liq.setAttribute('y', '155');
+
+      // 성공 이펙트
+      hgSuccessEffect(tube, recipe);
+      tubeReactEffect(tube);
+      playSuccessSound();
+      if (hg.combo >= 2) {
+        const tr = tube.getBoundingClientRect();
+        const ar = arena.getBoundingClientRect();
+        showComboText(tr.left - ar.left + tr.width/2, tr.top - ar.top - 20, hg.combo);
+      }
+      speak(recipe.result);
+
+      if (hg.combo >= 3) {
+        hg.score += 30;
+        const ct = document.createElement('div');
+        ct.className = 'hg-chain-text';
+        ct.textContent = '🔥 체인 리액션! +30';
+        ct.style.left = '50%'; ct.style.top = '40%';
+        arena.appendChild(ct);
+        setTimeout(() => ct.remove(), 1200);
+      }
+
+      // 레벨업
+      if (hg.score >= hg.level * 100) {
+        hg.level++;
+        document.getElementById('hg-level').textContent = hg.level;
+        speak('레벨 업!');
+      }
+
+      pickHeroRecipe();
+      showRecipeHint();
+    } else if (hg.tubes[tubeIdx].items.length >= 3) {
+      // 실패 - 시험관 깨짐 (안전고글이면 방어)
+      if (hg.shielded) {
+        hg.shielded = false;
+        speak('안전고글이 막아줬어요!');
+        hg.tubes[tubeIdx].items = [];
+        liq.setAttribute('height', '0');
+        liq.setAttribute('y', '155');
+        updateHeroUI();
+        return;
+      }
+      hg.lives--;
+      hg.combo = 0;
+      hg.tubes[tubeIdx].items = [];
+      liq.setAttribute('height', '0');
+      liq.setAttribute('y', '155');
+      hgFailEffect(tube);
+      tubeBreakEffect(tube);
+      playFailSound();
+      speak('시험관이 깨졌어요!');
+      if (hg.lives <= 0) { hgGameOver(); return; }
+    }
+    updateHeroUI();
+  }
+}
+
+function hgSuccessEffect(tube, recipe) {
+  const arena = document.getElementById('hg-arena');
+  const flash = document.createElement('div');
+  flash.className = 'hg-flash-green';
+  arena.appendChild(flash);
+  setTimeout(() => flash.remove(), 300);
+
+  const rect = tube.getBoundingClientRect();
+  const arenaRect = arena.getBoundingClientRect();
+  const cx = rect.left - arenaRect.left + rect.width / 2;
+  const cy = rect.top - arenaRect.top;
+
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'hg-particle';
+    const angle = (Math.PI * 2 / 12) * i;
+    const dist = 50 + Math.random() * 80;
+    const size = 8 + Math.random() * 12;
+    p.style.cssText = 'left:' + cx + 'px;top:' + cy + 'px;width:' + size + 'px;height:' + size + 'px;background:' + recipe.color + ';--tx:' + (Math.cos(angle)*dist) + 'px;--ty:' + (Math.sin(angle)*dist) + 'px;--dur:' + (0.5+Math.random()*0.3) + 's';
+    arena.appendChild(p);
+    setTimeout(() => p.remove(), 800);
+  }
+
+  const txt = document.createElement('div');
+  txt.className = 'hg-chain-text';
+  txt.textContent = recipe.emoji + ' ' + recipe.result;
+  txt.style.left = cx + 'px'; txt.style.top = cy + 'px';
+  arena.appendChild(txt);
+  setTimeout(() => txt.remove(), 1200);
+}
+
+function hgFailEffect(tube) {
+  const arena = document.getElementById('hg-arena');
+  const flash = document.createElement('div');
+  flash.className = 'hg-flash-red';
+  arena.appendChild(flash);
+  setTimeout(() => flash.remove(), 400);
+  arena.classList.add('hg-shake');
+  setTimeout(() => arena.classList.remove('hg-shake'), 400);
+}
+
+function hgGameLoop() {
+  if (!hg.running) return;
+  hg.animId = requestAnimationFrame(hgGameLoop);
+  if (hg.paused) return;
+
+  const arena = document.getElementById('hg-arena');
+  const h = arena.getBoundingClientRect().height;
+
+  hg.items.forEach(item => {
+    const spd = (hg.slowMode && !item.isPowerup) ? item.speed * 0.5 : item.speed;
+    item.y += spd;
+    item.el.style.top = item.y + 'px';
+
+    // 파워업 아이템은 튜브 근처에서 자동 수집
+    if (item.isPowerup && item.y > h * 0.5) {
+      const tubes = document.querySelectorAll('.hg-tube');
+      tubes.forEach(tube => {
+        const tr = tube.getBoundingClientRect();
+        const ar = arena.getBoundingClientRect();
+        const tcx = tr.left - ar.left + tr.width / 2;
+        if (Math.abs((item.x + 28) - tcx) < 80 && item.y > h * 0.5) {
+          activatePowerup(item.type, item.name);
+          item.el.remove();
+          hg.items = hg.items.filter(i => i !== item);
+          playSuccessSound();
+        }
+      });
+    }
+
+    if (item.y > h * 0.82) {
+      item.el.remove();
+      hg.items = hg.items.filter(i => i !== item);
+    }
+  });
+}
+
+function updateHeroUI() {
+  document.getElementById('hg-score').textContent = hg.score;
+  document.getElementById('hg-level').textContent = hg.level;
+  let hearts = '';
+  for (let i = 0; i < 5; i++) hearts += i < hg.lives ? '❤️' : '🖤';
+  document.getElementById('hg-hearts').textContent = hearts;
+}
+
+function hgPause() {
+  hg.paused = !hg.paused;
+  document.getElementById('hg-pause').classList.toggle('hidden', !hg.paused);
+}
+
+function hgGameOver() {
+  hg.running = false;
+  clearTimeout(hg.spawnTimer);
+  cancelAnimationFrame(hg.animId);
+  if (hg.score > hg.bestScore) hg.bestScore = hg.score;
+  document.getElementById('hg-final-score').textContent = hg.score;
+  document.getElementById('hg-over-msg').textContent = '최고 콤보: ' + hg.maxCombo + '회';
+  document.getElementById('hg-over').classList.remove('hidden');
+  speak('실험 끝! ' + hg.score + '점!');
+  saveStats();
+}
+
+function hgRestart() {
+  document.getElementById('hg-arena').querySelectorAll('.falling-item,.hg-tube').forEach(e => e.remove());
+  hg.items = [];
+  startHeroGame();
+}
+
+function hgExit() {
+  hg.running = false;
+  clearTimeout(hg.spawnTimer);
+  cancelAnimationFrame(hg.animId);
+  speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+  document.getElementById('hg-arena').querySelectorAll('.falling-item,.hg-tube').forEach(e => e.remove());
+  hg.items = [];
+  document.getElementById('hero-game').classList.add('hidden');
+  saveStats();
+}
+
+// ===== HERO POWERUPS =====
+const POWERUPS = [
+  {name:'안전고글',emoji:'🥽',desc:'실패 1회 방어',type:'shield'},
+  {name:'슬로우',emoji:'🐌',desc:'재료 속도 감소',type:'slow'},
+  {name:'더블',emoji:'⭐',desc:'점수 2배',type:'double'},
+];
+
+function spawnPowerup() {
+  if (!hg.running || hg.paused) return;
+  if (Math.random() > 0.15) return; // 15% 확률
+  const arena = document.getElementById('hg-arena');
+  const rect = arena.getBoundingClientRect();
+  const pu = POWERUPS[Math.floor(Math.random() * POWERUPS.length)];
+
+  const el = document.createElement('div');
+  el.className = 'hg-powerup';
+  const x = 80 + Math.random() * (rect.width - 200);
+  el.style.left = x + 'px';
+  el.style.top = '-70px';
+  el.innerHTML = '<div class="pu-body">' + pu.emoji + '</div>';
+  el.dataset.type = pu.type;
+  el.dataset.name = pu.name;
+  arena.appendChild(el);
+
+  const item = { el, type: pu.type, name: pu.name, x, y: -70, speed: 1.2, isPowerup: true };
+  hg.items.push(item);
+}
+
+function activatePowerup(type, name) {
+  const arena = document.getElementById('hg-arena');
+  speak(name + ' 파워업!');
+
+  // 인디케이터 표시
+  const ind = document.createElement('div');
+  ind.className = 'pu-active-indicator';
+  ind.textContent = name + ' 발동!';
+  arena.appendChild(ind);
+  setTimeout(() => ind.remove(), 2000);
+
+  if (type === 'shield') {
+    hg.shielded = true;
+    setTimeout(() => { hg.shielded = false; }, 10000);
+  } else if (type === 'slow') {
+    hg.slowMode = true;
+    hg.items.forEach(item => { if (!item.isPowerup) item.speed *= 0.5; });
+    setTimeout(() => { hg.slowMode = false; }, 8000);
+  } else if (type === 'double') {
+    hg.doublePoints = true;
+    setTimeout(() => { hg.doublePoints = false; }, 10000);
+  }
+}
+
+// ===== BEAKER ENHANCED EFFECTS =====
+function beakerReactionEffect(color, type) {
+  const area = document.getElementById('mix-area');
+  // 거품 이펙트
+  if (type === 'foam') {
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const foam = document.createElement('div');
+        foam.className = 'beaker-foam';
+        const size = 6 + Math.random() * 16;
+        const x = 48 + Math.random() * 8;
+        foam.style.cssText = 'left:' + x + '%;bottom:35%;width:' + size + 'px;height:' + size + 'px;background:' + color + ';--ty:-' + (40+Math.random()*60) + 'px;--ty2:-' + (80+Math.random()*40) + 'px;--dur:' + (1.2+Math.random()*1) + 's';
+        area.appendChild(foam);
+        setTimeout(() => foam.remove(), 2200);
+      }, i * 60);
+    }
+  }
+  // 스파크 이펙트
+  if (type === 'spark') {
+    for (let i = 0; i < 12; i++) {
+      const spark = document.createElement('div');
+      spark.className = 'beaker-spark';
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 30 + Math.random() * 50;
+      spark.style.cssText = 'left:52%;top:40%;--tx:' + (Math.cos(angle)*dist) + 'px;--ty:' + (Math.sin(angle)*dist) + 'px;--dur:' + (0.3+Math.random()*0.4) + 's;background:' + color;
+      area.appendChild(spark);
+      setTimeout(() => spark.remove(), 700);
+    }
+  }
+  // 분리 이펙트
+  if (type === 'layer') {
+    const liq = document.getElementById('beaker-liquid');
+    // 2색 레이어 표현 (위/아래)
+    setTimeout(() => {
+      liq.setAttribute('fill', color);
+      liq.setAttribute('opacity', '.4');
+    }, 400);
+  }
+}
+
+// ===== WEIGHT ENHANCED EFFECTS =====
+function scaleWobbleEffect() {
+  const svg = document.getElementById('scale-svg');
+  svg.classList.add('scale-wobble');
+  setTimeout(() => svg.classList.remove('scale-wobble'), 600);
+}
+
+function wtCorrectGlowEffect() {
+  const svg = document.getElementById('scale-svg');
+  svg.classList.add('wt-correct-glow');
+  setTimeout(() => svg.classList.remove('wt-correct-glow'), 1000);
+}
+
+function wtConfettiEffect() {
+  const area = document.getElementById('weight-area');
+  const colors = ['#ef4444','#f97316','#eab308','#22c55e','#3b82f6','#8b5cf6','#ec4899'];
+  for (let i = 0; i < 20; i++) {
+    const c = document.createElement('div');
+    c.className = 'success-particle';
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const x = 20 + Math.random() * 60;
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 80 + Math.random() * 120;
+    c.style.cssText = 'left:' + x + '%;top:40%;width:10px;height:10px;background:' + color + ';border-radius:2px;--tx:' + (Math.cos(angle)*dist) + 'px;--ty:' + (Math.sin(angle)*dist) + 'px;--dur:' + (0.6+Math.random()*0.6) + 's';
+    area.appendChild(c);
+    setTimeout(() => c.remove(), 1200);
+  }
+}
+
+// ===== COLOR MIX ENHANCED EFFECTS =====
+function colorMixBurstEffect(canvas, color) {
+  for (let i = 0; i < 3; i++) {
+    setTimeout(() => {
+      const burst = document.createElement('div');
+      burst.className = 'color-mix-burst';
+      const size = 60 + i * 30;
+      burst.style.cssText = 'left:50%;top:75%;width:' + size + 'px;height:' + size + 'px;background:' + color + ';opacity:.4';
+      canvas.appendChild(burst);
+      setTimeout(() => burst.remove(), 800);
+    }, i * 150);
+  }
+}
+
+// ===== HERO RECIPE HINT DISPLAY =====
+function showRecipeHint() {
+  const arena = document.getElementById('hg-arena');
+  // 기존 힌트 제거
+  arena.querySelectorAll('.hg-recipe-hint').forEach(h => h.remove());
+  if (!hg.currentRecipe) return;
+  const hint = document.createElement('div');
+  hint.className = 'hg-recipe-hint';
+  const rIng1 = HERO_INGREDIENTS.find(i => i.name === hg.currentRecipe.a);
+  const rIng2 = HERO_INGREDIENTS.find(i => i.name === hg.currentRecipe.b);
+  hint.innerHTML = '목표: ' + (rIng1?rIng1.emoji:'') + ' ' + hg.currentRecipe.a + ' + ' + (rIng2?rIng2.emoji:'') + ' ' + hg.currentRecipe.b + ' = ' + hg.currentRecipe.emoji + ' ' + hg.currentRecipe.result;
+  arena.appendChild(hint);
+}
+
+// ===== HERO COMBO DISPLAY =====
+function showComboText(x, y, combo) {
+  const arena = document.getElementById('hg-arena');
+  const ct = document.createElement('div');
+  ct.className = 'hg-combo-text';
+  ct.textContent = combo + ' COMBO!';
+  ct.style.left = x + 'px';
+  ct.style.top = y + 'px';
+  arena.appendChild(ct);
+  setTimeout(() => ct.remove(), 1000);
+}
+
+// ===== HERO TUBE REACTION EFFECTS =====
+function tubeReactEffect(tubeEl) {
+  tubeEl.classList.add('tube-react');
+  setTimeout(() => tubeEl.classList.remove('tube-react'), 500);
+}
+
+function tubeBreakEffect(tubeEl) {
+  tubeEl.classList.add('tube-break');
+  setTimeout(() => tubeEl.classList.remove('tube-break'), 400);
+  // 파편 이펙트
+  const arena = document.getElementById('hg-arena');
+  const rect = tubeEl.getBoundingClientRect();
+  const arenaRect = arena.getBoundingClientRect();
+  const cx = rect.left - arenaRect.left + rect.width / 2;
+  const cy = rect.top - arenaRect.top + rect.height / 2;
+  const shardEmojis = ['💔','✖️','💥'];
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'hg-particle';
+    const angle = (Math.PI * 2 / 8) * i;
+    const dist = 40 + Math.random() * 60;
+    const size = 6 + Math.random() * 10;
+    p.style.cssText = 'left:' + cx + 'px;top:' + cy + 'px;width:' + size + 'px;height:' + size + 'px;background:#ef4444;--tx:' + (Math.cos(angle)*dist) + 'px;--ty:' + (Math.sin(angle)*dist) + 'px;--dur:' + (0.4+Math.random()*0.3) + 's';
+    arena.appendChild(p);
+    setTimeout(() => p.remove(), 700);
+  }
+}
+
+// ===== Web Audio beep =====
+function playBeep(freq, dur) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = freq;
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.start();
+    osc.stop(ctx.currentTime + dur);
+  } catch(e) {}
+}
+
+function playSuccessSound() { playBeep(523, 0.15); setTimeout(() => playBeep(659, 0.15), 100); setTimeout(() => playBeep(784, 0.2), 200); }
+function playFailSound() { playBeep(330, 0.15); setTimeout(() => playBeep(262, 0.25), 120); }
+function playMixSound() { playBeep(440, 0.1); setTimeout(() => playBeep(554, 0.1), 80); setTimeout(() => playBeep(659, 0.15), 160); }
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  function fitScale() {
+    const c = document.querySelector('.container');
+    if (!c || getComputedStyle(c).display === 'none') return;
+    const M = 0.03;
+    const aW = window.innerWidth * (1 - M * 2);
+    const aH = window.innerHeight * (1 - M * 2);
+    const s = Math.min(aW / 1920, aH / 1080);
+    c.style.transform = 'scale(' + s + ')';
+    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  fitScale();
+  window.addEventListener('resize', fitScale);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
+
+  updateProfile();
+  updateActionButtons();
+  initMixGame();
+  newWeightQuestion();
+  initLightMode();
+});
+
+// 더블탭 방지
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+</script>
+</body>
+</html>

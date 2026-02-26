@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>음악 놀이터 🎵</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#7c3aed 0%,#8b5cf6 50%,#6d28d9 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
+.rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#7c3aed,#8b5cf6);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
+.rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
+@keyframes rotateH{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+@media(orientation:portrait){.rotate-notice{display:flex}.container{display:none!important}}
+.container{width:1920px;height:1080px;background:#fff;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;position:absolute}
+
+.subject-bar{background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;padding:0 20px;height:56px;flex-shrink:0;gap:4px;position:relative}
+.subject-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#c4b5fd,#a78bfa,#c4b5fd)}
+.sb-tab{padding:8px 30px;border:none;border-radius:12px 12px 0 0;background:0;font-size:18px;font-weight:800;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.sb-tab.active{background:#fff;color:#1e3a8a}
+.sb-tab.locked{cursor:default}
+.sb-tab .lock{font-size:12px;opacity:.5}
+.sb-spacer{flex:1}
+.sb-btns{display:flex;gap:8px}
+.sb-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-size:18px;color:#fff;cursor:pointer;transition:.15s}
+.sb-btn:active{background:rgba(255,255,255,.3)}
+
+.main-layout{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:14px;flex:1;overflow:hidden}
+
+.left-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.profile-section{background:linear-gradient(145deg,#7c3aed,#8b5cf6 50%,#a78bfa);border-radius:20px;padding:20px;border:3px solid #c4b5fd;box-shadow:0 6px 20px rgba(124,58,237,.3);flex-shrink:0;position:relative;overflow:hidden}
+.profile-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='15' cy='15' r='1.5' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='2s' repeatCount='indefinite'/></circle><circle cx='85' cy='25' r='1' fill='white' opacity='.25'><animate attributeName='opacity' values='.25;.08;.25' dur='1.5s' repeatCount='indefinite'/></circle><circle cx='25' cy='75' r='1.2' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='1.8s' repeatCount='indefinite'/></circle></svg>") repeat;pointer-events:none}
+.profile-content{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.profile-avatar{width:90px;height:90px;background:linear-gradient(145deg,#c4b5fd,#a78bfa);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #fff;box-shadow:0 4px 15px rgba(167,139,250,.4);animation:avGlow 3s ease-in-out infinite;flex-shrink:0;cursor:pointer}
+@keyframes avGlow{0%,100%{box-shadow:0 4px 15px rgba(167,139,250,.4);transform:scale(1)}50%{box-shadow:0 8px 25px rgba(167,139,250,.6);transform:scale(1.05)}}
+.profile-info{flex:1;color:#fff}
+.profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
+.profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.profile-level{font-size:18px;font-weight:700;color:#e9d5ff;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#c4b5fd,#a78bfa);color:#4c1d95;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#c4b5fd,#a78bfa,#c4b5fd);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
+@keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+.tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn.active{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;border-color:#8b5cf6}
+.tab-btn:active{transform:scale(.97)}
+.tab-content{display:none;flex:1;overflow:hidden}
+.tab-content.active{display:flex;flex-direction:column}
+
+.side-info{background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:16px;padding:15px;border:2px solid #8b5cf6;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-title{font-size:17px;font-weight:700;color:#5b21b6;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
+.side-val{font-size:20px;font-weight:800;color:#7c3aed}
+
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#c4b5fd,#a78bfa);color:#4c1d95;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(167,139,250,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+@keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.game-launch-btn:active{transform:scale(.97)}
+
+.center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.game-view.active{display:flex}
+
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn:active{transform:scale(.95)}
+.action-btn.btn-purple{background:linear-gradient(145deg,#8b5cf6,#7c3aed);box-shadow:0 2px 8px rgba(139,92,246,.3)}
+.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
+.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
+.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.action-btn.btn-orange{background:linear-gradient(145deg,#f97316,#ea580c);box-shadow:0 2px 8px rgba(249,115,22,.2)}
+.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+
+/* 소리 그림 */
+.draw-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.draw-canvas-wrap{flex:1;position:relative;background:linear-gradient(180deg,#f5f3ff,#ede9fe);border-radius:16px;margin:10px;border:3px solid #c4b5fd;overflow:hidden;cursor:crosshair}
+.draw-canvas-wrap svg{width:100%;height:100%;position:absolute;top:0;left:0}
+.draw-guide{position:absolute;left:0;top:0;bottom:0;width:60px;display:flex;flex-direction:column;justify-content:space-between;padding:8px 0;pointer-events:none;z-index:5}
+.draw-note{font-size:14px;font-weight:700;color:#7c3aed;text-align:center;opacity:.5}
+.draw-info{text-align:center;padding:8px;font-size:16px;font-weight:700;color:#5b21b6;flex-shrink:0}
+
+/* 몸으로 드럼 */
+.drum-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden}
+.drum-pattern-bar{background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:16px;padding:14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.drum-pattern-label{color:#c4b5fd;font-size:16px;font-weight:700;flex-shrink:0}
+.drum-beats{display:flex;gap:6px;flex:1;justify-content:center}
+.drum-beat{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);transition:.2s}
+.drum-beat.active{border-color:#fbbf24;box-shadow:0 0 16px rgba(251,191,36,.5);transform:scale(1.15);background:rgba(251,191,36,.15)}
+.drum-beat.hit-perfect{background:#22c55e!important;border-color:#22c55e!important}
+.drum-beat.hit-good{background:#f59e0b!important;border-color:#f59e0b!important}
+.drum-beat.hit-miss{background:#ef4444!important;border-color:#ef4444!important}
+.drum-score-bar{display:flex;justify-content:center;gap:20px;font-size:18px;font-weight:700;color:#1e293b;flex-shrink:0}
+.drum-score-bar span{padding:6px 14px;background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:10px}
+.drum-pads{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:10px}
+.drum-pad{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:48px;font-weight:800;cursor:pointer;border:4px solid rgba(255,255,255,.3);transition:.1s;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.drum-pad:active{transform:scale(.92)}
+.drum-pad.pad-clap{background:linear-gradient(145deg,#ef4444,#dc2626);color:#fff}
+.drum-pad.pad-stomp{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff}
+.drum-pad.pad-knee{background:linear-gradient(145deg,#22c55e,#16a34a);color:#fff}
+.drum-pad.pad-tongue{background:linear-gradient(145deg,#3b82f6,#2563eb);color:#fff}
+.drum-pad-label{font-size:18px;font-weight:700;margin-top:4px}
+.drum-pad-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:padRipple .5s ease-out forwards;pointer-events:none}
+@keyframes padRipple{0%{transform:scale(0);opacity:1}100%{transform:scale(2.5);opacity:0}}
+.drum-result{position:absolute;font-size:28px;font-weight:900;pointer-events:none;z-index:10;animation:drumResPop .8s ease-out forwards}
+@keyframes drumResPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-80%) scale(.7);opacity:0}}
+
+/* 냉장고 오케스트라 */
+.fridge-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden}
+.fridge-items{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1}
+.fridge-item{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.15s;font-size:52px;position:relative;overflow:hidden}
+.fridge-item:active{transform:scale(.93);border-color:#8b5cf6}
+.fridge-item-name{font-size:14px;font-weight:700;color:#475569;margin-top:4px}
+.fridge-item.playing{border-color:#8b5cf6;box-shadow:0 0 20px rgba(139,92,246,.4);background:linear-gradient(145deg,#f5f3ff,#ede9fe)}
+.fridge-seq{display:flex;gap:10px;align-items:center;flex-shrink:0;padding:8px;background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:16px}
+.fridge-seq-label{color:#c4b5fd;font-size:16px;font-weight:700;flex-shrink:0;padding:0 8px}
+.fridge-seq-slots{display:flex;gap:8px;flex:1;justify-content:center}
+.fridge-slot{width:80px;height:80px;border:3px dashed rgba(255,255,255,.3);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:40px;background:rgba(255,255,255,.05);cursor:pointer;transition:.2s}
+.fridge-slot.filled{border-style:solid;border-color:#a78bfa;background:rgba(167,139,250,.15)}
+.fridge-slot.active-slot{border-color:#fbbf24;box-shadow:0 0 16px rgba(251,191,36,.5)}
+.fridge-play-btn{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:18px;font-weight:800;cursor:pointer;font-family:inherit;flex-shrink:0}
+.fridge-play-btn:active{transform:scale(.95)}
+.fridge-item-ring{position:absolute;border-radius:50%;border:3px solid;pointer-events:none;animation:itemRing .6s ease-out forwards}
+@keyframes itemRing{0%{transform:scale(0);opacity:1}100%{transform:scale(2);opacity:0}}
+
+/* 내 기록 */
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:12px;border:2px solid #c4b5fd}
+.record-num{font-size:32px;font-weight:900;color:#7c3aed}
+.record-label{font-size:13px;font-weight:600;color:#5b21b6;margin-top:4px}
+
+/* 히어로: 비트 캐처 */
+.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#1e1b4b 0%,#312e81 30%,#4c1d95 70%,#6d28d9 100%);overflow:hidden}
+.hero-game.hidden{display:none}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.15)}
+.hg-stat{font-size:22px;font-weight:800;color:#e9d5ff}
+.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-ctrls{display:flex;gap:8px}
+.hg-ctrl-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff}
+.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-arena{flex:1;position:relative;overflow:hidden}
+.hg-judge-ring{position:absolute;top:50%;left:50%;width:120px;height:120px;transform:translate(-50%,-50%);border:4px solid rgba(255,255,255,.4);border-radius:50%;z-index:5;box-shadow:0 0 30px rgba(167,139,250,.3),inset 0 0 20px rgba(167,139,250,.2)}
+.hg-judge-center{position:absolute;top:50%;left:50%;width:40px;height:40px;transform:translate(-50%,-50%);background:radial-gradient(circle,#c4b5fd,#7c3aed);border-radius:50%;z-index:6;box-shadow:0 0 20px rgba(167,139,250,.6)}
+.hg-lane{position:absolute;z-index:3;pointer-events:none}
+.hg-lane-up{top:0;left:50%;width:4px;height:50%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(167,139,250,.6),transparent)}
+.hg-lane-down{bottom:0;left:50%;width:4px;height:50%;transform:translateX(-50%);background:linear-gradient(0deg,rgba(167,139,250,.6),transparent)}
+.hg-lane-left{left:0;top:50%;height:4px;width:50%;transform:translateY(-50%);background:linear-gradient(90deg,rgba(167,139,250,.6),transparent)}
+.hg-lane-right{right:0;top:50%;height:4px;width:50%;transform:translateY(-50%);background:linear-gradient(270deg,rgba(167,139,250,.6),transparent)}
+.hg-tap-zone{position:absolute;z-index:20;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.hg-tap-up{top:30%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;background:rgba(239,68,68,.15);border:2px solid rgba(239,68,68,.3)}
+.hg-tap-down{bottom:30%;left:50%;transform:translate(-50%,50%);width:100px;height:100px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid rgba(34,197,94,.3)}
+.hg-tap-left{left:20%;top:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;background:rgba(59,130,246,.15);border:2px solid rgba(59,130,246,.3)}
+.hg-tap-right{right:20%;top:50%;transform:translate(50%,-50%);width:100px;height:100px;border-radius:50%;background:rgba(251,191,36,.15);border:2px solid rgba(251,191,36,.3)}
+.hg-tap-zone:active{transform:translate(-50%,-50%) scale(.9);background:rgba(255,255,255,.2)}
+.hg-tap-down:active{transform:translate(-50%,50%) scale(.9);background:rgba(255,255,255,.2)}
+.hg-tap-right:active{transform:translate(50%,-50%) scale(.9);background:rgba(255,255,255,.2)}
+.hg-note{position:absolute;font-size:36px;z-index:8;pointer-events:none;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.hg-judge-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:900;z-index:30;pointer-events:none;animation:judgeText .8s ease-out forwards}
+@keyframes judgeText{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-80%) scale(.8);opacity:0}}
+.hg-combo-text{position:absolute;top:15%;left:50%;transform:translateX(-50%);font-size:48px;font-weight:900;color:#fbbf24;text-shadow:0 3px 10px rgba(0,0,0,.4);z-index:25;pointer-events:none;animation:comboPop 1s ease-out forwards}
+@keyframes comboPop{0%{transform:translateX(-50%) scale(0);opacity:0}30%{transform:translateX(-50%) scale(1.2);opacity:1}100%{transform:translateX(-50%) scale(.8);opacity:0}}
+.hg-flash-good{position:absolute;inset:0;pointer-events:none;z-index:28;animation:flashGood .3s ease-out forwards}
+@keyframes flashGood{0%{background:rgba(34,197,94,.25)}100%{background:transparent}}
+.hg-flash-miss{position:absolute;inset:0;pointer-events:none;z-index:28;animation:flashMiss .4s ease-out forwards}
+@keyframes flashMiss{0%{background:rgba(239,68,68,.25)}100%{background:transparent}}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-overlay.hidden{display:none}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
+.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:28px;font-weight:700;color:#7c3aed;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff}
+.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+.hg-instrument{position:absolute;font-size:40px;pointer-events:none;z-index:2;opacity:.3;animation:instFloat 4s ease-in-out infinite}
+@keyframes instFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+.hg-powerup{position:absolute;font-size:32px;z-index:12;cursor:pointer;animation:puFloat 1.5s ease-in-out infinite;filter:drop-shadow(0 2px 8px rgba(251,191,36,.5))}
+@keyframes puFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+
+/* 모달 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:20px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.modal-head{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;padding:16px 20px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font-size:18px}
+.modal-close{background:0;border:0;color:#fff;font-size:24px;cursor:pointer}
+.modal-body{padding:20px}
+.modal-section{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fafc}
+.modal-section h4{margin:0 0 10px;font-weight:700;color:#374151;font-size:15px}
+.modal-input{width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px}
+.modal-input:focus{outline:none;border-color:#8b5cf6}
+.modal-btn{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;width:100%;background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;margin-top:6px}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.char-item.selected{background:linear-gradient(145deg,#c4b5fd,#a78bfa);border-color:#a78bfa}
+</style>
+</head>
+<body>
+<div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
+
+<div class="container">
+  <div class="subject-bar">
+    <a class="sb-tab" href="hangul.html">📝 한글</a>
+    <a class="sb-tab" href="math.html">🔢 숫자</a>
+    <button class="sb-tab active">🎵 음악</button>
+    <div class="sb-spacer"></div>
+    <div class="sb-btns">
+      <button class="sb-btn" id="sb-sound" onclick="toggleSound()">🔊</button>
+      <button class="sb-btn" onclick="showAdmin()">⚙️</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <div class="left-panel">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-avatar" onclick="showCharModal()"><span id="pf-char">🧒</span></div>
+          <div class="profile-info">
+            <div class="profile-name" onclick="changeName()"><span id="pf-name">음악가</span></div>
+            <div class="profile-level-container">
+              <div class="profile-level">
+                <span class="level-badge">LV.<span id="pf-level">1</span></span>
+                <span id="pf-done">0</span>/<span id="pf-total">10</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="pf-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-headers">
+        <button class="tab-btn active" onclick="switchTab('draw')">🎨 소리그림</button>
+        <button class="tab-btn" onclick="switchTab('drum')">🥁 몸으로드럼</button>
+        <button class="tab-btn" onclick="switchTab('fridge')">🎹 냉장고</button>
+        <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
+      </div>
+
+      <div class="tab-content draw-side active">
+        <div class="side-info">
+          <div class="side-title">🎨 소리 그림</div>
+          <div class="side-stat"><span>그린 곡</span><span class="side-val" id="draw-count">0</span></div>
+          <div class="side-stat"><span>음표 수</span><span class="side-val" id="draw-notes">0</span></div>
+        </div>
+      </div>
+      <div class="tab-content drum-side">
+        <div class="side-info">
+          <div class="side-title">🥁 몸으로 드럼</div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="drum-score-side">0</span></div>
+          <div class="side-stat"><span>Perfect</span><span class="side-val" id="drum-perfect">0</span></div>
+          <div class="side-stat"><span>콤보</span><span class="side-val" id="drum-combo-side">0</span></div>
+        </div>
+      </div>
+      <div class="tab-content fridge-side">
+        <div class="side-info">
+          <div class="side-title">🎹 냉장고 오케스트라</div>
+          <div class="side-stat"><span>연주 횟수</span><span class="side-val" id="fridge-plays">0</span></div>
+          <div class="side-stat"><span>배치 완료</span><span class="side-val" id="fridge-filled">0</span></div>
+        </div>
+      </div>
+      <div class="tab-content record-side">
+        <div class="side-info">
+          <div class="side-title">📊 종합 기록</div>
+          <div class="side-stat"><span>총 활동</span><span class="side-val" id="rec-total">0</span></div>
+          <div class="side-stat"><span>레벨</span><span class="side-val" id="rec-level">1</span></div>
+        </div>
+      </div>
+
+      <div class="game-launch-btn" onclick="startHeroGame()">🎵 비트 캐처 시작!</div>
+    </div>
+
+    <div class="center-panel">
+      <!-- 소리 그림 -->
+      <div class="game-view draw-view active" id="draw-view">
+        <div class="draw-area">
+          <div class="draw-info" id="draw-info">손가락으로 그려보세요! 위로 가면 높은 소리, 아래로 가면 낮은 소리</div>
+          <div class="draw-canvas-wrap" id="draw-wrap">
+            <div class="draw-guide">
+              <div class="draw-note">라</div>
+              <div class="draw-note">솔</div>
+              <div class="draw-note">미</div>
+              <div class="draw-note">레</div>
+              <div class="draw-note">도</div>
+            </div>
+            <svg id="draw-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 몸으로 드럼 -->
+      <div class="game-view drum-view" id="drum-view">
+        <div class="drum-area">
+          <div class="drum-pattern-bar">
+            <div class="drum-pattern-label">리듬:</div>
+            <div class="drum-beats" id="drum-beats"></div>
+          </div>
+          <div class="drum-score-bar">
+            <span>점수: <b id="drum-score">0</b></span>
+            <span>콤보: <b id="drum-combo">0</b></span>
+            <span id="drum-status">준비!</span>
+          </div>
+          <div class="drum-pads" id="drum-pads">
+            <div class="drum-pad pad-clap" onclick="hitDrum(0)" data-drum="0">👏<div class="drum-pad-label">박수</div></div>
+            <div class="drum-pad pad-stomp" onclick="hitDrum(1)" data-drum="1">🦶<div class="drum-pad-label">발구르기</div></div>
+            <div class="drum-pad pad-knee" onclick="hitDrum(2)" data-drum="2">🦵<div class="drum-pad-label">무릎치기</div></div>
+            <div class="drum-pad pad-tongue" onclick="hitDrum(3)" data-drum="3">👅<div class="drum-pad-label">혀차기</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 냉장고 오케스트라 -->
+      <div class="game-view fridge-view" id="fridge-view">
+        <div class="fridge-area">
+          <div class="fridge-items" id="fridge-items"></div>
+          <div class="fridge-seq">
+            <div class="fridge-seq-label">시퀀서</div>
+            <div class="fridge-seq-slots" id="fridge-slots">
+              <div class="fridge-slot" onclick="clearSlot(0)" id="fslot-0"></div>
+              <div class="fridge-slot" onclick="clearSlot(1)" id="fslot-1"></div>
+              <div class="fridge-slot" onclick="clearSlot(2)" id="fslot-2"></div>
+              <div class="fridge-slot" onclick="clearSlot(3)" id="fslot-3"></div>
+            </div>
+            <button class="fridge-play-btn" onclick="playSequence()">▶ 재생</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 내 기록 -->
+      <div class="game-view record-view" id="record-view">
+        <div class="records-area">
+          <div class="record-card">
+            <h3>🏆 종합 성적</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-total">0</div><div class="record-label">총 활동</div></div>
+              <div class="record-item"><div class="record-num" id="r-level">1</div><div class="record-label">레벨</div></div>
+              <div class="record-item"><div class="record-num" id="r-xp">0</div><div class="record-label">경험치</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🎨 소리 그림</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-draw-count">0</div><div class="record-label">그린 곡</div></div>
+              <div class="record-item"><div class="record-num" id="r-draw-notes">0</div><div class="record-label">총 음표</div></div>
+              <div class="record-item"><div class="record-num" id="r-draw-best">0</div><div class="record-label">최장 곡</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🥁 몸으로 드럼</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-drum-score">0</div><div class="record-label">최고 점수</div></div>
+              <div class="record-item"><div class="record-num" id="r-drum-perfect">0</div><div class="record-label">총 Perfect</div></div>
+              <div class="record-item"><div class="record-num" id="r-drum-combo">0</div><div class="record-label">최고 콤보</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🎹 냉장고 오케스트라</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-fridge-plays">0</div><div class="record-label">연주 횟수</div></div>
+              <div class="record-item"><div class="record-num" id="r-fridge-items">0</div><div class="record-label">사용 물건</div></div>
+              <div class="record-item"><div class="record-num" id="r-fridge-loops">0</div><div class="record-label">루프 재생</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel" id="right-panel">
+      <button class="action-btn btn-cyan" id="act1" onclick="actionBtn(1)"><span class="icon">▶</span>재생</button>
+      <button class="action-btn btn-green" id="act2" onclick="actionBtn(2)"><span class="icon">🗑</span>지우기</button>
+      <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">💾</span>저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 히어로: 비트 캐처 -->
+<div id="hero-game" class="hero-game hidden">
+  <div class="hg-header">
+    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
+    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
+    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="hg-ctrls">
+      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+    </div>
+  </div>
+  <div class="hg-arena" id="hg-arena">
+    <div class="hg-lane hg-lane-up"></div>
+    <div class="hg-lane hg-lane-down"></div>
+    <div class="hg-lane hg-lane-left"></div>
+    <div class="hg-lane hg-lane-right"></div>
+    <div class="hg-judge-ring"></div>
+    <div class="hg-judge-center"></div>
+    <div class="hg-tap-zone hg-tap-up" onclick="hgTap('up')">⬆</div>
+    <div class="hg-tap-zone hg-tap-down" onclick="hgTap('down')">⬇</div>
+    <div class="hg-tap-zone hg-tap-left" onclick="hgTap('left')">⬅</div>
+    <div class="hg-tap-zone hg-tap-right" onclick="hgTap('right')">➡</div>
+  </div>
+  <div id="hg-over" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>게임 끝!</h2>
+      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="msg" id="hg-over-msg">잘했어요!</div>
+      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-pause" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>⏸ 일시정지</h2>
+      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 관리자 모달 -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>⚙ 설정</h3><button class="modal-close" onclick="hideAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h4>👤 프로필</h4>
+        <input class="modal-input" id="adm-name" placeholder="이름 입력" maxlength="10">
+        <button class="modal-btn" onclick="saveProfileAdmin()">저장</button>
+      </div>
+      <div class="modal-section">
+        <h4>🔄 초기화</h4>
+        <button class="modal-btn" style="background:linear-gradient(145deg,#ef4444,#dc2626)" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 캐릭터 모달 -->
+<div id="char-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>🎭 캐릭터 선택</h3><button class="modal-close" onclick="hideCharModal()">×</button></div>
+    <div class="modal-body">
+      <div class="char-grid" id="char-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 전역 변수 =====
+let currentTab = 'draw';
+let soundEnabled = true;
+const LS = localStorage;
+
+// Web Audio Context
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// 펜타토닉 주파수 (도레미솔라)
+const PENTA = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
+const PENTA_NAMES = ['도','레','미','솔','라','도+','레+','미+'];
+
+// 프로필
+let profile = {
+  name: LS.getItem('musicName') || '음악가',
+  char: LS.getItem('musicChar') || '🧒',
+  totalXP: parseInt(LS.getItem('musicXP')) || 0
+};
+
+// 소리 그림 상태
+let draw = {
+  isDrawing: false, points: [], paths: [], noteCount: 0,
+  totalDrawn: parseInt(LS.getItem('drawCount')) || 0,
+  totalNotes: parseInt(LS.getItem('drawNotes')) || 0,
+  bestLength: parseInt(LS.getItem('drawBest')) || 0,
+  currentOsc: null, currentGain: null
+};
+
+// 드럼 상태
+let drum = {
+  score: 0, combo: 0, maxCombo: parseInt(LS.getItem('drumCombo')) || 0,
+  totalPerfect: parseInt(LS.getItem('drumPerfect')) || 0,
+  bestScore: parseInt(LS.getItem('drumBestScore')) || 0,
+  pattern: [], currentBeat: -1, playing: false, timer: null, bpm: 100
+};
+
+// 냉장고 상태
+let fridge = {
+  sequence: [null, null, null, null], nextSlot: 0,
+  totalPlays: parseInt(LS.getItem('fridgePlays')) || 0,
+  totalItems: parseInt(LS.getItem('fridgeItems')) || 0,
+  totalLoops: parseInt(LS.getItem('fridgeLoops')) || 0,
+  isPlaying: false
+};
+
+// 히어로 상태
+let hg = {
+  score: 0, lives: 5, level: 1, running: false, paused: false,
+  notes: [], spawnTimer: null, animId: null, combo: 0, maxCombo: 0,
+  bpm: 90, instruments: 0
+};
+
+// 냉장고 물건 데이터
+const FRIDGE_ITEMS = [
+  { emoji: '🍳', name: '프라이팬', type: 'metalHit', freq: 280 },
+  { emoji: '🥄', name: '숟가락', type: 'metalTing', freq: 1200 },
+  { emoji: '🫙', name: '유리병', type: 'glassTing', freq: 800 },
+  { emoji: '🥘', name: '냄비뚜껑', type: 'crash', freq: 350 },
+  { emoji: '🧴', name: '물병', type: 'waterDrop', freq: 600 },
+  { emoji: '🥢', name: '젓가락', type: 'woodTap', freq: 2000 },
+  { emoji: '📦', name: '상자', type: 'boxThud', freq: 120 },
+  { emoji: '🔔', name: '종', type: 'bell', freq: 900 }
+];
+
+// 드럼 소리 타입
+const DRUM_TYPES = [
+  { name: '박수', emoji: '👏' },
+  { name: '발구르기', emoji: '🦶' },
+  { name: '무릎치기', emoji: '🦵' },
+  { name: '혀차기', emoji: '👅' }
+];
+
+// ===== Web Audio 소리 합성 =====
+function playNote(freq, duration, type) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(2000, ctx.currentTime);
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (duration || 0.3));
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + (duration || 0.3));
+  } catch(e) {}
+}
+
+function playDrumSound(drumIdx) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    if (drumIdx === 0) { // 박수 — 노이즈 버스트
+      const bufSize = ctx.sampleRate * 0.08;
+      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufSize);
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 1000;
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.4, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      src.connect(hp); hp.connect(gain); gain.connect(ctx.destination);
+      src.start(); src.stop(ctx.currentTime + 0.12);
+    } else if (drumIdx === 1) { // 발구르기 — 킥드럼
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(150, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.5, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.2);
+    } else if (drumIdx === 2) { // 무릎치기 — 스네어
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.1);
+      // 노이즈
+      const bufSize = ctx.sampleRate * 0.06;
+      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufSize);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const g2 = ctx.createGain(); g2.gain.setValueAtTime(0.2, ctx.currentTime);
+      g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+      src.connect(g2); g2.connect(ctx.destination);
+      src.start(); src.stop(ctx.currentTime + 0.08);
+    } else { // 혀차기 — 하이햇
+      const bufSize = ctx.sampleRate * 0.04;
+      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 3);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 5000;
+      const gain = ctx.createGain(); gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+      src.connect(hp); hp.connect(gain); gain.connect(ctx.destination);
+      src.start(); src.stop(ctx.currentTime + 0.06);
+    }
+  } catch(e) {}
+}
+
+function playFridgeSound(item) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    const t = ctx.currentTime;
+    if (item.type === 'metalHit') {
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = 'square'; osc.frequency.setValueAtTime(item.freq, t);
+      osc.frequency.exponentialRampToValueAtTime(item.freq * 0.5, t + 0.3);
+      g.gain.setValueAtTime(0.2, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + 0.3);
+    } else if (item.type === 'metalTing') {
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = 'sine'; osc.frequency.setValueAtTime(item.freq, t);
+      g.gain.setValueAtTime(0.2, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + 0.5);
+    } else if (item.type === 'glassTing') {
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = 'sine'; osc.frequency.setValueAtTime(item.freq, t);
+      osc.frequency.setValueAtTime(item.freq * 1.5, t + 0.05);
+      g.gain.setValueAtTime(0.15, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + 0.6);
+      const osc2 = ctx.createOscillator(); const g2 = ctx.createGain();
+      osc2.type = 'sine'; osc2.frequency.setValueAtTime(item.freq * 2, t);
+      g2.gain.setValueAtTime(0.08, t); g2.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      osc2.connect(g2); g2.connect(ctx.destination); osc2.start(t); osc2.stop(t + 0.4);
+    } else if (item.type === 'crash') {
+      const bufSize = ctx.sampleRate * 0.3;
+      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 1.5);
+      const src = ctx.createBufferSource(); src.buffer = buf;
+      const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = item.freq; bp.Q.value = 1;
+      const g = ctx.createGain(); g.gain.setValueAtTime(0.25, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      src.connect(bp); bp.connect(g); g.connect(ctx.destination); src.start(t); src.stop(t + 0.4);
+    } else if (item.type === 'waterDrop') {
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = 'sine'; osc.frequency.setValueAtTime(item.freq, t);
+      osc.frequency.exponentialRampToValueAtTime(item.freq * 0.6, t + 0.15);
+      g.gain.setValueAtTime(0.2, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + 0.2);
+    } else if (item.type === 'woodTap') {
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = 'triangle'; osc.frequency.setValueAtTime(item.freq, t);
+      g.gain.setValueAtTime(0.15, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + 0.05);
+    } else if (item.type === 'boxThud') {
+      const osc = ctx.createOscillator(); const g = ctx.createGain();
+      osc.type = 'sine'; osc.frequency.setValueAtTime(item.freq, t);
+      osc.frequency.exponentialRampToValueAtTime(30, t + 0.15);
+      g.gain.setValueAtTime(0.35, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + 0.2);
+    } else if (item.type === 'bell') {
+      [1, 2, 3].forEach((h, i) => {
+        const osc = ctx.createOscillator(); const g = ctx.createGain();
+        osc.type = 'sine'; osc.frequency.setValueAtTime(item.freq * h, t);
+        g.gain.setValueAtTime(0.12 / h, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.8);
+        osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + 0.8);
+      });
+    }
+  } catch(e) {}
+}
+
+// ===== TTS =====
+let audioQueue = [];
+let isSpeaking = false;
+function speak(text) {
+  if (!soundEnabled) return;
+  audioQueue.push(text);
+  processQueue();
+}
+function processQueue() {
+  if (isSpeaking || !audioQueue.length) return;
+  isSpeaking = true;
+  const u = new SpeechSynthesisUtterance(audioQueue.shift());
+  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.onend = () => { isSpeaking = false; processQueue(); };
+  u.onerror = () => { isSpeaking = false; processQueue(); };
+  speechSynthesis.speak(u);
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sb-sound').textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) speechSynthesis.cancel();
+}
+
+// ===== 프로필 =====
+function updateProfile() {
+  document.getElementById('pf-name').textContent = profile.name;
+  document.getElementById('pf-char').textContent = profile.char;
+  const lv = Math.floor(profile.totalXP / 10) + 1;
+  document.getElementById('pf-level').textContent = lv;
+  const prog = (profile.totalXP % 10);
+  document.getElementById('pf-done').textContent = prog;
+  document.getElementById('pf-total').textContent = 10;
+  document.getElementById('pf-bar').style.width = (prog * 10) + '%';
+}
+function changeName() {
+  const n = prompt('이름을 입력하세요:', profile.name);
+  if (n && n.trim()) { profile.name = n.trim(); LS.setItem('musicName', profile.name); updateProfile(); }
+}
+function showCharModal() {
+  document.getElementById('char-modal').classList.remove('hidden');
+  const chars = ['🧒','👦','👧','🦸‍♂️','🦸‍♀️','🧙‍♂️','🐱','🐶','🦊','🐻','🐰','🐸','🦁','🐯','🐼'];
+  const g = document.getElementById('char-grid');
+  g.innerHTML = chars.map(c => `<div class="char-item${c===profile.char?' selected':''}" onclick="pickChar('${c}')">${c}</div>`).join('');
+}
+function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
+function pickChar(c) { profile.char = c; LS.setItem('musicChar', c); updateProfile(); hideCharModal(); }
+function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
+function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+function saveProfileAdmin() {
+  const n = document.getElementById('adm-name').value.trim();
+  if (n) { profile.name = n; LS.setItem('musicName', n); updateProfile(); }
+  hideAdmin();
+}
+function resetAll() {
+  if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
+  ['musicName','musicChar','musicXP','drawCount','drawNotes','drawBest','drumCombo','drumPerfect','drumBestScore','fridgePlays','fridgeItems','fridgeLoops'].forEach(k => LS.removeItem(k));
+  location.reload();
+}
+function saveStats() {
+  LS.setItem('musicXP', profile.totalXP);
+  LS.setItem('drawCount', draw.totalDrawn);
+  LS.setItem('drawNotes', draw.totalNotes);
+  LS.setItem('drawBest', draw.bestLength);
+  LS.setItem('drumCombo', drum.maxCombo);
+  LS.setItem('drumPerfect', drum.totalPerfect);
+  LS.setItem('drumBestScore', drum.bestScore);
+  LS.setItem('fridgePlays', fridge.totalPlays);
+  LS.setItem('fridgeItems', fridge.totalItems);
+  LS.setItem('fridgeLoops', fridge.totalLoops);
+}
+function addXP(n) {
+  profile.totalXP += n;
+  updateProfile();
+  saveStats();
+}
+
+// ===== 탭 전환 =====
+function switchTab(tab) {
+  if (drum.playing) stopDrumPattern();
+  speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['draw','drum','fridge','record'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.' + tab + '-side').classList.add('active');
+  document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.' + tab + '-view').classList.add('active');
+  updateActionButtons();
+  if (tab === 'record') updateRecords();
+}
+
+function updateActionButtons() {
+  const a1 = document.getElementById('act1');
+  const a2 = document.getElementById('act2');
+  const a3 = document.getElementById('act3');
+  if (currentTab === 'draw') {
+    a1.innerHTML = '<span class="icon">▶</span>재생'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🗑</span>지우기'; a2.className = 'action-btn btn-red'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">💾</span>저장'; a3.className = 'action-btn btn-green'; a3.disabled = false;
+  } else if (currentTab === 'drum') {
+    a1.innerHTML = '<span class="icon">▶</span>시작'; a1.className = 'action-btn btn-green'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏹</span>멈춤'; a2.className = 'action-btn btn-red'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>새 리듬'; a3.className = 'action-btn btn-purple'; a3.disabled = false;
+  } else if (currentTab === 'fridge') {
+    a1.innerHTML = '<span class="icon">▶</span>재생'; a1.className = 'action-btn btn-green'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🗑</span>비우기'; a2.className = 'action-btn btn-red'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔀</span>랜덤'; a3.className = 'action-btn btn-purple'; a3.disabled = false;
+  } else {
+    a1.innerHTML = '<span class="icon">📊</span>기록'; a1.className = 'action-btn btn-cyan'; a1.disabled = true;
+    a2.innerHTML = '<span class="icon">—</span>—'; a2.className = 'action-btn btn-green'; a2.disabled = true;
+    a3.innerHTML = '<span class="icon">—</span>—'; a3.className = 'action-btn btn-red'; a3.disabled = true;
+  }
+}
+
+function actionBtn(n) {
+  if (currentTab === 'draw') {
+    if (n === 1) replayDrawing();
+    else if (n === 2) clearDrawing();
+    else saveDrawing();
+  } else if (currentTab === 'drum') {
+    if (n === 1) startDrumPattern();
+    else if (n === 2) stopDrumPattern();
+    else generateDrumPattern();
+  } else if (currentTab === 'fridge') {
+    if (n === 1) playSequence();
+    else if (n === 2) clearSequence();
+    else randomSequence();
+  }
+}
+
+// ===== 소리 그림 =====
+function initDrawing() {
+  const wrap = document.getElementById('draw-wrap');
+  const svg = document.getElementById('draw-svg');
+
+  // 가이드 라인 그리기
+  const svgNS = 'http://www.w3.org/2000/svg';
+  for (let i = 0; i < 5; i++) {
+    const line = document.createElementNS(svgNS, 'line');
+    line.setAttribute('x1', '60'); line.setAttribute('x2', '100%');
+    line.setAttribute('y1', (i * 25 + 2) + '%');
+    line.setAttribute('y2', (i * 25 + 2) + '%');
+    line.setAttribute('stroke', '#c4b5fd'); line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke-dasharray', '4,6'); line.setAttribute('opacity', '0.4');
+    svg.appendChild(line);
+  }
+
+  function getPos(e) {
+    const rect = wrap.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+      x: ((clientX - rect.left) / rect.width) * 100,
+      y: ((clientY - rect.top) / rect.height) * 100
+    };
+  }
+
+  function startDraw(e) {
+    e.preventDefault();
+    draw.isDrawing = true;
+    draw.points = [];
+    const pos = getPos(e);
+    draw.points.push(pos);
+    playNoteFromY(pos.y);
+  }
+
+  function moveDraw(e) {
+    if (!draw.isDrawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    draw.points.push(pos);
+    renderCurrentPath();
+    playNoteFromY(pos.y);
+  }
+
+  function endDraw(e) {
+    if (!draw.isDrawing) return;
+    draw.isDrawing = false;
+    stopCurrentNote();
+    if (draw.points.length > 3) {
+      draw.paths.push([...draw.points]);
+      draw.noteCount += draw.points.length;
+      draw.totalNotes += draw.points.length;
+      document.getElementById('draw-notes').textContent = draw.noteCount;
+    }
+  }
+
+  wrap.addEventListener('mousedown', startDraw);
+  wrap.addEventListener('mousemove', moveDraw);
+  wrap.addEventListener('mouseup', endDraw);
+  wrap.addEventListener('mouseleave', endDraw);
+  wrap.addEventListener('touchstart', startDraw, { passive: false });
+  wrap.addEventListener('touchmove', moveDraw, { passive: false });
+  wrap.addEventListener('touchend', endDraw);
+}
+
+function playNoteFromY(yPercent) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    const idx = Math.floor((1 - yPercent / 100) * (PENTA.length - 1));
+    const noteIdx = Math.max(0, Math.min(PENTA.length - 1, idx));
+    const freq = PENTA[noteIdx];
+
+    if (draw.currentOsc) {
+      draw.currentOsc.frequency.setTargetAtTime(freq, ctx.currentTime, 0.03);
+    } else {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(1500, ctx.currentTime);
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      osc.start();
+      draw.currentOsc = osc;
+      draw.currentGain = gain;
+    }
+  } catch(e) {}
+}
+
+function stopCurrentNote() {
+  if (draw.currentGain) {
+    try {
+      const ctx = getAudioCtx();
+      draw.currentGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      setTimeout(() => {
+        try { draw.currentOsc.stop(); } catch(e) {}
+        draw.currentOsc = null;
+        draw.currentGain = null;
+      }, 150);
+    } catch(e) {
+      draw.currentOsc = null;
+      draw.currentGain = null;
+    }
+  }
+}
+
+function renderCurrentPath() {
+  const svg = document.getElementById('draw-svg');
+  let existing = svg.querySelector('.current-draw-path');
+  if (!existing) {
+    const svgNS = 'http://www.w3.org/2000/svg';
+    existing = document.createElementNS(svgNS, 'path');
+    existing.classList.add('current-draw-path');
+    existing.setAttribute('fill', 'none');
+    existing.setAttribute('stroke', '#7c3aed');
+    existing.setAttribute('stroke-width', '3');
+    existing.setAttribute('stroke-linecap', 'round');
+    existing.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(existing);
+  }
+  if (draw.points.length < 2) return;
+  let d = `M ${draw.points[0].x}% ${draw.points[0].y}%`;
+  for (let i = 1; i < draw.points.length; i++) {
+    d += ` L ${draw.points[i].x}% ${draw.points[i].y}%`;
+  }
+  existing.setAttribute('d', d);
+}
+
+function finalizeCurrentPath() {
+  const svg = document.getElementById('draw-svg');
+  const current = svg.querySelector('.current-draw-path');
+  if (current) {
+    current.classList.remove('current-draw-path');
+    current.classList.add('saved-draw-path');
+    // 색상 다양하게
+    const colors = ['#7c3aed','#8b5cf6','#a78bfa','#ec4899','#3b82f6','#06b6d4','#10b981'];
+    current.setAttribute('stroke', colors[draw.paths.length % colors.length]);
+    current.setAttribute('stroke-width', '3');
+  }
+}
+
+function replayDrawing() {
+  if (draw.paths.length === 0) { speak('먼저 그림을 그려보세요!'); return; }
+  speak('그림을 재생합니다!');
+  let pathIdx = 0;
+  function playPath() {
+    if (pathIdx >= draw.paths.length) return;
+    const pts = draw.paths[pathIdx];
+    let ptIdx = 0;
+    const interval = setInterval(() => {
+      if (ptIdx >= pts.length) { clearInterval(interval); stopCurrentNote(); pathIdx++; setTimeout(playPath, 200); return; }
+      playNoteFromY(pts[ptIdx].y);
+      ptIdx += 3;
+    }, 50);
+  }
+  playPath();
+}
+
+function clearDrawing() {
+  const svg = document.getElementById('draw-svg');
+  svg.querySelectorAll('.current-draw-path,.saved-draw-path').forEach(p => p.remove());
+  draw.paths = [];
+  draw.points = [];
+  draw.noteCount = 0;
+  document.getElementById('draw-notes').textContent = 0;
+}
+
+function saveDrawing() {
+  if (draw.paths.length === 0) { speak('먼저 그림을 그려보세요!'); return; }
+  draw.totalDrawn++;
+  if (draw.noteCount > draw.bestLength) draw.bestLength = draw.noteCount;
+  document.getElementById('draw-count').textContent = draw.totalDrawn;
+  addXP(2);
+  speak('멋진 곡이 저장되었어요!');
+  // 저장 이펙트
+  finalizeCurrentPath();
+}
+
+// ===== 몸으로 드럼 =====
+function generateDrumPattern() {
+  const length = 8;
+  drum.pattern = [];
+  for (let i = 0; i < length; i++) {
+    drum.pattern.push(Math.floor(Math.random() * 4));
+  }
+  renderDrumBeats();
+  drum.currentBeat = -1;
+  drum.score = 0;
+  drum.combo = 0;
+  updateDrumUI();
+}
+
+function renderDrumBeats() {
+  const container = document.getElementById('drum-beats');
+  container.innerHTML = drum.pattern.map((d, i) =>
+    `<div class="drum-beat" id="dbeat-${i}">${DRUM_TYPES[d].emoji}</div>`
+  ).join('');
+}
+
+function startDrumPattern() {
+  if (drum.playing) return;
+  if (drum.pattern.length === 0) generateDrumPattern();
+  drum.playing = true;
+  drum.currentBeat = -1;
+  drum.score = 0;
+  drum.combo = 0;
+  updateDrumUI();
+  document.getElementById('drum-status').textContent = '연주중!';
+  advanceBeat();
+}
+
+function advanceBeat() {
+  if (!drum.playing) return;
+  // 이전 비트 비활성화
+  if (drum.currentBeat >= 0) {
+    const prev = document.getElementById('dbeat-' + drum.currentBeat);
+    if (prev) prev.classList.remove('active');
+  }
+  drum.currentBeat++;
+  if (drum.currentBeat >= drum.pattern.length) {
+    // 패턴 완료
+    stopDrumPattern();
+    if (drum.score > drum.bestScore) drum.bestScore = drum.score;
+    addXP(Math.min(drum.score, 5));
+    speak(drum.score >= drum.pattern.length * 8 ? '완벽해요!' : '잘했어요!');
+    document.getElementById('drum-status').textContent = `완료! ${drum.score}점`;
+    return;
+  }
+  // 현재 비트 활성화
+  const cur = document.getElementById('dbeat-' + drum.currentBeat);
+  if (cur) cur.classList.add('active');
+  // 다음 비트까지 대기
+  drum.beatTimeout = Date.now();
+  drum.timer = setTimeout(advanceBeat, 60000 / drum.bpm);
+}
+
+function hitDrum(drumIdx) {
+  playDrumSound(drumIdx);
+  // 리플 이펙트
+  const pad = document.querySelectorAll('.drum-pad')[drumIdx];
+  const ripple = document.createElement('div');
+  ripple.className = 'drum-pad-ripple';
+  ripple.style.cssText = 'width:100%;height:100%;top:0;left:0';
+  pad.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 500);
+
+  if (!drum.playing || drum.currentBeat < 0) return;
+
+  const expected = drum.pattern[drum.currentBeat];
+  const timeSinceBeat = Date.now() - drum.beatTimeout;
+  const beatMs = 60000 / drum.bpm;
+
+  if (drumIdx === expected) {
+    let grade, color, points;
+    if (timeSinceBeat < beatMs * 0.3) {
+      grade = 'Perfect!'; color = '#22c55e'; points = 10;
+      drum.totalPerfect++;
+    } else if (timeSinceBeat < beatMs * 0.6) {
+      grade = 'Good!'; color = '#f59e0b'; points = 5;
+    } else {
+      grade = 'OK'; color = '#3b82f6'; points = 2;
+    }
+    drum.score += points;
+    drum.combo++;
+    if (drum.combo > drum.maxCombo) drum.maxCombo = drum.combo;
+
+    // 비트 피드백
+    const beat = document.getElementById('dbeat-' + drum.currentBeat);
+    if (beat) {
+      beat.classList.add(timeSinceBeat < beatMs * 0.3 ? 'hit-perfect' : timeSinceBeat < beatMs * 0.6 ? 'hit-good' : 'hit-miss');
+    }
+
+    // 판정 텍스트
+    showDrumResult(pad, grade, color);
+  } else {
+    drum.combo = 0;
+    const beat = document.getElementById('dbeat-' + drum.currentBeat);
+    if (beat) beat.classList.add('hit-miss');
+    showDrumResult(pad, 'Miss!', '#ef4444');
+  }
+  updateDrumUI();
+}
+
+function showDrumResult(pad, text, color) {
+  const rect = pad.getBoundingClientRect();
+  const area = document.querySelector('.drum-area');
+  const aRect = area.getBoundingClientRect();
+  const el = document.createElement('div');
+  el.className = 'drum-result';
+  el.textContent = text;
+  el.style.cssText = `left:${rect.left - aRect.left + rect.width/2}px;top:${rect.top - aRect.top}px;color:${color}`;
+  area.appendChild(el);
+  setTimeout(() => el.remove(), 800);
+}
+
+function stopDrumPattern() {
+  drum.playing = false;
+  clearTimeout(drum.timer);
+  document.querySelectorAll('.drum-beat').forEach(b => b.classList.remove('active'));
+  saveStats();
+}
+
+function updateDrumUI() {
+  document.getElementById('drum-score').textContent = drum.score;
+  document.getElementById('drum-combo').textContent = drum.combo;
+  document.getElementById('drum-score-side').textContent = drum.score;
+  document.getElementById('drum-perfect').textContent = drum.totalPerfect;
+  document.getElementById('drum-combo-side').textContent = drum.combo;
+}
+
+// ===== 냉장고 오케스트라 =====
+function initFridge() {
+  const container = document.getElementById('fridge-items');
+  container.innerHTML = FRIDGE_ITEMS.map((item, i) =>
+    `<div class="fridge-item" onclick="tapFridgeItem(${i})" id="fi-${i}">
+      ${item.emoji}
+      <div class="fridge-item-name">${item.name}</div>
+    </div>`
+  ).join('');
+}
+
+function tapFridgeItem(idx) {
+  const item = FRIDGE_ITEMS[idx];
+  playFridgeSound(item);
+  fridge.totalItems++;
+
+  // 시각 이펙트
+  const el = document.getElementById('fi-' + idx);
+  el.classList.add('playing');
+  setTimeout(() => el.classList.remove('playing'), 300);
+
+  // 링 이펙트
+  const ring = document.createElement('div');
+  ring.className = 'fridge-item-ring';
+  ring.style.cssText = `width:80px;height:80px;top:50%;left:50%;margin:-40px 0 0 -40px;border-color:${['#8b5cf6','#ec4899','#3b82f6','#10b981','#f59e0b','#ef4444','#06b6d4','#fbbf24'][idx]}`;
+  el.appendChild(ring);
+  setTimeout(() => ring.remove(), 600);
+
+  // 시퀀서에 배치
+  if (fridge.nextSlot < 4) {
+    fridge.sequence[fridge.nextSlot] = idx;
+    updateSlots();
+    fridge.nextSlot++;
+    if (fridge.nextSlot >= 4) fridge.nextSlot = 0;
+  }
+  saveStats();
+}
+
+function updateSlots() {
+  for (let i = 0; i < 4; i++) {
+    const slot = document.getElementById('fslot-' + i);
+    if (fridge.sequence[i] !== null) {
+      slot.textContent = FRIDGE_ITEMS[fridge.sequence[i]].emoji;
+      slot.classList.add('filled');
+    } else {
+      slot.textContent = '';
+      slot.classList.remove('filled');
+    }
+    slot.classList.toggle('active-slot', i === fridge.nextSlot);
+  }
+  document.getElementById('fridge-filled').textContent = fridge.sequence.filter(s => s !== null).length;
+}
+
+function clearSlot(idx) {
+  fridge.sequence[idx] = null;
+  fridge.nextSlot = idx;
+  updateSlots();
+}
+
+function clearSequence() {
+  fridge.sequence = [null, null, null, null];
+  fridge.nextSlot = 0;
+  updateSlots();
+}
+
+function randomSequence() {
+  for (let i = 0; i < 4; i++) {
+    fridge.sequence[i] = Math.floor(Math.random() * FRIDGE_ITEMS.length);
+  }
+  fridge.nextSlot = 0;
+  updateSlots();
+}
+
+function playSequence() {
+  const filled = fridge.sequence.filter(s => s !== null);
+  if (filled.length === 0) { speak('물건을 터치해서 시퀀서에 배치하세요!'); return; }
+  if (fridge.isPlaying) return;
+  fridge.isPlaying = true;
+  fridge.totalPlays++;
+  fridge.totalLoops++;
+  addXP(1);
+
+  let i = 0;
+  function playNext() {
+    if (i >= 4) { fridge.isPlaying = false; saveStats(); return; }
+    const slot = document.getElementById('fslot-' + i);
+    slot.classList.add('active-slot');
+    if (fridge.sequence[i] !== null) {
+      const item = FRIDGE_ITEMS[fridge.sequence[i]];
+      playFridgeSound(item);
+      const fi = document.getElementById('fi-' + fridge.sequence[i]);
+      if (fi) { fi.classList.add('playing'); setTimeout(() => fi.classList.remove('playing'), 300); }
+    }
+    setTimeout(() => {
+      slot.classList.remove('active-slot');
+      i++;
+      playNext();
+    }, 500);
+  }
+  playNext();
+  document.getElementById('fridge-plays').textContent = fridge.totalPlays;
+}
+
+// ===== 내 기록 =====
+function updateRecords() {
+  const lv = Math.floor(profile.totalXP / 10) + 1;
+  document.getElementById('r-total').textContent = profile.totalXP;
+  document.getElementById('r-level').textContent = lv;
+  document.getElementById('r-xp').textContent = profile.totalXP;
+  document.getElementById('rec-total').textContent = profile.totalXP;
+  document.getElementById('rec-level').textContent = lv;
+  document.getElementById('r-draw-count').textContent = draw.totalDrawn;
+  document.getElementById('r-draw-notes').textContent = draw.totalNotes;
+  document.getElementById('r-draw-best').textContent = draw.bestLength;
+  document.getElementById('r-drum-score').textContent = drum.bestScore;
+  document.getElementById('r-drum-perfect').textContent = drum.totalPerfect;
+  document.getElementById('r-drum-combo').textContent = drum.maxCombo;
+  document.getElementById('r-fridge-plays').textContent = fridge.totalPlays;
+  document.getElementById('r-fridge-items').textContent = fridge.totalItems;
+  document.getElementById('r-fridge-loops').textContent = fridge.totalLoops;
+}
+
+// ===== 히어로: 비트 캐처 =====
+const NOTE_EMOJIS = ['🎵','🎶','🎼','🎹','🎸'];
+const DIRS = ['up','down','left','right'];
+const DIR_COLORS = { up:'#ef4444', down:'#22c55e', left:'#3b82f6', right:'#fbbf24' };
+
+function startHeroGame() {
+  document.getElementById('hero-game').classList.remove('hidden');
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.notes = []; hg.combo = 0; hg.maxCombo = 0; hg.instruments = 0; hg.bpm = 90;
+  updateHgUI();
+  addHgInstruments();
+  hgLoop();
+  // 배경 음악 느낌 — 지속 드론
+  startBgDrone();
+}
+
+let bgDroneOsc = null, bgDroneGain = null;
+function startBgDrone() {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    bgDroneOsc = ctx.createOscillator();
+    bgDroneGain = ctx.createGain();
+    bgDroneOsc.type = 'sine';
+    bgDroneOsc.frequency.setValueAtTime(65, ctx.currentTime);
+    bgDroneGain.gain.setValueAtTime(0.06, ctx.currentTime);
+    bgDroneOsc.connect(bgDroneGain);
+    bgDroneGain.connect(ctx.destination);
+    bgDroneOsc.start();
+  } catch(e) {}
+}
+
+function stopBgDrone() {
+  try {
+    if (bgDroneGain) bgDroneGain.gain.exponentialRampToValueAtTime(0.001, getAudioCtx().currentTime + 0.3);
+    setTimeout(() => { try { bgDroneOsc.stop(); } catch(e) {} bgDroneOsc = null; bgDroneGain = null; }, 400);
+  } catch(e) { bgDroneOsc = null; bgDroneGain = null; }
+}
+
+function addHgInstruments() {
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-instrument').forEach(e => e.remove());
+  const insts = ['🎸','🎹','🥁','🎺','🎻','🪇','🎷','🪘'];
+  for (let i = 0; i < 4; i++) {
+    const el = document.createElement('div');
+    el.className = 'hg-instrument';
+    el.textContent = insts[i];
+    el.style.left = (15 + i * 22) + '%';
+    el.style.top = (70 + Math.random() * 15) + '%';
+    el.style.animationDelay = (i * 0.5) + 's';
+    el.id = 'hg-inst-' + i;
+    arena.appendChild(el);
+  }
+}
+
+function hgLoop() {
+  const interval = Math.max(800, 60000 / hg.bpm);
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  hg.spawnTimer = setInterval(() => {
+    if (!hg.paused && hg.running) hgSpawn();
+  }, interval);
+  function tick() {
+    if (!hg.running) return;
+    if (!hg.paused) hgMoveNotes();
+    hg.animId = requestAnimationFrame(tick);
+  }
+  hg.animId = requestAnimationFrame(tick);
+}
+
+function hgSpawn() {
+  // 5% 파워업
+  if (Math.random() < 0.05) { hgSpawnPower(); return; }
+
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+  const cx = w / 2;
+  const cy = h / 2;
+  const dir = DIRS[Math.floor(Math.random() * DIRS.length)];
+  const emoji = NOTE_EMOJIS[Math.floor(Math.random() * NOTE_EMOJIS.length)];
+
+  const el = document.createElement('div');
+  el.className = 'hg-note';
+  el.textContent = emoji;
+  el.style.color = DIR_COLORS[dir];
+
+  let startX, startY;
+  if (dir === 'up') { startX = cx - 18; startY = -40; }
+  else if (dir === 'down') { startX = cx - 18; startY = h + 10; }
+  else if (dir === 'left') { startX = -40; startY = cy - 18; }
+  else { startX = w + 10; startY = cy - 18; }
+
+  el.style.left = startX + 'px';
+  el.style.top = startY + 'px';
+  arena.appendChild(el);
+
+  const speed = 0.8 + hg.level * 0.15;
+  hg.notes.push({ el, dir, x: startX, y: startY, speed, hit: false });
+}
+
+function hgSpawnPower() {
+  const types = [{e:'🎧',fx:'earphone'},{e:'📻',fx:'metronome'},{e:'🔊',fx:'amp'}];
+  const t = types[Math.floor(Math.random() * types.length)];
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+  const el = document.createElement('div');
+  el.className = 'hg-powerup';
+  el.textContent = t.e;
+  el.style.left = (Math.random() * (w - 60) + 30) + 'px';
+  el.style.top = (Math.random() * (h - 60) + 30) + 'px';
+  el.onclick = () => hgPowerUp(t.fx, el);
+  arena.appendChild(el);
+  setTimeout(() => { if (el.parentNode) el.remove(); }, 5000);
+}
+
+function hgPowerUp(fx, el) {
+  if (fx === 'earphone') { hg.lives = Math.min(hg.lives + 1, 7); speak('생명 추가!'); }
+  else if (fx === 'metronome') { /* 슬로우 */ hg.notes.forEach(n => n.speed *= 0.5); setTimeout(() => hg.notes.forEach(n => n.speed *= 2), 4000); speak('슬로우!'); }
+  else if (fx === 'amp') { hg.score += 10; speak('보너스!'); }
+  el.remove();
+  updateHgUI();
+}
+
+function hgMoveNotes() {
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+  const cx = w / 2;
+  const cy = h / 2;
+
+  hg.notes = hg.notes.filter(note => {
+    if (note.hit) return false;
+    // 중앙을 향해 이동
+    const dx = cx - note.x;
+    const dy = cy - note.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 2) {
+      // 판정선 통과 — Miss
+      note.el.remove();
+      hgMiss();
+      return false;
+    }
+    const nx = dx / dist * note.speed;
+    const ny = dy / dist * note.speed;
+    note.x += nx;
+    note.y += ny;
+    note.el.style.left = note.x + 'px';
+    note.el.style.top = note.y + 'px';
+    return true;
+  });
+}
+
+function hgTap(dir) {
+  if (!hg.running || hg.paused) return;
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+  const cx = w / 2;
+  const cy = h / 2;
+
+  // 해당 방향 + 판정선 근처 노트 찾기
+  let best = null;
+  let bestDist = Infinity;
+  for (const note of hg.notes) {
+    if (note.dir !== dir || note.hit) continue;
+    const dx = note.x - cx;
+    const dy = note.y - cy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 120 && dist < bestDist) {
+      bestDist = dist;
+      best = note;
+    }
+  }
+
+  if (best) {
+    best.hit = true;
+    let grade, points;
+    if (bestDist < 30) { grade = 'Perfect!'; points = 10; }
+    else if (bestDist < 60) { grade = 'Good!'; points = 5; }
+    else { grade = 'OK'; points = 2; }
+
+    hg.combo++;
+    if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+    hg.score += points + Math.min(hg.combo, 10);
+
+    // 히트 소리
+    playNote(PENTA[Math.floor(Math.random() * 5)], 0.2, 'sine');
+
+    // 판정 텍스트
+    const jt = document.createElement('div');
+    jt.className = 'hg-judge-text';
+    jt.textContent = grade;
+    jt.style.color = grade === 'Perfect!' ? '#22c55e' : grade === 'Good!' ? '#f59e0b' : '#60a5fa';
+    arena.appendChild(jt);
+    setTimeout(() => jt.remove(), 800);
+
+    // 콤보 표시
+    if (hg.combo >= 3) {
+      const ct = document.createElement('div');
+      ct.className = 'hg-combo-text';
+      ct.textContent = `${hg.combo} COMBO!`;
+      arena.appendChild(ct);
+      setTimeout(() => ct.remove(), 1000);
+    }
+
+    // 악기 추가 (콤보 5마다)
+    if (hg.combo % 5 === 0 && hg.instruments < 4) {
+      const inst = document.getElementById('hg-inst-' + hg.instruments);
+      if (inst) { inst.style.opacity = '1'; inst.style.fontSize = '50px'; }
+      hg.instruments++;
+    }
+
+    // 플래시
+    const flash = document.createElement('div');
+    flash.className = 'hg-flash-good';
+    arena.appendChild(flash);
+    setTimeout(() => flash.remove(), 300);
+
+    // 노트 제거 애니메이션
+    best.el.style.transition = 'all .2s';
+    best.el.style.transform = 'scale(2)';
+    best.el.style.opacity = '0';
+    setTimeout(() => best.el.remove(), 200);
+
+    // 레벨 업
+    const nl = Math.floor(hg.score / 20) + 1;
+    if (nl > hg.level) {
+      hg.level = nl;
+      hg.bpm = 90 + (hg.level - 1) * 15;
+      hgLoop(); // 속도 갱신
+      hgUpdateBg();
+    }
+    updateHgUI();
+  }
+}
+
+function hgMiss() {
+  hg.lives--;
+  hg.combo = 0;
+  // 악기 제거
+  if (hg.instruments > 0) {
+    hg.instruments--;
+    const inst = document.getElementById('hg-inst-' + hg.instruments);
+    if (inst) { inst.style.opacity = '.3'; inst.style.fontSize = '40px'; }
+  }
+  // Miss 이펙트
+  const arena = document.getElementById('hg-arena');
+  const flash = document.createElement('div');
+  flash.className = 'hg-flash-miss';
+  arena.appendChild(flash);
+  setTimeout(() => flash.remove(), 400);
+
+  // Miss 소리
+  playNote(100, 0.2, 'sawtooth');
+
+  updateHgUI();
+  if (hg.lives <= 0) hgEnd();
+}
+
+function hgUpdateBg() {
+  const bgs = [
+    'linear-gradient(180deg,#1e1b4b 0%,#312e81 30%,#4c1d95 70%,#6d28d9 100%)',
+    'linear-gradient(180deg,#0f172a 0%,#1e1b4b 30%,#312e81 70%,#4c1d95 100%)',
+    'linear-gradient(180deg,#0c0a09 0%,#1c1917 30%,#292524 70%,#44403c 100%)',
+    'linear-gradient(180deg,#020617 0%,#0f172a 30%,#1e293b 70%,#334155 100%)'
+  ];
+  document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
+}
+
+function updateHgUI() {
+  document.getElementById('hg-score').textContent = hg.score;
+  document.getElementById('hg-level').textContent = hg.level;
+  document.getElementById('hg-hearts').textContent = '❤️'.repeat(Math.max(0, hg.lives)) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+}
+
+function hgEnd() {
+  hg.running = false;
+  stopBgDrone();
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.notes.forEach(n => n.el.remove());
+  hg.notes = [];
+  document.getElementById('hg-final-score').textContent = hg.score;
+  let msg = '잘했어요!';
+  if (hg.score >= 80) msg = '대단해요! 비트의 달인!';
+  else if (hg.score >= 50) msg = '와! 리듬감이 좋아요!';
+  else if (hg.score >= 20) msg = '멋져요! 계속 연습!';
+  document.getElementById('hg-over-msg').textContent = msg;
+  document.getElementById('hg-over').classList.remove('hidden');
+  addXP(Math.min(Math.floor(hg.score / 5), 10));
+  speak(msg);
+}
+
+function hgRestart() {
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-arena').querySelectorAll('.hg-note,.hg-judge-text,.hg-combo-text,.hg-flash-good,.hg-flash-miss,.hg-powerup').forEach(e => e.remove());
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.notes = []; hg.combo = 0; hg.maxCombo = 0; hg.instruments = 0; hg.bpm = 90;
+  updateHgUI(); hgUpdateBg(); addHgInstruments(); hgLoop();
+  startBgDrone();
+}
+
+function hgPause() {
+  hg.paused = !hg.paused;
+  document.getElementById('hg-pause').classList.toggle('hidden', !hg.paused);
+}
+
+function hgExit() {
+  hg.running = false;
+  stopBgDrone();
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.notes.forEach(n => n.el.remove());
+  hg.notes = [];
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause').classList.add('hidden');
+  document.getElementById('hero-game').classList.add('hidden');
+}
+
+// ===== 초기화 =====
+document.addEventListener('DOMContentLoaded', function() {
+  // fitScale
+  function fitScale() {
+    const c = document.querySelector('.container');
+    if (!c || getComputedStyle(c).display === 'none') return;
+    const M = 0.03;
+    const aW = window.innerWidth * (1 - M * 2);
+    const aH = window.innerHeight * (1 - M * 2);
+    const s = Math.min(aW / 1920, aH / 1080);
+    c.style.transform = `scale(${s})`;
+    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  fitScale();
+  window.addEventListener('resize', fitScale);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
+
+  // 프로필
+  updateProfile();
+  updateActionButtons();
+
+  // 게임 초기화
+  initDrawing();
+  generateDrumPattern();
+  initFridge();
+  updateSlots();
+});
+
+// 더블탭 방지
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+</script>
+</body>
+</html>

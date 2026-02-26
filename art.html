@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>미술 놀이터 🎨</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#ec4899 0%,#f472b6 50%,#db2777 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
+.rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#ec4899,#db2777);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
+.rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
+@keyframes rotateH{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+@media(orientation:portrait){.rotate-notice{display:flex}.container{display:none!important}}
+.container{width:1920px;height:1080px;background:#fff;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;position:absolute}
+
+/* 과목바 */
+.subject-bar{background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;padding:0 20px;height:56px;flex-shrink:0;gap:4px;position:relative}
+.subject-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f9a8d4,#ec4899,#f9a8d4)}
+.sb-tab{padding:8px 30px;border:none;border-radius:12px 12px 0 0;background:0;font-size:18px;font-weight:800;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.sb-tab.active{background:#fff;color:#1e3a8a}
+.sb-tab.locked{cursor:default}
+.sb-tab .lock{font-size:12px;opacity:.5}
+.sb-spacer{flex:1}
+.sb-btns{display:flex;gap:8px}
+.sb-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-size:18px;color:#fff;cursor:pointer;transition:.15s}
+.sb-btn:active{background:rgba(255,255,255,.3)}
+
+/* 메인 */
+.main-layout{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:14px;flex:1;overflow:hidden}
+
+/* 왼쪽 */
+.left-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.profile-section{background:linear-gradient(145deg,#ec4899,#f472b6 50%,#f9a8d4);border-radius:20px;padding:20px;border:3px solid #fbcfe8;box-shadow:0 6px 20px rgba(236,72,153,.3);flex-shrink:0;position:relative;overflow:hidden}
+.profile-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='15' cy='15' r='1.5' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='2s' repeatCount='indefinite'/></circle><circle cx='85' cy='25' r='1' fill='white' opacity='.25'><animate attributeName='opacity' values='.25;.08;.25' dur='1.5s' repeatCount='indefinite'/></circle><circle cx='25' cy='75' r='1.2' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='1.8s' repeatCount='indefinite'/></circle></svg>") repeat;pointer-events:none}
+.profile-content{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.profile-avatar{width:90px;height:90px;background:linear-gradient(145deg,#f9a8d4,#f472b6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #fff;box-shadow:0 4px 15px rgba(244,114,182,.4);animation:avGlow 3s ease-in-out infinite;flex-shrink:0;cursor:pointer}
+@keyframes avGlow{0%,100%{box-shadow:0 4px 15px rgba(244,114,182,.4);transform:scale(1)}50%{box-shadow:0 8px 25px rgba(244,114,182,.6);transform:scale(1.05)}}
+.profile-info{flex:1;color:#fff}
+.profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
+.profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.profile-level{font-size:18px;font-weight:700;color:#fce7f3;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#f9a8d4,#f472b6);color:#831843;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#f9a8d4,#ec4899,#f9a8d4);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
+@keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* 탭 */
+.tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn.active{background:linear-gradient(145deg,#ec4899,#db2777);color:#fff;border-color:#ec4899}
+.tab-btn:active{transform:scale(.97)}
+.tab-content{display:none;flex:1;overflow:hidden}
+.tab-content.active{display:flex;flex-direction:column}
+
+/* 사이드 정보 */
+.side-info{background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-radius:16px;padding:15px;border:2px solid #ec4899;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-title{font-size:17px;font-weight:700;color:#9d174d;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
+.side-val{font-size:20px;font-weight:800;color:#ec4899}
+
+/* 게임 런치 */
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#f9a8d4,#f472b6);color:#831843;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(244,114,182,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+@keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.game-launch-btn:active{transform:scale(.97)}
+
+/* 중앙 */
+.center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.game-view.active{display:flex}
+
+/* ===== 얼굴 조물주 ===== */
+.face-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.face-workspace{flex:1;display:flex;gap:12px;padding:12px;overflow:hidden}
+.face-canvas-wrap{flex:1;background:linear-gradient(145deg,#fdf2f8,#fff);border:3px solid #f9a8d4;border-radius:20px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.face-svg-container{width:400px;height:450px;position:relative}
+.face-parts-panel{width:200px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;padding:4px}
+.parts-category{background:linear-gradient(145deg,#fce7f3,#fbcfe8);border-radius:12px;padding:10px;border:2px solid #f9a8d4}
+.parts-cat-title{font-size:14px;font-weight:700;color:#9d174d;margin-bottom:8px;text-align:center}
+.parts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.face-part-item{width:52px;height:52px;background:#fff;border:2px solid #e2e8f0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:grab;transition:.15s;font-size:28px}
+.face-part-item:active{transform:scale(.9);border-color:#ec4899}
+.face-part-item.selected{border-color:#ec4899;background:linear-gradient(145deg,#fce7f3,#fdf2f8);box-shadow:0 0 8px rgba(236,72,153,.3)}
+.placed-part{position:absolute;cursor:move;font-size:40px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));transition:transform .1s;z-index:5}
+.placed-part:active{transform:scale(1.15)}
+.face-name-input{width:100%;padding:10px 16px;border:3px solid #f9a8d4;border-radius:12px;font-size:18px;font-weight:700;text-align:center;outline:none;font-family:inherit;background:#fdf2f8;color:#831843}
+.face-name-input:focus{border-color:#ec4899}
+.face-bottom{display:flex;gap:10px;padding:8px 12px;align-items:center;flex-shrink:0}
+.face-action-btn{padding:10px 24px;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.face-action-btn:active{transform:scale(.95)}
+.face-action-btn.pink{background:linear-gradient(145deg,#ec4899,#db2777);color:#fff}
+.face-action-btn.gray{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+
+/* ===== 폭발 물감 ===== */
+.paint-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.paint-toolbar{display:flex;align-items:center;gap:10px;padding:8px 12px;flex-shrink:0;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-bottom:2px solid #f9a8d4}
+.paint-color-btn{width:44px;height:44px;border-radius:50%;border:3px solid #fff;cursor:pointer;transition:.15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.paint-color-btn.active{border-color:#1e293b;transform:scale(1.15);box-shadow:0 0 12px rgba(0,0,0,.3)}
+.paint-color-btn:active{transform:scale(.9)}
+.paint-size-label{font-size:14px;font-weight:700;color:#9d174d;margin-left:12px}
+.paint-size-slider{width:100px;accent-color:#ec4899}
+.paint-clear-btn{margin-left:auto;padding:8px 20px;background:linear-gradient(145deg,#f87171,#ef4444);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.paint-canvas{flex:1;position:relative;overflow:hidden;cursor:crosshair;background:linear-gradient(145deg,#fffbeb,#fff)}
+.paint-splat{position:absolute;pointer-events:none}
+.paint-particle{position:absolute;border-radius:50%;pointer-events:none;animation:paintSplash var(--dur,.6s) cubic-bezier(.25,.46,.45,.94) forwards}
+@keyframes paintSplash{0%{transform:translate(0,0) scale(1);opacity:.9}100%{transform:translate(var(--tx,0),var(--ty,0)) scale(var(--es,0));opacity:0}}
+.paint-drop{position:absolute;border-radius:50%;pointer-events:none;animation:paintDrop .4s ease-out forwards}
+@keyframes paintDrop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.2);opacity:.8}100%{transform:scale(1);opacity:.6}}
+
+/* ===== 그림자 극장 ===== */
+.theater-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.stage-wrap{flex:1;position:relative;overflow:hidden;background:#1a1a2e;border-radius:16px;margin:8px 12px}
+.stage-curtain-left,.stage-curtain-right{position:absolute;top:0;bottom:0;width:60px;z-index:10}
+.stage-curtain-left{left:0;background:linear-gradient(90deg,#7f1d1d,#991b1b,transparent)}
+.stage-curtain-right{right:0;background:linear-gradient(270deg,#7f1d1d,#991b1b,transparent)}
+.stage-top{position:absolute;top:0;left:0;right:0;height:40px;background:linear-gradient(180deg,#7f1d1d 0%,#991b1b 60%,transparent 100%);z-index:11;display:flex;align-items:center;justify-content:center}
+.stage-top-text{color:#fde68a;font-size:16px;font-weight:700;text-shadow:0 2px 4px rgba(0,0,0,.5)}
+.stage-floor{position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(180deg,#4a2810,#3a1f0b);z-index:5}
+.stage-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0f172a 0%,#1e293b 40%,#334155 100%);z-index:1}
+.stage-stars{position:absolute;inset:0;z-index:2;pointer-events:none}
+.stage-sticker{position:absolute;z-index:6;cursor:move;font-size:60px;filter:brightness(0) invert(0);opacity:.85;transition:transform .2s}
+.stage-sticker:active{transform:scale(1.1)}
+.stage-sticker.playing{animation:stickerEnter .8s ease-out forwards}
+@keyframes stickerEnter{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.15) rotate(5deg);opacity:1}100%{transform:scale(1) rotate(0deg);opacity:.85}}
+.theater-controls{display:flex;gap:8px;padding:8px 12px;flex-shrink:0;align-items:center}
+.sticker-palette{display:flex;gap:8px;flex:1;overflow-x:auto;padding:4px}
+.sticker-item{width:56px;height:56px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border:2px solid #f9a8d4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:32px;cursor:grab;flex-shrink:0;transition:.15s}
+.sticker-item:active{transform:scale(.9);border-color:#ec4899}
+.sticker-item.selected{border-color:#ec4899;background:#fbcfe8;box-shadow:0 0 8px rgba(236,72,153,.3)}
+.theater-btn{padding:10px 20px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.theater-btn:active{transform:scale(.95)}
+.theater-btn.play{background:linear-gradient(145deg,#22c55e,#16a34a);color:#fff}
+.theater-btn.clear{background:linear-gradient(145deg,#f87171,#ef4444);color:#fff}
+.audience-bar{position:absolute;bottom:55px;left:70px;right:70px;z-index:8;display:flex;justify-content:space-around;font-size:28px;pointer-events:none;opacity:0;transition:opacity .5s}
+.audience-bar.visible{opacity:1}
+.audience-member{animation:audienceBob 1s ease-in-out infinite}
+@keyframes audienceBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ===== 내 기록 ===== */
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-radius:12px;border:2px solid #fbcfe8}
+.record-num{font-size:32px;font-weight:900;color:#ec4899}
+.record-label{font-size:13px;font-weight:600;color:#9d174d;margin-top:4px}
+
+/* 오른쪽 */
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn:active{transform:scale(.95)}
+.action-btn.btn-pink{background:linear-gradient(145deg,#ec4899,#db2777);box-shadow:0 2px 8px rgba(236,72,153,.3)}
+.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
+.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
+.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.action-btn.btn-orange{background:linear-gradient(145deg,#f97316,#ea580c);box-shadow:0 2px 8px rgba(249,115,22,.2)}
+.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+
+/* ===== 히어로: 팔레트 디펜스 ===== */
+.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#fdf2f8 0%,#fce7f3 25%,#fbcfe8 75%,#f9a8d4 100%);overflow:hidden}
+.hero-game.hidden{display:none}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.4)}
+.hg-stat{font-size:22px;font-weight:800;color:#831843}
+.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-ctrls{display:flex;gap:8px}
+.hg-ctrl-btn{background:rgba(255,255,255,.6);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569}
+.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-arena{flex:1;position:relative;overflow:hidden}
+.hg-target-color{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:16px;padding:10px 24px;font-size:20px;font-weight:800;color:#1e293b;display:flex;align-items:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.hg-target-swatch{width:36px;height:36px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hg-picture-area{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5}
+.hg-combo{position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:20;font-size:36px;font-weight:900;color:#ec4899;text-shadow:0 2px 8px rgba(0,0,0,.2);opacity:0;transition:opacity .3s}
+.hg-combo.visible{opacity:1}
+.hg-stain{position:absolute;border-radius:50%;pointer-events:none;z-index:4;opacity:.5}
+.flying-ball{position:absolute;z-index:15;pointer-events:auto;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:transform .1s}
+.flying-ball:active{transform:scale(.85)}
+.flying-ball-inner{width:100%;height:100%;border-radius:50%;position:relative;overflow:hidden}
+.flying-ball-shine{position:absolute;top:15%;left:20%;width:35%;height:25%;background:rgba(255,255,255,.5);border-radius:50%;transform:rotate(-30deg)}
+.hg-flash{position:absolute;inset:0;pointer-events:none;z-index:30;animation:hgFlash .3s ease-out forwards}
+@keyframes hgFlash{0%{background:rgba(34,197,94,.25)}100%{background:transparent}}
+.hg-miss-flash{position:absolute;inset:0;pointer-events:none;z-index:30;animation:hgMissFlash .4s ease-out forwards}
+@keyframes hgMissFlash{0%{background:rgba(239,68,68,.25)}50%{background:rgba(239,68,68,.12)}100%{background:transparent}}
+.hg-arena-shake{animation:arenaShake .4s ease-out}
+@keyframes arenaShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.hg-paint-burst{position:absolute;border-radius:50%;pointer-events:none;z-index:25;animation:paintBurst var(--dur,.6s) ease-out forwards}
+@keyframes paintBurst{0%{transform:translate(0,0) scale(1);opacity:.8}100%{transform:translate(var(--tx,0),var(--ty,0)) scale(0);opacity:0}}
+.hg-star-pop{position:absolute;pointer-events:none;z-index:25;animation:starPop .7s ease-out forwards}
+@keyframes starPop{0%{transform:translate(0,0) scale(0);opacity:0}30%{transform:translate(calc(var(--tx)*.3),calc(var(--ty)*.3)) scale(1.2);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
+.hg-powerup{position:absolute;z-index:18;pointer-events:auto;cursor:pointer;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(145deg,#fbbf24,#f59e0b);border:3px solid #fde68a;box-shadow:0 0 16px rgba(251,191,36,.5);animation:puFloat 2s ease-in-out infinite}
+@keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-overlay.hidden{display:none}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
+.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:28px;font-weight:700;color:#ec4899;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#ec4899,#db2777);color:#fff}
+.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+.hg-cloud{position:absolute;font-size:36px;opacity:.15;pointer-events:none;animation:cFloat 25s linear infinite;z-index:1}
+@keyframes cFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
+
+/* 모달 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:20px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.modal-head{background:linear-gradient(145deg,#ec4899,#db2777);color:#fff;padding:16px 20px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font-size:18px}
+.modal-close{background:0;border:0;color:#fff;font-size:24px;cursor:pointer}
+.modal-body{padding:20px}
+.modal-section{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fafc}
+.modal-section h4{margin:0 0 10px;font-weight:700;color:#374151;font-size:15px}
+.modal-input{width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px}
+.modal-input:focus{outline:none;border-color:#ec4899}
+.modal-btn{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;width:100%;background:linear-gradient(145deg,#ec4899,#db2777);color:#fff;margin-top:6px}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.char-item.selected{background:linear-gradient(145deg,#f9a8d4,#f472b6);border-color:#ec4899}
+
+/* 히어로 그림 영역 (SVG 기반 그림) */
+.hg-picture-svg{border:4px solid #e2e8f0;border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.hg-section{stroke:#94a3b8;stroke-width:2;fill:#f1f5f9;transition:fill .5s}
+.hg-section.filled{stroke:#475569;stroke-width:2.5}
+</style>
+</head>
+<body>
+<div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
+
+<div class="container">
+  <div class="subject-bar">
+    <a class="sb-tab" href="hangul.html">📝 한글</a>
+    <a class="sb-tab" href="math.html">🔢 숫자</a>
+    <button class="sb-tab active">🎨 미술</button>
+    <div class="sb-spacer"></div>
+    <div class="sb-btns">
+      <button class="sb-btn" id="sb-sound" onclick="toggleSound()">🔊</button>
+      <button class="sb-btn" onclick="showAdmin()">⚙️</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- 왼쪽 패널 -->
+    <div class="left-panel">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-avatar" onclick="showCharModal()"><span id="pf-char">🧒</span></div>
+          <div class="profile-info">
+            <div class="profile-name" onclick="changeName()"><span id="pf-name">화가</span></div>
+            <div class="profile-level-container">
+              <div class="profile-level">
+                <span class="level-badge">LV.<span id="pf-level">1</span></span>
+                <span id="pf-done">0</span>/<span id="pf-total">10</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="pf-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-headers">
+        <button class="tab-btn active" onclick="switchTab('face')">😜 얼굴조물주</button>
+        <button class="tab-btn" onclick="switchTab('paint')">💥 폭발물감</button>
+        <button class="tab-btn" onclick="switchTab('theater')">🎭 그림자극장</button>
+        <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
+      </div>
+
+      <!-- 얼굴 사이드 -->
+      <div class="tab-content face-side active">
+        <div class="side-info">
+          <div class="side-title">😜 얼굴 조물주</div>
+          <div class="side-stat"><span>만든 얼굴</span><span class="side-val" id="face-count">0</span></div>
+          <div class="side-stat"><span>파츠 사용</span><span class="side-val" id="face-parts-used">0</span></div>
+        </div>
+      </div>
+
+      <!-- 물감 사이드 -->
+      <div class="tab-content paint-side">
+        <div class="side-info">
+          <div class="side-title">💥 폭발 물감</div>
+          <div class="side-stat"><span>터치 수</span><span class="side-val" id="paint-touches">0</span></div>
+          <div class="side-stat"><span>사용 색상</span><span class="side-val" id="paint-colors-used">0</span></div>
+          <div class="side-stat"><span>작품 수</span><span class="side-val" id="paint-works">0</span></div>
+        </div>
+      </div>
+
+      <!-- 극장 사이드 -->
+      <div class="tab-content theater-side">
+        <div class="side-info">
+          <div class="side-title">🎭 그림자 극장</div>
+          <div class="side-stat"><span>공연 횟수</span><span class="side-val" id="theater-shows">0</span></div>
+          <div class="side-stat"><span>배치 스티커</span><span class="side-val" id="theater-stickers">0</span></div>
+        </div>
+      </div>
+
+      <!-- 기록 사이드 -->
+      <div class="tab-content record-side">
+        <div class="side-info">
+          <div class="side-title">📊 종합 기록</div>
+          <div class="side-stat"><span>총 활동</span><span class="side-val" id="rec-total">0</span></div>
+          <div class="side-stat"><span>히어로 최고</span><span class="side-val" id="rec-hero-best">0</span></div>
+        </div>
+      </div>
+
+      <div class="game-launch-btn" onclick="startHeroGame()">🎨 팔레트 디펜스 시작!</div>
+    </div>
+
+    <!-- 중앙 패널 -->
+    <div class="center-panel">
+      <!-- 얼굴 조물주 -->
+      <div class="game-view face-view active" id="face-view">
+        <div class="face-area">
+          <div class="face-workspace">
+            <div class="face-canvas-wrap" id="face-canvas-wrap">
+              <div class="face-svg-container" id="face-svg-container">
+                <svg viewBox="0 0 400 450" width="400" height="450" id="face-svg">
+                  <defs>
+                    <radialGradient id="faceGrad" cx="50%" cy="40%">
+                      <stop offset="0%" stop-color="#fef3c7"/>
+                      <stop offset="100%" stop-color="#fde68a"/>
+                    </radialGradient>
+                  </defs>
+                  <!-- 얼굴 윤곽 -->
+                  <ellipse cx="200" cy="220" rx="150" ry="170" fill="url(#faceGrad)" stroke="#d97706" stroke-width="3"/>
+                  <!-- 가이드라인 (반투명) -->
+                  <line x1="200" y1="120" x2="200" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="5,5" opacity=".4"/>
+                  <line x1="80" y1="200" x2="320" y2="200" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="5,5" opacity=".4"/>
+                  <!-- 눈 가이드 -->
+                  <circle cx="145" cy="195" r="22" fill="none" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3" opacity=".3"/>
+                  <circle cx="255" cy="195" r="22" fill="none" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3" opacity=".3"/>
+                  <!-- 코 가이드 -->
+                  <circle cx="200" cy="250" r="15" fill="none" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3" opacity=".3"/>
+                  <!-- 입 가이드 -->
+                  <ellipse cx="200" cy="310" rx="40" ry="15" fill="none" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3" opacity=".3"/>
+                </svg>
+                <!-- 드래그로 놓인 파츠들이 여기에 absolute로 배치됨 -->
+              </div>
+            </div>
+            <div class="face-parts-panel" id="face-parts-panel">
+              <div class="parts-category">
+                <div class="parts-cat-title">👀 눈</div>
+                <div class="parts-grid" id="eye-parts"></div>
+              </div>
+              <div class="parts-category">
+                <div class="parts-cat-title">👃 코</div>
+                <div class="parts-grid" id="nose-parts"></div>
+              </div>
+              <div class="parts-category">
+                <div class="parts-cat-title">👄 입</div>
+                <div class="parts-grid" id="mouth-parts"></div>
+              </div>
+              <div class="parts-category">
+                <div class="parts-cat-title">💇 머리</div>
+                <div class="parts-grid" id="hair-parts"></div>
+              </div>
+              <div class="parts-category">
+                <div class="parts-cat-title">✨ 꾸미기</div>
+                <div class="parts-grid" id="deco-parts"></div>
+              </div>
+            </div>
+          </div>
+          <div class="face-bottom">
+            <input class="face-name-input" id="face-name" placeholder="이름을 지어주세요!" maxlength="10">
+            <button class="face-action-btn pink" onclick="faceDone()">🎤 완성!</button>
+            <button class="face-action-btn gray" onclick="faceClear()">🗑 지우기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 폭발 물감 -->
+      <div class="game-view paint-view" id="paint-view">
+        <div class="paint-area">
+          <div class="paint-toolbar" id="paint-toolbar"></div>
+          <div class="paint-canvas" id="paint-canvas">
+            <svg width="100%" height="100%" id="paint-svg" style="position:absolute;inset:0;pointer-events:none;z-index:2"></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 그림자 극장 -->
+      <div class="game-view theater-view" id="theater-view">
+        <div class="theater-area">
+          <div class="stage-wrap" id="stage-wrap">
+            <div class="stage-bg"></div>
+            <div class="stage-stars" id="stage-stars"></div>
+            <div class="stage-curtain-left"></div>
+            <div class="stage-curtain-right"></div>
+            <div class="stage-top"><span class="stage-top-text">🎭 그림자 극장</span></div>
+            <div class="stage-floor"></div>
+            <div class="audience-bar" id="audience-bar">
+              <span class="audience-member" style="animation-delay:0s">👨</span>
+              <span class="audience-member" style="animation-delay:.2s">👩</span>
+              <span class="audience-member" style="animation-delay:.4s">🧒</span>
+              <span class="audience-member" style="animation-delay:.1s">👴</span>
+              <span class="audience-member" style="animation-delay:.3s">👧</span>
+              <span class="audience-member" style="animation-delay:.15s">👦</span>
+              <span class="audience-member" style="animation-delay:.35s">👵</span>
+            </div>
+          </div>
+          <div class="theater-controls">
+            <div class="sticker-palette" id="sticker-palette"></div>
+            <button class="theater-btn play" onclick="theaterPlay()">▶ 공연!</button>
+            <button class="theater-btn clear" onclick="theaterClear()">🗑 리셋</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 내 기록 -->
+      <div class="game-view record-view" id="record-view">
+        <div class="records-area">
+          <div class="record-card">
+            <h3>🏆 종합 성적</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-total">0</div><div class="record-label">총 활동</div></div>
+              <div class="record-item"><div class="record-num" id="r-faces">0</div><div class="record-label">만든 얼굴</div></div>
+              <div class="record-item"><div class="record-num" id="r-paintings">0</div><div class="record-label">그린 작품</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>💥 폭발 물감</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-paint-touches">0</div><div class="record-label">터치 수</div></div>
+              <div class="record-item"><div class="record-num" id="r-paint-colors">0</div><div class="record-label">사용 색상</div></div>
+              <div class="record-item"><div class="record-num" id="r-paint-works">0</div><div class="record-label">작품 수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🎭 그림자 극장</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-shows">0</div><div class="record-label">공연 횟수</div></div>
+              <div class="record-item"><div class="record-num" id="r-stickers">0</div><div class="record-label">배치 스티커</div></div>
+              <div class="record-item"><div class="record-num" id="r-hero-best">0</div><div class="record-label">히어로 최고</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오른쪽 패널 -->
+    <div class="right-panel" id="right-panel">
+      <button class="action-btn btn-cyan" id="act1" onclick="actionBtn(1)"><span class="icon">💡</span>힌트</button>
+      <button class="action-btn btn-green" id="act2" onclick="actionBtn(2)"><span class="icon">⏭</span>다음</button>
+      <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🗑</span>지우기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 히어로 게임: 팔레트 디펜스 -->
+<div id="hero-game" class="hero-game hidden">
+  <div class="hg-header">
+    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
+    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
+    <div class="hg-stat">🎨 <span id="hg-filled">0</span>/<span id="hg-total-sections">6</span></div>
+    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="hg-ctrls">
+      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+    </div>
+  </div>
+  <div class="hg-arena" id="hg-arena">
+    <div class="hg-target-color" id="hg-target-info">
+      필요한 색: <div class="hg-target-swatch" id="hg-target-swatch"></div>
+      <span id="hg-target-name">빨강</span>
+    </div>
+    <div class="hg-combo" id="hg-combo">🔥 3 COMBO!</div>
+    <div class="hg-picture-area" id="hg-picture-area">
+      <svg viewBox="0 0 300 240" width="300" height="240" class="hg-picture-svg" id="hg-picture-svg">
+        <!-- 집 그림: 6 영역 -->
+        <rect x="60" y="100" width="180" height="130" class="hg-section" id="hg-s0" data-color=""/>
+        <polygon points="150,20 40,100 260,100" class="hg-section" id="hg-s1" data-color=""/>
+        <rect x="120" y="170" width="60" height="60" class="hg-section" id="hg-s2" data-color=""/>
+        <rect x="80" y="120" width="40" height="40" class="hg-section" id="hg-s3" data-color=""/>
+        <rect x="180" y="120" width="40" height="40" class="hg-section" id="hg-s4" data-color=""/>
+        <circle cx="150" cy="60" r="25" class="hg-section" id="hg-s5" data-color=""/>
+      </svg>
+    </div>
+  </div>
+  <div id="hg-over" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>게임 끝!</h2>
+      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="msg" id="hg-over-msg">멋진 그림이에요!</div>
+      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-pause" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>⏸ 일시정지</h2>
+      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 관리자 모달 -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>⚙ 설정</h3><button class="modal-close" onclick="hideAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h4>👤 프로필</h4>
+        <input class="modal-input" id="adm-name" placeholder="이름 입력" maxlength="10">
+        <button class="modal-btn" onclick="saveProfile()">저장</button>
+      </div>
+      <div class="modal-section">
+        <h4>🔄 초기화</h4>
+        <button class="modal-btn" style="background:linear-gradient(145deg,#ef4444,#dc2626)" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 캐릭터 모달 -->
+<div id="char-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>🎭 캐릭터 선택</h3><button class="modal-close" onclick="hideCharModal()">×</button></div>
+    <div class="modal-body">
+      <div class="char-grid" id="char-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 전역 변수 =====
+let currentTab = 'face';
+let soundEnabled = true;
+const LS = localStorage;
+
+// 프로필
+let profile = {
+  name: LS.getItem('artName') || '화가',
+  char: LS.getItem('artChar') || '🧒',
+  totalActivity: parseInt(LS.getItem('artActivity')) || 0
+};
+
+// 얼굴 조물주 상태
+let face = {
+  placedParts: [],
+  count: parseInt(LS.getItem('faceCount')) || 0,
+  partsUsed: parseInt(LS.getItem('facePartsUsed')) || 0,
+  selectedPart: null,
+  dragging: null,
+  dragOffX: 0, dragOffY: 0
+};
+
+// 폭발 물감 상태
+let paint = {
+  currentColor: '#ef4444',
+  brushSize: 30,
+  touches: parseInt(LS.getItem('paintTouches')) || 0,
+  colorsUsed: new Set(JSON.parse(LS.getItem('paintColorsSet') || '[]')),
+  works: parseInt(LS.getItem('paintWorks')) || 0
+};
+
+// 그림자 극장 상태
+let theater = {
+  stickers: [],
+  selectedSticker: null,
+  shows: parseInt(LS.getItem('theaterShows')) || 0,
+  stickerCount: parseInt(LS.getItem('theaterStickers')) || 0,
+  playing: false,
+  dragging: null,
+  dragOffX: 0, dragOffY: 0
+};
+
+// 히어로 게임 상태
+let hg = {
+  score: 0, lives: 5, level: 1, running: false, paused: false,
+  combo: 0, maxCombo: 0, bestScore: parseInt(LS.getItem('artHeroBest')) || 0,
+  balls: [], spawnTimer: null, animId: null,
+  sections: [], currentSection: 0,
+  colors: ['#ef4444','#3b82f6','#fbbf24','#22c55e','#8b5cf6','#f97316'],
+  colorNames: ['빨강','파랑','노랑','초록','보라','주황'],
+  targetColor: '', targetIdx: 0,
+  filledCount: 0, totalSections: 6,
+  pictures: [
+    // 집
+    {name:'집',sections:6,svg:`<rect x="60" y="100" width="180" height="130" class="hg-section" id="hg-s0"/><polygon points="150,20 40,100 260,100" class="hg-section" id="hg-s1"/><rect x="120" y="170" width="60" height="60" class="hg-section" id="hg-s2"/><rect x="80" y="120" width="40" height="40" class="hg-section" id="hg-s3"/><rect x="180" y="120" width="40" height="40" class="hg-section" id="hg-s4"/><circle cx="150" cy="60" r="25" class="hg-section" id="hg-s5"/>`},
+    // 꽃
+    {name:'꽃',sections:6,svg:`<circle cx="150" cy="80" r="35" class="hg-section" id="hg-s0"/><circle cx="110" cy="110" r="30" class="hg-section" id="hg-s1"/><circle cx="190" cy="110" r="30" class="hg-section" id="hg-s2"/><circle cx="150" cy="140" r="25" class="hg-section" id="hg-s3"/><rect x="140" y="155" width="20" height="80" rx="8" class="hg-section" id="hg-s4"/><ellipse cx="120" cy="200" rx="30" ry="15" class="hg-section" id="hg-s5"/>`},
+    // 자동차
+    {name:'자동차',sections:6,svg:`<rect x="50" y="110" width="200" height="70" rx="10" class="hg-section" id="hg-s0"/><rect x="80" y="70" width="140" height="50" rx="15" class="hg-section" id="hg-s1"/><circle cx="100" cy="190" r="22" class="hg-section" id="hg-s2"/><circle cx="200" cy="190" r="22" class="hg-section" id="hg-s3"/><rect x="90" y="80" width="50" height="30" rx="5" class="hg-section" id="hg-s4"/><rect x="160" y="80" width="50" height="30" rx="5" class="hg-section" id="hg-s5"/>`},
+    // 별
+    {name:'별',sections:6,svg:`<polygon points="150,30 170,90 240,90 185,130 205,190 150,155 95,190 115,130 60,90 130,90" class="hg-section" id="hg-s0"/><circle cx="150" cy="115" r="20" class="hg-section" id="hg-s1"/><circle cx="80" cy="50" r="12" class="hg-section" id="hg-s2"/><circle cx="230" cy="60" r="10" class="hg-section" id="hg-s3"/><circle cx="60" cy="170" r="14" class="hg-section" id="hg-s4"/><circle cx="240" cy="180" r="11" class="hg-section" id="hg-s5"/>`}
+  ]
+};
+
+// ===== TTS =====
+let audioQueue = [];
+let isSpeaking = false;
+function speak(text) {
+  if (!soundEnabled) return;
+  audioQueue.push(text);
+  processQueue();
+}
+function processQueue() {
+  if (isSpeaking || !audioQueue.length) return;
+  isSpeaking = true;
+  const u = new SpeechSynthesisUtterance(audioQueue.shift());
+  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.onend = () => { isSpeaking = false; processQueue(); };
+  u.onerror = () => { isSpeaking = false; processQueue(); };
+  speechSynthesis.speak(u);
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sb-sound').textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) speechSynthesis.cancel();
+}
+
+// ===== 프로필 =====
+function updateProfile() {
+  document.getElementById('pf-name').textContent = profile.name;
+  document.getElementById('pf-char').textContent = profile.char;
+  const lv = Math.floor(profile.totalActivity / 10) + 1;
+  document.getElementById('pf-level').textContent = lv;
+  const prog = (profile.totalActivity % 10);
+  document.getElementById('pf-done').textContent = prog;
+  document.getElementById('pf-total').textContent = 10;
+  document.getElementById('pf-bar').style.width = (prog * 10) + '%';
+}
+function changeName() {
+  const n = prompt('이름을 입력하세요:', profile.name);
+  if (n && n.trim()) { profile.name = n.trim(); LS.setItem('artName', profile.name); updateProfile(); }
+}
+function showCharModal() {
+  document.getElementById('char-modal').classList.remove('hidden');
+  const chars = ['🧒','👦','👧','🦸‍♂️','🦸‍♀️','🧙‍♂️','🐱','🐶','🦊','🐻','🐰','🐸','🦁','🐯','🐼'];
+  const g = document.getElementById('char-grid');
+  g.innerHTML = chars.map(c => `<div class="char-item${c===profile.char?' selected':''}" onclick="pickChar('${c}')">${c}</div>`).join('');
+}
+function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
+function pickChar(c) { profile.char = c; LS.setItem('artChar', c); updateProfile(); hideCharModal(); }
+function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
+function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+function saveProfile() {
+  const n = document.getElementById('adm-name').value.trim();
+  if (n) { profile.name = n; LS.setItem('artName', n); updateProfile(); }
+  hideAdmin();
+}
+function resetAll() {
+  if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
+  ['artName','artChar','artActivity','faceCount','facePartsUsed','paintTouches','paintColorsSet','paintWorks','theaterShows','theaterStickers','artHeroBest'].forEach(k => LS.removeItem(k));
+  location.reload();
+}
+function saveStats() {
+  LS.setItem('artActivity', profile.totalActivity);
+  LS.setItem('faceCount', face.count);
+  LS.setItem('facePartsUsed', face.partsUsed);
+  LS.setItem('paintTouches', paint.touches);
+  LS.setItem('paintColorsSet', JSON.stringify([...paint.colorsUsed]));
+  LS.setItem('paintWorks', paint.works);
+  LS.setItem('theaterShows', theater.shows);
+  LS.setItem('theaterStickers', theater.stickerCount);
+  LS.setItem('artHeroBest', hg.bestScore);
+}
+
+// ===== 탭 전환 =====
+function switchTab(tab) {
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['face','paint','theater','record'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.' + tab + '-side').classList.add('active');
+  document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.' + tab + '-view').classList.add('active');
+  updateActionButtons();
+  if (tab === 'record') updateRecords();
+}
+
+function updateActionButtons() {
+  const a1 = document.getElementById('act1');
+  const a2 = document.getElementById('act2');
+  const a3 = document.getElementById('act3');
+  if (currentTab === 'face') {
+    a1.innerHTML = '<span class="icon">🎤</span>완성!'; a1.className = 'action-btn btn-pink'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🔀</span>랜덤'; a2.className = 'action-btn btn-cyan'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🗑</span>지우기'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'paint') {
+    a1.innerHTML = '<span class="icon">💾</span>저장'; a1.className = 'action-btn btn-green'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🌈</span>랜덤색'; a2.className = 'action-btn btn-cyan'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🗑</span>지우기'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'theater') {
+    a1.innerHTML = '<span class="icon">▶</span>공연!'; a1.className = 'action-btn btn-green'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🎲</span>랜덤배치'; a2.className = 'action-btn btn-cyan'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🗑</span>리셋'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else {
+    a1.innerHTML = '<span class="icon">📊</span>기록'; a1.className = 'action-btn btn-cyan'; a1.disabled = true;
+    a2.innerHTML = '<span class="icon">—</span>—'; a2.className = 'action-btn btn-green'; a2.disabled = true;
+    a3.innerHTML = '<span class="icon">—</span>—'; a3.className = 'action-btn btn-red'; a3.disabled = true;
+  }
+}
+
+function actionBtn(n) {
+  if (currentTab === 'face') {
+    if (n === 1) faceDone();
+    else if (n === 2) faceRandom();
+    else faceClear();
+  } else if (currentTab === 'paint') {
+    if (n === 1) paintSave();
+    else if (n === 2) paintRandomColor();
+    else paintClearCanvas();
+  } else if (currentTab === 'theater') {
+    if (n === 1) theaterPlay();
+    else if (n === 2) theaterRandomPlace();
+    else theaterClear();
+  }
+}
+
+// ===== 얼굴 조물주 =====
+const FACE_PARTS = {
+  eyes: ['👁️','👀','🥺','😍','🤩','😎','🧐','🥸','👁️‍🗨️'],
+  nose: ['👃','🐽','🔴','🔺','💎','⚡'],
+  mouth: ['👄','😊','😂','😜','🤪','😡','🥰','😋','🤮'],
+  hair: ['💇','🎀','👑','🎩','🧢','🎭','💆','🦱','🦳'],
+  deco: ['⭐','🌸','🦋','💖','🌈','✨','🎪','🔮','💫']
+};
+
+function initFaceParts() {
+  const sections = [
+    {id:'eye-parts', parts: FACE_PARTS.eyes, cat:'eyes'},
+    {id:'nose-parts', parts: FACE_PARTS.nose, cat:'nose'},
+    {id:'mouth-parts', parts: FACE_PARTS.mouth, cat:'mouth'},
+    {id:'hair-parts', parts: FACE_PARTS.hair, cat:'hair'},
+    {id:'deco-parts', parts: FACE_PARTS.deco, cat:'deco'}
+  ];
+  sections.forEach(s => {
+    const grid = document.getElementById(s.id);
+    grid.innerHTML = s.parts.map(p =>
+      `<div class="face-part-item" data-emoji="${p}" data-cat="${s.cat}" onclick="selectFacePart(this)">${p}</div>`
+    ).join('');
+  });
+}
+
+function selectFacePart(el) {
+  document.querySelectorAll('.face-part-item').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  face.selectedPart = el.dataset.emoji;
+}
+
+function initFaceDrag() {
+  const container = document.getElementById('face-svg-container');
+  container.addEventListener('mousedown', faceCanvasDown);
+  container.addEventListener('mousemove', faceCanvasMove);
+  container.addEventListener('mouseup', faceCanvasUp);
+  container.addEventListener('touchstart', e => { e.preventDefault(); faceCanvasDown(e.touches[0]); }, {passive:false});
+  container.addEventListener('touchmove', e => { e.preventDefault(); faceCanvasMove(e.touches[0]); }, {passive:false});
+  container.addEventListener('touchend', e => { faceCanvasUp(e); }, {passive:false});
+}
+
+function faceCanvasDown(e) {
+  const container = document.getElementById('face-svg-container');
+  const rect = container.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  // 이미 놓인 파츠를 클릭했는지 확인
+  const placed = container.querySelectorAll('.placed-part');
+  for (let i = placed.length - 1; i >= 0; i--) {
+    const p = placed[i];
+    const px = parseFloat(p.style.left);
+    const py = parseFloat(p.style.top);
+    if (x >= px - 20 && x <= px + 40 && y >= py - 20 && y <= py + 40) {
+      face.dragging = p;
+      face.dragOffX = x - px;
+      face.dragOffY = y - py;
+      p.style.zIndex = 10;
+      return;
+    }
+  }
+
+  // 선택된 파츠가 있으면 새로 배치
+  if (face.selectedPart) {
+    const scaleX = 400 / rect.width;
+    const scaleY = 450 / rect.height;
+    const part = document.createElement('div');
+    part.className = 'placed-part';
+    part.textContent = face.selectedPart;
+    part.style.left = (x * scaleX - 20) + 'px';
+    part.style.top = (y * scaleY - 20) + 'px';
+    part.dataset.emoji = face.selectedPart;
+    container.appendChild(part);
+    face.placedParts.push({emoji: face.selectedPart, x: x * scaleX - 20, y: y * scaleY - 20});
+    face.partsUsed++;
+    document.getElementById('face-parts-used').textContent = face.partsUsed;
+    // 배치 이펙트
+    faceSpawnEffect(x, y, rect);
+  }
+}
+
+function faceCanvasMove(e) {
+  if (!face.dragging) return;
+  const container = document.getElementById('face-svg-container');
+  const rect = container.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const scaleX = 400 / rect.width;
+  const scaleY = 450 / rect.height;
+  face.dragging.style.left = ((x - face.dragOffX) * scaleX) + 'px';
+  face.dragging.style.top = ((y - face.dragOffY) * scaleY) + 'px';
+}
+
+function faceCanvasUp(e) {
+  if (face.dragging) {
+    face.dragging.style.zIndex = 5;
+    face.dragging = null;
+  }
+}
+
+function faceSpawnEffect(x, y, containerRect) {
+  const container = document.getElementById('face-canvas-wrap');
+  const wRect = container.getBoundingClientRect();
+  const svgRect = document.getElementById('face-svg-container').getBoundingClientRect();
+  const cx = svgRect.left - wRect.left + x;
+  const cy = svgRect.top - wRect.top + y;
+  const sparks = ['✨','💖','⭐','🌟'];
+  for (let i = 0; i < 6; i++) {
+    const p = document.createElement('div');
+    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;font-size:${14+Math.random()*10}px;pointer-events:none;z-index:20;animation:starPop .6s ease-out forwards;--tx:${(Math.random()-.5)*80}px;--ty:${(Math.random()-.5)*80}px`;
+    p.textContent = sparks[Math.floor(Math.random()*sparks.length)];
+    container.appendChild(p);
+    setTimeout(() => p.remove(), 600);
+  }
+}
+
+function faceDone() {
+  if (face.placedParts.length === 0) {
+    speak('얼굴에 뭔가 붙여주세요!');
+    return;
+  }
+  const name = document.getElementById('face-name').value.trim() || '이름없는 친구';
+  face.count++;
+  profile.totalActivity++;
+  document.getElementById('face-count').textContent = face.count;
+  speak(`안녕! 나는 ${name}이야!`);
+  updateProfile();
+  saveStats();
+
+  // 완성 축하 이펙트
+  const container = document.getElementById('face-canvas-wrap');
+  const rect = container.getBoundingClientRect();
+  for (let i = 0; i < 20; i++) {
+    const c = document.createElement('div');
+    c.style.cssText = `position:absolute;left:${Math.random()*100}%;top:${Math.random()*100}%;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'3px'};background:${['#ec4899','#f472b6','#f9a8d4','#fbbf24','#22c55e','#3b82f6','#8b5cf6'][Math.floor(Math.random()*7)]};pointer-events:none;z-index:30;animation:paintSplash .8s ease-out forwards;--tx:${(Math.random()-.5)*120}px;--ty:${(Math.random()-.5)*120}px;--es:0;--dur:.8s`;
+    container.appendChild(c);
+    setTimeout(() => c.remove(), 800);
+  }
+}
+
+function faceClear() {
+  const container = document.getElementById('face-svg-container');
+  container.querySelectorAll('.placed-part').forEach(p => p.remove());
+  face.placedParts = [];
+  document.getElementById('face-name').value = '';
+}
+
+function faceRandom() {
+  faceClear();
+  const container = document.getElementById('face-svg-container');
+  const randomParts = [
+    {emoji: FACE_PARTS.eyes[Math.floor(Math.random()*FACE_PARTS.eyes.length)], x: 100, y: 155},
+    {emoji: FACE_PARTS.eyes[Math.floor(Math.random()*FACE_PARTS.eyes.length)], x: 220, y: 155},
+    {emoji: FACE_PARTS.nose[Math.floor(Math.random()*FACE_PARTS.nose.length)], x: 175, y: 215},
+    {emoji: FACE_PARTS.mouth[Math.floor(Math.random()*FACE_PARTS.mouth.length)], x: 165, y: 275},
+    {emoji: FACE_PARTS.hair[Math.floor(Math.random()*FACE_PARTS.hair.length)], x: 160, y: 40},
+    {emoji: FACE_PARTS.deco[Math.floor(Math.random()*FACE_PARTS.deco.length)], x: 280, y: 120}
+  ];
+  randomParts.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'placed-part';
+    el.textContent = p.emoji;
+    el.style.left = p.x + 'px';
+    el.style.top = p.y + 'px';
+    el.dataset.emoji = p.emoji;
+    container.appendChild(el);
+    face.placedParts.push(p);
+    face.partsUsed++;
+  });
+  document.getElementById('face-parts-used').textContent = face.partsUsed;
+  const names = ['뽀로로','꾸러기','말랑이','번개맨','구름이','반짝이','두리','하늘이'];
+  document.getElementById('face-name').value = names[Math.floor(Math.random()*names.length)];
+  speak('랜덤 얼굴 완성!');
+}
+
+// ===== 폭발 물감 =====
+const PAINT_COLORS = [
+  {color:'#ef4444',name:'빨강'},{color:'#f97316',name:'주황'},{color:'#fbbf24',name:'노랑'},
+  {color:'#22c55e',name:'초록'},{color:'#3b82f6',name:'파랑'},{color:'#8b5cf6',name:'보라'},
+  {color:'#ec4899',name:'분홍'},{color:'#1e293b',name:'검정'},{color:'#f1f5f9',name:'흰색'}
+];
+
+function initPaintToolbar() {
+  const tb = document.getElementById('paint-toolbar');
+  let html = '';
+  PAINT_COLORS.forEach((c, i) => {
+    html += `<div class="paint-color-btn${i===0?' active':''}" style="background:${c.color}" data-color="${c.color}" data-name="${c.name}" onclick="selectPaintColor(this)"></div>`;
+  });
+  html += `<span class="paint-size-label">크기:</span>`;
+  html += `<input type="range" class="paint-size-slider" min="10" max="80" value="30" oninput="paint.brushSize=parseInt(this.value)">`;
+  html += `<button class="paint-clear-btn" onclick="paintClearCanvas()">🗑 지우기</button>`;
+  tb.innerHTML = html;
+}
+
+function selectPaintColor(el) {
+  document.querySelectorAll('.paint-color-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  paint.currentColor = el.dataset.color;
+  paint.colorsUsed.add(el.dataset.color);
+  document.getElementById('paint-colors-used').textContent = paint.colorsUsed.size;
+}
+
+function initPaintCanvas() {
+  const canvas = document.getElementById('paint-canvas');
+  canvas.addEventListener('mousedown', paintSplat);
+  canvas.addEventListener('mousemove', e => { if (e.buttons) paintSplat(e); });
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); paintSplat(e.touches[0]); }, {passive:false});
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); paintSplat(e.touches[0]); }, {passive:false});
+}
+
+function paintSplat(e) {
+  const canvas = document.getElementById('paint-canvas');
+  const svg = document.getElementById('paint-svg');
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const scaleX = canvas.offsetWidth / rect.width;
+  const scaleY = canvas.offsetHeight / rect.height;
+  const cx = x * scaleX;
+  const cy = y * scaleY;
+
+  paint.touches++;
+  document.getElementById('paint-touches').textContent = paint.touches;
+  paint.colorsUsed.add(paint.currentColor);
+  document.getElementById('paint-colors-used').textContent = paint.colorsUsed.size;
+
+  // 메인 물감 방울 (SVG)
+  const mainR = paint.brushSize * (0.5 + Math.random() * 0.5);
+  const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circle.setAttribute('cx', cx);
+  circle.setAttribute('cy', cy);
+  circle.setAttribute('r', mainR);
+  circle.setAttribute('fill', paint.currentColor);
+  circle.setAttribute('opacity', 0.5 + Math.random() * 0.3);
+  svg.appendChild(circle);
+
+  // 파티클 튀김 (8~15개)
+  const count = 8 + Math.floor(Math.random() * 8);
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'paint-particle';
+    const size = 4 + Math.random() * (paint.brushSize * 0.5);
+    const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.8;
+    const dist = paint.brushSize + Math.random() * paint.brushSize * 2;
+    const dur = 0.3 + Math.random() * 0.4;
+    p.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;background:${paint.currentColor};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--es:${Math.random()*.3};--dur:${dur}s;opacity:${0.6+Math.random()*.3}`;
+    canvas.appendChild(p);
+    setTimeout(() => p.remove(), dur * 1000 + 50);
+
+    // 튀긴 흔적을 SVG에 남김
+    const splash = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    splash.setAttribute('cx', cx + Math.cos(angle) * dist * 0.7);
+    splash.setAttribute('cy', cy + Math.sin(angle) * dist * 0.7);
+    splash.setAttribute('r', size * 0.4);
+    splash.setAttribute('fill', paint.currentColor);
+    splash.setAttribute('opacity', 0.3 + Math.random() * 0.2);
+    svg.appendChild(splash);
+  }
+
+  // 메인 물감 번짐 이펙트
+  const drop = document.createElement('div');
+  drop.className = 'paint-drop';
+  drop.style.cssText = `left:${cx - mainR}px;top:${cy - mainR}px;width:${mainR*2}px;height:${mainR*2}px;background:${paint.currentColor}`;
+  canvas.appendChild(drop);
+  setTimeout(() => drop.remove(), 400);
+
+  // 효과음
+  try {
+    const actx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = actx.createOscillator();
+    const gain = actx.createGain();
+    osc.connect(gain); gain.connect(actx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(200 + Math.random() * 600, actx.currentTime);
+    gain.gain.setValueAtTime(0.05, actx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.15);
+    osc.start(actx.currentTime);
+    osc.stop(actx.currentTime + 0.15);
+  } catch(e) {}
+}
+
+function paintClearCanvas() {
+  const svg = document.getElementById('paint-svg');
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  speak('깨끗해졌어요!');
+}
+
+function paintSave() {
+  paint.works++;
+  profile.totalActivity++;
+  document.getElementById('paint-works').textContent = paint.works;
+  speak('멋진 작품이에요! 저장했어요!');
+  updateProfile();
+  saveStats();
+
+  // 저장 축하 이펙트
+  const canvas = document.getElementById('paint-canvas');
+  for (let i = 0; i < 25; i++) {
+    const c = document.createElement('div');
+    const color = PAINT_COLORS[Math.floor(Math.random()*PAINT_COLORS.length)].color;
+    c.style.cssText = `position:absolute;left:${Math.random()*100}%;top:-10px;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'3px'};background:${color};pointer-events:none;z-index:30;animation:paintSplash ${.6+Math.random()*.4}s ease-out forwards;--tx:${(Math.random()-.5)*100}px;--ty:${150+Math.random()*200}px;--es:0;--dur:${.6+Math.random()*.4}s;animation-delay:${Math.random()*.3}s`;
+    canvas.appendChild(c);
+    setTimeout(() => c.remove(), 1200);
+  }
+}
+
+function paintRandomColor() {
+  const c = PAINT_COLORS[Math.floor(Math.random() * PAINT_COLORS.length)];
+  paint.currentColor = c.color;
+  document.querySelectorAll('.paint-color-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.color === c.color);
+  });
+  speak(`${c.name}!`);
+}
+
+// ===== 그림자 극장 =====
+const THEATER_STICKERS = [
+  {emoji:'🐱',name:'고양이'},{emoji:'🐶',name:'강아지'},{emoji:'🐻',name:'곰'},
+  {emoji:'🦊',name:'여우'},{emoji:'🐰',name:'토끼'},{emoji:'🌲',name:'나무'},
+  {emoji:'🏠',name:'집'},{emoji:'🌙',name:'달'},{emoji:'⭐',name:'별'},
+  {emoji:'👸',name:'공주'},{emoji:'🤴',name:'왕자'},{emoji:'🧙',name:'마법사'},
+  {emoji:'🦋',name:'나비'},{emoji:'🌸',name:'꽃'},{emoji:'🐦',name:'새'}
+];
+
+function initTheater() {
+  const palette = document.getElementById('sticker-palette');
+  palette.innerHTML = THEATER_STICKERS.map(s =>
+    `<div class="sticker-item" data-emoji="${s.emoji}" data-name="${s.name}" onclick="selectSticker(this)">${s.emoji}</div>`
+  ).join('');
+
+  // 무대 별 생성
+  const stars = document.getElementById('stage-stars');
+  for (let i = 0; i < 30; i++) {
+    const star = document.createElement('div');
+    star.style.cssText = `position:absolute;left:${Math.random()*100}%;top:${Math.random()*60}%;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;background:#fff;border-radius:50%;opacity:${.2+Math.random()*.5};animation:starTwinkle ${1+Math.random()*3}s ease-in-out infinite;animation-delay:${Math.random()*2}s`;
+    stars.appendChild(star);
+  }
+
+  // 무대 드래그 이벤트
+  const stage = document.getElementById('stage-wrap');
+  stage.addEventListener('mousedown', theaterStageDown);
+  stage.addEventListener('mousemove', theaterStageMove);
+  stage.addEventListener('mouseup', theaterStageUp);
+  stage.addEventListener('touchstart', e => { e.preventDefault(); theaterStageDown(e.touches[0]); }, {passive:false});
+  stage.addEventListener('touchmove', e => { e.preventDefault(); theaterStageMove(e.touches[0]); }, {passive:false});
+  stage.addEventListener('touchend', e => { theaterStageUp(e); }, {passive:false});
+}
+
+function selectSticker(el) {
+  document.querySelectorAll('.sticker-item').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  theater.selectedSticker = el.dataset.emoji;
+}
+
+function theaterStageDown(e) {
+  const stage = document.getElementById('stage-wrap');
+  const rect = stage.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  // 기존 스티커 드래그 확인
+  const stickers = stage.querySelectorAll('.stage-sticker');
+  for (let i = stickers.length - 1; i >= 0; i--) {
+    const s = stickers[i];
+    const sx = parseFloat(s.style.left);
+    const sy = parseFloat(s.style.top);
+    const scaleX = stage.offsetWidth / rect.width;
+    const ax = x * scaleX;
+    const ay = y * (stage.offsetHeight / rect.height);
+    if (ax >= sx - 30 && ax <= sx + 60 && ay >= sy - 30 && ay <= sy + 60) {
+      theater.dragging = s;
+      theater.dragOffX = ax - sx;
+      theater.dragOffY = ay - sy;
+      s.style.zIndex = 20;
+      return;
+    }
+  }
+
+  // 새 스티커 배치
+  if (theater.selectedSticker && !theater.playing) {
+    const scaleX = stage.offsetWidth / rect.width;
+    const scaleY = stage.offsetHeight / rect.height;
+    const sticker = document.createElement('div');
+    sticker.className = 'stage-sticker';
+    sticker.textContent = theater.selectedSticker;
+    sticker.style.left = (x * scaleX - 30) + 'px';
+    sticker.style.top = (y * scaleY - 30) + 'px';
+    sticker.dataset.emoji = theater.selectedSticker;
+    sticker.dataset.order = theater.stickers.length;
+    stage.appendChild(sticker);
+    theater.stickers.push({emoji: theater.selectedSticker, x: x * scaleX - 30, y: y * scaleY - 30, el: sticker});
+    theater.stickerCount++;
+    document.getElementById('theater-stickers').textContent = theater.stickerCount;
+  }
+}
+
+function theaterStageMove(e) {
+  if (!theater.dragging) return;
+  const stage = document.getElementById('stage-wrap');
+  const rect = stage.getBoundingClientRect();
+  const x = (e.clientX - rect.left) * (stage.offsetWidth / rect.width);
+  const y = (e.clientY - rect.top) * (stage.offsetHeight / rect.height);
+  theater.dragging.style.left = (x - theater.dragOffX) + 'px';
+  theater.dragging.style.top = (y - theater.dragOffY) + 'px';
+}
+
+function theaterStageUp(e) {
+  if (theater.dragging) {
+    theater.dragging.style.zIndex = 6;
+    theater.dragging = null;
+  }
+}
+
+function theaterPlay() {
+  if (theater.stickers.length === 0) {
+    speak('무대에 스티커를 놓아주세요!');
+    return;
+  }
+  if (theater.playing) return;
+  theater.playing = true;
+  theater.shows++;
+  profile.totalActivity++;
+  document.getElementById('theater-shows').textContent = theater.shows;
+  saveStats();
+  updateProfile();
+
+  // 먼저 모든 스티커 숨기기
+  const stage = document.getElementById('stage-wrap');
+  const stickers = stage.querySelectorAll('.stage-sticker');
+  stickers.forEach(s => { s.style.opacity = '0'; s.style.transform = 'scale(0)'; });
+
+  // 관객 등장
+  document.getElementById('audience-bar').classList.add('visible');
+  speak('공연이 시작됩니다!');
+
+  // 순서대로 등장
+  stickers.forEach((s, i) => {
+    setTimeout(() => {
+      s.style.opacity = '';
+      s.style.transform = '';
+      s.classList.remove('playing');
+      void s.offsetWidth; // reflow
+      s.classList.add('playing');
+      // 등장 효과음
+      try {
+        const actx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = actx.createOscillator();
+        const gain = actx.createGain();
+        osc.connect(gain); gain.connect(actx.destination);
+        osc.frequency.setValueAtTime(300 + i * 100, actx.currentTime);
+        gain.gain.setValueAtTime(0.08, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.3);
+        osc.start(actx.currentTime);
+        osc.stop(actx.currentTime + 0.3);
+      } catch(e) {}
+    }, 800 + i * 1000);
+  });
+
+  // 공연 끝
+  setTimeout(() => {
+    // 관객 반응
+    const reactions = ['👏','👏','👏','🎉','😄','🥰','❤️'];
+    const audience = document.getElementById('audience-bar');
+    audience.querySelectorAll('.audience-member').forEach(m => {
+      m.textContent = reactions[Math.floor(Math.random()*reactions.length)];
+    });
+    speak('브라보! 멋진 공연이에요!');
+
+    // 박수 파티클
+    for (let i = 0; i < 15; i++) {
+      const p = document.createElement('div');
+      p.style.cssText = `position:absolute;left:${20+Math.random()*60}%;bottom:60px;font-size:${16+Math.random()*12}px;pointer-events:none;z-index:30;animation:starPop .8s ease-out forwards;--tx:${(Math.random()-.5)*60}px;--ty:${-40-Math.random()*80}px;animation-delay:${Math.random()*.5}s`;
+      p.textContent = ['👏','⭐','🌟','✨','🎉'][Math.floor(Math.random()*5)];
+      stage.appendChild(p);
+      setTimeout(() => p.remove(), 1500);
+    }
+
+    setTimeout(() => {
+      theater.playing = false;
+      // 관객 되돌리기
+      const faces = ['👨','👩','🧒','👴','👧','👦','👵'];
+      audience.querySelectorAll('.audience-member').forEach((m, i) => {
+        m.textContent = faces[i];
+      });
+      audience.classList.remove('visible');
+    }, 3000);
+  }, 800 + theater.stickers.length * 1000 + 500);
+}
+
+function theaterClear() {
+  const stage = document.getElementById('stage-wrap');
+  stage.querySelectorAll('.stage-sticker').forEach(s => s.remove());
+  theater.stickers = [];
+  theater.playing = false;
+  document.getElementById('audience-bar').classList.remove('visible');
+}
+
+function theaterRandomPlace() {
+  theaterClear();
+  const stage = document.getElementById('stage-wrap');
+  const count = 3 + Math.floor(Math.random() * 4);
+  for (let i = 0; i < count; i++) {
+    const s = THEATER_STICKERS[Math.floor(Math.random()*THEATER_STICKERS.length)];
+    const sticker = document.createElement('div');
+    sticker.className = 'stage-sticker';
+    sticker.textContent = s.emoji;
+    const x = 80 + Math.random() * (stage.offsetWidth - 160);
+    const y = 60 + Math.random() * (stage.offsetHeight - 160);
+    sticker.style.left = x + 'px';
+    sticker.style.top = y + 'px';
+    sticker.dataset.emoji = s.emoji;
+    stage.appendChild(sticker);
+    theater.stickers.push({emoji: s.emoji, x, y, el: sticker});
+    theater.stickerCount++;
+  }
+  document.getElementById('theater-stickers').textContent = theater.stickerCount;
+  speak('랜덤 배치 완료!');
+}
+
+// ===== 내 기록 =====
+function updateRecords() {
+  document.getElementById('r-total').textContent = profile.totalActivity;
+  document.getElementById('rec-total').textContent = profile.totalActivity;
+  document.getElementById('r-faces').textContent = face.count;
+  document.getElementById('r-paintings').textContent = paint.works;
+  document.getElementById('r-paint-touches').textContent = paint.touches;
+  document.getElementById('r-paint-colors').textContent = paint.colorsUsed.size;
+  document.getElementById('r-paint-works').textContent = paint.works;
+  document.getElementById('r-shows').textContent = theater.shows;
+  document.getElementById('r-stickers').textContent = theater.stickerCount;
+  document.getElementById('r-hero-best').textContent = hg.bestScore;
+  document.getElementById('rec-hero-best').textContent = hg.bestScore;
+}
+
+// ===== 히어로: 팔레트 디펜스 =====
+function startHeroGame() {
+  const game = document.getElementById('hero-game');
+  game.classList.remove('hidden');
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.balls = []; hg.combo = 0; hg.maxCombo = 0; hg.filledCount = 0;
+  // 랜덤 그림 선택
+  const pic = hg.pictures[Math.floor(Math.random() * hg.pictures.length)];
+  hg.totalSections = pic.sections;
+  hg.currentSection = 0;
+  // SVG 그림 설정
+  const svg = document.getElementById('hg-picture-svg');
+  svg.innerHTML = pic.svg;
+  document.getElementById('hg-total-sections').textContent = hg.totalSections;
+  // 각 섹션에 필요한 색상 할당
+  hg.sections = [];
+  for (let i = 0; i < hg.totalSections; i++) {
+    const colorIdx = Math.floor(Math.random() * hg.colors.length);
+    hg.sections.push({filled: false, colorIdx});
+    const el = document.getElementById('hg-s' + i);
+    if (el) {
+      el.style.fill = '#f1f5f9';
+      el.style.stroke = '#94a3b8';
+      el.classList.remove('filled');
+      el.setAttribute('data-color', '');
+    }
+  }
+  hgSetNextTarget();
+  updateHgUI();
+  addHgClouds();
+  hgLoop();
+}
+
+function hgSetNextTarget() {
+  // 다음 채울 섹션 찾기
+  let found = false;
+  for (let i = 0; i < hg.sections.length; i++) {
+    if (!hg.sections[i].filled) {
+      hg.currentSection = i;
+      hg.targetIdx = hg.sections[i].colorIdx;
+      hg.targetColor = hg.colors[hg.targetIdx];
+      const swatch = document.getElementById('hg-target-swatch');
+      swatch.style.background = hg.targetColor;
+      document.getElementById('hg-target-name').textContent = hg.colorNames[hg.targetIdx];
+      // 현재 섹션 하이라이트
+      for (let j = 0; j < hg.sections.length; j++) {
+        const el = document.getElementById('hg-s' + j);
+        if (el && !hg.sections[j].filled) {
+          el.style.stroke = j === i ? '#ec4899' : '#94a3b8';
+          el.style.strokeWidth = j === i ? '3' : '2';
+          el.style.strokeDasharray = j === i ? '8,4' : 'none';
+        }
+      }
+      found = true;
+      break;
+    }
+  }
+  if (!found) {
+    // 모든 섹션 완료 -> 새 그림
+    hg.level++;
+    hg.score += 20; // 그림 완성 보너스
+    speak('그림 완성! 보너스 20점!');
+    hgCompletionEffect();
+    setTimeout(() => {
+      const pic = hg.pictures[Math.floor(Math.random() * hg.pictures.length)];
+      hg.totalSections = pic.sections;
+      hg.filledCount = 0;
+      document.getElementById('hg-total-sections').textContent = hg.totalSections;
+      const svg = document.getElementById('hg-picture-svg');
+      svg.innerHTML = pic.svg;
+      hg.sections = [];
+      for (let i = 0; i < hg.totalSections; i++) {
+        const colorIdx = Math.floor(Math.random() * hg.colors.length);
+        hg.sections.push({filled: false, colorIdx});
+      }
+      hgSetNextTarget();
+      hgUpdateBg();
+      updateHgUI();
+    }, 1500);
+  }
+}
+
+function hgCompletionEffect() {
+  const arena = document.getElementById('hg-arena');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'hg-star-pop';
+    p.textContent = ['🎨','🖌️','✨','🌟','🎉','⭐'][Math.floor(Math.random()*6)];
+    p.style.cssText = `left:${30+Math.random()*40}%;top:${20+Math.random()*40}%;font-size:${18+Math.random()*20}px;--tx:${(Math.random()-.5)*120}px;--ty:${(Math.random()-.5)*120}px`;
+    arena.appendChild(p);
+    setTimeout(() => p.remove(), 700);
+  }
+}
+
+function addHgClouds() {
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-cloud').forEach(c => c.remove());
+  const clouds = ['☁️','🌤️','🌥️'];
+  for (let i = 0; i < 4; i++) {
+    const c = document.createElement('div');
+    c.className = 'hg-cloud';
+    c.textContent = clouds[Math.floor(Math.random()*clouds.length)];
+    c.style.top = (Math.random() * 30 + 5) + '%';
+    c.style.animationDelay = -(Math.random() * 25) + 's';
+    c.style.fontSize = (24 + Math.random() * 24) + 'px';
+    arena.appendChild(c);
+  }
+}
+
+function hgLoop() {
+  const interval = Math.max(1200, 3000 - hg.level * 200);
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  hg.spawnTimer = setInterval(() => {
+    if (!hg.paused && hg.running) hgSpawn();
+  }, interval);
+  function tick() {
+    if (!hg.running) return;
+    if (!hg.paused) hgMove();
+    hg.animId = requestAnimationFrame(tick);
+  }
+  hg.animId = requestAnimationFrame(tick);
+}
+
+function hgSpawn() {
+  // 8% 파워업
+  if (Math.random() < 0.08) { hgSpawnPower(); return; }
+
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+
+  const colorIdx = Math.floor(Math.random() * hg.colors.length);
+  const color = hg.colors[colorIdx];
+  const size = 50 + Math.random() * 20;
+
+  const el = document.createElement('div');
+  el.className = 'flying-ball';
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  el.innerHTML = `<div class="flying-ball-inner" style="background:${color}"><div class="flying-ball-shine"></div></div>`;
+  el.onclick = () => hgTapBall(ball);
+
+  // 사방에서 날아옴
+  const side = Math.floor(Math.random() * 4); // 0:위, 1:아래, 2:왼, 3:오
+  let x, y, vx, vy;
+  const speed = 0.4 + hg.level * 0.06 + Math.random() * 0.2;
+  const targetX = w * 0.3 + Math.random() * w * 0.4;
+  const targetY = h * 0.3 + Math.random() * h * 0.4;
+
+  if (side === 0) { x = Math.random() * w; y = -60; }
+  else if (side === 1) { x = Math.random() * w; y = h + 60; }
+  else if (side === 2) { x = -60; y = Math.random() * h; }
+  else { x = w + 60; y = Math.random() * h; }
+
+  const angle = Math.atan2(targetY - y, targetX - x);
+  vx = Math.cos(angle) * speed;
+  vy = Math.sin(angle) * speed;
+
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  arena.appendChild(el);
+
+  const ball = {el, x, y, vx, vy, colorIdx, color, size, age: 0};
+  hg.balls.push(ball);
+}
+
+function hgSpawnPower() {
+  const types = [{e:'🧹',fx:'erase',name:'지우개'},{e:'🌈',fx:'rainbow',name:'무지개붓'},{e:'🖼️',fx:'frame',name:'액자'}];
+  const t = types[Math.floor(Math.random() * types.length)];
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+  const el = document.createElement('div');
+  el.className = 'hg-powerup';
+  el.textContent = t.e;
+  el.style.left = (60 + Math.random() * (w - 120)) + 'px';
+  el.style.top = (60 + Math.random() * (h - 120)) + 'px';
+  el.onclick = () => hgPowerUp(t, el);
+  arena.appendChild(el);
+  // 자동 소멸
+  setTimeout(() => { if (el.parentNode) el.remove(); }, 5000);
+}
+
+function hgPowerUp(t, el) {
+  el.remove();
+  if (t.fx === 'erase') {
+    // 지우개: 얼룩 제거
+    document.querySelectorAll('.hg-stain').forEach(s => s.remove());
+    speak('얼룩 지우기!');
+  } else if (t.fx === 'rainbow') {
+    // 무지개붓: 현재 섹션 자동 색칠
+    hgFillSection(hg.currentSection, hg.targetColor);
+    speak('무지개붓!');
+  } else if (t.fx === 'frame') {
+    // 액자: 한 섹션 즉시 완성
+    hgFillSection(hg.currentSection, hg.targetColor);
+    speak('액자 완성!');
+  }
+  hg.score += 3;
+  updateHgUI();
+  // 이펙트
+  const arena = document.getElementById('hg-arena');
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'hg-star-pop';
+    p.textContent = ['⭐','✨','💫'][Math.floor(Math.random()*3)];
+    const cx = parseFloat(el.style.left) + 25;
+    const cy = parseFloat(el.style.top) + 25;
+    p.style.cssText = `left:${cx}px;top:${cy}px;font-size:${16+Math.random()*12}px;--tx:${(Math.random()-.5)*80}px;--ty:${(Math.random()-.5)*80}px`;
+    arena.appendChild(p);
+    setTimeout(() => p.remove(), 700);
+  }
+}
+
+function hgTapBall(ball) {
+  if (!hg.running || hg.paused) return;
+  const arena = document.getElementById('hg-arena');
+
+  if (ball.colorIdx === hg.targetIdx) {
+    // 정답!
+    hg.combo++;
+    if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+    const bonus = Math.min(hg.combo, 5);
+    hg.score += 2 + bonus;
+
+    // 콤보 표시
+    if (hg.combo >= 3) {
+      const combo = document.getElementById('hg-combo');
+      combo.textContent = `🔥 ${hg.combo} COMBO!`;
+      combo.classList.add('visible');
+      setTimeout(() => combo.classList.remove('visible'), 1500);
+    }
+
+    // 정답 플래시
+    const flash = document.createElement('div');
+    flash.className = 'hg-flash';
+    arena.appendChild(flash);
+    setTimeout(() => flash.remove(), 300);
+
+    // 색칠 이펙트
+    hgPaintBurst(ball.x + ball.size/2, ball.y + ball.size/2, ball.color);
+    speak('정답!');
+
+    // 섹션 채우기
+    hgFillSection(hg.currentSection, ball.color);
+
+    // 공 제거
+    ball.el.remove();
+    hg.balls = hg.balls.filter(b => b !== ball);
+    updateHgUI();
+  } else {
+    // 틀림 -> 얼룩
+    hg.combo = 0;
+    hg.lives--;
+
+    // 미스 플래시
+    const mf = document.createElement('div');
+    mf.className = 'hg-miss-flash';
+    arena.appendChild(mf);
+    setTimeout(() => mf.remove(), 400);
+    arena.classList.add('hg-arena-shake');
+    setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
+
+    // 얼룩 생성
+    const stain = document.createElement('div');
+    stain.className = 'hg-stain';
+    const stainSize = 20 + Math.random() * 30;
+    stain.style.cssText = `left:${ball.x}px;top:${ball.y}px;width:${stainSize}px;height:${stainSize}px;background:${ball.color}`;
+    arena.appendChild(stain);
+
+    speak('앗! 틀린 색이에요');
+
+    ball.el.remove();
+    hg.balls = hg.balls.filter(b => b !== ball);
+    updateHgUI();
+
+    if (hg.lives <= 0) hgEnd();
+  }
+}
+
+function hgFillSection(idx, color) {
+  if (idx >= hg.sections.length || hg.sections[idx].filled) return;
+  hg.sections[idx].filled = true;
+  hg.filledCount++;
+  document.getElementById('hg-filled').textContent = hg.filledCount;
+
+  const el = document.getElementById('hg-s' + idx);
+  if (el) {
+    el.style.fill = color;
+    el.style.stroke = '#475569';
+    el.style.strokeDasharray = 'none';
+    el.classList.add('filled');
+  }
+  hgSetNextTarget();
+}
+
+function hgPaintBurst(cx, cy, color) {
+  const arena = document.getElementById('hg-arena');
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'hg-paint-burst';
+    const size = 8 + Math.random() * 16;
+    const angle = (Math.PI * 2 / 12) * i + (Math.random() - 0.5) * 0.5;
+    const dist = 40 + Math.random() * 80;
+    const dur = 0.4 + Math.random() * 0.3;
+    p.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;background:${color};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--dur:${dur}s;box-shadow:0 0 ${size*0.8}px ${color}`;
+    arena.appendChild(p);
+    setTimeout(() => p.remove(), dur * 1000 + 50);
+  }
+}
+
+function hgMove() {
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+  hg.balls = hg.balls.filter(ball => {
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+    ball.age++;
+    ball.el.style.left = ball.x + 'px';
+    ball.el.style.top = ball.y + 'px';
+
+    // 화면 밖으로 나가면 제거 (일정 시간 후)
+    if (ball.age > 500 || ball.x < -100 || ball.x > w + 100 || ball.y < -100 || ball.y > h + 100) {
+      ball.el.remove();
+      return false;
+    }
+    return true;
+  });
+}
+
+function hgUpdateBg() {
+  const bgs = [
+    'linear-gradient(180deg,#fdf2f8 0%,#fce7f3 25%,#fbcfe8 75%,#f9a8d4 100%)',
+    'linear-gradient(180deg,#fef3c7 0%,#fde68a 25%,#fed7aa 75%,#fdba74 100%)',
+    'linear-gradient(180deg,#dcfce7 0%,#bbf7d0 25%,#86efac 75%,#4ade80 100%)',
+    'linear-gradient(180deg,#dbeafe 0%,#bfdbfe 25%,#93c5fd 75%,#60a5fa 100%)'
+  ];
+  document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
+}
+
+function updateHgUI() {
+  document.getElementById('hg-score').textContent = hg.score;
+  document.getElementById('hg-level').textContent = hg.level;
+  document.getElementById('hg-filled').textContent = hg.filledCount;
+  document.getElementById('hg-hearts').textContent = '❤️'.repeat(Math.max(0,hg.lives)) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+}
+
+function hgEnd() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.balls.forEach(b => b.el.remove());
+  hg.balls = [];
+  if (hg.score > hg.bestScore) hg.bestScore = hg.score;
+  profile.totalActivity++;
+  saveStats();
+  updateProfile();
+  document.getElementById('hg-final-score').textContent = hg.score;
+  let msg = '멋진 그림이에요!';
+  if (hg.score >= 50) msg = '대단해요! 미술 천재!';
+  else if (hg.score >= 30) msg = '와! 색칠 마스터!';
+  else if (hg.score >= 15) msg = '잘했어요! 계속 그려봐요!';
+  document.getElementById('hg-over-msg').textContent = msg;
+  document.getElementById('hg-over').classList.remove('hidden');
+  speak(msg);
+}
+
+function hgRestart() {
+  document.getElementById('hg-over').classList.add('hidden');
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.flying-ball,.hg-paint-burst,.hg-star-pop,.hg-stain,.hg-powerup').forEach(e => e.remove());
+  startHeroGame();
+}
+
+function hgPause() {
+  hg.paused = !hg.paused;
+  document.getElementById('hg-pause').classList.toggle('hidden', !hg.paused);
+}
+
+function hgExit() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.balls.forEach(b => b.el.remove());
+  hg.balls = [];
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause').classList.add('hidden');
+  document.getElementById('hero-game').classList.add('hidden');
+}
+
+// ===== 초기화 =====
+document.addEventListener('DOMContentLoaded', function() {
+  // fitScale
+  function fitScale() {
+    const c = document.querySelector('.container');
+    if (!c || getComputedStyle(c).display === 'none') return;
+    const M = 0.03;
+    const aW = window.innerWidth * (1 - M * 2);
+    const aH = window.innerHeight * (1 - M * 2);
+    const s = Math.min(aW / 1920, aH / 1080);
+    c.style.transform = `scale(${s})`;
+    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  fitScale();
+  window.addEventListener('resize', fitScale);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
+
+  // 프로필
+  updateProfile();
+  updateActionButtons();
+
+  // 게임 초기화
+  initFaceParts();
+  initFaceDrag();
+  initPaintToolbar();
+  initPaintCanvas();
+  initTheater();
+
+  // 사이드 상태 반영
+  document.getElementById('face-count').textContent = face.count;
+  document.getElementById('face-parts-used').textContent = face.partsUsed;
+  document.getElementById('paint-touches').textContent = paint.touches;
+  document.getElementById('paint-colors-used').textContent = paint.colorsUsed.size;
+  document.getElementById('paint-works').textContent = paint.works;
+  document.getElementById('theater-shows').textContent = theater.shows;
+  document.getElementById('theater-stickers').textContent = theater.stickerCount;
+});
+
+// 별 깜빡임 키프레임 추가
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `@keyframes starTwinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:.8;transform:scale(1.2)}}`;
+document.head.appendChild(styleSheet);
+
+// 더블탭 방지
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+</script>
+</body>
+</html>

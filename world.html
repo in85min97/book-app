@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>세계 놀이터 🌍</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#0284c7 0%,#0ea5e9 50%,#0369a1 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
+.rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0284c7,#0ea5e9);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
+.rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
+@keyframes rotateH{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+@media(orientation:portrait){.rotate-notice{display:flex}.container{display:none!important}}
+.container{width:1920px;height:1080px;background:#fff;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;position:absolute}
+
+/* 과목바 */
+.subject-bar{background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;padding:0 20px;height:56px;flex-shrink:0;gap:4px;position:relative}
+.subject-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7dd3fc,#0ea5e9,#7dd3fc)}
+.sb-tab{padding:8px 30px;border:none;border-radius:12px 12px 0 0;background:0;font-size:18px;font-weight:800;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.sb-tab.active{background:#fff;color:#1e3a8a}
+.sb-tab.locked{cursor:default}
+.sb-tab .lock{font-size:12px;opacity:.5}
+.sb-spacer{flex:1}
+.sb-btns{display:flex;gap:8px}
+.sb-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-size:18px;color:#fff;cursor:pointer;transition:.15s}
+.sb-btn:active{background:rgba(255,255,255,.3)}
+
+/* 메인 */
+.main-layout{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:14px;flex:1;overflow:hidden}
+
+/* 왼쪽 */
+.left-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.profile-section{background:linear-gradient(145deg,#0284c7,#0ea5e9 50%,#38bdf8);border-radius:20px;padding:20px;border:3px solid #bae6fd;box-shadow:0 6px 20px rgba(2,132,199,.3);flex-shrink:0;position:relative;overflow:hidden}
+.profile-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='15' cy='15' r='1.5' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='2s' repeatCount='indefinite'/></circle><circle cx='85' cy='25' r='1' fill='white' opacity='.25'><animate attributeName='opacity' values='.25;.08;.25' dur='1.5s' repeatCount='indefinite'/></circle><circle cx='25' cy='75' r='1.2' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='1.8s' repeatCount='indefinite'/></circle></svg>") repeat;pointer-events:none}
+.profile-content{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.profile-avatar{width:90px;height:90px;background:linear-gradient(145deg,#7dd3fc,#38bdf8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #fff;box-shadow:0 4px 15px rgba(56,189,248,.4);animation:avGlow 3s ease-in-out infinite;flex-shrink:0;cursor:pointer}
+@keyframes avGlow{0%,100%{box-shadow:0 4px 15px rgba(56,189,248,.4);transform:scale(1)}50%{box-shadow:0 8px 25px rgba(56,189,248,.6);transform:scale(1.05)}}
+.profile-info{flex:1;color:#fff}
+.profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
+.profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.profile-level{font-size:18px;font-weight:700;color:#bae6fd;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#7dd3fc,#38bdf8);color:#0c4a6e;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#7dd3fc,#38bdf8,#7dd3fc);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
+@keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* 탭 */
+.tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn.active{background:linear-gradient(145deg,#0ea5e9,#0284c7);color:#fff;border-color:#0ea5e9}
+.tab-btn:active{transform:scale(.97)}
+.tab-content{display:none;flex:1;overflow:hidden}
+.tab-content.active{display:flex;flex-direction:column}
+
+/* 사이드 정보 */
+.side-info{background:linear-gradient(145deg,#f0f9ff,#e0f2fe);border-radius:16px;padding:15px;border:2px solid #0ea5e9;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-title{font-size:17px;font-weight:700;color:#0c4a6e;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
+.side-val{font-size:20px;font-weight:800;color:#0284c7}
+
+/* 게임 런치 */
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff;border:3px solid #bae6fd;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(14,165,233,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+@keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.game-launch-btn:active{transform:scale(.97)}
+
+/* 중앙 */
+.center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.game-view.active{display:flex}
+
+/* ===== 비행기 조종사 ===== */
+.pilot-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#0c4a6e 0%,#0284c7 40%,#38bdf8 100%);border-radius:16px}
+.globe-container{position:relative;width:500px;height:500px}
+.globe-svg{width:100%;height:100%;animation:globeRotateBg 30s linear infinite}
+@keyframes globeRotateBg{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+.country-dot{cursor:pointer;transition:transform .2s}
+.country-dot:hover{transform:scale(1.3)}
+.plane-svg{position:absolute;width:60px;height:60px;transition:all 1.5s cubic-bezier(.34,1.56,.64,1);z-index:10;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+.country-info-card{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);border-radius:20px;padding:20px 30px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:20;min-width:300px;backdrop-filter:blur(10px);animation:cardSlideUp .5s ease-out}
+@keyframes cardSlideUp{0%{transform:translateX(-50%) translateY(30px);opacity:0}100%{transform:translateX(-50%) translateY(0);opacity:1}}
+.country-flag{font-size:64px;margin-bottom:8px}
+.country-name{font-size:28px;font-weight:900;color:#1e293b;margin-bottom:4px}
+.country-capital{font-size:18px;color:#64748b;font-weight:600}
+.country-greeting{font-size:16px;color:#0284c7;font-weight:700;margin-top:8px;padding:8px 16px;background:#e0f2fe;border-radius:10px}
+.pilot-start-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.pilot-start-title{font-size:48px;font-weight:900;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,.3)}
+.pilot-start-btn{background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff;border:4px solid #bae6fd;border-radius:24px;padding:24px 60px;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(14,165,233,.4);animation:gPulse 2s ease-in-out infinite}
+.pilot-start-btn:active{transform:scale(.95)}
+.cloud-bg{position:absolute;font-size:40px;opacity:.15;pointer-events:none;animation:cloudDrift 25s linear infinite}
+@keyframes cloudDrift{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100% + 200px))}}
+
+/* ===== 옷 입히기 ===== */
+.dress-area{flex:1;display:flex;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#fef3c7,#fde68a 50%,#fbbf24)}
+.dress-character{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+.dress-char-svg{width:300px;height:400px}
+.dress-palette{width:280px;display:flex;flex-direction:column;gap:8px;padding:12px;overflow-y:auto;background:rgba(255,255,255,.5);backdrop-filter:blur(5px)}
+.dress-item{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:16px;padding:12px;text-align:center;cursor:pointer;transition:.2s;font-size:14px;font-weight:700;color:#1e293b}
+.dress-item:active{transform:scale(.95)}
+.dress-item.selected{border-color:#0ea5e9;background:linear-gradient(145deg,#e0f2fe,#bae6fd);box-shadow:0 0 12px rgba(14,165,233,.3)}
+.dress-item-emoji{font-size:36px;margin-bottom:4px;display:block}
+.dress-result{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);border-radius:16px;padding:16px 24px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:10;animation:cardSlideUp .5s ease-out}
+.dress-quiz-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:20;backdrop-filter:blur(5px)}
+.dress-quiz-box{background:#fff;border-radius:24px;padding:30px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3);min-width:400px}
+.dress-quiz-q{font-size:28px;font-weight:900;color:#1e293b;margin-bottom:20px}
+.dress-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dress-quiz-opt{padding:16px;border:3px solid #e2e8f0;border-radius:14px;font-size:20px;font-weight:700;cursor:pointer;background:#fff;transition:.2s;font-family:inherit}
+.dress-quiz-opt:active{transform:scale(.95)}
+.dress-quiz-opt.correct{background:linear-gradient(145deg,#86efac,#4ade80);border-color:#22c55e;color:#fff}
+.dress-quiz-opt.wrong{background:linear-gradient(145deg,#fca5a5,#f87171);border-color:#ef4444;color:#fff}
+
+/* ===== 소리 지도 ===== */
+.sound-area{flex:1;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#ecfdf5,#d1fae5 50%,#a7f3d0)}
+.sound-map{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:20px}
+.sound-map-svg{width:100%;height:100%;max-width:900px;max-height:500px}
+.sound-speaker{cursor:pointer;transition:transform .2s}
+.sound-speaker:hover{transform:scale(1.2)}
+.sound-speaker.playing{animation:speakerPulse .5s ease-in-out infinite}
+@keyframes speakerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.sound-info{text-align:center;padding:14px;background:rgba(255,255,255,.8);backdrop-filter:blur(5px);font-size:20px;font-weight:700;color:#065f46;flex-shrink:0;border-top:2px solid #a7f3d0}
+.sound-wave{position:absolute;border-radius:50%;border:3px solid rgba(14,165,233,.4);pointer-events:none;animation:soundWave 1s ease-out forwards}
+@keyframes soundWave{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}
+
+/* ===== 내 기록 ===== */
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#f0f9ff,#e0f2fe);border-radius:12px;border:2px solid #bae6fd}
+.record-num{font-size:32px;font-weight:900;color:#0284c7}
+.record-label{font-size:13px;font-weight:600;color:#0c4a6e;margin-top:4px}
+
+/* 오른쪽 */
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn:active{transform:scale(.95)}
+.action-btn.btn-sky{background:linear-gradient(145deg,#0ea5e9,#0284c7);box-shadow:0 2px 8px rgba(14,165,233,.3)}
+.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
+.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
+.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.action-btn.btn-orange{background:linear-gradient(145deg,#f97316,#ea580c);box-shadow:0 2px 8px rgba(249,115,22,.2)}
+.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+
+/* ===== 히어로: 깃발 레이스 ===== */
+.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#0c4a6e 0%,#0284c7 30%,#38bdf8 60%,#7dd3fc 100%);overflow:hidden}
+.hero-game.hidden{display:none}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.2);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.3)}
+.hg-stat{font-size:22px;font-weight:800;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-ctrls{display:flex;gap:8px}
+.hg-ctrl-btn{background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.5);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff}
+.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-arena{flex:1;position:relative;overflow:hidden}
+.hg-target{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.9);border-radius:20px;padding:12px 30px;font-size:28px;font-weight:900;color:#0c4a6e;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:5;backdrop-filter:blur(5px);white-space:nowrap}
+.hg-plane{position:absolute;bottom:80px;width:80px;height:80px;z-index:10;transition:left .15s ease-out;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3))}
+.hg-plane.invincible{filter:drop-shadow(0 0 20px #fbbf24) drop-shadow(0 0 40px #fbbf24)}
+.falling-flag{position:absolute;z-index:5;pointer-events:none;text-align:center}
+.ff-emoji{font-size:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));display:block}
+.ff-highlight{animation:flagHighlight .5s ease-in-out infinite}
+@keyframes flagHighlight{0%,100%{filter:drop-shadow(0 0 8px #fbbf24)}50%{filter:drop-shadow(0 0 20px #fbbf24)}}
+.hg-cloud{position:absolute;font-size:36px;opacity:.2;pointer-events:none;animation:hgCloudFloat 20s linear infinite;z-index:1}
+@keyframes hgCloudFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
+.hg-powerup{position:absolute;z-index:6;pointer-events:none;animation:puFloat 1s ease-in-out infinite}
+@keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hg-pu-emoji{font-size:40px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.hg-flash{position:absolute;inset:0;pointer-events:none;z-index:30;animation:screenFlash .3s ease-out forwards}
+@keyframes screenFlash{0%{background:rgba(34,197,94,.3)}100%{background:transparent}}
+.hg-miss-flash{position:absolute;inset:0;pointer-events:none;z-index:30;animation:missFlash .4s ease-out forwards}
+@keyframes missFlash{0%{background:rgba(239,68,68,.3)}50%{background:rgba(239,68,68,.15)}100%{background:transparent}}
+.hg-arena-shake{animation:arenaShake .4s ease-out}
+@keyframes arenaShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.hg-combo{position:absolute;font-size:32px;font-weight:900;pointer-events:none;z-index:20;animation:comboPop 1s ease-out forwards;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+@keyframes comboPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-50%) scale(.8);opacity:0}}
+.hg-collect-effect{position:absolute;pointer-events:none;z-index:20;animation:collectPop .6s ease-out forwards}
+@keyframes collectPop{0%{transform:scale(0);opacity:1}50%{transform:scale(1.5);opacity:.8}100%{transform:scale(0);opacity:0}}
+.hg-star-burst{position:absolute;pointer-events:none;z-index:20;animation:starBurst .7s ease-out forwards}
+@keyframes starBurst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-50px)) scale(0);opacity:0}}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-overlay.hidden{display:none}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
+.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:28px;font-weight:700;color:#0284c7;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#0ea5e9,#0284c7);color:#fff}
+.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+.hg-controls{display:flex;gap:0;padding:0;flex-shrink:0;z-index:10}
+.hg-move-btn{flex:1;padding:24px;font-size:36px;font-weight:900;cursor:pointer;border:none;background:rgba(255,255,255,.15);color:#fff;font-family:inherit;transition:.1s;backdrop-filter:blur(5px)}
+.hg-move-btn:active{background:rgba(255,255,255,.35)}
+.hg-move-btn.left{border-right:1px solid rgba(255,255,255,.2)}
+
+/* 모달 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:20px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.modal-head{background:linear-gradient(145deg,#0ea5e9,#0284c7);color:#fff;padding:16px 20px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font-size:18px}
+.modal-close{background:0;border:0;color:#fff;font-size:24px;cursor:pointer}
+.modal-body{padding:20px}
+.modal-section{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fafc}
+.modal-section h4{margin:0 0 10px;font-weight:700;color:#374151;font-size:15px}
+.modal-input{width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px}
+.modal-input:focus{outline:none;border-color:#0ea5e9}
+.modal-btn{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;width:100%;background:linear-gradient(145deg,#0ea5e9,#0284c7);color:#fff;margin-top:6px}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.char-item.selected{background:linear-gradient(145deg,#7dd3fc,#38bdf8);border-color:#0ea5e9}
+
+/* 비행기 파티클 */
+.fly-particle{position:absolute;pointer-events:none;z-index:15;animation:flyPart var(--dur,.8s) ease-out forwards}
+@keyframes flyPart{0%{transform:translate(0,0) scale(1) rotate(0);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-60px)) scale(0) rotate(360deg);opacity:0}}
+
+/* 방문 스탬프 */
+.stamp{position:absolute;pointer-events:none;z-index:15;font-size:20px;animation:stampPop .5s ease-out forwards}
+@keyframes stampPop{0%{transform:scale(0) rotate(-30deg);opacity:0}60%{transform:scale(1.3) rotate(10deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+</style>
+</head>
+<body>
+<div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
+
+<div class="container">
+  <div class="subject-bar">
+    <a class="sb-tab" href="hangul.html">📝 한글</a>
+    <a class="sb-tab" href="math.html">🔢 숫자</a>
+    <button class="sb-tab active">🌍 세계</button>
+    <div class="sb-spacer"></div>
+    <div class="sb-btns">
+      <button class="sb-btn" id="sb-sound" onclick="toggleSound()">🔊</button>
+      <button class="sb-btn" onclick="showAdmin()">⚙️</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- 왼쪽 패널 -->
+    <div class="left-panel">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-avatar" onclick="showCharModal()"><span id="pf-char">🧒</span></div>
+          <div class="profile-info">
+            <div class="profile-name" onclick="changeName()"><span id="pf-name">탐험가</span></div>
+            <div class="profile-level-container">
+              <div class="profile-level">
+                <span class="level-badge">LV.<span id="pf-level">1</span></span>
+                <span id="pf-done">0</span>/<span id="pf-total">10</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="pf-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-headers">
+        <button class="tab-btn active" onclick="switchTab('pilot')">✈️ 비행기</button>
+        <button class="tab-btn" onclick="switchTab('dress')">👘 옷입히기</button>
+        <button class="tab-btn" onclick="switchTab('sound')">🔊 소리지도</button>
+        <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
+      </div>
+
+      <!-- 비행기 사이드 -->
+      <div class="tab-content pilot-side active">
+        <div class="side-info">
+          <div class="side-title">✈️ 비행기 조종사</div>
+          <div class="side-stat"><span>방문 나라</span><span class="side-val" id="pilot-visited">0</span></div>
+          <div class="side-stat"><span>총 비행</span><span class="side-val" id="pilot-flights">0</span></div>
+          <div class="side-stat"><span>현재 위치</span><span class="side-val" id="pilot-current">🇰🇷</span></div>
+        </div>
+      </div>
+
+      <!-- 옷입히기 사이드 -->
+      <div class="tab-content dress-side">
+        <div class="side-info">
+          <div class="side-title">👘 옷 입히기 세계편</div>
+          <div class="side-stat"><span>완성 의상</span><span class="side-val" id="dress-complete">0</span></div>
+          <div class="side-stat"><span>퀴즈 정답</span><span class="side-val" id="dress-quiz-score">0</span></div>
+          <div class="side-stat"><span>연속 정답</span><span class="side-val" id="dress-streak">0</span></div>
+        </div>
+      </div>
+
+      <!-- 소리지도 사이드 -->
+      <div class="tab-content sound-side">
+        <div class="side-info">
+          <div class="side-title">🔊 소리 지도</div>
+          <div class="side-stat"><span>들은 소리</span><span class="side-val" id="sound-heard">0</span></div>
+          <div class="side-stat"><span>악기 수</span><span class="side-val" id="sound-instruments">0</span></div>
+        </div>
+      </div>
+
+      <!-- 기록 사이드 -->
+      <div class="tab-content record-side">
+        <div class="side-info">
+          <div class="side-title">📊 종합 기록</div>
+          <div class="side-stat"><span>총 활동</span><span class="side-val" id="rec-total">0</span></div>
+          <div class="side-stat"><span>방문 나라</span><span class="side-val" id="rec-countries">0</span></div>
+        </div>
+      </div>
+
+      <div class="game-launch-btn" onclick="startHeroGame()">🏁 깃발 레이스 시작!</div>
+    </div>
+
+    <!-- 중앙 패널 -->
+    <div class="center-panel">
+      <!-- 비행기 조종사 -->
+      <div class="game-view pilot-view active" id="pilot-view">
+        <div class="pilot-area" id="pilot-area">
+          <!-- 구름 배경 -->
+          <div class="cloud-bg" style="top:10%;left:5%">☁️</div>
+          <div class="cloud-bg" style="top:25%;left:70%;animation-delay:-8s">☁️</div>
+          <div class="cloud-bg" style="top:60%;left:30%;animation-delay:-15s;font-size:30px">☁️</div>
+          <div class="globe-container" id="globe-container">
+            <svg id="globe-svg" viewBox="0 0 500 500" width="500" height="500">
+              <defs>
+                <radialGradient id="earthGrad" cx="40%" cy="35%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="40%" stop-color="#0284c7"/>
+                  <stop offset="100%" stop-color="#0c4a6e"/>
+                </radialGradient>
+                <radialGradient id="earthShine" cx="30%" cy="25%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,.3)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+              </defs>
+              <!-- 지구 -->
+              <circle cx="250" cy="250" r="210" fill="url(#earthGrad)" stroke="#0369a1" stroke-width="3"/>
+              <!-- 대륙 모양 (간략) -->
+              <ellipse cx="200" cy="180" rx="60" ry="40" fill="#4ade80" opacity=".6" transform="rotate(-10 200 180)"/>
+              <ellipse cx="320" cy="200" rx="45" ry="55" fill="#4ade80" opacity=".6"/>
+              <ellipse cx="180" cy="290" rx="35" ry="50" fill="#4ade80" opacity=".5"/>
+              <ellipse cx="350" cy="310" rx="40" ry="30" fill="#4ade80" opacity=".5"/>
+              <ellipse cx="250" cy="160" rx="70" ry="25" fill="#4ade80" opacity=".4" transform="rotate(5 250 160)"/>
+              <!-- 빛반사 -->
+              <circle cx="250" cy="250" r="210" fill="url(#earthShine)"/>
+              <!-- 나라 점들은 JS에서 생성 -->
+            </svg>
+            <!-- 비행기 -->
+            <svg id="plane-svg" class="plane-svg" viewBox="0 0 60 60" style="left:220px;top:220px">
+              <g transform="translate(30,30)">
+                <path d="M0,-25 L8,-5 L25,5 L8,5 L4,20 L0,15 L-4,20 L-8,5 L-25,5 L-8,-5 Z" fill="#fff" stroke="#0284c7" stroke-width="1.5"/>
+                <circle cx="0" cy="-8" r="4" fill="#0ea5e9"/>
+              </g>
+            </svg>
+          </div>
+          <div id="country-info" class="country-info-card" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- 옷 입히기 -->
+      <div class="game-view dress-view" id="dress-view">
+        <div class="dress-area" id="dress-area">
+          <div class="dress-character" id="dress-character">
+            <svg class="dress-char-svg" id="dress-char-svg" viewBox="0 0 300 400">
+              <!-- 기본 캐릭터 -->
+              <ellipse cx="150" cy="95" rx="55" ry="60" fill="#FFDAB9"/>
+              <circle cx="128" cy="85" r="8" fill="#1e293b"/>
+              <circle cx="172" cy="85" r="8" fill="#1e293b"/>
+              <circle cx="131" cy="83" r="3" fill="#fff"/>
+              <circle cx="175" cy="83" r="3" fill="#fff"/>
+              <path d="M140 105 Q150 115 160 105" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="115" cy="100" rx="8" ry="5" fill="#fca5a5" opacity=".4"/>
+              <ellipse cx="185" cy="100" rx="8" ry="5" fill="#fca5a5" opacity=".4"/>
+              <!-- 머리카락 -->
+              <path d="M95 75 Q95 30 150 25 Q205 30 205 75 Q205 55 150 50 Q95 55 95 75Z" fill="#4a2c0a"/>
+              <!-- 몸 (기본 티셔츠) -->
+              <g id="dress-body-default">
+                <rect x="105" y="150" width="90" height="100" rx="15" fill="#e2e8f0"/>
+                <rect x="60" y="155" width="50" height="25" rx="12" fill="#e2e8f0" transform="rotate(-20 85 167)"/>
+                <rect x="190" y="155" width="50" height="25" rx="12" fill="#e2e8f0" transform="rotate(20 215 167)"/>
+              </g>
+              <!-- 의상 오버레이 (JS로 교체) -->
+              <g id="dress-costume"></g>
+              <!-- 다리 -->
+              <rect x="120" y="245" width="25" height="80" rx="10" fill="#FFDAB9"/>
+              <rect x="155" y="245" width="25" height="80" rx="10" fill="#FFDAB9"/>
+              <!-- 신발 -->
+              <ellipse cx="132" cy="330" rx="18" ry="10" fill="#64748b"/>
+              <ellipse cx="168" cy="330" rx="18" ry="10" fill="#64748b"/>
+            </svg>
+            <div id="dress-result" class="dress-result" style="display:none"></div>
+          </div>
+          <div class="dress-palette" id="dress-palette"></div>
+          <div id="dress-quiz" class="dress-quiz-overlay" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- 소리 지도 -->
+      <div class="game-view sound-view" id="sound-view">
+        <div class="sound-area" id="sound-area">
+          <div class="sound-map" id="sound-map">
+            <svg class="sound-map-svg" id="sound-map-svg" viewBox="0 0 900 500">
+              <!-- 세계지도 (간략화된 대륙) -->
+              <!-- 북미 -->
+              <path d="M120,80 L200,60 L250,100 L240,180 L200,220 L160,200 L100,170 L80,120Z" fill="#86efac" stroke="#4ade80" stroke-width="2" opacity=".7"/>
+              <!-- 남미 -->
+              <path d="M200,250 L240,240 L260,300 L250,380 L220,400 L190,370 L180,300Z" fill="#86efac" stroke="#4ade80" stroke-width="2" opacity=".7"/>
+              <!-- 유럽 -->
+              <path d="M380,70 L440,60 L460,90 L450,140 L420,150 L390,130 L370,100Z" fill="#86efac" stroke="#4ade80" stroke-width="2" opacity=".7"/>
+              <!-- 아프리카 -->
+              <path d="M400,180 L460,170 L480,240 L470,340 L440,370 L400,350 L390,270 L380,220Z" fill="#86efac" stroke="#4ade80" stroke-width="2" opacity=".7"/>
+              <!-- 아시아 -->
+              <path d="M480,60 L620,50 L700,80 L740,140 L720,200 L650,220 L580,200 L520,160 L490,120Z" fill="#86efac" stroke="#4ade80" stroke-width="2" opacity=".7"/>
+              <!-- 오세아니아 -->
+              <path d="M700,300 L780,290 L810,330 L790,370 L740,380 L710,350Z" fill="#86efac" stroke="#4ade80" stroke-width="2" opacity=".7"/>
+              <!-- 한국 -->
+              <path d="M680,120 L695,115 L700,140 L690,155 L675,145Z" fill="#4ade80" stroke="#22c55e" stroke-width="1.5"/>
+              <!-- 스피커 아이콘은 JS에서 생성 -->
+            </svg>
+          </div>
+          <div class="sound-info" id="sound-info">🔊 지도의 스피커를 터치해서 세계의 소리를 들어보세요!</div>
+        </div>
+      </div>
+
+      <!-- 내 기록 -->
+      <div class="game-view record-view" id="record-view">
+        <div class="records-area">
+          <div class="record-card">
+            <h3>🏆 종합 성적</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-total">0</div><div class="record-label">총 활동</div></div>
+              <div class="record-item"><div class="record-num" id="r-countries">0</div><div class="record-label">방문 나라</div></div>
+              <div class="record-item"><div class="record-num" id="r-level">1</div><div class="record-label">레벨</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>✈️ 비행기 조종사</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-pilot-visited">0</div><div class="record-label">방문 나라</div></div>
+              <div class="record-item"><div class="record-num" id="r-pilot-flights">0</div><div class="record-label">총 비행</div></div>
+              <div class="record-item"><div class="record-num" id="r-pilot-best">-</div><div class="record-label">최근 방문</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>👘 옷 입히기</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-dress-complete">0</div><div class="record-label">완성 의상</div></div>
+              <div class="record-item"><div class="record-num" id="r-dress-quiz">0</div><div class="record-label">퀴즈 정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-dress-streak">0</div><div class="record-label">최고 연속</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🔊 소리 지도</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-sound-heard">0</div><div class="record-label">들은 소리</div></div>
+              <div class="record-item"><div class="record-num" id="r-sound-inst">0</div><div class="record-label">악기 수</div></div>
+              <div class="record-item"><div class="record-num" id="r-sound-region">0</div><div class="record-label">탐험 지역</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🏁 깃발 레이스</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-hero-best">0</div><div class="record-label">최고 점수</div></div>
+              <div class="record-item"><div class="record-num" id="r-hero-combo">0</div><div class="record-label">최고 콤보</div></div>
+              <div class="record-item"><div class="record-num" id="r-hero-flags">0</div><div class="record-label">수집 깃발</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오른쪽 패널 -->
+    <div class="right-panel" id="right-panel">
+      <button class="action-btn btn-cyan" id="act1" onclick="actionBtn(1)"><span class="icon">🔄</span>새 나라</button>
+      <button class="action-btn btn-green" id="act2" onclick="actionBtn(2)"><span class="icon">🗣</span>인사</button>
+      <button class="action-btn btn-sky" id="act3" onclick="actionBtn(3)"><span class="icon">📖</span>정보</button>
+    </div>
+  </div>
+</div>
+
+<!-- 히어로: 깃발 레이스 -->
+<div id="hero-game" class="hero-game hidden">
+  <div class="hg-header">
+    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
+    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
+    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="hg-ctrls">
+      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+    </div>
+  </div>
+  <div class="hg-arena" id="hg-arena">
+    <div class="hg-target" id="hg-target">🇰🇷 한국</div>
+    <svg id="hg-plane" class="hg-plane" viewBox="0 0 80 80" style="left:calc(50% - 40px)">
+      <g transform="translate(40,40)">
+        <path d="M0,-30 L10,-8 L30,5 L10,5 L5,25 L0,18 L-5,25 L-10,5 L-30,5 L-10,-8 Z" fill="#fff" stroke="#0284c7" stroke-width="2"/>
+        <circle cx="0" cy="-10" r="5" fill="#0ea5e9"/>
+        <path d="M-3,-30 L0,-35 L3,-30" fill="#ef4444"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hg-controls">
+    <button class="hg-move-btn left" id="hg-left" ontouchstart="hgMoveStart('left')" ontouchend="hgMoveEnd()" onmousedown="hgMoveStart('left')" onmouseup="hgMoveEnd()">◀ 왼쪽</button>
+    <button class="hg-move-btn right" id="hg-right" ontouchstart="hgMoveStart('right')" ontouchend="hgMoveEnd()" onmousedown="hgMoveStart('right')" onmouseup="hgMoveEnd()">오른쪽 ▶</button>
+  </div>
+  <div id="hg-over" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>비행 끝!</h2>
+      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="msg" id="hg-over-msg">잘했어요!</div>
+      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-pause" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>⏸ 일시정지</h2>
+      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 관리자 모달 -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>⚙ 설정</h3><button class="modal-close" onclick="hideAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h4>👤 프로필</h4>
+        <input class="modal-input" id="adm-name" placeholder="이름 입력" maxlength="10">
+        <button class="modal-btn" onclick="saveProfile()">저장</button>
+      </div>
+      <div class="modal-section">
+        <h4>🔄 초기화</h4>
+        <button class="modal-btn" style="background:linear-gradient(145deg,#ef4444,#dc2626)" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 캐릭터 모달 -->
+<div id="char-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>🎭 캐릭터 선택</h3><button class="modal-close" onclick="hideCharModal()">×</button></div>
+    <div class="modal-body">
+      <div class="char-grid" id="char-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 전역 변수 =====
+let currentTab = 'pilot';
+let soundEnabled = true;
+const LS = localStorage;
+
+// ===== 나라 데이터 =====
+const COUNTRIES = [
+  { id:'kr', name:'한국', flag:'🇰🇷', capital:'서울', greeting:'안녕하세요!', lang:'ko-KR', cx:345, cy:170, continent:'아시아' },
+  { id:'jp', name:'일본', flag:'🇯🇵', capital:'도쿄', greeting:'곤니치와!', lang:'ja-JP', cx:370, cy:185, continent:'아시아' },
+  { id:'cn', name:'중국', flag:'🇨🇳', capital:'베이징', greeting:'니하오!', lang:'zh-CN', cx:315, cy:175, continent:'아시아' },
+  { id:'us', name:'미국', flag:'🇺🇸', capital:'워싱턴 D.C.', greeting:'헬로!', lang:'en-US', cx:120, cy:160, continent:'북미' },
+  { id:'gb', name:'영국', flag:'🇬🇧', capital:'런던', greeting:'헬로!', lang:'en-GB', cx:220, cy:120, continent:'유럽' },
+  { id:'fr', name:'프랑스', flag:'🇫🇷', capital:'파리', greeting:'봉주르!', lang:'fr-FR', cx:225, cy:145, continent:'유럽' },
+  { id:'br', name:'브라질', flag:'🇧🇷', capital:'브라질리아', greeting:'올라!', lang:'pt-BR', cx:170, cy:320, continent:'남미' },
+  { id:'au', name:'호주', flag:'🇦🇺', capital:'캔버라', greeting:'지데이!', lang:'en-AU', cx:395, cy:360, continent:'오세아니아' },
+  { id:'eg', name:'이집트', flag:'🇪🇬', capital:'카이로', greeting:'아흘란!', lang:'ar-EG', cx:265, cy:210, continent:'아프리카' },
+  { id:'in', name:'인도', flag:'🇮🇳', capital:'뉴델리', greeting:'나마스테!', lang:'hi-IN', cx:310, cy:225, continent:'아시아' },
+  { id:'mx', name:'멕시코', flag:'🇲🇽', capital:'멕시코시티', greeting:'올라!', lang:'es-MX', cx:100, cy:210, continent:'북미' },
+  { id:'ke', name:'케냐', flag:'🇰🇪', capital:'나이로비', greeting:'잠보!', lang:'sw-KE', cx:275, cy:290, continent:'아프리카' }
+];
+
+// 의상 데이터
+const COSTUMES = [
+  { id:'hanbok', country:'kr', name:'한복', emoji:'👘', color:'#e11d48',
+    svg:'<rect x="95" y="150" width="110" height="95" rx="12" fill="#e11d48"/><rect x="95" y="150" width="110" height="35" rx="8" fill="#fbbf24"/><path d="M100 185 Q150 210 200 185" fill="#e11d48"/><rect x="55" y="155" width="55" height="22" rx="11" fill="#e11d48" transform="rotate(-15 82 166)"/><rect x="190" y="155" width="55" height="22" rx="11" fill="#e11d48" transform="rotate(15 218 166)"/>' },
+  { id:'kimono', country:'jp', name:'기모노', emoji:'🎎', color:'#7c3aed',
+    svg:'<rect x="90" y="150" width="120" height="100" rx="10" fill="#7c3aed"/><path d="M120 150 L150 180 L180 150" fill="#c084fc" stroke="#7c3aed" stroke-width="1"/><rect x="130" y="170" width="40" height="15" rx="4" fill="#fbbf24"/><rect x="55" y="155" width="50" height="22" rx="11" fill="#7c3aed" transform="rotate(-18 80 166)"/><rect x="195" y="155" width="50" height="22" rx="11" fill="#7c3aed" transform="rotate(18 220 166)"/>' },
+  { id:'sari', country:'in', name:'사리', emoji:'🧣', color:'#f59e0b',
+    svg:'<rect x="95" y="150" width="110" height="100" rx="10" fill="#f59e0b"/><path d="M95 155 Q60 120 105 150" fill="#f59e0b"/><path d="M200 165 Q230 140 205 150" fill="#f59e0b" opacity=".7"/><rect x="95" y="230" width="110" height="10" rx="3" fill="#b45309"/><rect x="60" y="155" width="50" height="20" rx="10" fill="#f59e0b" transform="rotate(-15 85 165)"/><rect x="190" y="155" width="50" height="20" rx="10" fill="#f59e0b" transform="rotate(15 215 165)"/>' },
+  { id:'sombrero', country:'mx', name:'솜브레로', emoji:'🎩', color:'#92400e',
+    svg:'<ellipse cx="150" cy="55" rx="80" ry="15" fill="#92400e"/><ellipse cx="150" cy="50" rx="45" ry="30" fill="#b45309"/><rect x="130" y="20" width="40" height="10" rx="3" fill="#fbbf24"/><rect x="100" y="150" width="100" height="95" rx="12" fill="#fff"/><rect x="55" y="155" width="55" height="22" rx="11" fill="#fff" transform="rotate(-15 82 166)"/><rect x="190" y="155" width="55" height="22" rx="11" fill="#fff" transform="rotate(15 218 166)"/>' },
+  { id:'dashiki', country:'ke', name:'다시키', emoji:'👕', color:'#16a34a',
+    svg:'<rect x="90" y="150" width="120" height="100" rx="12" fill="#16a34a"/><path d="M130 150 L150 175 L170 150" fill="#fbbf24"/><rect x="120" y="170" width="60" height="4" rx="2" fill="#fbbf24"/><rect x="120" y="180" width="60" height="4" rx="2" fill="#ef4444"/><rect x="120" y="190" width="60" height="4" rx="2" fill="#fbbf24"/><rect x="55" y="155" width="55" height="22" rx="11" fill="#16a34a" transform="rotate(-15 82 166)"/><rect x="190" y="155" width="55" height="22" rx="11" fill="#16a34a" transform="rotate(15 218 166)"/>' },
+  { id:'cowboy', country:'us', name:'카우보이', emoji:'🤠', color:'#78350f',
+    svg:'<ellipse cx="150" cy="58" rx="70" ry="12" fill="#78350f"/><ellipse cx="150" cy="52" rx="40" ry="28" fill="#92400e"/><rect x="95" y="150" width="110" height="95" rx="12" fill="#1e40af"/><rect x="95" y="225" width="110" height="10" rx="3" fill="#78350f"/><rect x="55" y="155" width="55" height="22" rx="11" fill="#1e40af" transform="rotate(-15 82 166)"/><rect x="190" y="155" width="55" height="22" rx="11" fill="#1e40af" transform="rotate(15 218 166)"/>' },
+  { id:'beret', country:'fr', name:'베레모+스트라이프', emoji:'🇫🇷', color:'#1e3a8a',
+    svg:'<ellipse cx="150" cy="42" rx="40" ry="18" fill="#1e3a8a"/><circle cx="150" cy="28" r="5" fill="#1e3a8a"/><rect x="95" y="150" width="110" height="95" rx="12" fill="#fff"/><rect x="95" y="160" width="110" height="8" fill="#1e3a8a"/><rect x="95" y="178" width="110" height="8" fill="#1e3a8a"/><rect x="95" y="196" width="110" height="8" fill="#1e3a8a"/><rect x="95" y="214" width="110" height="8" fill="#1e3a8a"/><rect x="55" y="155" width="55" height="22" rx="11" fill="#fff" transform="rotate(-15 82 166)"/><rect x="190" y="155" width="55" height="22" rx="11" fill="#fff" transform="rotate(15 218 166)"/>' },
+  { id:'pharaoh', country:'eg', name:'파라오', emoji:'👑', color:'#fbbf24',
+    svg:'<path d="M110 30 L150 10 L190 30 L195 80 L150 70 L105 80Z" fill="#1e3a8a" stroke="#fbbf24" stroke-width="2"/><rect x="135" y="60" width="30" height="10" rx="3" fill="#fbbf24"/><rect x="95" y="150" width="110" height="95" rx="12" fill="#fbbf24"/><rect x="95" y="200" width="110" height="6" fill="#0ea5e9"/><rect x="95" y="215" width="110" height="6" fill="#ef4444"/><rect x="55" y="155" width="55" height="22" rx="11" fill="#fbbf24" transform="rotate(-15 82 166)"/><rect x="190" y="155" width="55" height="22" rx="11" fill="#fbbf24" transform="rotate(15 218 166)"/>' }
+];
+
+// 소리 데이터
+const SOUNDS = [
+  { id:'gayageum', region:'동아시아', name:'가야금', emoji:'🎵', country:'kr', x:680, y:130, freq:[262,294,330,349,392], type:'pluck' },
+  { id:'shamisen', region:'동아시아', name:'샤미센', emoji:'🎸', country:'jp', x:720, y:150, freq:[330,370,415,440,494], type:'pluck' },
+  { id:'erhu', region:'동아시아', name:'얼후', emoji:'🎻', country:'cn', x:630, y:140, freq:[294,330,349,392,440], type:'bow' },
+  { id:'banjo', region:'북미', name:'밴조', emoji:'🪕', country:'us', x:160, y:140, freq:[196,220,247,262,294], type:'pluck' },
+  { id:'bagpipe', region:'유럽', name:'백파이프', emoji:'🎵', country:'gb', x:410, y:85, freq:[220,247,262,294,330], type:'drone' },
+  { id:'accordion', region:'유럽', name:'아코디언', emoji:'🪗', country:'fr', x:420, y:115, freq:[262,330,392,523,659], type:'reed' },
+  { id:'samba', region:'남미', name:'삼바 드럼', emoji:'🥁', country:'br', x:230, y:310, freq:[100,120,150,200,80], type:'drum' },
+  { id:'didgeridoo', region:'오세아니아', name:'디저리두', emoji:'🎺', country:'au', x:750, y:340, freq:[65,73,82,98,110], type:'drone' },
+  { id:'oud', region:'중동', name:'우드', emoji:'🎵', country:'eg', x:450, y:200, freq:[220,247,262,294,330], type:'pluck' },
+  { id:'sitar', region:'남아시아', name:'시타르', emoji:'🎸', country:'in', x:580, y:210, freq:[262,277,311,330,370], type:'pluck' },
+  { id:'djembe', region:'아프리카', name:'젬베', emoji:'🥁', country:'ke', x:440, y:300, freq:[120,150,180,200,100], type:'drum' },
+  { id:'maracas', region:'중남미', name:'마라카스', emoji:'🎵', country:'mx', x:130, y:200, freq:[0,0,0,0,0], type:'shake' }
+];
+
+// 프로필
+let profile = {
+  name: LS.getItem('worldName') || '탐험가',
+  char: LS.getItem('worldChar') || '🧒',
+  totalCorrect: parseInt(LS.getItem('worldCorrect')) || 0,
+  totalPlayed: parseInt(LS.getItem('worldPlayed')) || 0
+};
+
+// 비행기 상태
+let pilot = {
+  visited: JSON.parse(LS.getItem('pilotVisited') || '[]'),
+  flights: parseInt(LS.getItem('pilotFlights')) || 0,
+  currentCountry: null,
+  lastVisited: LS.getItem('pilotLast') || '-'
+};
+
+// 옷입히기 상태
+let dress = {
+  currentCostume: null,
+  completed: parseInt(LS.getItem('dressComplete')) || 0,
+  quizScore: parseInt(LS.getItem('dressQuiz')) || 0,
+  streak: 0,
+  bestStreak: parseInt(LS.getItem('dressBestStreak')) || 0
+};
+
+// 소리지도 상태
+let sound = {
+  heard: JSON.parse(LS.getItem('soundHeard') || '[]'),
+  totalHeard: parseInt(LS.getItem('soundTotal')) || 0,
+  playing: null
+};
+
+// 히어로 상태
+let hg = {
+  score: 0, lives: 5, level: 1, running: false, paused: false,
+  flags: [], spawnTimer: null, animId: null, combo: 0, maxCombo: 0,
+  planeX: 50, moveDir: 0, moveInterval: null,
+  targetCountry: null, collected: 0,
+  bestScore: parseInt(LS.getItem('heroBest')) || 0,
+  bestCombo: parseInt(LS.getItem('heroCombo')) || 0,
+  totalFlags: parseInt(LS.getItem('heroFlags')) || 0
+};
+
+// Web Audio context
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+// ===== TTS =====
+let audioQueue = [];
+let isSpeaking = false;
+function speak(text) {
+  if (!soundEnabled) return;
+  audioQueue.push(text);
+  processQueue();
+}
+function processQueue() {
+  if (isSpeaking || !audioQueue.length) return;
+  isSpeaking = true;
+  const u = new SpeechSynthesisUtterance(audioQueue.shift());
+  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.onend = () => { isSpeaking = false; processQueue(); };
+  u.onerror = () => { isSpeaking = false; processQueue(); };
+  speechSynthesis.speak(u);
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sb-sound').textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) speechSynthesis.cancel();
+}
+
+// ===== 프로필 =====
+function updateProfile() {
+  document.getElementById('pf-name').textContent = profile.name;
+  document.getElementById('pf-char').textContent = profile.char;
+  const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  document.getElementById('pf-level').textContent = lv;
+  const prog = (profile.totalCorrect % 10);
+  document.getElementById('pf-done').textContent = prog;
+  document.getElementById('pf-total').textContent = 10;
+  document.getElementById('pf-bar').style.width = (prog * 10) + '%';
+}
+function changeName() {
+  const n = prompt('이름을 입력하세요:', profile.name);
+  if (n && n.trim()) { profile.name = n.trim(); LS.setItem('worldName', profile.name); updateProfile(); }
+}
+function showCharModal() {
+  document.getElementById('char-modal').classList.remove('hidden');
+  const chars = ['🧒','👦','👧','🦸‍♂️','🦸‍♀️','🧙‍♂️','🐱','🐶','🦊','🐻','🐰','🐸','🦁','🐯','🐼','✈️','🚀','🌍'];
+  const g = document.getElementById('char-grid');
+  g.innerHTML = chars.map(c => `<div class="char-item${c===profile.char?' selected':''}" onclick="pickChar('${c}')">${c}</div>`).join('');
+}
+function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
+function pickChar(c) { profile.char = c; LS.setItem('worldChar', c); updateProfile(); hideCharModal(); }
+function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
+function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+function saveProfile() {
+  const n = document.getElementById('adm-name').value.trim();
+  if (n) { profile.name = n; LS.setItem('worldName', n); updateProfile(); }
+  hideAdmin();
+}
+function resetAll() {
+  if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
+  ['worldName','worldChar','worldCorrect','worldPlayed','pilotVisited','pilotFlights','pilotLast',
+   'dressComplete','dressQuiz','dressBestStreak','soundHeard','soundTotal',
+   'heroBest','heroCombo','heroFlags'].forEach(k => LS.removeItem(k));
+  location.reload();
+}
+function saveStats() {
+  LS.setItem('worldCorrect', profile.totalCorrect);
+  LS.setItem('worldPlayed', profile.totalPlayed);
+  LS.setItem('pilotVisited', JSON.stringify(pilot.visited));
+  LS.setItem('pilotFlights', pilot.flights);
+  LS.setItem('pilotLast', pilot.lastVisited);
+  LS.setItem('dressComplete', dress.completed);
+  LS.setItem('dressQuiz', dress.quizScore);
+  LS.setItem('dressBestStreak', dress.bestStreak);
+  LS.setItem('soundHeard', JSON.stringify(sound.heard));
+  LS.setItem('soundTotal', sound.totalHeard);
+  LS.setItem('heroBest', hg.bestScore);
+  LS.setItem('heroCombo', hg.bestCombo);
+  LS.setItem('heroFlags', hg.totalFlags);
+}
+
+// ===== 탭 전환 =====
+function switchTab(tab) {
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['pilot','dress','sound','record'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.' + tab + '-side').classList.add('active');
+  document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.' + tab + '-view').classList.add('active');
+  updateActionButtons();
+  if (tab === 'record') updateRecords();
+  if (tab === 'pilot') updatePilotUI();
+  if (tab === 'dress') initDress();
+  if (tab === 'sound') initSoundMap();
+}
+
+function updateActionButtons() {
+  const a1 = document.getElementById('act1');
+  const a2 = document.getElementById('act2');
+  const a3 = document.getElementById('act3');
+  if (currentTab === 'pilot') {
+    a1.innerHTML = '<span class="icon">🔄</span>새 나라'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🗣</span>인사'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">📖</span>정보'; a3.className = 'action-btn btn-sky'; a3.disabled = false;
+  } else if (currentTab === 'dress') {
+    a1.innerHTML = '<span class="icon">❓</span>퀴즈'; a1.className = 'action-btn btn-green'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🔄</span>벗기기'; a2.className = 'action-btn btn-cyan'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">⏭</span>다음'; a3.className = 'action-btn btn-sky'; a3.disabled = false;
+  } else if (currentTab === 'sound') {
+    a1.innerHTML = '<span class="icon">🔀</span>랜덤'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🔊</span>다시'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">📖</span>정보'; a3.className = 'action-btn btn-sky'; a3.disabled = false;
+  } else {
+    a1.innerHTML = '<span class="icon">📊</span>기록'; a1.className = 'action-btn btn-cyan'; a1.disabled = true;
+    a2.innerHTML = '<span class="icon">—</span>—'; a2.className = 'action-btn btn-green'; a2.disabled = true;
+    a3.innerHTML = '<span class="icon">—</span>—'; a3.className = 'action-btn btn-sky'; a3.disabled = true;
+  }
+}
+
+function actionBtn(n) {
+  if (currentTab === 'pilot') {
+    if (n === 1) flyToRandom();
+    else if (n === 2) greetCurrent();
+    else showCountryInfo();
+  } else if (currentTab === 'dress') {
+    if (n === 1) startDressQuiz();
+    else if (n === 2) removeCostume();
+    else nextCostume();
+  } else if (currentTab === 'sound') {
+    if (n === 1) playRandomSound();
+    else if (n === 2) replaySound();
+    else showSoundInfo();
+  }
+}
+
+// ===== 비행기 조종사 =====
+function initPilot() {
+  const svg = document.getElementById('globe-svg');
+  COUNTRIES.forEach(c => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'country-dot');
+    g.setAttribute('onclick', `flyTo('${c.id}')`);
+    g.setAttribute('transform', `translate(${c.cx},${c.cy})`);
+
+    // 외부 링
+    const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    ring.setAttribute('r', '18');
+    ring.setAttribute('fill', 'rgba(255,255,255,.15)');
+    ring.setAttribute('stroke', 'rgba(255,255,255,.4)');
+    ring.setAttribute('stroke-width', '1.5');
+
+    // 국기 텍스트
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'central');
+    text.setAttribute('font-size', '20');
+    text.textContent = c.flag;
+
+    // 방문 표시
+    if (pilot.visited.includes(c.id)) {
+      ring.setAttribute('fill', 'rgba(34,197,94,.3)');
+      ring.setAttribute('stroke', '#22c55e');
+    }
+
+    g.appendChild(ring);
+    g.appendChild(text);
+    svg.appendChild(g);
+  });
+  updatePilotUI();
+}
+
+function flyTo(id) {
+  const c = COUNTRIES.find(x => x.id === id);
+  if (!c) return;
+
+  pilot.currentCountry = c;
+  pilot.flights++;
+  if (!pilot.visited.includes(c.id)) pilot.visited.push(c.id);
+  pilot.lastVisited = c.flag;
+
+  profile.totalCorrect++;
+  profile.totalPlayed++;
+
+  // 비행기 이동 애니메이션
+  const plane = document.getElementById('plane-svg');
+  const globeRect = document.getElementById('globe-container');
+  plane.style.left = (c.cx - 30) + 'px';
+  plane.style.top = (c.cy - 30) + 'px';
+
+  // 파티클 이펙트
+  const area = document.getElementById('pilot-area');
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'fly-particle';
+    p.textContent = ['✨','⭐','💫','🌟'][Math.floor(Math.random()*4)];
+    p.style.cssText = `left:${c.cx + 85}px;top:${c.cy + 45}px;font-size:${16+Math.random()*12}px;--tx:${(Math.random()-.5)*120}px;--ty:${-40-Math.random()*80}px;--dur:${.5+Math.random()*.5}s;animation-delay:${Math.random()*.2}s`;
+    area.appendChild(p);
+    setTimeout(() => p.remove(), 1200);
+  }
+
+  // 도착 정보카드
+  setTimeout(() => {
+    const info = document.getElementById('country-info');
+    info.style.display = 'block';
+    info.innerHTML = `
+      <div class="country-flag">${c.flag}</div>
+      <div class="country-name">${c.name}</div>
+      <div class="country-capital">수도: ${c.capital}</div>
+      <div class="country-greeting">"${c.greeting}"</div>
+    `;
+    speak(`${c.name}에 도착했어요! ${c.greeting}`);
+  }, 800);
+
+  // 지구본 나라 점 업데이트 (방문 표시)
+  const dots = document.querySelectorAll('.country-dot');
+  dots.forEach((dot, i) => {
+    if (COUNTRIES[i].id === c.id) {
+      dot.querySelector('circle').setAttribute('fill', 'rgba(34,197,94,.3)');
+      dot.querySelector('circle').setAttribute('stroke', '#22c55e');
+    }
+  });
+
+  updatePilotUI();
+  saveStats();
+  updateProfile();
+}
+
+function flyToRandom() {
+  const unvisited = COUNTRIES.filter(c => !pilot.visited.includes(c.id));
+  const pool = unvisited.length > 0 ? unvisited : COUNTRIES;
+  const c = pool[Math.floor(Math.random() * pool.length)];
+  document.getElementById('country-info').style.display = 'none';
+  flyTo(c.id);
+}
+
+function greetCurrent() {
+  if (!pilot.currentCountry) { speak('먼저 나라를 선택해주세요!'); return; }
+  speak(pilot.currentCountry.greeting);
+}
+
+function showCountryInfo() {
+  if (!pilot.currentCountry) { speak('먼저 나라를 선택해주세요!'); return; }
+  const c = pilot.currentCountry;
+  speak(`${c.name}의 수도는 ${c.capital}이에요. ${c.name}에서는 ${c.greeting} 라고 인사해요.`);
+}
+
+function updatePilotUI() {
+  document.getElementById('pilot-visited').textContent = pilot.visited.length;
+  document.getElementById('pilot-flights').textContent = pilot.flights;
+  document.getElementById('pilot-current').textContent = pilot.currentCountry ? pilot.currentCountry.flag : '🇰🇷';
+}
+
+// ===== 옷 입히기 =====
+let dressInitialized = false;
+function initDress() {
+  if (dressInitialized) return;
+  dressInitialized = true;
+  const palette = document.getElementById('dress-palette');
+  palette.innerHTML = COSTUMES.map(c => {
+    const country = COUNTRIES.find(x => x.id === c.country);
+    return `<div class="dress-item" id="di-${c.id}" onclick="wearCostume('${c.id}')">
+      <span class="dress-item-emoji">${c.emoji}</span>
+      ${c.name} ${country ? country.flag : ''}
+    </div>`;
+  }).join('');
+}
+
+function wearCostume(id) {
+  const c = COSTUMES.find(x => x.id === id);
+  if (!c) return;
+  dress.currentCostume = c;
+
+  // SVG 의상 교체
+  document.getElementById('dress-costume').innerHTML = c.svg;
+  document.getElementById('dress-body-default').style.display = 'none';
+
+  // 선택 표시
+  document.querySelectorAll('.dress-item').forEach(el => el.classList.remove('selected'));
+  document.getElementById('di-' + id).classList.add('selected');
+
+  // 결과 표시
+  const country = COUNTRIES.find(x => x.id === c.country);
+  const result = document.getElementById('dress-result');
+  result.style.display = 'block';
+  result.innerHTML = `<div style="font-size:36px">${country.flag}</div><div style="font-size:18px;font-weight:800;color:#1e293b">${country.name}의 ${c.name}</div>`;
+
+  dress.completed++;
+  profile.totalPlayed++;
+  speak(`${country.name}의 전통 의상, ${c.name}을 입었어요!`);
+
+  updateDressUI();
+  saveStats();
+}
+
+function removeCostume() {
+  dress.currentCostume = null;
+  document.getElementById('dress-costume').innerHTML = '';
+  document.getElementById('dress-body-default').style.display = '';
+  document.getElementById('dress-result').style.display = 'none';
+  document.querySelectorAll('.dress-item').forEach(el => el.classList.remove('selected'));
+}
+
+function nextCostume() {
+  const idx = dress.currentCostume ? COSTUMES.indexOf(dress.currentCostume) : -1;
+  const next = COSTUMES[(idx + 1) % COSTUMES.length];
+  wearCostume(next.id);
+}
+
+function startDressQuiz() {
+  const quiz = document.getElementById('dress-quiz');
+  const costume = COSTUMES[Math.floor(Math.random() * COSTUMES.length)];
+  const correctCountry = COUNTRIES.find(x => x.id === costume.country);
+
+  // 보기 4개 생성
+  let options = [correctCountry];
+  while (options.length < 4) {
+    const rand = COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+    if (!options.find(o => o.id === rand.id)) options.push(rand);
+  }
+  options.sort(() => Math.random() - .5);
+
+  quiz.style.display = 'flex';
+  quiz.innerHTML = `<div class="dress-quiz-box">
+    <div class="dress-quiz-q">${costume.emoji} ${costume.name}은 어느 나라 옷일까요?</div>
+    <div class="dress-quiz-opts">
+      ${options.map(o => `<button class="dress-quiz-opt" onclick="dressQuizAnswer('${o.id}','${correctCountry.id}',this)">${o.flag} ${o.name}</button>`).join('')}
+    </div>
+  </div>`;
+
+  speak(`${costume.name}은 어느 나라 옷일까요?`);
+}
+
+function dressQuizAnswer(selected, correct, btn) {
+  const isCorrect = selected === correct;
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+
+  if (isCorrect) {
+    dress.quizScore++;
+    dress.streak++;
+    if (dress.streak > dress.bestStreak) dress.bestStreak = dress.streak;
+    profile.totalCorrect++;
+    speak('정답이에요! 대단해요!');
+  } else {
+    dress.streak = 0;
+    const correctCountry = COUNTRIES.find(x => x.id === correct);
+    // 정답 표시
+    document.querySelectorAll('.dress-quiz-opt').forEach(el => {
+      if (el.textContent.includes(correctCountry.name)) el.classList.add('correct');
+    });
+    speak(`아쉬워요. 정답은 ${correctCountry.name}이에요.`);
+  }
+  profile.totalPlayed++;
+
+  updateDressUI();
+  saveStats();
+  updateProfile();
+
+  setTimeout(() => {
+    document.getElementById('dress-quiz').style.display = 'none';
+  }, 2000);
+}
+
+function updateDressUI() {
+  document.getElementById('dress-complete').textContent = dress.completed;
+  document.getElementById('dress-quiz-score').textContent = dress.quizScore;
+  document.getElementById('dress-streak').textContent = dress.streak;
+}
+
+// ===== 소리 지도 =====
+let soundMapInitialized = false;
+function initSoundMap() {
+  if (soundMapInitialized) return;
+  soundMapInitialized = true;
+  const svg = document.getElementById('sound-map-svg');
+  SOUNDS.forEach(s => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'sound-speaker');
+    g.setAttribute('id', 'speaker-' + s.id);
+    g.setAttribute('onclick', `playSound('${s.id}')`);
+    g.setAttribute('transform', `translate(${s.x},${s.y})`);
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('r', '22');
+    circle.setAttribute('fill', sound.heard.includes(s.id) ? 'rgba(14,165,233,.3)' : 'rgba(255,255,255,.6)');
+    circle.setAttribute('stroke', sound.heard.includes(s.id) ? '#0ea5e9' : '#94a3b8');
+    circle.setAttribute('stroke-width', '2');
+
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'central');
+    text.setAttribute('font-size', '20');
+    text.textContent = s.emoji;
+
+    g.appendChild(circle);
+    g.appendChild(text);
+    svg.appendChild(g);
+  });
+}
+
+function playSound(id) {
+  const s = SOUNDS.find(x => x.id === id);
+  if (!s) return;
+  sound.playing = s;
+
+  if (!sound.heard.includes(s.id)) sound.heard.push(s.id);
+  sound.totalHeard++;
+
+  // 스피커 아이콘 업데이트
+  const speaker = document.getElementById('speaker-' + s.id);
+  speaker.classList.add('playing');
+  speaker.querySelector('circle').setAttribute('fill', 'rgba(14,165,233,.3)');
+  speaker.querySelector('circle').setAttribute('stroke', '#0ea5e9');
+
+  // 웨이브 이펙트
+  const map = document.getElementById('sound-map');
+  for (let i = 0; i < 3; i++) {
+    setTimeout(() => {
+      const wave = document.createElement('div');
+      wave.className = 'sound-wave';
+      // SVG 좌표를 div 좌표로 변환 (근사치)
+      const svgEl = document.getElementById('sound-map-svg');
+      const rect = svgEl.getBoundingClientRect();
+      const scaleX = rect.width / 900;
+      const scaleY = rect.height / 500;
+      wave.style.cssText = `left:${s.x * scaleX + (rect.left - map.getBoundingClientRect().left)}px;top:${s.y * scaleY + (rect.top - map.getBoundingClientRect().top)}px;width:40px;height:40px`;
+      map.appendChild(wave);
+      setTimeout(() => wave.remove(), 1000);
+    }, i * 200);
+  }
+
+  // Web Audio 합성음 재생
+  synthesizeSound(s);
+
+  // 정보 표시
+  const country = COUNTRIES.find(c => c.id === s.country);
+  document.getElementById('sound-info').textContent = `🎵 ${s.region} — ${s.name} (${country ? country.name : ''} ${country ? country.flag : ''})`;
+
+  speak(`${s.name}! ${s.region}의 악기예요.`);
+
+  setTimeout(() => speaker.classList.remove('playing'), 2000);
+
+  updateSoundUI();
+  profile.totalPlayed++;
+  saveStats();
+}
+
+function synthesizeSound(s) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioCtx();
+    const now = ctx.currentTime;
+
+    if (s.type === 'pluck') {
+      // 현악기 소리
+      s.freq.forEach((f, i) => {
+        if (f === 0) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, now + i * 0.3);
+        gain.gain.setValueAtTime(0.3, now + i * 0.3);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.3 + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.3);
+        osc.stop(now + i * 0.3 + 0.6);
+      });
+    } else if (s.type === 'drum') {
+      // 타악기
+      s.freq.forEach((f, i) => {
+        if (f === 0) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f * 2, now + i * 0.15);
+        osc.frequency.exponentialRampToValueAtTime(f, now + i * 0.15 + 0.1);
+        gain.gain.setValueAtTime(0.5, now + i * 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.15 + 0.3);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.15);
+        osc.stop(now + i * 0.15 + 0.4);
+      });
+    } else if (s.type === 'drone') {
+      // 드론 소리 (백파이프, 디저리두)
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc1.type = 'sawtooth';
+      osc2.type = 'square';
+      osc1.frequency.setValueAtTime(s.freq[0], now);
+      osc2.frequency.setValueAtTime(s.freq[0] * 1.01, now);
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.2, now + 0.3);
+      gain.gain.linearRampToValueAtTime(0.2, now + 1.5);
+      gain.gain.linearRampToValueAtTime(0, now + 2);
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 2);
+      osc2.stop(now + 2);
+    } else if (s.type === 'bow') {
+      // 현악기 (활)
+      s.freq.slice(0, 3).forEach((f, i) => {
+        if (f === 0) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(f, now + i * 0.5);
+        gain.gain.setValueAtTime(0, now + i * 0.5);
+        gain.gain.linearRampToValueAtTime(0.15, now + i * 0.5 + 0.1);
+        gain.gain.linearRampToValueAtTime(0.15, now + i * 0.5 + 0.4);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.5 + 0.6);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.5);
+        osc.stop(now + i * 0.5 + 0.7);
+      });
+    } else if (s.type === 'reed') {
+      // 리드 악기 (아코디언)
+      s.freq.slice(0, 3).forEach((f, i) => {
+        if (f === 0) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(f, now + i * 0.4);
+        gain.gain.setValueAtTime(0, now + i * 0.4);
+        gain.gain.linearRampToValueAtTime(0.1, now + i * 0.4 + 0.05);
+        gain.gain.linearRampToValueAtTime(0.1, now + i * 0.4 + 0.35);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.4 + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.4);
+        osc.stop(now + i * 0.4 + 0.6);
+      });
+    } else if (s.type === 'shake') {
+      // 마라카스 — 노이즈
+      for (let i = 0; i < 6; i++) {
+        const bufSize = ctx.sampleRate * 0.05;
+        const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let j = 0; j < bufSize; j++) data[j] = (Math.random() * 2 - 1) * 0.3;
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.3, now + i * 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.08);
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start(now + i * 0.12);
+      }
+    }
+  } catch(e) { /* Web Audio 지원 안 되면 무시 */ }
+}
+
+function playRandomSound() {
+  const s = SOUNDS[Math.floor(Math.random() * SOUNDS.length)];
+  playSound(s.id);
+}
+
+function replaySound() {
+  if (sound.playing) {
+    synthesizeSound(sound.playing);
+  } else {
+    speak('먼저 소리를 선택해주세요!');
+  }
+}
+
+function showSoundInfo() {
+  if (!sound.playing) { speak('먼저 소리를 선택해주세요!'); return; }
+  const s = sound.playing;
+  const country = COUNTRIES.find(c => c.id === s.country);
+  speak(`${s.name}은 ${country.name}의 전통 악기예요. ${s.region} 지역에서 연주해요.`);
+}
+
+function updateSoundUI() {
+  document.getElementById('sound-heard').textContent = sound.totalHeard;
+  const uniqueInst = new Set(sound.heard);
+  document.getElementById('sound-instruments').textContent = uniqueInst.size;
+}
+
+// ===== 기록 =====
+function updateRecords() {
+  document.getElementById('r-total').textContent = profile.totalPlayed;
+  document.getElementById('r-countries').textContent = pilot.visited.length;
+  document.getElementById('r-level').textContent = Math.floor(profile.totalCorrect / 10) + 1;
+  document.getElementById('rec-total').textContent = profile.totalPlayed;
+  document.getElementById('rec-countries').textContent = pilot.visited.length;
+
+  document.getElementById('r-pilot-visited').textContent = pilot.visited.length;
+  document.getElementById('r-pilot-flights').textContent = pilot.flights;
+  document.getElementById('r-pilot-best').textContent = pilot.lastVisited;
+
+  document.getElementById('r-dress-complete').textContent = dress.completed;
+  document.getElementById('r-dress-quiz').textContent = dress.quizScore;
+  document.getElementById('r-dress-streak').textContent = dress.bestStreak;
+
+  document.getElementById('r-sound-heard').textContent = sound.totalHeard;
+  document.getElementById('r-sound-inst').textContent = new Set(sound.heard).size;
+  const regions = new Set(sound.heard.map(id => SOUNDS.find(s=>s.id===id)?.region).filter(Boolean));
+  document.getElementById('r-sound-region').textContent = regions.size;
+
+  document.getElementById('r-hero-best').textContent = hg.bestScore;
+  document.getElementById('r-hero-combo').textContent = hg.bestCombo;
+  document.getElementById('r-hero-flags').textContent = hg.totalFlags;
+}
+
+// ===== 히어로: 깃발 레이스 =====
+function startHeroGame() {
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.combo = 0; hg.maxCombo = 0;
+  hg.flags = []; hg.running = true; hg.paused = false; hg.planeX = 50;
+  hg.collected = 0;
+  document.getElementById('hero-game').classList.remove('hidden');
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause').classList.add('hidden');
+  hgUpdateUI();
+  hgPickTarget();
+  hgSpawnClouds();
+  hgLoop();
+  hgStartSpawning();
+  speak('깃발 레이스 시작!');
+}
+
+function hgPickTarget() {
+  hg.targetCountry = COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+  document.getElementById('hg-target').textContent = `${hg.targetCountry.flag} ${hg.targetCountry.name}`;
+}
+
+function hgUpdateUI() {
+  document.getElementById('hg-score').textContent = hg.score;
+  document.getElementById('hg-level').textContent = hg.level;
+  let hearts = '';
+  for (let i = 0; i < 5; i++) hearts += i < hg.lives ? '❤️' : '🖤';
+  document.getElementById('hg-hearts').textContent = hearts;
+}
+
+function hgMoveStart(dir) {
+  hg.moveDir = dir === 'left' ? -1 : 1;
+  if (!hg.moveInterval) {
+    hg.moveInterval = setInterval(() => {
+      hg.planeX += hg.moveDir * 2.5;
+      if (hg.planeX < 5) hg.planeX = 5;
+      if (hg.planeX > 95) hg.planeX = 95;
+      document.getElementById('hg-plane').style.left = `calc(${hg.planeX}% - 40px)`;
+    }, 30);
+  }
+}
+
+function hgMoveEnd() {
+  hg.moveDir = 0;
+  clearInterval(hg.moveInterval);
+  hg.moveInterval = null;
+}
+
+function hgSpawnClouds() {
+  const arena = document.getElementById('hg-arena');
+  // 기존 구름 제거
+  arena.querySelectorAll('.hg-cloud').forEach(c => c.remove());
+  for (let i = 0; i < 5; i++) {
+    const cloud = document.createElement('div');
+    cloud.className = 'hg-cloud';
+    cloud.textContent = '☁️';
+    cloud.style.top = (Math.random() * 70 + 5) + '%';
+    cloud.style.animationDelay = (-Math.random() * 20) + 's';
+    cloud.style.fontSize = (30 + Math.random() * 20) + 'px';
+    arena.appendChild(cloud);
+  }
+}
+
+function hgStartSpawning() {
+  clearInterval(hg.spawnTimer);
+  const interval = Math.max(800, 2000 - hg.level * 150);
+  hg.spawnTimer = setInterval(() => {
+    if (!hg.running || hg.paused) return;
+    hgSpawnFlag();
+    // 파워업 (10% 확률)
+    if (Math.random() < 0.1) hgSpawnPowerup();
+  }, interval);
+}
+
+function hgSpawnFlag() {
+  const arena = document.getElementById('hg-arena');
+  const isTarget = Math.random() < 0.35; // 35% 확률로 정답
+  const country = isTarget ? hg.targetCountry : COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+
+  const flag = document.createElement('div');
+  flag.className = 'falling-flag';
+  flag.dataset.countryId = country.id;
+  flag.dataset.isTarget = country.id === hg.targetCountry.id ? '1' : '0';
+  flag.style.left = (Math.random() * 80 + 10) + '%';
+  flag.style.top = '-80px';
+  const speed = 1.5 + hg.level * 0.3 + Math.random();
+  flag.dataset.speed = speed;
+  flag.innerHTML = `<span class="ff-emoji">${country.flag}</span>`;
+  arena.appendChild(flag);
+  hg.flags.push(flag);
+}
+
+function hgSpawnPowerup() {
+  const arena = document.getElementById('hg-arena');
+  const types = [
+    { emoji:'🧭', type:'compass', label:'나침반' },
+    { emoji:'🚀', type:'jet', label:'제트엔진' },
+    { emoji:'📮', type:'stamp', label:'여권도장' }
+  ];
+  const pu = types[Math.floor(Math.random() * types.length)];
+  const el = document.createElement('div');
+  el.className = 'hg-powerup falling-flag';
+  el.dataset.powerup = pu.type;
+  el.dataset.speed = 1.2;
+  el.style.left = (Math.random() * 80 + 10) + '%';
+  el.style.top = '-60px';
+  el.innerHTML = `<span class="hg-pu-emoji">${pu.emoji}</span>`;
+  arena.appendChild(el);
+  hg.flags.push(el);
+}
+
+function hgLoop() {
+  if (!hg.running) return;
+  if (hg.paused) { hg.animId = requestAnimationFrame(hgLoop); return; }
+
+  const arena = document.getElementById('hg-arena');
+  const arenaH = arena.clientHeight;
+  const planeY = arenaH - 120;
+  const planeL = hg.planeX - 6;
+  const planeR = hg.planeX + 6;
+
+  hg.flags.forEach((flag, i) => {
+    const top = parseFloat(flag.style.top) || -80;
+    const speed = parseFloat(flag.dataset.speed) || 2;
+    flag.style.top = (top + speed) + 'px';
+
+    // 충돌 체크 (비행기와)
+    const flagX = parseFloat(flag.style.left);
+    const flagY = top + speed;
+
+    if (flagY > planeY - 40 && flagY < planeY + 40 && flagX > planeL && flagX < planeR) {
+      // 충돌!
+      if (flag.dataset.powerup) {
+        hgCollectPowerup(flag.dataset.powerup, flag);
+      } else if (flag.dataset.isTarget === '1') {
+        hgCollectCorrect(flag);
+      } else {
+        hgCollectWrong(flag);
+      }
+      flag.remove();
+      hg.flags.splice(i, 1);
+      return;
+    }
+
+    // 화면 밖으로 나감
+    if (flagY > arenaH + 50) {
+      flag.remove();
+      hg.flags.splice(i, 1);
+    }
+  });
+
+  // 나침반 파워업: 정답 국기 하이라이트
+  if (hg.compassActive) {
+    hg.flags.forEach(f => {
+      if (f.dataset.isTarget === '1') {
+        f.querySelector('.ff-emoji')?.classList.add('ff-highlight');
+      }
+    });
+  }
+
+  hg.animId = requestAnimationFrame(hgLoop);
+}
+
+function hgCollectCorrect(flag) {
+  hg.combo++;
+  if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+  const bonus = hg.combo >= 3 ? hg.combo * 2 : 1;
+  hg.score += 10 * bonus;
+  hg.collected++;
+  hg.totalFlags++;
+
+  // 이펙트
+  const arena = document.getElementById('hg-arena');
+  const flash = document.createElement('div');
+  flash.className = 'hg-flash';
+  arena.appendChild(flash);
+  setTimeout(() => flash.remove(), 400);
+
+  // 별 이펙트
+  for (let i = 0; i < 6; i++) {
+    const star = document.createElement('div');
+    star.className = 'hg-star-burst';
+    star.textContent = ['⭐','✨','💫','🌟'][Math.floor(Math.random()*4)];
+    star.style.cssText = `left:${hg.planeX}%;top:${parseFloat(flag.style.top)}px;font-size:${20+Math.random()*16}px;--tx:${(Math.random()-.5)*100}px;--ty:${-30-Math.random()*60}px`;
+    arena.appendChild(star);
+    setTimeout(() => star.remove(), 800);
+  }
+
+  // 콤보 표시
+  if (hg.combo >= 3) {
+    const combo = document.createElement('div');
+    combo.className = 'hg-combo';
+    combo.textContent = `${hg.combo}콤보! x${bonus}`;
+    combo.style.cssText = `left:50%;top:40%;color:#fbbf24`;
+    arena.appendChild(combo);
+    setTimeout(() => combo.remove(), 1000);
+  }
+
+  speak('좋아요!');
+
+  // 5개 모을 때마다 레벨업 + 새 타겟
+  if (hg.collected % 5 === 0) {
+    hg.level++;
+    hgPickTarget();
+    hgStartSpawning();
+    speak(`레벨 ${hg.level}! ${hg.targetCountry.name} 국기를 모으세요!`);
+  }
+
+  hgUpdateUI();
+  saveStats();
+}
+
+function hgCollectWrong(flag) {
+  if (hg.invincible) return;
+  hg.combo = 0;
+  hg.lives--;
+
+  const arena = document.getElementById('hg-arena');
+  const miss = document.createElement('div');
+  miss.className = 'hg-miss-flash';
+  arena.appendChild(miss);
+  setTimeout(() => miss.remove(), 500);
+  arena.classList.add('hg-arena-shake');
+  setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
+
+  speak('아이쿠!');
+  hgUpdateUI();
+
+  if (hg.lives <= 0) hgGameOver();
+}
+
+function hgCollectPowerup(type, el) {
+  const arena = document.getElementById('hg-arena');
+  const effect = document.createElement('div');
+  effect.className = 'hg-collect-effect';
+  effect.textContent = el.querySelector('.hg-pu-emoji').textContent;
+  effect.style.cssText = `left:${hg.planeX}%;top:60%;font-size:60px`;
+  arena.appendChild(effect);
+  setTimeout(() => effect.remove(), 700);
+
+  if (type === 'compass') {
+    // 정답 하이라이트 5초
+    hg.compassActive = true;
+    speak('나침반! 정답이 빛나요!');
+    setTimeout(() => { hg.compassActive = false; }, 5000);
+  } else if (type === 'jet') {
+    // 무적 5초
+    hg.invincible = true;
+    document.getElementById('hg-plane').classList.add('invincible');
+    speak('제트엔진! 무적이에요!');
+    setTimeout(() => {
+      hg.invincible = false;
+      document.getElementById('hg-plane').classList.remove('invincible');
+    }, 5000);
+  } else if (type === 'stamp') {
+    // 즉시 정답 1회
+    hg.combo++;
+    hg.score += 20;
+    hg.collected++;
+    hg.totalFlags++;
+    speak('여권도장! 보너스!');
+    hgUpdateUI();
+  }
+}
+
+function hgGameOver() {
+  hg.running = false;
+  clearInterval(hg.spawnTimer);
+  hgMoveEnd();
+  if (hg.score > hg.bestScore) hg.bestScore = hg.score;
+  if (hg.maxCombo > hg.bestCombo) hg.bestCombo = hg.maxCombo;
+
+  document.getElementById('hg-final-score').textContent = hg.score;
+  let msg = '';
+  if (hg.score >= 200) msg = '세계 최고 비행사예요! 🌟';
+  else if (hg.score >= 100) msg = '멋진 비행이었어요! ✈️';
+  else if (hg.score >= 50) msg = '잘했어요! 다시 도전해봐요!';
+  else msg = '괜찮아요! 연습하면 더 잘할 수 있어요!';
+  document.getElementById('hg-over-msg').textContent = msg;
+  document.getElementById('hg-over').classList.remove('hidden');
+  speak('비행 끝! ' + msg);
+
+  saveStats();
+}
+
+function hgPause() {
+  if (!hg.running) return;
+  hg.paused = !hg.paused;
+  document.getElementById('hg-pause').classList.toggle('hidden', !hg.paused);
+  hgMoveEnd();
+}
+
+function hgRestart() {
+  // 기존 깃발 제거
+  hg.flags.forEach(f => f.remove());
+  hg.flags = [];
+  startHeroGame();
+}
+
+function hgExit() {
+  hg.running = false;
+  hg.paused = false;
+  clearInterval(hg.spawnTimer);
+  cancelAnimationFrame(hg.animId);
+  hgMoveEnd();
+  hg.flags.forEach(f => f.remove());
+  hg.flags = [];
+  document.getElementById('hero-game').classList.add('hidden');
+}
+
+// 키보드 조작
+document.addEventListener('keydown', function(e) {
+  if (!hg.running || hg.paused) return;
+  if (e.key === 'ArrowLeft') hgMoveStart('left');
+  else if (e.key === 'ArrowRight') hgMoveStart('right');
+});
+document.addEventListener('keyup', function(e) {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') hgMoveEnd();
+});
+
+// ===== 초기화 =====
+document.addEventListener('DOMContentLoaded', function() {
+  // fitScale
+  function fitScale() {
+    const c = document.querySelector('.container');
+    if (!c || getComputedStyle(c).display === 'none') return;
+    const M = 0.03;
+    const aW = window.innerWidth * (1 - M * 2);
+    const aH = window.innerHeight * (1 - M * 2);
+    const s = Math.min(aW / 1920, aH / 1080);
+    c.style.transform = `scale(${s})`;
+    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  fitScale();
+  window.addEventListener('resize', fitScale);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
+
+  // 프로필
+  updateProfile();
+  updateActionButtons();
+
+  // 게임 초기화
+  initPilot();
+  initDress();
+  initSoundMap();
+});
+
+// 더블탭 방지
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, { passive: false });
+</script>
+</body>
+</html>

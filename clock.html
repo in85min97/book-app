@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>시계 놀이터 🕐</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#0891b2 0%,#06b6d4 50%,#0e7490 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
+.rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0891b2,#06b6d4);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
+.rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
+@keyframes rotateH{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+@media(orientation:portrait){.rotate-notice{display:flex}.container{display:none!important}}
+.container{width:1920px;height:1080px;background:#fff;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;position:absolute}
+
+.subject-bar{background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;padding:0 20px;height:56px;flex-shrink:0;gap:4px;position:relative}
+.subject-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#67e8f9,#06b6d4,#67e8f9)}
+.sb-tab{padding:8px 30px;border:none;border-radius:12px 12px 0 0;background:0;font-size:18px;font-weight:800;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.sb-tab.active{background:#fff;color:#1e3a8a}
+.sb-tab.locked{cursor:default}
+.sb-tab .lock{font-size:12px;opacity:.5}
+.sb-spacer{flex:1}
+.sb-btns{display:flex;gap:8px}
+.sb-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-size:18px;color:#fff;cursor:pointer;transition:.15s}
+.sb-btn:active{background:rgba(255,255,255,.3)}
+
+.main-layout{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:14px;flex:1;overflow:hidden}
+
+.left-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.profile-section{background:linear-gradient(145deg,#0891b2,#06b6d4 50%,#67e8f9);border-radius:20px;padding:20px;border:3px solid #a5f3fc;box-shadow:0 6px 20px rgba(8,145,178,.3);flex-shrink:0;position:relative;overflow:hidden}
+.profile-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='15' cy='15' r='1.5' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='2s' repeatCount='indefinite'/></circle><circle cx='85' cy='25' r='1' fill='white' opacity='.25'><animate attributeName='opacity' values='.25;.08;.25' dur='1.5s' repeatCount='indefinite'/></circle><circle cx='25' cy='75' r='1.2' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='1.8s' repeatCount='indefinite'/></circle></svg>") repeat;pointer-events:none}
+.profile-content{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.profile-avatar{width:90px;height:90px;background:linear-gradient(145deg,#67e8f9,#22d3ee);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #fff;box-shadow:0 4px 15px rgba(103,232,249,.4);animation:avGlow 3s ease-in-out infinite;flex-shrink:0;cursor:pointer}
+@keyframes avGlow{0%,100%{box-shadow:0 4px 15px rgba(103,232,249,.4);transform:scale(1)}50%{box-shadow:0 8px 25px rgba(103,232,249,.6);transform:scale(1.05)}}
+.profile-info{flex:1;color:#fff}
+.profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
+.profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.profile-level{font-size:18px;font-weight:700;color:#e0f2fe;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#67e8f9,#22d3ee);color:#164e63;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#67e8f9,#22d3ee,#67e8f9);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
+@keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+.tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn.active{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff;border-color:#06b6d4}
+.tab-btn:active{transform:scale(.97)}
+.tab-content{display:none;flex:1;overflow:hidden}
+.tab-content.active{display:flex;flex-direction:column}
+
+.side-info{background:linear-gradient(145deg,#ecfeff,#cffafe);border-radius:16px;padding:15px;border:2px solid #06b6d4;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-title{font-size:17px;font-weight:700;color:#164e63;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
+.side-val{font-size:20px;font-weight:800;color:#0891b2}
+
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#67e8f9,#22d3ee);color:#164e63;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(103,232,249,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+@keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.game-launch-btn:active{transform:scale(.97)}
+
+.center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.game-view.active{display:flex}
+
+/* 시간 여행자 */
+.travel-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative;transition:background 1s}
+.travel-bg{position:absolute;inset:0;border-radius:16px;transition:background 1s;overflow:hidden}
+.travel-bg-dawn{background:linear-gradient(180deg,#1e1b4b 0%,#312e81 30%,#4338ca 60%,#6366f1 100%)}
+.travel-bg-morning{background:linear-gradient(180deg,#fef3c7 0%,#fde68a 30%,#fbbf24 60%,#f59e0b 100%)}
+.travel-bg-noon{background:linear-gradient(180deg,#e0f2fe 0%,#7dd3fc 30%,#38bdf8 60%,#0ea5e9 100%)}
+.travel-bg-evening{background:linear-gradient(180deg,#fed7aa 0%,#fb923c 30%,#ea580c 60%,#c2410c 100%)}
+.travel-bg-night{background:linear-gradient(180deg,#0f172a 0%,#1e293b 30%,#334155 60%,#1e1b4b 100%)}
+.travel-stars{position:absolute;inset:0;pointer-events:none}
+.travel-question{position:relative;z-index:5;font-size:28px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);background:rgba(0,0,0,.3);padding:12px 28px;border-radius:16px;backdrop-filter:blur(4px)}
+.travel-clock-wrap{position:relative;z-index:5}
+.travel-result{position:relative;z-index:5;font-size:22px;font-weight:700;min-height:40px;text-align:center;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.travel-confirm-btn{position:relative;z-index:5;background:linear-gradient(145deg,#22d3ee,#06b6d4);color:#fff;border:3px solid #a5f3fc;border-radius:16px;padding:12px 40px;font-size:22px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(6,182,212,.4)}
+.travel-confirm-btn:active{transform:scale(.95)}
+
+/* SVG 아날로그 시계 공통 */
+.analog-clock{cursor:grab}
+.analog-clock:active{cursor:grabbing}
+.clock-face-ring{fill:none;stroke:#e2e8f0;stroke-width:4}
+.clock-face-bg{fill:#f8fafc}
+.clock-tick{stroke:#94a3b8;stroke-width:2;stroke-linecap:round}
+.clock-tick-major{stroke:#475569;stroke-width:3;stroke-linecap:round}
+.clock-number{fill:#1e293b;font-size:28px;font-weight:800;font-family:'Noto Sans KR',sans-serif;text-anchor:middle;dominant-baseline:central}
+.clock-center-dot{fill:#0891b2}
+.clock-hand-hour{stroke:#1e293b;stroke-width:8;stroke-linecap:round;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2));transition:transform .3s ease}
+.clock-hand-minute{stroke:#0891b2;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 1px 2px rgba(0,0,0,.15));transition:transform .3s ease}
+.clock-hand-second{stroke:#ef4444;stroke-width:2;stroke-linecap:round}
+
+/* 요리 타이머 */
+.cook-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative}
+.cook-food-display{width:220px;height:220px;position:relative;display:flex;align-items:center;justify-content:center}
+.cook-food-svg{font-size:120px;transition:transform .3s}
+.cook-food-status{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);font-size:16px;font-weight:700;padding:4px 14px;border-radius:8px;white-space:nowrap;background:#fff;color:#1e293b;border:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.cook-timer-ring{position:relative;width:180px;height:180px}
+.cook-info{font-size:22px;font-weight:800;color:#1e293b;text-align:center;background:linear-gradient(145deg,#ecfeff,#cffafe);padding:10px 24px;border-radius:14px;border:2px solid #06b6d4}
+.cook-quiz-popup{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:20;border-radius:16px;backdrop-filter:blur(4px)}
+.cook-quiz-popup.hidden{display:none}
+.cook-quiz-box{background:#fff;border-radius:20px;padding:30px;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.2);min-width:340px}
+.cook-quiz-box h3{font-size:24px;font-weight:800;color:#1e293b;margin-bottom:16px}
+.cook-quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.cook-quiz-opt{padding:14px;border:3px solid #e2e8f0;border-radius:14px;font-size:20px;font-weight:700;cursor:pointer;background:#f8fafc;color:#1e293b;font-family:inherit;transition:.15s}
+.cook-quiz-opt:active{transform:scale(.95)}
+.cook-quiz-opt.correct{background:linear-gradient(145deg,#86efac,#4ade80);border-color:#22c55e;color:#fff}
+.cook-quiz-opt.wrong{background:linear-gradient(145deg,#fca5a5,#f87171);border-color:#ef4444;color:#fff}
+.cook-btns{display:flex;gap:12px}
+.cook-btn{padding:12px 28px;border:3px solid #a5f3fc;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
+.cook-btn:active{transform:scale(.95)}
+.cook-btn-open{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff;border-color:#fde68a}
+.cook-btn-wait{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff}
+.cook-result-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:25;border-radius:16px;pointer-events:none}
+.cook-result-overlay.hidden{display:none}
+.cook-result-msg{font-size:36px;font-weight:900;padding:20px 40px;border-radius:20px;animation:cookPop .8s ease-out forwards;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+@keyframes cookPop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.2);opacity:1}100%{transform:scale(1);opacity:1}}
+.cook-steam{position:absolute;pointer-events:none;animation:steamUp var(--dur,2s) ease-out forwards}
+@keyframes steamUp{0%{transform:translateY(0) scale(1);opacity:.6}100%{transform:translateY(var(--ty,-80px)) scale(1.5);opacity:0}}
+
+/* 쌍둥이 시계 */
+.twin-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.twin-question{font-size:24px;font-weight:800;color:#1e293b;background:linear-gradient(145deg,#ecfeff,#cffafe);padding:12px 24px;border-radius:14px;border:3px solid #06b6d4;text-align:center}
+.twin-clocks{display:flex;gap:40px;align-items:center}
+.twin-clock-box{display:flex;flex-direction:column;align-items:center;gap:10px}
+.twin-label{font-size:18px;font-weight:700;color:#475569;background:#f1f5f9;padding:6px 16px;border-radius:8px}
+.twin-digital{background:linear-gradient(145deg,#0f172a,#1e293b);border:4px solid #475569;border-radius:16px;padding:20px 36px;box-shadow:inset 0 4px 12px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.2);position:relative;overflow:hidden}
+.twin-digital::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);pointer-events:none}
+.twin-digital-time{font-size:72px;font-weight:900;font-family:'Courier New',monospace;color:#22d3ee;text-shadow:0 0 20px rgba(34,211,238,.5);letter-spacing:4px}
+.twin-digital-ampm{font-size:20px;font-weight:700;color:#67e8f9;text-align:center;margin-top:4px}
+.twin-input-area{display:flex;gap:8px;align-items:center}
+.twin-input{width:80px;height:60px;text-align:center;font-size:32px;font-weight:800;border:3px solid #06b6d4;border-radius:12px;background:#fff;color:#1e293b;font-family:inherit}
+.twin-input:focus{outline:none;border-color:#22d3ee;box-shadow:0 0 12px rgba(34,211,238,.3)}
+.twin-colon{font-size:36px;font-weight:900;color:#475569}
+.twin-submit{background:linear-gradient(145deg,#22d3ee,#06b6d4);color:#fff;border:3px solid #a5f3fc;border-radius:14px;padding:12px 32px;font-size:20px;font-weight:800;cursor:pointer;font-family:inherit}
+.twin-submit:active{transform:scale(.95)}
+.twin-result{font-size:22px;font-weight:700;min-height:36px;text-align:center;color:#1e293b}
+.twin-vs{font-size:40px;font-weight:900;color:#06b6d4}
+
+/* 내 기록 */
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#ecfeff,#cffafe);border-radius:12px;border:2px solid #a5f3fc}
+.record-num{font-size:32px;font-weight:900;color:#0891b2}
+.record-label{font-size:13px;font-weight:600;color:#164e63;margin-top:4px}
+
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn:active{transform:scale(.95)}
+.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
+.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
+.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.action-btn.btn-teal{background:linear-gradient(145deg,#14b8a6,#0d9488);box-shadow:0 2px 8px rgba(20,184,166,.2)}
+.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+
+/* 히어로 */
+.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;overflow:hidden}
+.hero-game.hidden{display:none}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.4)}
+.hg-stat{font-size:22px;font-weight:800;color:#1e3a8a}
+.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-ctrls{display:flex;gap:8px}
+.hg-ctrl-btn{background:rgba(255,255,255,.6);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569}
+.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-arena{flex:1;position:relative;overflow:hidden;background:linear-gradient(180deg,#ecfeff 0%,#cffafe 30%,#a5f3fc 70%,#67e8f9 100%)}
+.hg-tap-zone{position:absolute;inset:0;z-index:50;cursor:pointer}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-overlay.hidden{display:none}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
+.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:28px;font-weight:700;color:#0891b2;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff}
+.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+.hg-quiz-popup{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:20px;padding:30px;text-align:center;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.3);min-width:300px}
+.hg-quiz-popup.hidden{display:none}
+.hg-quiz-popup h3{font-size:24px;font-weight:800;margin-bottom:16px;color:#1e293b}
+.hg-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hg-quiz-opt{padding:14px;border:3px solid #e2e8f0;border-radius:14px;font-size:20px;font-weight:700;cursor:pointer;background:#f8fafc;font-family:inherit}
+.hg-quiz-opt:active{transform:scale(.95)}
+.hg-obstacle{position:absolute;z-index:15;pointer-events:none}
+.hg-powerup{position:absolute;z-index:14;pointer-events:none;animation:puFloat 1s ease-in-out infinite}
+@keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hg-jump-effect{position:absolute;pointer-events:none;z-index:20;animation:jumpPop .4s ease-out forwards}
+@keyframes jumpPop{0%{transform:scale(1);opacity:1}100%{transform:scale(2);opacity:0}}
+
+/* 모달 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:20px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.modal-head{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff;padding:16px 20px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font-size:18px}
+.modal-close{background:0;border:0;color:#fff;font-size:24px;cursor:pointer}
+.modal-body{padding:20px}
+.modal-section{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fafc}
+.modal-section h4{margin:0 0 10px;font-weight:700;color:#374151;font-size:15px}
+.modal-input{width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px}
+.modal-input:focus{outline:none;border-color:#06b6d4}
+.modal-btn{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;width:100%;background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff;margin-top:6px}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.char-item.selected{background:linear-gradient(145deg,#67e8f9,#22d3ee);border-color:#22d3ee}
+
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes correctPop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:0}}
+</style>
+</head>
+<body>
+<div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
+
+<div class="container">
+  <div class="subject-bar">
+    <a class="sb-tab" href="hangul.html">📝 한글</a>
+    <a class="sb-tab" href="math.html">🔢 숫자</a>
+    <button class="sb-tab active">🕐 시계</button>
+    <div class="sb-spacer"></div>
+    <div class="sb-btns">
+      <button class="sb-btn" id="sb-sound" onclick="toggleSound()">🔊</button>
+      <button class="sb-btn" onclick="showAdmin()">⚙️</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- 왼쪽 패널 -->
+    <div class="left-panel">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-avatar" onclick="showCharModal()"><span id="pf-char">🧒</span></div>
+          <div class="profile-info">
+            <div class="profile-name" onclick="changeName()"><span id="pf-name">시계박사</span></div>
+            <div class="profile-level-container">
+              <div class="profile-level">
+                <span class="level-badge">LV.<span id="pf-level">1</span></span>
+                <span id="pf-done">0</span>/<span id="pf-total">10</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="pf-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-headers">
+        <button class="tab-btn active" onclick="switchTab('travel')">🕰 시간여행</button>
+        <button class="tab-btn" onclick="switchTab('cook')">🍳 요리타이머</button>
+        <button class="tab-btn" onclick="switchTab('twin')">👯 쌍둥이시계</button>
+        <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
+      </div>
+
+      <div class="tab-content travel-side active">
+        <div class="side-info">
+          <div class="side-title">🕰 시간 여행자</div>
+          <div class="side-stat"><span>문제</span><span class="side-val" id="travel-qnum">1</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="travel-score-side">0</span></div>
+          <div class="side-stat"><span>연속 정답</span><span class="side-val" id="travel-streak">0</span></div>
+        </div>
+      </div>
+
+      <div class="tab-content cook-side">
+        <div class="side-info">
+          <div class="side-title">🍳 요리 타이머</div>
+          <div class="side-stat"><span>요리</span><span class="side-val" id="cook-food-side">라면</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="cook-score-side">0</span></div>
+          <div class="side-stat"><span>성공</span><span class="side-val" id="cook-success-side">0</span></div>
+        </div>
+      </div>
+
+      <div class="tab-content twin-side">
+        <div class="side-info">
+          <div class="side-title">👯 쌍둥이 시계</div>
+          <div class="side-stat"><span>문제</span><span class="side-val" id="twin-qnum">1</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="twin-score-side">0</span></div>
+          <div class="side-stat"><span>연속 정답</span><span class="side-val" id="twin-streak-side">0</span></div>
+        </div>
+      </div>
+
+      <div class="tab-content record-side">
+        <div class="side-info">
+          <div class="side-title">📊 종합 기록</div>
+          <div class="side-stat"><span>총 문제</span><span class="side-val" id="rec-total">0</span></div>
+          <div class="side-stat"><span>정답률</span><span class="side-val" id="rec-rate">0%</span></div>
+        </div>
+      </div>
+
+      <div class="game-launch-btn" onclick="startHeroGame()">⚡ 틱톡 점프 시작!</div>
+    </div>
+
+    <!-- 중앙 패널 -->
+    <div class="center-panel">
+      <!-- 시간 여행자 -->
+      <div class="game-view travel-view active" id="travel-view">
+        <div class="travel-area" id="travel-area">
+          <div class="travel-bg travel-bg-noon" id="travel-bg"></div>
+          <div class="travel-question" id="travel-q">아침 7시로 가자!</div>
+          <div class="travel-clock-wrap" id="travel-clock-wrap"></div>
+          <div class="travel-result" id="travel-result"></div>
+          <button class="travel-confirm-btn" onclick="travelConfirm()">🕐 도착!</button>
+        </div>
+      </div>
+
+      <!-- 요리 타이머 -->
+      <div class="game-view cook-view" id="cook-view">
+        <div class="cook-area" id="cook-area">
+          <div class="cook-info" id="cook-info">🍜 라면 — 3분 동안 끓여요!</div>
+          <div class="cook-food-display" id="cook-food-display">
+            <span class="cook-food-svg" id="cook-food-emoji">🍜</span>
+          </div>
+          <div class="cook-timer-ring" id="cook-timer-wrap"></div>
+          <div class="cook-btns">
+            <button class="cook-btn cook-btn-open" id="cook-open-btn" onclick="cookOpen()">🍽 열기!</button>
+            <button class="cook-btn cook-btn-wait" onclick="cookWait()">⏳ 기다리기</button>
+          </div>
+          <div class="cook-quiz-popup hidden" id="cook-quiz">
+            <div class="cook-quiz-box">
+              <h3 id="cook-quiz-q">지금 몇 분 지났을까?</h3>
+              <div class="cook-quiz-options" id="cook-quiz-opts"></div>
+            </div>
+          </div>
+          <div class="cook-result-overlay hidden" id="cook-result-overlay"></div>
+        </div>
+      </div>
+
+      <!-- 쌍둥이 시계 -->
+      <div class="game-view twin-view" id="twin-view">
+        <div class="twin-area" id="twin-area">
+          <div class="twin-question" id="twin-q">아날로그 시계를 보고 디지털 시간을 맞춰보세요!</div>
+          <div class="twin-clocks" id="twin-clocks">
+            <div class="twin-clock-box">
+              <div class="twin-label">아날로그</div>
+              <div id="twin-analog-wrap"></div>
+            </div>
+            <div class="twin-vs">⇄</div>
+            <div class="twin-clock-box">
+              <div class="twin-label">디지털</div>
+              <div class="twin-digital" id="twin-digital">
+                <div class="twin-digital-time" id="twin-digi-display">--:--</div>
+                <div class="twin-digital-ampm" id="twin-digi-ampm"></div>
+              </div>
+            </div>
+          </div>
+          <div class="twin-input-area" id="twin-input-area">
+            <input class="twin-input" id="twin-hour-input" type="number" min="1" max="12" placeholder="시">
+            <span class="twin-colon">:</span>
+            <input class="twin-input" id="twin-min-input" type="number" min="0" max="59" placeholder="분">
+            <button class="twin-submit" onclick="twinConfirm()">확인!</button>
+          </div>
+          <div class="twin-result" id="twin-result"></div>
+        </div>
+      </div>
+
+      <!-- 내 기록 -->
+      <div class="game-view record-view" id="record-view">
+        <div class="records-area">
+          <div class="record-card">
+            <h3>🏆 종합 성적</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-total">0</div><div class="record-label">총 문제</div></div>
+              <div class="record-item"><div class="record-num" id="r-correct">0</div><div class="record-label">정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-rate">0%</div><div class="record-label">정답률</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🕰 시간 여행자</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-travel-correct">0</div><div class="record-label">정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-travel-best">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-travel-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🍳 요리 타이머</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-cook-success">0</div><div class="record-label">성공</div></div>
+              <div class="record-item"><div class="record-num" id="r-cook-quiz">0</div><div class="record-label">퀴즈 정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-cook-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>👯 쌍둥이 시계</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-twin-correct">0</div><div class="record-label">정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-twin-best">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-twin-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오른쪽 패널 -->
+    <div class="right-panel" id="right-panel">
+      <button class="action-btn btn-cyan" id="act1" onclick="actionBtn(1)"><span class="icon">💡</span>힌트</button>
+      <button class="action-btn btn-green" id="act2" onclick="actionBtn(2)"><span class="icon">⏭</span>다음</button>
+      <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🔄</span>다시</button>
+    </div>
+  </div>
+</div>
+
+<!-- 히어로 게임 -->
+<div id="hero-game" class="hero-game hidden">
+  <div class="hg-header">
+    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
+    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
+    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="hg-ctrls">
+      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+    </div>
+  </div>
+  <div class="hg-arena" id="hg-arena">
+    <div class="hg-tap-zone" id="hg-tap-zone"></div>
+  </div>
+  <div id="hg-over" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>게임 끝!</h2>
+      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="msg" id="hg-over-msg">잘했어요!</div>
+      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-pause" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>⏸ 일시정지</h2>
+      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-quiz" class="hg-quiz-popup hidden">
+    <h3 id="hg-quiz-q">지금 몇 시?</h3>
+    <div class="hg-quiz-opts" id="hg-quiz-opts"></div>
+  </div>
+</div>
+
+<!-- 관리자 모달 -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>⚙ 설정</h3><button class="modal-close" onclick="hideAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h4>👤 프로필</h4>
+        <input class="modal-input" id="adm-name" placeholder="이름 입력" maxlength="10">
+        <button class="modal-btn" onclick="saveProfile()">저장</button>
+      </div>
+      <div class="modal-section">
+        <h4>🔄 초기화</h4>
+        <button class="modal-btn" style="background:linear-gradient(145deg,#ef4444,#dc2626)" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 캐릭터 모달 -->
+<div id="char-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>🎭 캐릭터 선택</h3><button class="modal-close" onclick="hideCharModal()">×</button></div>
+    <div class="modal-body">
+      <div class="char-grid" id="char-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 전역 변수 =====
+let currentTab = 'travel';
+let soundEnabled = true;
+const LS = localStorage;
+
+let profile = {
+  name: LS.getItem('clockName') || '시계박사',
+  char: LS.getItem('clockChar') || '🧒',
+  totalCorrect: parseInt(LS.getItem('clockCorrect')) || 0,
+  totalPlayed: parseInt(LS.getItem('clockPlayed')) || 0
+};
+
+// 시간 여행자
+let travel = {
+  targetHour: 7, targetMin: 0, currentHour: 12, currentMin: 0,
+  score: 0, streak: 0, bestStreak: parseInt(LS.getItem('travelBest')) || 0,
+  qNum: 1, correctCount: parseInt(LS.getItem('travelCorrect')) || 0,
+  bestScore: parseInt(LS.getItem('travelBestScore')) || 0,
+  dragging: false, dragType: null
+};
+
+// 요리 타이머
+let cook = {
+  foods: [
+    {name:'라면', emoji:'🍜', time:3, unit:'분'},
+    {name:'계란', emoji:'🥚', time:5, unit:'분'},
+    {name:'피자', emoji:'🍕', time:20, unit:'분'},
+    {name:'케이크', emoji:'🎂', time:60, unit:'분'},
+    {name:'쿠키', emoji:'🍪', time:10, unit:'분'},
+    {name:'팝콘', emoji:'🍿', time:2, unit:'분'}
+  ],
+  currentFood: 0, elapsed: 0, totalTime: 3, running: false, timer: null,
+  score: 0, successCount: parseInt(LS.getItem('cookSuccess')) || 0,
+  quizCorrect: parseInt(LS.getItem('cookQuiz')) || 0,
+  bestScore: parseInt(LS.getItem('cookBestScore')) || 0,
+  quizShown: false, opened: false
+};
+
+// 쌍둥이 시계
+let twin = {
+  mode: 'analog-to-digital', // or 'digital-to-analog'
+  targetHour: 3, targetMin: 0,
+  score: 0, streak: 0, bestStreak: parseInt(LS.getItem('twinBest')) || 0,
+  qNum: 1, correctCount: parseInt(LS.getItem('twinCorrect')) || 0,
+  bestScore: parseInt(LS.getItem('twinBestScore')) || 0
+};
+
+// 히어로
+let hg = {
+  score: 0, lives: 5, level: 1, running: false, paused: false,
+  angle: 0, speed: 1, jumping: false, jumpY: 0, jumpVel: 0,
+  obstacles: [], powerups: [], animId: null, spawnTimer: null,
+  combo: 0, maxCombo: 0, quizActive: false, charEmoji: '🧒',
+  currentHour: 12
+};
+
+// ===== SVG 시계 생성 함수 =====
+function createAnalogClock(id, size, hour, min, options) {
+  options = options || {};
+  const r = size / 2;
+  const cr = r - 10;
+  let svg = `<svg id="${id}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="analog-clock">`;
+
+  // 외곽 그라데이션 링
+  svg += `<defs>
+    <radialGradient id="${id}-bg" cx="50%" cy="45%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f1f5f9"/></radialGradient>
+    <filter id="${id}-shadow"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="rgba(0,0,0,.15)"/></filter>
+    <linearGradient id="${id}-rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e2e8f0"/><stop offset="50%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#e2e8f0"/></linearGradient>
+  </defs>`;
+
+  // 외곽
+  svg += `<circle cx="${r}" cy="${r}" r="${cr+6}" fill="url(#${id}-rim)" filter="url(#${id}-shadow)"/>`;
+  svg += `<circle cx="${r}" cy="${r}" r="${cr}" fill="url(#${id}-bg)"/>`;
+
+  // 시간대 배경색 (시간여행자용)
+  if (options.showTimeBg) {
+    svg += `<circle cx="${r}" cy="${r}" r="${cr-4}" fill="${getTimeBgColor(hour)}" opacity=".08"/>`;
+  }
+
+  // 눈금
+  for (let i = 0; i < 60; i++) {
+    const angle = (i * 6 - 90) * Math.PI / 180;
+    const isMajor = i % 5 === 0;
+    const outerR = cr - 8;
+    const innerR = isMajor ? cr - 24 : cr - 16;
+    const x1 = r + outerR * Math.cos(angle);
+    const y1 = r + outerR * Math.sin(angle);
+    const x2 = r + innerR * Math.cos(angle);
+    const y2 = r + innerR * Math.sin(angle);
+    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${isMajor ? 'clock-tick-major' : 'clock-tick'}"/>`;
+  }
+
+  // 숫자
+  const numR = cr - 38;
+  const fontSize = Math.round(size / 10);
+  for (let i = 1; i <= 12; i++) {
+    const angle = (i * 30 - 90) * Math.PI / 180;
+    const x = r + numR * Math.cos(angle);
+    const y = r + numR * Math.sin(angle);
+    svg += `<text x="${x}" y="${y}" class="clock-number" style="font-size:${fontSize}px">${i}</text>`;
+  }
+
+  // 시침
+  const hAngle = ((hour % 12) * 30 + min * 0.5);
+  const hLen = cr * 0.5;
+  svg += `<line id="${id}-hour" x1="${r}" y1="${r}" x2="${r}" y2="${r - hLen}"
+    class="clock-hand-hour" style="transform:rotate(${hAngle}deg);transform-origin:${r}px ${r}px"/>`;
+
+  // 분침
+  const mAngle = min * 6;
+  const mLen = cr * 0.72;
+  svg += `<line id="${id}-min" x1="${r}" y1="${r}" x2="${r}" y2="${r - mLen}"
+    class="clock-hand-minute" style="transform:rotate(${mAngle}deg);transform-origin:${r}px ${r}px"/>`;
+
+  // 초침 (옵션)
+  if (options.showSecond) {
+    svg += `<line id="${id}-sec" x1="${r}" y1="${r + cr*0.15}" x2="${r}" y2="${r - cr*0.78}"
+      class="clock-hand-second" style="transform:rotate(0deg);transform-origin:${r}px ${r}px"/>`;
+  }
+
+  // 중심 점
+  svg += `<circle cx="${r}" cy="${r}" r="8" class="clock-center-dot"/>`;
+  svg += `<circle cx="${r}" cy="${r}" r="4" fill="#fff"/>`;
+
+  svg += '</svg>';
+  return svg;
+}
+
+function setClockHands(id, hour, min) {
+  const hAngle = ((hour % 12) * 30 + min * 0.5);
+  const mAngle = min * 6;
+  const hHand = document.getElementById(id + '-hour');
+  const mHand = document.getElementById(id + '-min');
+  if (hHand) hHand.style.transform = `rotate(${hAngle}deg)`;
+  if (mHand) mHand.style.transform = `rotate(${mAngle}deg)`;
+}
+
+function getTimeBgColor(hour) {
+  if (hour >= 5 && hour < 7) return '#6366f1';
+  if (hour >= 7 && hour < 12) return '#fbbf24';
+  if (hour >= 12 && hour < 17) return '#38bdf8';
+  if (hour >= 17 && hour < 20) return '#fb923c';
+  return '#1e1b4b';
+}
+
+function getTimePeriod(hour) {
+  if (hour >= 5 && hour < 7) return 'dawn';
+  if (hour >= 7 && hour < 12) return 'morning';
+  if (hour >= 12 && hour < 17) return 'noon';
+  if (hour >= 17 && hour < 20) return 'evening';
+  return 'night';
+}
+
+function getTimePeriodName(hour) {
+  if (hour >= 5 && hour < 7) return '새벽';
+  if (hour >= 7 && hour < 12) return '아침';
+  if (hour >= 12 && hour < 17) return '낮';
+  if (hour >= 17 && hour < 20) return '저녁';
+  return '밤';
+}
+
+// ===== TTS =====
+let audioQueue = [];
+let isSpeaking = false;
+function speak(text) {
+  if (!soundEnabled) return;
+  audioQueue.push(text);
+  processQueue();
+}
+function processQueue() {
+  if (isSpeaking || !audioQueue.length) return;
+  isSpeaking = true;
+  const u = new SpeechSynthesisUtterance(audioQueue.shift());
+  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.onend = () => { isSpeaking = false; processQueue(); };
+  u.onerror = () => { isSpeaking = false; processQueue(); };
+  speechSynthesis.speak(u);
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sb-sound').textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) speechSynthesis.cancel();
+}
+
+// ===== 프로필 =====
+function updateProfileUI() {
+  document.getElementById('pf-name').textContent = profile.name;
+  document.getElementById('pf-char').textContent = profile.char;
+  const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  document.getElementById('pf-level').textContent = lv;
+  const prog = (profile.totalCorrect % 10);
+  document.getElementById('pf-done').textContent = prog;
+  document.getElementById('pf-total').textContent = 10;
+  document.getElementById('pf-bar').style.width = (prog * 10) + '%';
+}
+function changeName() {
+  const n = prompt('이름을 입력하세요:', profile.name);
+  if (n && n.trim()) { profile.name = n.trim(); LS.setItem('clockName', profile.name); updateProfileUI(); }
+}
+function showCharModal() {
+  document.getElementById('char-modal').classList.remove('hidden');
+  const chars = ['🧒','👦','👧','🦸‍♂️','🦸‍♀️','🧙‍♂️','🐱','🐶','🦊','🐻','🐰','🐸','🦁','🐯','🐼'];
+  const g = document.getElementById('char-grid');
+  g.innerHTML = chars.map(c => `<div class="char-item${c===profile.char?' selected':''}" onclick="pickChar('${c}')">${c}</div>`).join('');
+}
+function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
+function pickChar(c) { profile.char = c; LS.setItem('clockChar', c); updateProfileUI(); hideCharModal(); hg.charEmoji = c; }
+function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
+function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+function saveProfile() {
+  const n = document.getElementById('adm-name').value.trim();
+  if (n) { profile.name = n; LS.setItem('clockName', n); updateProfileUI(); }
+  hideAdmin();
+}
+function resetAll() {
+  if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
+  ['clockName','clockChar','clockCorrect','clockPlayed','travelBest','travelCorrect','travelBestScore','cookSuccess','cookQuiz','cookBestScore','twinBest','twinCorrect','twinBestScore'].forEach(k => LS.removeItem(k));
+  location.reload();
+}
+function saveStats() {
+  LS.setItem('clockCorrect', profile.totalCorrect);
+  LS.setItem('clockPlayed', profile.totalPlayed);
+  LS.setItem('travelBest', travel.bestStreak);
+  LS.setItem('travelCorrect', travel.correctCount);
+  LS.setItem('travelBestScore', travel.bestScore);
+  LS.setItem('cookSuccess', cook.successCount);
+  LS.setItem('cookQuiz', cook.quizCorrect);
+  LS.setItem('cookBestScore', cook.bestScore);
+  LS.setItem('twinBest', twin.bestStreak);
+  LS.setItem('twinCorrect', twin.correctCount);
+  LS.setItem('twinBestScore', twin.bestScore);
+}
+
+// ===== 탭 전환 =====
+function switchTab(tab) {
+  if (currentTab === 'cook') {
+    clearInterval(cook.timer); cook.timer = null; cook.running = false;
+  }
+  speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['travel','cook','twin','record'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.' + tab + '-side').classList.add('active');
+  document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.' + tab + '-view').classList.add('active');
+  updateActionButtons();
+  if (tab === 'record') updateRecords();
+}
+
+function updateActionButtons() {
+  const a1 = document.getElementById('act1');
+  const a2 = document.getElementById('act2');
+  const a3 = document.getElementById('act3');
+  if (currentTab === 'travel') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'cook') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음 요리'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'twin') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else {
+    a1.innerHTML = '<span class="icon">📊</span>기록'; a1.className = 'action-btn btn-cyan'; a1.disabled = true;
+    a2.innerHTML = '<span class="icon">—</span>—'; a2.className = 'action-btn btn-green'; a2.disabled = true;
+    a3.innerHTML = '<span class="icon">—</span>—'; a3.className = 'action-btn btn-red'; a3.disabled = true;
+  }
+}
+
+function actionBtn(n) {
+  if (currentTab === 'travel') {
+    if (n === 1) travelHint();
+    else if (n === 2) newTravelQuestion();
+    else travelReset();
+  } else if (currentTab === 'cook') {
+    if (n === 1) cookHint();
+    else if (n === 2) newCookRound();
+    else cookRetry();
+  } else if (currentTab === 'twin') {
+    if (n === 1) twinHint();
+    else if (n === 2) newTwinQuestion();
+    else twinReset();
+  }
+}
+
+// ===== 시간 여행자 =====
+const travelScenarios = [
+  {hour:7, min:0, text:'아침 7시로 가자! 🌅', desc:'해가 떠요!'},
+  {hour:8, min:30, text:'8시 30분! 학교 갈 시간! 🎒', desc:'학교에 가요!'},
+  {hour:12, min:0, text:'점심 12시! 🍱', desc:'밥 먹을 시간!'},
+  {hour:3, min:0, text:'오후 3시! 간식 시간! 🍪', desc:'간식 먹자!'},
+  {hour:6, min:0, text:'저녁 6시! 밥 시간! 🍽', desc:'저녁밥이에요!'},
+  {hour:9, min:0, text:'밤 9시! 잘 시간! 🌙', desc:'잘 자요!'},
+  {hour:6, min:0, text:'새벽 6시! 일어날 시간! ⏰', desc:'일어나세요!'},
+  {hour:10, min:0, text:'오전 10시! 놀이 시간! 🎮', desc:'신나게 놀자!'},
+  {hour:2, min:0, text:'오후 2시! 낮잠 시간! 😴', desc:'쿨쿨!'},
+  {hour:5, min:0, text:'오후 5시! 산책 시간! 🚶', desc:'산책 가자!'},
+  {hour:7, min:30, text:'저녁 7시 30분! 🛁', desc:'목욕 시간!'},
+  {hour:11, min:0, text:'오전 11시! 🎵', desc:'음악 시간!'}
+];
+
+function newTravelQuestion() {
+  const scenario = travelScenarios[Math.floor(Math.random() * travelScenarios.length)];
+  travel.targetHour = scenario.hour;
+  travel.targetMin = scenario.min;
+  travel.currentHour = 12;
+  travel.currentMin = 0;
+
+  document.getElementById('travel-q').textContent = scenario.text;
+  document.getElementById('travel-result').textContent = '';
+
+  // 배경 업데이트 — 기본은 noon
+  updateTravelBg('noon');
+
+  // 시계 업데이트
+  setClockHands('travel-clock', travel.currentHour, travel.currentMin);
+
+  travel.qNum++;
+  document.getElementById('travel-qnum').textContent = travel.qNum;
+  speak(scenario.text);
+}
+
+function updateTravelBg(period) {
+  const bg = document.getElementById('travel-bg');
+  bg.className = 'travel-bg travel-bg-' + period;
+}
+
+function travelConfirm() {
+  const h = travel.currentHour % 12 || 12;
+  const th = travel.targetHour % 12 || 12;
+  const hourMatch = (h === th);
+  // 분은 5분 단위 허용
+  const minMatch = Math.abs(travel.currentMin - travel.targetMin) <= 5;
+
+  profile.totalPlayed++;
+  if (hourMatch && minMatch) {
+    travel.score += 10 + travel.streak * 2;
+    travel.streak++;
+    travel.correctCount++;
+    if (travel.streak > travel.bestStreak) travel.bestStreak = travel.streak;
+    if (travel.score > travel.bestScore) travel.bestScore = travel.score;
+    profile.totalCorrect++;
+
+    const period = getTimePeriod(travel.targetHour);
+    updateTravelBg(period);
+
+    document.getElementById('travel-result').innerHTML = `<span style="color:#22c55e">⭕ 정답! ${getTimePeriodName(travel.targetHour)}이에요!</span>`;
+    speak(`정답! ${travel.targetHour}시 ${travel.targetMin > 0 ? travel.targetMin + '분' : ''}! ${getTimePeriodName(travel.targetHour)}이에요!`);
+
+    setTimeout(() => newTravelQuestion(), 2000);
+  } else {
+    travel.streak = 0;
+    document.getElementById('travel-result').innerHTML = `<span style="color:#ef4444">❌ 다시 해보세요! ${travel.targetHour}시 ${travel.targetMin > 0 ? travel.targetMin + '분' : '정각'}으로 맞춰보세요</span>`;
+    speak('다시 해보세요!');
+  }
+  updateTravelSide();
+  updateProfileUI();
+  saveStats();
+}
+
+function travelHint() {
+  const hStr = travel.targetHour > 12 ? (travel.targetHour - 12) : travel.targetHour;
+  speak(`짧은 바늘을 ${hStr}에 놓고, 긴 바늘을 ${travel.targetMin === 0 ? '12' : travel.targetMin / 5}에 놓으세요`);
+  document.getElementById('travel-result').textContent = `💡 짧은 바늘 → ${hStr}, 긴 바늘 → ${travel.targetMin === 0 ? '12(정각)' : travel.targetMin + '분'}`;
+}
+
+function travelReset() {
+  travel.currentHour = 12; travel.currentMin = 0;
+  setClockHands('travel-clock', 12, 0);
+  document.getElementById('travel-result').textContent = '';
+  updateTravelBg('noon');
+}
+
+function updateTravelSide() {
+  document.getElementById('travel-score-side').textContent = travel.score;
+  document.getElementById('travel-streak').textContent = travel.streak;
+}
+
+// 시계 드래그 처리
+function setupClockDrag(svgId, onChange) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return;
+  const r = svg.viewBox.baseVal.width / 2;
+  let isDragging = false;
+
+  function getAngle(e) {
+    const rect = svg.getBoundingClientRect();
+    const scaleX = svg.viewBox.baseVal.width / rect.width;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    let angle = Math.atan2(clientY - cy, clientX - cx) * 180 / Math.PI + 90;
+    if (angle < 0) angle += 360;
+    return angle;
+  }
+
+  function onStart(e) {
+    e.preventDefault();
+    isDragging = true;
+  }
+  function onMove(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const angle = getAngle(e);
+    // 분으로 변환 (5분 단위)
+    let min = Math.round(angle / 6);
+    if (min >= 60) min = 0;
+    min = Math.round(min / 5) * 5;
+    if (min === 60) min = 0;
+    // 시로 변환
+    let hour = Math.round(angle / 30);
+    if (hour >= 12) hour = 0;
+    if (hour === 0) hour = 12;
+    if (onChange) onChange(hour, min);
+  }
+  function onEnd() { isDragging = false; }
+
+  svg.addEventListener('mousedown', onStart);
+  svg.addEventListener('touchstart', onStart, {passive: false});
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('touchmove', onMove, {passive: false});
+  window.addEventListener('mouseup', onEnd);
+  window.addEventListener('touchend', onEnd);
+}
+
+// ===== 요리 타이머 =====
+function initCookGame() {
+  newCookRound();
+}
+
+function newCookRound() {
+  clearInterval(cook.timer); cook.timer = null; cook.running = false;
+  cook.currentFood = Math.floor(Math.random() * cook.foods.length);
+  const food = cook.foods[cook.currentFood];
+  cook.totalTime = food.time;
+  cook.elapsed = 0;
+  cook.quizShown = false;
+  cook.opened = false;
+
+  document.getElementById('cook-info').textContent = `${food.emoji} ${food.name} — ${food.time}${food.unit} 동안 끓여요!`;
+  document.getElementById('cook-food-emoji').textContent = food.emoji;
+  document.getElementById('cook-food-side').textContent = food.name;
+  document.getElementById('cook-food-display').querySelector('.cook-food-status')?.remove();
+
+  // 타이머 링 SVG 생성
+  updateCookTimerSVG();
+  document.getElementById('cook-open-btn').textContent = '🍽 열기!';
+  document.getElementById('cook-quiz').classList.add('hidden');
+  document.getElementById('cook-result-overlay').classList.add('hidden');
+
+  // 타이머 시작
+  cook.running = true;
+  cook.timer = setInterval(cookTick, 1000);
+  speak(`${food.name}을 ${food.time}${food.unit} 동안 끓여요! 때가 되면 열어주세요!`);
+}
+
+function updateCookTimerSVG() {
+  const wrap = document.getElementById('cook-timer-wrap');
+  const pct = Math.min(cook.elapsed / cook.totalTime, 1);
+  const r = 70;
+  const circ = 2 * Math.PI * r;
+  const offset = circ * (1 - pct);
+
+  let color = '#22d3ee';
+  if (pct > 0.8) color = '#22c55e';
+  if (pct > 1) color = '#ef4444';
+
+  const minLeft = Math.max(0, cook.totalTime - cook.elapsed);
+  const display = minLeft >= 60 ? Math.floor(minLeft / 60) + '분' : minLeft + (cook.totalTime >= 60 ? '분' : '분');
+
+  wrap.innerHTML = `<svg width="180" height="180" viewBox="0 0 180 180">
+    <circle cx="90" cy="90" r="${r}" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+    <circle cx="90" cy="90" r="${r}" fill="none" stroke="${color}" stroke-width="10"
+      stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
+      stroke-linecap="round" transform="rotate(-90 90 90)"/>
+    <text x="90" y="85" text-anchor="middle" font-size="28" font-weight="800" fill="#1e293b">${display}</text>
+    <text x="90" y="110" text-anchor="middle" font-size="14" font-weight="600" fill="#64748b">남음</text>
+  </svg>`;
+}
+
+function cookTick() {
+  if (!cook.running) return;
+  cook.elapsed++;
+  updateCookTimerSVG();
+
+  // 중간 퀴즈 (절반 시점)
+  if (!cook.quizShown && cook.elapsed === Math.floor(cook.totalTime / 2)) {
+    cook.quizShown = true;
+    showCookQuiz();
+  }
+
+  // 시간 초과 (1.5배 넘으면 탐)
+  if (cook.elapsed > cook.totalTime * 1.5 && !cook.opened) {
+    cook.running = false;
+    clearInterval(cook.timer);
+    showCookResult('burnt');
+  }
+}
+
+function showCookQuiz() {
+  cook.running = false; // 타이머 잠시 멈춤
+  const popup = document.getElementById('cook-quiz');
+  popup.classList.remove('hidden');
+  const elapsed = cook.elapsed;
+  document.getElementById('cook-quiz-q').textContent = `지금 몇 분 지났을까?`;
+
+  const correct = elapsed;
+  let options = [correct];
+  while (options.length < 4) {
+    const v = Math.max(1, correct + (Math.floor(Math.random() * 5) - 2) * (Math.random() > 0.5 ? 1 : -1));
+    if (!options.includes(v) && v > 0) options.push(v);
+  }
+  options.sort(() => Math.random() - 0.5);
+
+  const optsEl = document.getElementById('cook-quiz-opts');
+  optsEl.innerHTML = options.map(o =>
+    `<button class="cook-quiz-opt" onclick="cookQuizAnswer(${o}, ${correct})">${o}분</button>`
+  ).join('');
+  speak(`지금 몇 분 지났을까요?`);
+}
+
+function cookQuizAnswer(selected, correct) {
+  const opts = document.querySelectorAll('.cook-quiz-opt');
+  opts.forEach(o => {
+    const v = parseInt(o.textContent);
+    if (v === correct) o.classList.add('correct');
+    else if (v === selected && v !== correct) o.classList.add('wrong');
+    o.style.pointerEvents = 'none';
+  });
+
+  profile.totalPlayed++;
+  if (selected === correct) {
+    cook.score += 5;
+    cook.quizCorrect++;
+    profile.totalCorrect++;
+    speak('정답! 잘 알고 있네요!');
+  } else {
+    speak(`${correct}분이 지났어요!`);
+  }
+  updateCookSide();
+  updateProfileUI();
+  saveStats();
+
+  setTimeout(() => {
+    document.getElementById('cook-quiz').classList.add('hidden');
+    cook.running = true;
+  }, 1500);
+}
+
+function cookOpen() {
+  if (cook.opened) return;
+  cook.opened = true;
+  cook.running = false;
+  clearInterval(cook.timer);
+
+  const pct = cook.elapsed / cook.totalTime;
+  profile.totalPlayed++;
+
+  if (pct < 0.7) {
+    // 너무 일찍
+    showCookResult('raw');
+    speak('아직 덜 익었어요! 조금만 더 기다려요!');
+  } else if (pct >= 0.7 && pct <= 1.2) {
+    // 적당!
+    showCookResult('perfect');
+    cook.score += 15;
+    cook.successCount++;
+    profile.totalCorrect++;
+    speak('완벽해요! 맛있게 익었어요!');
+  } else {
+    // 늦음
+    showCookResult('burnt');
+    speak('앗, 너무 오래 끓였어요! 탔어요!');
+  }
+  updateCookSide();
+  updateProfileUI();
+  saveStats();
+}
+
+function showCookResult(result) {
+  const overlay = document.getElementById('cook-result-overlay');
+  overlay.classList.remove('hidden');
+  let msg, bg;
+  if (result === 'raw') {
+    msg = '😰 아직 덜 익었어요!';
+    bg = 'background:rgba(59,130,246,.85);color:#fff';
+  } else if (result === 'perfect') {
+    msg = '🎉 완벽하게 익었어요!';
+    bg = 'background:rgba(34,197,94,.85);color:#fff';
+  } else {
+    msg = '😱 타버렸어요!';
+    bg = 'background:rgba(239,68,68,.85);color:#fff';
+  }
+  overlay.innerHTML = `<div class="cook-result-msg" style="${bg}">${msg}</div>`;
+  overlay.style.pointerEvents = 'auto';
+
+  // 스팀 이펙트 (완벽 시)
+  if (result === 'perfect') {
+    const area = document.getElementById('cook-area');
+    for (let i = 0; i < 8; i++) {
+      const st = document.createElement('div');
+      st.className = 'cook-steam';
+      st.textContent = '✨';
+      st.style.cssText = `left:${30+Math.random()*60}%;top:${30+Math.random()*30}%;font-size:${20+Math.random()*20}px;--ty:${-60-Math.random()*40}px;--dur:${1+Math.random()}s`;
+      area.appendChild(st);
+      setTimeout(() => st.remove(), 2000);
+    }
+  }
+
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+    overlay.style.pointerEvents = '';
+    if (result !== 'raw') {
+      setTimeout(() => newCookRound(), 500);
+    } else {
+      // 다시 시작
+      cook.opened = false;
+      cook.running = true;
+      cook.timer = setInterval(cookTick, 1000);
+    }
+  }, 2500);
+}
+
+function cookWait() {
+  // 시간을 빠르게 진행 (1초에 1분씩)
+  if (!cook.running) return;
+  cook.elapsed += 1;
+  updateCookTimerSVG();
+  speak('조금만 더 기다려요!');
+}
+
+function cookHint() {
+  const food = cook.foods[cook.currentFood];
+  const remain = food.time - cook.elapsed;
+  if (remain > 0) {
+    speak(`아직 ${remain}분 남았어요!`);
+    document.getElementById('cook-info').textContent = `💡 아직 ${remain}분 남았어요!`;
+  } else {
+    speak('이제 열어도 돼요!');
+    document.getElementById('cook-info').textContent = '💡 이제 열어도 돼요!';
+  }
+}
+
+function cookRetry() { newCookRound(); }
+
+function updateCookSide() {
+  document.getElementById('cook-score-side').textContent = cook.score;
+  document.getElementById('cook-success-side').textContent = cook.successCount;
+}
+
+// ===== 쌍둥이 시계 =====
+function initTwinGame() { newTwinQuestion(); }
+
+function newTwinQuestion() {
+  twin.targetHour = Math.floor(Math.random() * 12) + 1;
+  twin.targetMin = [0, 15, 30, 45, 0, 0, 30, 0, 15, 30][Math.floor(Math.random() * 10)];
+  twin.mode = Math.random() > 0.5 ? 'analog-to-digital' : 'digital-to-analog';
+
+  document.getElementById('twin-result').textContent = '';
+  twin.qNum++;
+  document.getElementById('twin-qnum').textContent = twin.qNum;
+
+  if (twin.mode === 'analog-to-digital') {
+    // 아날로그 시계 보여주고 디지털 맞추기
+    document.getElementById('twin-q').textContent = '🕰 아날로그 시계를 보고 디지털 시간을 맞춰보세요!';
+    setClockHands('twin-clock', twin.targetHour, twin.targetMin);
+    document.getElementById('twin-digi-display').textContent = '--:--';
+    document.getElementById('twin-digi-ampm').textContent = '';
+    document.getElementById('twin-input-area').style.display = 'flex';
+    document.getElementById('twin-hour-input').value = '';
+    document.getElementById('twin-min-input').value = '';
+
+    // 아날로그 보이기, 디지털 입력 모드
+    document.getElementById('twin-analog-wrap').style.opacity = '1';
+    document.getElementById('twin-digital').style.opacity = '0.5';
+  } else {
+    // 디지털 보여주고 아날로그 맞추기는 입력으로
+    document.getElementById('twin-q').textContent = '🔢 디지털 시계를 보고 시간을 입력하세요!';
+    const hStr = twin.targetHour.toString();
+    const mStr = twin.targetMin.toString().padStart(2, '0');
+    document.getElementById('twin-digi-display').textContent = `${hStr}:${mStr}`;
+    document.getElementById('twin-digi-ampm').textContent = '';
+    setClockHands('twin-clock', 12, 0);
+    document.getElementById('twin-input-area').style.display = 'flex';
+    document.getElementById('twin-hour-input').value = '';
+    document.getElementById('twin-min-input').value = '';
+
+    document.getElementById('twin-analog-wrap').style.opacity = '0.5';
+    document.getElementById('twin-digital').style.opacity = '1';
+  }
+  speak(twin.mode === 'analog-to-digital' ? '아날로그 시계를 보고 시간을 맞춰보세요!' : '디지털 시계를 보고 시간을 맞춰보세요!');
+}
+
+function twinConfirm() {
+  const hInput = parseInt(document.getElementById('twin-hour-input').value);
+  const mInput = parseInt(document.getElementById('twin-min-input').value) || 0;
+
+  if (isNaN(hInput) || hInput < 1 || hInput > 12) {
+    speak('시를 1부터 12 사이로 입력하세요!');
+    document.getElementById('twin-result').textContent = '⚠ 시를 1~12 사이로 입력하세요';
+    return;
+  }
+
+  profile.totalPlayed++;
+  const hourMatch = hInput === twin.targetHour;
+  const minMatch = Math.abs(mInput - twin.targetMin) <= 2;
+
+  if (hourMatch && minMatch) {
+    twin.score += 10 + twin.streak * 2;
+    twin.streak++;
+    twin.correctCount++;
+    if (twin.streak > twin.bestStreak) twin.bestStreak = twin.streak;
+    if (twin.score > twin.bestScore) twin.bestScore = twin.score;
+    profile.totalCorrect++;
+
+    document.getElementById('twin-result').innerHTML = '<span style="color:#22c55e">⭕ 정답! 잘했어요!</span>';
+    // 양쪽 모두 보이기
+    if (twin.mode === 'analog-to-digital') {
+      const h = twin.targetHour.toString();
+      const m = twin.targetMin.toString().padStart(2, '0');
+      document.getElementById('twin-digi-display').textContent = `${h}:${m}`;
+      document.getElementById('twin-digital').style.opacity = '1';
+    } else {
+      setClockHands('twin-clock', twin.targetHour, twin.targetMin);
+      document.getElementById('twin-analog-wrap').style.opacity = '1';
+    }
+    speak(`정답! ${twin.targetHour}시 ${twin.targetMin > 0 ? twin.targetMin + '분' : '정각'}이에요!`);
+    setTimeout(() => newTwinQuestion(), 2000);
+  } else {
+    twin.streak = 0;
+    const correct = `${twin.targetHour}시 ${twin.targetMin > 0 ? twin.targetMin + '분' : '정각'}`;
+    document.getElementById('twin-result').innerHTML = `<span style="color:#ef4444">❌ 다시 해보세요!</span>`;
+    speak('다시 해보세요!');
+  }
+  updateTwinSide();
+  updateProfileUI();
+  saveStats();
+}
+
+function twinHint() {
+  const h = twin.targetHour;
+  const m = twin.targetMin;
+  if (twin.mode === 'analog-to-digital') {
+    speak(`짧은 바늘이 ${h} 근처에 있고, 긴 바늘이 ${m === 0 ? '12' : m / 5}에 있어요`);
+    document.getElementById('twin-result').textContent = `💡 짧은 바늘 → ${h}, 긴 바늘 → ${m === 0 ? '12' : m / 5}`;
+  } else {
+    speak(`${h}시 ${m > 0 ? m + '분' : '정각'}을 찾아보세요`);
+    document.getElementById('twin-result').textContent = `💡 ${h}시 ${m > 0 ? m + '분' : '정각'}`;
+  }
+}
+
+function twinReset() {
+  document.getElementById('twin-hour-input').value = '';
+  document.getElementById('twin-min-input').value = '';
+  document.getElementById('twin-result').textContent = '';
+}
+
+function updateTwinSide() {
+  document.getElementById('twin-score-side').textContent = twin.score;
+  document.getElementById('twin-streak-side').textContent = twin.streak;
+}
+
+// ===== 내 기록 =====
+function updateRecords() {
+  const total = profile.totalPlayed;
+  const correct = profile.totalCorrect;
+  const rate = total > 0 ? Math.round(correct / total * 100) : 0;
+  document.getElementById('r-total').textContent = total;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-rate').textContent = rate + '%';
+  document.getElementById('rec-total').textContent = total;
+  document.getElementById('rec-rate').textContent = rate + '%';
+
+  document.getElementById('r-travel-correct').textContent = travel.correctCount;
+  document.getElementById('r-travel-best').textContent = travel.bestStreak;
+  document.getElementById('r-travel-score').textContent = travel.bestScore;
+
+  document.getElementById('r-cook-success').textContent = cook.successCount;
+  document.getElementById('r-cook-quiz').textContent = cook.quizCorrect;
+  document.getElementById('r-cook-score').textContent = cook.bestScore;
+
+  document.getElementById('r-twin-correct').textContent = twin.correctCount;
+  document.getElementById('r-twin-best').textContent = twin.bestStreak;
+  document.getElementById('r-twin-score').textContent = twin.bestScore;
+}
+
+// ===== 히어로: 틱톡 점프 =====
+function startHeroGame() {
+  const game = document.getElementById('hero-game');
+  game.classList.remove('hidden');
+  game.style.background = 'linear-gradient(180deg,#ecfeff 0%,#cffafe 30%,#a5f3fc 70%,#67e8f9 100%)';
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.angle = 0; hg.speed = 1; hg.jumping = false; hg.jumpY = 0; hg.jumpVel = 0;
+  hg.obstacles = []; hg.powerups = []; hg.combo = 0; hg.maxCombo = 0;
+  hg.quizActive = false; hg.currentHour = 12; hg.charEmoji = profile.char;
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause').classList.add('hidden');
+  document.getElementById('hg-quiz').classList.add('hidden');
+  updateHgUI();
+  drawHgScene();
+  hgLoop();
+
+  // 탭으로 점프
+  const tapZone = document.getElementById('hg-tap-zone');
+  tapZone.onclick = hgJump;
+  tapZone.ontouchstart = function(e) { e.preventDefault(); hgJump(); };
+
+  // 장애물 스폰
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  hg.spawnTimer = setInterval(hgSpawnObstacle, 3000);
+}
+
+function updateHgUI() {
+  document.getElementById('hg-score').textContent = hg.score;
+  document.getElementById('hg-level').textContent = hg.level;
+  let hearts = '';
+  for (let i = 0; i < 5; i++) hearts += i < hg.lives ? '❤️' : '🖤';
+  document.getElementById('hg-hearts').textContent = hearts;
+}
+
+function drawHgScene() {
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth || 800;
+  const h = arena.offsetHeight || 500;
+  const cx = w / 2;
+  const cy = h / 2;
+  const clockR = Math.min(w, h) * 0.35;
+
+  // 기존 시계 SVG 제거
+  let oldSvg = arena.querySelector('.hg-clock-svg');
+  if (oldSvg) oldSvg.remove();
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('hg-clock-svg');
+  svg.setAttribute('width', w);
+  svg.setAttribute('height', h);
+  svg.style.cssText = 'position:absolute;top:0;left:0;z-index:5;pointer-events:none';
+
+  // 시계 외곽
+  let svgContent = `
+    <defs>
+      <radialGradient id="hg-face-bg" cx="50%" cy="45%"><stop offset="0%" stop-color="rgba(255,255,255,.9)"/><stop offset="100%" stop-color="rgba(241,245,249,.8)"/></radialGradient>
+      <filter id="hg-clock-shadow"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,.2)"/></filter>
+    </defs>
+    <circle cx="${cx}" cy="${cy}" r="${clockR+8}" fill="#94a3b8" filter="url(#hg-clock-shadow)"/>
+    <circle cx="${cx}" cy="${cy}" r="${clockR}" fill="url(#hg-face-bg)"/>`;
+
+  // 눈금
+  for (let i = 0; i < 60; i++) {
+    const a = (i * 6 - 90) * Math.PI / 180;
+    const isMajor = i % 5 === 0;
+    const or = clockR - 8;
+    const ir = isMajor ? clockR - 22 : clockR - 14;
+    svgContent += `<line x1="${cx+or*Math.cos(a)}" y1="${cy+or*Math.sin(a)}" x2="${cx+ir*Math.cos(a)}" y2="${cy+ir*Math.sin(a)}" stroke="${isMajor?'#475569':'#cbd5e1'}" stroke-width="${isMajor?3:1.5}" stroke-linecap="round"/>`;
+  }
+
+  // 숫자
+  const numR = clockR - 36;
+  for (let i = 1; i <= 12; i++) {
+    const a = (i * 30 - 90) * Math.PI / 180;
+    svgContent += `<text x="${cx+numR*Math.cos(a)}" y="${cy+numR*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-size="22" font-weight="800" fill="#1e293b">${i}</text>`;
+  }
+
+  // 시침 (현재 시간)
+  const hAngle = ((hg.currentHour % 12) * 30) * Math.PI / 180 - Math.PI / 2;
+  const hLen = clockR * 0.45;
+  svgContent += `<line x1="${cx}" y1="${cy}" x2="${cx+hLen*Math.cos(hAngle)}" y2="${cy+hLen*Math.sin(hAngle)}" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>`;
+
+  // 초침 (회전) — 캐릭터가 이 위에 서있음
+  const secAngle = (hg.angle - 90) * Math.PI / 180;
+  const secLen = clockR * 0.82;
+  svgContent += `<line id="hg-second-hand" x1="${cx}" y1="${cy}" x2="${cx+secLen*Math.cos(secAngle)}" y2="${cy+secLen*Math.sin(secAngle)}" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>`;
+
+  // 중심점
+  svgContent += `<circle cx="${cx}" cy="${cy}" r="6" fill="#0891b2"/><circle cx="${cx}" cy="${cy}" r="3" fill="#fff"/>`;
+
+  // 캐릭터 (초침 끝)
+  const charX = cx + (secLen - 10) * Math.cos(secAngle);
+  const charY = cy + (secLen - 10) * Math.sin(secAngle) - hg.jumpY;
+  svgContent += `<text id="hg-char" x="${charX}" y="${charY}" text-anchor="middle" dominant-baseline="central" font-size="36">${hg.charEmoji}</text>`;
+
+  svg.innerHTML = svgContent;
+  arena.appendChild(svg);
+}
+
+function hgLoop() {
+  if (!hg.running) return;
+  if (!hg.paused && !hg.quizActive) {
+    // 초침 회전
+    hg.angle += hg.speed * 0.8;
+    if (hg.angle >= 360) {
+      hg.angle -= 360;
+      hg.currentHour = (hg.currentHour % 12) + 1;
+    }
+
+    // 점프 물리
+    if (hg.jumping) {
+      hg.jumpY += hg.jumpVel;
+      hg.jumpVel -= 1.5;
+      if (hg.jumpY <= 0) {
+        hg.jumpY = 0;
+        hg.jumping = false;
+      }
+    }
+
+    // 장애물 충돌 체크
+    checkHgCollisions();
+
+    // 정시 퀴즈 체크 (12시, 3시, 6시, 9시 위치)
+    const quizAngles = [0, 90, 180, 270];
+    for (const qa of quizAngles) {
+      if (Math.abs(hg.angle - qa) < 2 && !hg.quizActive && Math.random() < 0.3) {
+        hgShowQuiz();
+        break;
+      }
+    }
+
+    // 레벨 업
+    const newLevel = Math.floor(hg.score / 50) + 1;
+    if (newLevel > hg.level) {
+      hg.level = newLevel;
+      hg.speed = 1 + hg.level * 0.2;
+      updateHgUI();
+    }
+
+    drawHgScene();
+    drawHgObstacles();
+  }
+  hg.animId = requestAnimationFrame(hgLoop);
+}
+
+function hgJump() {
+  if (hg.paused || hg.quizActive || !hg.running) return;
+  if (!hg.jumping) {
+    hg.jumping = true;
+    hg.jumpVel = 18;
+
+    // 점프 이펙트
+    const arena = document.getElementById('hg-arena');
+    const eff = document.createElement('div');
+    eff.className = 'hg-jump-effect';
+    eff.textContent = '💨';
+    eff.style.cssText = `left:${arena.offsetWidth/2}px;top:${arena.offsetHeight/2}px;font-size:24px`;
+    arena.appendChild(eff);
+    setTimeout(() => eff.remove(), 400);
+  }
+}
+
+function hgSpawnObstacle() {
+  if (!hg.running || hg.paused || hg.quizActive) return;
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const h = arena.offsetHeight;
+  const cx = w / 2;
+  const cy = h / 2;
+  const clockR = Math.min(w, h) * 0.35;
+
+  // 장애물을 12시/3시/6시/9시 위치에 배치
+  const positions = [0, 90, 180, 270];
+  const pos = positions[Math.floor(Math.random() * positions.length)];
+  const a = (pos - 90) * Math.PI / 180;
+  const obstX = cx + clockR * 0.82 * Math.cos(a);
+  const obstY = cy + clockR * 0.82 * Math.sin(a);
+
+  const emojis = ['🧱','⚡','🔥','❄️','💎'];
+  const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+  const el = document.createElement('div');
+  el.className = 'hg-obstacle';
+  el.textContent = emoji;
+  el.style.cssText = `left:${obstX-18}px;top:${obstY-18}px;font-size:36px;opacity:0;transition:opacity .3s`;
+  arena.appendChild(el);
+  setTimeout(() => el.style.opacity = '1', 50);
+
+  hg.obstacles.push({el, angle: pos, life: 180}); // 3초 수명
+
+  // 파워업 (확률)
+  if (Math.random() < 0.15) {
+    const puPos = positions[Math.floor(Math.random() * positions.length)];
+    const pa = (puPos - 90) * Math.PI / 180;
+    const puX = cx + clockR * 0.6 * Math.cos(pa);
+    const puY = cy + clockR * 0.6 * Math.sin(pa);
+    const puTypes = [{emoji:'⏰', type:'alarm'}, {emoji:'⚙️', type:'slow'}, {emoji:'☀️', type:'sundial'}];
+    const pu = puTypes[Math.floor(Math.random() * puTypes.length)];
+    const puEl = document.createElement('div');
+    puEl.className = 'hg-powerup';
+    puEl.textContent = pu.emoji;
+    puEl.style.cssText = `left:${puX-14}px;top:${puY-14}px;font-size:28px`;
+    arena.appendChild(puEl);
+    hg.powerups.push({el: puEl, angle: puPos, type: pu.type, life: 300});
+  }
+}
+
+function drawHgObstacles() {
+  // 장애물 수명 감소
+  hg.obstacles = hg.obstacles.filter(o => {
+    o.life--;
+    if (o.life <= 0) { o.el.remove(); return false; }
+    if (o.life < 30) o.el.style.opacity = (o.life / 30).toString();
+    return true;
+  });
+  // 파워업 수명 감소
+  hg.powerups = hg.powerups.filter(p => {
+    p.life--;
+    if (p.life <= 0) { p.el.remove(); return false; }
+    return true;
+  });
+}
+
+function checkHgCollisions() {
+  const charAngle = hg.angle % 360;
+
+  // 장애물 충돌
+  hg.obstacles.forEach((o, i) => {
+    const diff = Math.abs(charAngle - o.angle);
+    const close = diff < 15 || diff > 345;
+    if (close && hg.jumpY < 20) {
+      // 충돌!
+      hg.lives--;
+      hg.combo = 0;
+      o.el.remove();
+      hg.obstacles.splice(i, 1);
+      updateHgUI();
+
+      // 화면 흔들림
+      const arena = document.getElementById('hg-arena');
+      arena.style.animation = 'none';
+      arena.offsetHeight;
+      arena.style.animation = 'shake .4s ease-out';
+      setTimeout(() => arena.style.animation = '', 400);
+
+      speak('앗!');
+      if (hg.lives <= 0) hgGameOver();
+    } else if (close && hg.jumpY >= 20) {
+      // 점프로 회피 성공!
+      hg.score += 5;
+      hg.combo++;
+      if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+      o.el.remove();
+      hg.obstacles.splice(i, 1);
+      updateHgUI();
+      if (hg.combo >= 3) {
+        speak('콤보!');
+      }
+    }
+  });
+
+  // 파워업 수집
+  hg.powerups.forEach((p, i) => {
+    const diff = Math.abs(charAngle - p.angle);
+    if (diff < 20 || diff > 340) {
+      p.el.remove();
+      hg.powerups.splice(i, 1);
+      if (p.type === 'alarm') {
+        // 장애물 미리 경고 — 모든 장애물 깜빡이기
+        hg.obstacles.forEach(o => {
+          o.el.style.animation = 'puFloat .3s ease-in-out 3';
+        });
+        speak('알람! 조심하세요!');
+      } else if (p.type === 'slow') {
+        hg.speed = Math.max(0.5, hg.speed * 0.5);
+        speak('슬로우!');
+        setTimeout(() => { hg.speed = 1 + hg.level * 0.2; }, 5000);
+      } else if (p.type === 'sundial') {
+        if (hg.lives < 5) { hg.lives++; updateHgUI(); }
+        speak('하트 회복!');
+      }
+      hg.score += 3;
+      updateHgUI();
+    }
+  });
+}
+
+function hgShowQuiz() {
+  hg.quizActive = true;
+  const popup = document.getElementById('hg-quiz');
+  popup.classList.remove('hidden');
+  const h = hg.currentHour;
+  document.getElementById('hg-quiz-q').textContent = `지금 몇 시?`;
+
+  let options = [h];
+  while (options.length < 4) {
+    const v = Math.floor(Math.random() * 12) + 1;
+    if (!options.includes(v)) options.push(v);
+  }
+  options.sort(() => Math.random() - 0.5);
+
+  document.getElementById('hg-quiz-opts').innerHTML = options.map(o =>
+    `<button class="hg-quiz-opt" onclick="hgQuizAnswer(${o},${h})">${o}시</button>`
+  ).join('');
+  speak('지금 몇 시?');
+}
+
+function hgQuizAnswer(selected, correct) {
+  const popup = document.getElementById('hg-quiz');
+  if (selected === correct) {
+    hg.score += 20;
+    hg.combo++;
+    speak('정답! 보너스!');
+  } else {
+    speak(`${correct}시였어요!`);
+  }
+  updateHgUI();
+  popup.classList.add('hidden');
+  hg.quizActive = false;
+}
+
+function hgGameOver() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.obstacles.forEach(o => o.el.remove()); hg.obstacles = [];
+  hg.powerups.forEach(p => p.el.remove()); hg.powerups = [];
+
+  document.getElementById('hg-final-score').textContent = hg.score;
+  let msg = '잘했어요!';
+  if (hg.score >= 100) msg = '대단해요! 시계 마스터!';
+  else if (hg.score >= 50) msg = '멋져요! 시계 박사!';
+  document.getElementById('hg-over-msg').textContent = msg;
+  document.getElementById('hg-over').classList.remove('hidden');
+  speak(`게임 끝! ${hg.score}점! ${msg}`);
+}
+
+function hgRestart() {
+  document.getElementById('hg-over').classList.add('hidden');
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-obstacle,.hg-powerup,.hg-clock-svg,.hg-jump-effect').forEach(e => e.remove());
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.angle = 0; hg.speed = 1; hg.jumping = false; hg.jumpY = 0;
+  hg.obstacles = []; hg.powerups = []; hg.combo = 0; hg.maxCombo = 0;
+  hg.quizActive = false; hg.currentHour = 12;
+  updateHgUI(); drawHgScene(); hgLoop();
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  hg.spawnTimer = setInterval(hgSpawnObstacle, 3000);
+}
+
+function hgPause() {
+  hg.paused = !hg.paused;
+  document.getElementById('hg-pause').classList.toggle('hidden', !hg.paused);
+}
+
+function hgExit() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.obstacles.forEach(o => o.el.remove()); hg.obstacles = [];
+  hg.powerups.forEach(p => p.el.remove()); hg.powerups = [];
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause').classList.add('hidden');
+  document.getElementById('hg-quiz').classList.add('hidden');
+  document.getElementById('hero-game').classList.add('hidden');
+}
+
+// ===== 초기화 =====
+document.addEventListener('DOMContentLoaded', function() {
+  // fitScale
+  function fitScale() {
+    const c = document.querySelector('.container');
+    if (!c || getComputedStyle(c).display === 'none') return;
+    const M = 0.03;
+    const aW = window.innerWidth * (1 - M * 2);
+    const aH = window.innerHeight * (1 - M * 2);
+    const s = Math.min(aW / 1920, aH / 1080);
+    c.style.transform = `scale(${s})`;
+    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  fitScale();
+  window.addEventListener('resize', fitScale);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
+
+  // 프로필
+  updateProfileUI();
+  updateActionButtons();
+  hg.charEmoji = profile.char;
+
+  // 시간여행자 시계 생성
+  document.getElementById('travel-clock-wrap').innerHTML = createAnalogClock('travel-clock', 340, 12, 0, {showTimeBg: true});
+  setupClockDrag('travel-clock', function(h, m) {
+    travel.currentHour = h;
+    travel.currentMin = m;
+    setClockHands('travel-clock', h, m);
+  });
+  newTravelQuestion();
+
+  // 요리 타이머
+  initCookGame();
+
+  // 쌍둥이 시계
+  document.getElementById('twin-analog-wrap').innerHTML = createAnalogClock('twin-clock', 260, 3, 0);
+  initTwinGame();
+});
+
+// 더블탭 방지
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+</script>
+</body>
+</html>

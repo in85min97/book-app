@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>숫자 놀이터 🔢</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#f97316 0%,#ea580c 50%,#c2410c 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
+.rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#f97316,#ea580c);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
+.rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
+@keyframes rotateH{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+@media(orientation:portrait){.rotate-notice{display:flex}.container{display:none!important}}
+.container{width:1920px;height:1080px;background:#fff;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;position:absolute}
+
+/* 과목바 */
+.subject-bar{background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;padding:0 20px;height:56px;flex-shrink:0;gap:4px;position:relative}
+.subject-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#fbbf24,#f59e0b,#fbbf24)}
+.sb-tab{padding:8px 30px;border:none;border-radius:12px 12px 0 0;background:0;font-size:18px;font-weight:800;color:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;transition:.2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.sb-tab.active{background:#fff;color:#1e3a8a}
+.sb-tab.locked{cursor:default}
+.sb-tab .lock{font-size:12px;opacity:.5}
+.sb-spacer{flex:1}
+.sb-btns{display:flex;gap:8px}
+.sb-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 14px;font-size:18px;color:#fff;cursor:pointer;transition:.15s}
+.sb-btn:active{background:rgba(255,255,255,.3)}
+
+/* 메인 */
+.main-layout{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:14px;flex:1;overflow:hidden}
+
+/* 왼쪽 */
+.left-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.profile-section{background:linear-gradient(145deg,#ea580c,#f97316 50%,#fbbf24);border-radius:20px;padding:20px;border:3px solid #fde68a;box-shadow:0 6px 20px rgba(249,115,22,.3);flex-shrink:0;position:relative;overflow:hidden}
+.profile-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='15' cy='15' r='1.5' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='2s' repeatCount='indefinite'/></circle><circle cx='85' cy='25' r='1' fill='white' opacity='.25'><animate attributeName='opacity' values='.25;.08;.25' dur='1.5s' repeatCount='indefinite'/></circle><circle cx='25' cy='75' r='1.2' fill='white' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='1.8s' repeatCount='indefinite'/></circle></svg>") repeat;pointer-events:none}
+.profile-content{position:relative;z-index:1;display:flex;align-items:center;gap:15px}
+.profile-avatar{width:90px;height:90px;background:linear-gradient(145deg,#fbbf24,#f59e0b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;border:3px solid #fff;box-shadow:0 4px 15px rgba(251,191,36,.4);animation:avGlow 3s ease-in-out infinite;flex-shrink:0;cursor:pointer}
+@keyframes avGlow{0%,100%{box-shadow:0 4px 15px rgba(251,191,36,.4);transform:scale(1)}50%{box-shadow:0 8px 25px rgba(251,191,36,.6);transform:scale(1.05)}}
+.profile-info{flex:1;color:#fff}
+.profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
+.profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.profile-level{font-size:18px;font-weight:700;color:#fde68a;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#fbbf24,#f59e0b);color:#92400e;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#fbbf24,#f59e0b,#fbbf24);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
+@keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* 탭 */
+.tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn.active{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff;border-color:#f97316}
+.tab-btn:active{transform:scale(.97)}
+.tab-content{display:none;flex:1;overflow:hidden}
+.tab-content.active{display:flex;flex-direction:column}
+
+/* 사이드 정보 */
+.side-info{background:linear-gradient(145deg,#fff7ed,#ffedd5);border-radius:16px;padding:15px;border:2px solid #f97316;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-title{font-size:17px;font-weight:700;color:#9a3412;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
+.side-val{font-size:20px;font-weight:800;color:#f97316}
+
+/* 게임 런치 */
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#fbbf24,#f59e0b);color:#78350f;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(251,191,36,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+@keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+.game-launch-btn:active{transform:scale(.97)}
+
+/* 중앙 */
+.center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
+.game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
+.game-view.active{display:flex}
+
+/* 숫자패드 */
+.numpad{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:12px;flex-shrink:0}
+.numpad-btn{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:16px;font-size:36px;font-weight:800;cursor:pointer;transition:.15s;color:#1e293b;display:flex;align-items:center;justify-content:center;height:80px;box-shadow:0 4px 12px rgba(0,0,0,.08);font-family:inherit}
+.numpad-btn:active{transform:scale(.93);background:linear-gradient(145deg,#fed7aa,#fdba74);border-color:#f97316}
+.numpad-btn.correct{background:linear-gradient(145deg,#86efac,#4ade80)!important;border-color:#22c55e!important;color:#fff}
+.numpad-btn.wrong{background:linear-gradient(145deg,#fca5a5,#f87171)!important;border-color:#ef4444!important;color:#fff;animation:shake .5s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+
+/* 폭탄 해체반 */
+.bomb-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:10px}
+.bomb-container{position:relative;width:280px;height:300px}
+.bomb-equation{position:absolute;top:55%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);z-index:2;pointer-events:none;text-align:center}
+.bomb-info{font-size:20px;font-weight:700;color:#78350f;text-align:center;padding:8px 20px;background:linear-gradient(145deg,#fef3c7,#fde68a);border-radius:12px}
+.bomb-result{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:10;animation:resPop .8s ease-out forwards;pointer-events:none}
+@keyframes resPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}50%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.bomb-shaking .bomb-container{animation:bShake .3s ease-in-out 3}
+@keyframes bShake{0%,100%{transform:translate(0)}25%{transform:translate(-5px,-3px)}75%{transform:translate(5px,3px)}}
+/* 폭발 애니메이션 */
+.bomb-explode-overlay{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden;border-radius:16px}
+.bomb-flash-white{position:absolute;inset:0;background:rgba(255,255,255,.9);animation:bFlashW .3s ease-out forwards}
+@keyframes bFlashW{0%{opacity:1}100%{opacity:0}}
+.bomb-flash-red{position:absolute;inset:0;background:rgba(239,68,68,.5);animation:bFlashR .6s ease-out forwards}
+@keyframes bFlashR{0%{opacity:1}30%{opacity:.6}100%{opacity:0}}
+.bomb-particle{position:absolute;border-radius:50%;pointer-events:none;animation:bParticle var(--dur,.8s) cubic-bezier(.25,.46,.45,.94) forwards}
+@keyframes bParticle{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,0)) scale(0);opacity:0}}
+.bomb-smoke{position:absolute;border-radius:50%;background:rgba(100,116,139,.35);filter:blur(12px);pointer-events:none;animation:bSmoke 1.2s ease-out forwards}
+@keyframes bSmoke{0%{transform:translate(0,0) scale(.5);opacity:.6}100%{transform:translate(var(--tx,0),var(--ty,-80px)) scale(2.5);opacity:0}}
+.bomb-spark{position:absolute;width:3px;pointer-events:none;border-radius:2px;animation:bSpark var(--dur,.6s) ease-out forwards}
+@keyframes bSpark{0%{transform:translate(0,0) rotate(var(--rot,0deg)) scaleY(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,0)) rotate(var(--rot,0deg)) scaleY(0);opacity:0}}
+.bomb-ring{position:absolute;border-radius:50%;border:4px solid rgba(251,191,36,.6);pointer-events:none;animation:bRing .8s ease-out forwards}
+@keyframes bRing{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.bomb-text-pop{position:absolute;font-size:42px;font-weight:900;color:#ef4444;text-shadow:0 4px 12px rgba(0,0,0,.3);pointer-events:none;animation:bTextPop 2s ease-out forwards;z-index:25;white-space:nowrap}
+@keyframes bTextPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}15%{transform:translate(-50%,-50%) scale(1.3);opacity:1}30%{transform:translate(-50%,-50%) scale(1);opacity:1}80%{transform:translate(-50%,-80%) scale(1);opacity:1}100%{transform:translate(-50%,-120%) scale(.8);opacity:0}}
+.bomb-shake-hard{animation:bShakeHard .5s ease-out}
+@keyframes bShakeHard{0%,100%{transform:translate(0)}10%{transform:translate(-12px,-8px)}20%{transform:translate(10px,6px)}30%{transform:translate(-8px,10px)}40%{transform:translate(12px,-6px)}50%{transform:translate(-6px,8px)}60%{transform:translate(8px,-10px)}70%{transform:translate(-10px,4px)}80%{transform:translate(6px,-4px)}90%{transform:translate(-4px,6px)}}
+
+/* 해체 성공 애니메이션 */
+.bomb-defuse-overlay{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden;border-radius:16px}
+.bomb-defuse-flash{position:absolute;inset:0;background:rgba(34,197,94,.35);animation:dFlash .4s ease-out forwards}
+@keyframes dFlash{0%{opacity:1}100%{opacity:0}}
+.bomb-star{position:absolute;pointer-events:none;animation:dStar var(--dur,.8s) ease-out forwards}
+@keyframes dStar{0%{transform:translate(0,0) scale(0) rotate(0deg);opacity:0}30%{transform:translate(calc(var(--tx)*.3),calc(var(--ty)*.3)) scale(1.2) rotate(180deg);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0) rotate(360deg);opacity:0}}
+.bomb-check{position:absolute;font-size:80px;pointer-events:none;z-index:25;animation:dCheck 1s ease-out forwards}
+@keyframes dCheck{0%{transform:translate(-50%,-50%) scale(0) rotate(-30deg);opacity:0}30%{transform:translate(-50%,-50%) scale(1.3) rotate(10deg);opacity:1}50%{transform:translate(-50%,-50%) scale(1) rotate(0deg);opacity:1}100%{transform:translate(-50%,-70%) scale(.8) rotate(0deg);opacity:0}}
+
+.bomb-input-display{font-size:60px;font-weight:900;color:#f97316;text-align:center;min-height:70px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:16px;padding:8px 30px;min-width:120px;box-shadow:inset 0 2px 4px rgba(0,0,0,.06)}
+.bomb-input-display.empty{color:#cbd5e1;font-size:28px}
+.bomb-start-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.bomb-start-btn{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff;border:4px solid #fde68a;border-radius:24px;padding:24px 60px;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(249,115,22,.4);animation:gPulse 2s ease-in-out infinite}
+.bomb-start-btn:active{transform:scale(.95)}
+.bomb-start-title{font-size:48px;font-weight:900;color:#1e293b}
+.numpad-confirm{background:linear-gradient(145deg,#22c55e,#16a34a)!important;color:#fff!important;border-color:#22c55e!important;font-size:24px!important}
+.numpad-clear{background:linear-gradient(145deg,#f87171,#ef4444)!important;color:#fff!important;border-color:#ef4444!important;font-size:24px!important}
+
+/* 숫자 먹방 */
+.eating-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.eating-char{width:180px;height:180px;position:relative}
+.eating-speech{position:absolute;top:-40px;left:50%;transform:translateX(-50%);background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:8px 16px;font-size:20px;font-weight:700;color:#1e293b;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.1);z-index:5}
+.eating-speech::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid #fff}
+.eating-counter{font-size:50px;font-weight:900;color:#f97316}
+.eating-counter span{font-size:24px;color:#94a3b8}
+.food-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:12px;max-width:700px;width:100%}
+.food-item{font-size:52px;background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;height:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.food-item:active{transform:scale(.9)}
+.food-item.eaten{opacity:.25;border-color:#22c55e;pointer-events:none}
+.eat-particle{position:absolute;pointer-events:none;z-index:10;animation:eatPop var(--dur,.6s) ease-out forwards}
+@keyframes eatPop{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-40px)) scale(0);opacity:0}}
+.eat-yum{position:absolute;pointer-events:none;z-index:15;font-size:28px;font-weight:900;animation:eatYum .8s ease-out forwards}
+@keyframes eatYum{0%{transform:translate(-50%,0) scale(0);opacity:0}30%{transform:translate(-50%,-20px) scale(1.2);opacity:1}100%{transform:translate(-50%,-60px) scale(.6);opacity:0}}
+.eat-success-overlay{position:absolute;inset:0;pointer-events:none;z-index:20;overflow:hidden}
+.eat-confetti{position:absolute;width:8px;height:8px;border-radius:2px;pointer-events:none;animation:eatConfetti var(--dur,1s) ease-out forwards}
+@keyframes eatConfetti{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,200px)) rotate(720deg);opacity:0}}
+
+/* 엘리베이터 */
+.elevator-area{flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.elev-question{font-size:24px;font-weight:800;color:#1e293b;background:linear-gradient(145deg,#dbeafe,#bfdbfe);padding:12px 20px;border-radius:14px;border:3px solid #3b82f6;text-align:center;flex-shrink:0;position:relative;overflow:hidden}
+.elev-question::before{content:'🏢';position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px}
+.elev-question::after{content:'🏢';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px}
+.elev-main{flex:1;display:flex;gap:0;overflow:hidden;border-radius:16px;border:3px solid #475569;box-shadow:inset 0 0 40px rgba(0,0,0,.2)}
+/* 건물 샤프트 — 층별 테마 컬러 */
+.building-shaft{flex:1;position:relative;overflow:hidden;background:#0f172a}
+.shaft-floor{position:absolute;left:0;right:0;height:10%;display:flex;align-items:center;overflow:hidden;transition:all .3s}
+.shaft-floor .sf-bg{position:absolute;inset:0;transition:opacity .4s}
+.shaft-floor .sf-shine{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.15) 0%,transparent 40%,transparent 60%,rgba(0,0,0,.15) 100%);pointer-events:none}
+.sf-num{width:50px;font-size:22px;font-weight:900;text-align:center;flex-shrink:0;z-index:2;color:#1e293b;text-shadow:0 1px 2px rgba(255,255,255,.6)}
+.sf-content{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;font-size:18px;color:#334155;font-weight:700;z-index:2;text-shadow:0 1px 2px rgba(255,255,255,.4)}
+.sf-emoji{font-size:34px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35));transition:transform .3s}
+.shaft-floor.floor-highlight .sf-emoji{transform:scale(1.3);animation:emojiPulse .6s ease-in-out}
+@keyframes emojiPulse{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1.3)}}
+/* 엘리베이터 카 — 화려한 글로우 */
+.elev-car{position:absolute;left:6%;right:6%;height:10%;z-index:10;transition:bottom .8s cubic-bezier(.34,1.56,.64,1);pointer-events:none;filter:drop-shadow(0 0 24px rgba(249,115,22,.5))}
+.elev-car-frame{position:absolute;inset:0;border:4px solid #fbbf24;border-radius:12px;background:rgba(249,115,22,.06);box-shadow:0 0 30px rgba(249,115,22,.25),0 0 60px rgba(249,115,22,.12),inset 0 0 20px rgba(249,115,22,.04)}
+.elev-car-window{position:absolute;top:6px;bottom:6px;width:calc(50% - 14px);background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border:2px solid rgba(251,191,36,.25);border-radius:8px}
+.elev-car-window.left{left:6px}
+.elev-car-window.right{right:6px}
+.elev-car-seam{position:absolute;top:4px;bottom:4px;left:50%;width:3px;background:rgba(251,191,36,.45);transform:translateX(-50%);box-shadow:0 0 8px rgba(251,191,36,.25)}
+.elev-car-cable{position:absolute;left:50%;bottom:100%;width:4px;height:1200px;background:repeating-linear-gradient(180deg,#64748b 0,#64748b 8px,transparent 8px,transparent 14px);transform:translateX(-50%);z-index:-1}
+.elev-car-top{position:absolute;top:-12px;left:20%;right:20%;height:12px;background:linear-gradient(145deg,#94a3b8,#64748b);border-radius:6px 6px 0 0;border:2px solid #cbd5e1;border-bottom:none}
+.elev-car-light{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:#22c55e;border-radius:50%;box-shadow:0 0 14px #22c55e,0 0 28px rgba(34,197,94,.4);z-index:2;transition:all .3s}
+.elev-car.arriving{animation:carPulse .6s ease-out}
+@keyframes carPulse{0%{filter:drop-shadow(0 0 24px rgba(249,115,22,.5))}50%{filter:drop-shadow(0 0 50px rgba(251,191,36,.9)) brightness(1.2)}100%{filter:drop-shadow(0 0 24px rgba(249,115,22,.5))}}
+/* 패널 */
+.elev-panel{width:155px;flex-shrink:0;background:linear-gradient(180deg,#1e293b,#334155,#1e293b);display:flex;flex-direction:column;align-items:center;padding:14px 10px;gap:10px;border-left:3px solid #475569}
+.elev-led{background:linear-gradient(145deg,#0a0f1a,#0f172a);border:3px solid #475569;border-radius:12px;padding:10px 14px;width:95px;text-align:center;box-shadow:inset 0 3px 10px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.05)}
+.elev-led-num{font-size:42px;font-weight:900;color:#22c55e;font-family:'Courier New',monospace;text-shadow:0 0 14px rgba(34,197,94,.7);letter-spacing:2px;transition:color .3s}
+.elev-led-label{font-size:10px;color:#475569;font-weight:700;letter-spacing:1px;margin-top:2px}
+.elev-dir{display:flex;gap:6px;width:100%;justify-content:center}
+.elev-dir-ind{flex:1;padding:8px;text-align:center;font-size:18px;color:#334155;background:linear-gradient(145deg,#1e293b,#0f172a);border:2px solid #334155;border-radius:8px;font-weight:900;transition:all .3s}
+.elev-dir-ind.active{color:#f97316;border-color:#f97316;box-shadow:0 0 12px rgba(249,115,22,.4);text-shadow:0 0 8px rgba(249,115,22,.5)}
+.elev-btn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;justify-items:center}
+.elev-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#64748b,#475569);border:2px solid #94a3b8;color:#cbd5e1;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.12);font-family:inherit;transition:all .2s}
+.elev-btn:active{transform:scale(.88);box-shadow:0 1px 2px rgba(0,0,0,.4),inset 0 2px 4px rgba(0,0,0,.3)}
+.elev-btn.current{background:linear-gradient(145deg,#f97316,#ea580c);border-color:#fbbf24;color:#fff;box-shadow:0 0 16px rgba(249,115,22,.5),inset 0 1px 0 rgba(255,255,255,.2);animation:btnGlow 1.5s ease-in-out infinite}
+@keyframes btnGlow{0%,100%{box-shadow:0 0 16px rgba(249,115,22,.5)}50%{box-shadow:0 0 24px rgba(249,115,22,.8)}}
+.elev-btn.correct-floor{background:linear-gradient(145deg,#22c55e,#16a34a);border-color:#86efac;color:#fff;box-shadow:0 0 16px rgba(34,197,94,.5)}
+.elev-ding{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:52px;pointer-events:none;z-index:20;animation:elevDing 1s ease-out forwards}
+@keyframes elevDing{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-60%) scale(.8);opacity:0}}
+/* 도착 이펙트 */
+.elev-arrive-particle{position:absolute;pointer-events:none;z-index:15;animation:elevPart var(--dur,.7s) ease-out forwards}
+@keyframes elevPart{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-40px)) scale(0);opacity:0}}
+.elev-arrive-ring{position:absolute;border-radius:50%;pointer-events:none;z-index:14;animation:elevRing .7s ease-out forwards}
+@keyframes elevRing{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.elev-wrong-shake{animation:elevWrongShake .4s ease-out}
+@keyframes elevWrongShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.elev-result{font-size:22px;font-weight:700;text-align:center;padding:10px;border-radius:12px;flex-shrink:0;min-height:46px;transition:all .3s}
+
+/* 내 기록 */
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#fff7ed,#ffedd5);border-radius:12px;border:2px solid #fed7aa}
+.record-num{font-size:32px;font-weight:900;color:#f97316}
+.record-label{font-size:13px;font-weight:600;color:#9a3412;margin-top:4px}
+
+/* 오른쪽 */
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn:active{transform:scale(.95)}
+.action-btn.btn-orange{background:linear-gradient(145deg,#f97316,#ea580c);box-shadow:0 2px 8px rgba(249,115,22,.3)}
+.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
+.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
+.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
+.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+
+/* 히어로 */
+.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#dbeafe 0%,#93c5fd 25%,#a7f3d0 75%,#6ee7b7 100%);overflow:hidden}
+.hero-game.hidden{display:none}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.4)}
+.hg-stat{font-size:22px;font-weight:800;color:#1e3a8a}
+.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-ctrls{display:flex;gap:8px}
+.hg-ctrl-btn{background:rgba(255,255,255,.6);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569}
+.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-arena{flex:1;position:relative;overflow:hidden}
+.hg-ground{position:absolute;bottom:0;left:0;right:0;height:10%;background:linear-gradient(180deg,#86efac,#4ade80);border-top:4px solid #34d399;border-radius:50% 50% 0 0/20px 20px 0 0}
+.hg-numpad{display:flex;gap:6px;padding:10px 16px;background:rgba(255,255,255,.3);backdrop-filter:blur(8px);flex-shrink:0;justify-content:center;z-index:10}
+.hg-num-btn{width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#fff,#f1f5f9);border:3px solid #e2e8f0;font-size:30px;font-weight:900;color:#1e293b;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.1)}
+.hg-num-btn:active{transform:scale(.9);background:linear-gradient(145deg,#fed7aa,#fdba74);border-color:#f97316}
+.falling-bomb{position:absolute;z-index:5;pointer-events:none;animation:bombSpin 3s linear infinite}
+@keyframes bombSpin{0%{transform:rotate(-5deg)}25%{transform:rotate(5deg)}50%{transform:rotate(-5deg)}75%{transform:rotate(3deg)}100%{transform:rotate(-5deg)}}
+.fb-body{width:84px;height:84px;background:linear-gradient(145deg,#475569,#1e293b);border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #ef4444;box-shadow:0 4px 16px rgba(239,68,68,.4),0 0 20px rgba(239,68,68,.2)}
+.fb-text{font-size:16px;font-weight:900;color:#fff;text-align:center;line-height:1.2}
+.fb-fuse{width:4px;height:16px;background:#a16207;border-radius:2px;margin:0 auto;position:relative}
+.fb-fuse::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:12px;height:12px;background:#fbbf24;border-radius:50%;animation:fGlow .3s infinite;box-shadow:0 0 12px #fbbf24,0 0 24px rgba(251,191,36,.5)}
+@keyframes fGlow{0%,100%{opacity:.6;transform:translateX(-50%) scale(.7)}50%{opacity:1;transform:translateX(-50%) scale(1.3)}}
+.hg-flash{position:absolute;inset:0;pointer-events:none;z-index:30;animation:screenFlash .3s ease-out forwards}
+@keyframes screenFlash{0%{background:rgba(34,197,94,.3)}100%{background:transparent}}
+.hg-miss-flash{position:absolute;inset:0;pointer-events:none;z-index:30;animation:missFlash .4s ease-out forwards}
+@keyframes missFlash{0%{background:rgba(239,68,68,.3)}50%{background:rgba(239,68,68,.15)}100%{background:transparent}}
+.hg-arena-shake{animation:arenaShake .4s ease-out}
+@keyframes arenaShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.char-explode{position:absolute;font-size:50px;pointer-events:none;z-index:20;animation:expl .8s ease-out forwards}
+@keyframes expl{0%{transform:scale(0);opacity:0}30%{transform:scale(1.4);opacity:1}100%{transform:scale(.5);opacity:0}}
+.star-burst{position:absolute;font-size:24px;pointer-events:none;z-index:20;animation:sburst .6s ease-out forwards}
+@keyframes sburst{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-60px) scale(.3);opacity:0}}
+@keyframes comboPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-50%) scale(.8);opacity:0}}
+.hg-cloud{position:absolute;font-size:36px;opacity:.25;pointer-events:none;animation:cFloat 20s linear infinite;z-index:1}
+@keyframes cFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-overlay.hidden{display:none}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
+.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:28px;font-weight:700;color:#f97316;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff}
+.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
+
+/* 모달 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#fff;border-radius:20px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.3)}
+.modal-head{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff;padding:16px 20px;border-radius:20px 20px 0 0;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;font-size:18px}
+.modal-close{background:0;border:0;color:#fff;font-size:24px;cursor:pointer}
+.modal-body{padding:20px}
+.modal-section{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fafc}
+.modal-section h4{margin:0 0 10px;font-weight:700;color:#374151;font-size:15px}
+.modal-input{width:100%;padding:10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;box-sizing:border-box;margin-bottom:8px}
+.modal-input:focus{outline:none;border-color:#f97316}
+.modal-btn{padding:10px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;width:100%;background:linear-gradient(145deg,#f97316,#ea580c);color:#fff;margin-top:6px}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
+.char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.char-item.selected{background:linear-gradient(145deg,#fbbf24,#f59e0b);border-color:#f59e0b}
+</style>
+</head>
+<body>
+<div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
+
+<div class="container">
+  <div class="subject-bar">
+    <a class="sb-tab" href="hangul.html">📝 한글</a>
+    <button class="sb-tab active">🔢 숫자</button>
+    <button class="sb-tab locked">🔤 영어 <span class="lock">🔒</span></button>
+    <div class="sb-spacer"></div>
+    <div class="sb-btns">
+      <button class="sb-btn" id="sb-sound" onclick="toggleSound()">🔊</button>
+      <button class="sb-btn" onclick="showAdmin()">⚙️</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- 왼쪽 패널 -->
+    <div class="left-panel">
+      <div class="profile-section">
+        <div class="profile-content">
+          <div class="profile-avatar" onclick="showCharModal()"><span id="pf-char">🧒</span></div>
+          <div class="profile-info">
+            <div class="profile-name" onclick="changeName()"><span id="pf-name">수학왕</span></div>
+            <div class="profile-level-container">
+              <div class="profile-level">
+                <span class="level-badge">LV.<span id="pf-level">1</span></span>
+                <span id="pf-done">0</span>/<span id="pf-total">10</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="pf-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-headers">
+        <button class="tab-btn active" onclick="switchTab('bomb')">💣 폭탄해체</button>
+        <button class="tab-btn" onclick="switchTab('eat')">🍎 숫자먹방</button>
+        <button class="tab-btn" onclick="switchTab('elev')">🏢 엘리베이터</button>
+        <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
+      </div>
+
+      <!-- 폭탄 사이드 -->
+      <div class="tab-content bomb-side active">
+        <div class="side-info">
+          <div class="side-title">💣 폭탄 해체반</div>
+          <div class="side-stat"><span>라운드</span><span class="side-val" id="bomb-round">1</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="bomb-score">0</span></div>
+          <div class="side-stat"><span>연속 해체</span><span class="side-val" id="bomb-streak">0</span></div>
+          <div class="side-stat"><span>최고 연속</span><span class="side-val" id="bomb-best">0</span></div>
+        </div>
+      </div>
+
+      <!-- 먹방 사이드 -->
+      <div class="tab-content eat-side">
+        <div class="side-info">
+          <div class="side-title">🍎 숫자 먹방</div>
+          <div class="side-stat"><span>목표</span><span class="side-val" id="eat-target-side">?</span></div>
+          <div class="side-stat"><span>먹은 수</span><span class="side-val" id="eat-count-side">0</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="eat-score">0</span></div>
+          <div class="side-stat"><span>연속 성공</span><span class="side-val" id="eat-streak">0</span></div>
+        </div>
+      </div>
+
+      <!-- 엘리베이터 사이드 -->
+      <div class="tab-content elev-side">
+        <div class="side-info">
+          <div class="side-title">🏢 층수 엘리베이터</div>
+          <div class="side-stat"><span>문제</span><span class="side-val" id="elev-qnum">1</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="elev-score">0</span></div>
+          <div class="side-stat"><span>방문한 층</span><span class="side-val" id="elev-visited">0</span></div>
+        </div>
+      </div>
+
+      <!-- 기록 사이드 -->
+      <div class="tab-content record-side">
+        <div class="side-info">
+          <div class="side-title">📊 종합 기록</div>
+          <div class="side-stat"><span>총 문제</span><span class="side-val" id="rec-total">0</span></div>
+          <div class="side-stat"><span>정답률</span><span class="side-val" id="rec-rate">0%</span></div>
+        </div>
+      </div>
+
+      <div class="game-launch-btn" onclick="startHeroGame()">⚡ 연산 폭격 시작!</div>
+    </div>
+
+    <!-- 중앙 패널 -->
+    <div class="center-panel">
+      <!-- 폭탄 해체반 -->
+      <div class="game-view bomb-view active" id="bomb-view">
+        <!-- 시작 화면 -->
+        <div class="bomb-start-screen" id="bomb-start-screen">
+          <div class="bomb-start-title">💣 폭탄 해체반</div>
+          <div style="font-size:22px;color:#64748b;font-weight:600">수식을 풀어서 폭탄을 해체하세요!</div>
+          <button class="bomb-start-btn" onclick="bombStart()">🚀 시작!</button>
+        </div>
+        <!-- 게임 화면 -->
+        <div id="bomb-game-screen" style="display:none;flex:1;flex-direction:column">
+          <div class="bomb-info" id="bomb-info">💣 라운드 1 — 시한폭탄</div>
+          <div class="bomb-area" id="bomb-area">
+            <div class="bomb-container" id="bomb-container">
+              <svg viewBox="0 0 280 300" width="280" height="300">
+                <defs>
+                  <radialGradient id="bGrad" cx="40%" cy="35%"><stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#1e293b"/></radialGradient>
+                </defs>
+                <rect x="125" y="30" width="30" height="30" rx="5" fill="#64748b"/>
+                <path d="M140 30 Q165 5 175 20" stroke="#a16207" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <circle cx="175" cy="20" r="10" fill="#fbbf24" opacity=".7"><animate attributeName="r" values="7;13;7" dur=".4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".5;1;.5" dur=".4s" repeatCount="indefinite"/></circle>
+                <circle cx="175" cy="20" r="5" fill="#ef4444"><animate attributeName="r" values="3;7;3" dur=".3s" repeatCount="indefinite"/></circle>
+                <ellipse cx="140" cy="185" rx="105" ry="95" fill="url(#bGrad)" filter="drop-shadow(0 4px 8px rgba(0,0,0,.3))"/>
+                <ellipse cx="110" cy="155" rx="25" ry="18" fill="#fff" opacity=".1" transform="rotate(-20 110 155)"/>
+                <circle cx="140" cy="185" r="105" fill="none" stroke="#fbbf24" stroke-width="6" stroke-dasharray="660" stroke-dashoffset="0" opacity=".4" id="bomb-timer-ring">
+                  <animate id="bomb-timer-anim" attributeName="stroke-dashoffset" from="0" to="660" dur="15s" fill="freeze" begin="indefinite"/>
+                </circle>
+              </svg>
+              <div class="bomb-equation" id="bomb-eq">?+3=7</div>
+            </div>
+          </div>
+          <div class="bomb-input-display empty" id="bomb-input">정답을 눌러주세요</div>
+          <div class="numpad" id="bomb-numpad"></div>
+        </div>
+      </div>
+
+      <!-- 숫자 먹방 -->
+      <div class="game-view eat-view" id="eat-view">
+        <div class="eating-area">
+          <div class="eating-char" id="eating-char">
+            <div class="eating-speech" id="eat-speech">5만큼 먹여줘!</div>
+            <svg viewBox="0 0 180 180" width="180" height="180">
+              <defs><radialGradient id="cGrad" cx="40%" cy="35%"><stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/></radialGradient></defs>
+              <ellipse cx="90" cy="105" rx="75" ry="65" fill="url(#cGrad)" filter="drop-shadow(0 4px 8px rgba(0,0,0,.15))"/>
+              <ellipse cx="65" cy="88" rx="13" ry="15" fill="#fff"/>
+              <circle cx="68" cy="90" r="7" fill="#1e293b"/><circle cx="70" cy="88" r="2.5" fill="#fff"/>
+              <ellipse cx="115" cy="88" rx="13" ry="15" fill="#fff"/>
+              <circle cx="118" cy="90" r="7" fill="#1e293b"/><circle cx="120" cy="88" r="2.5" fill="#fff"/>
+              <path id="char-mouth" d="M65 120 Q90 140 115 120" stroke="#1e293b" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <ellipse cx="50" cy="110" rx="10" ry="7" fill="#fca5a5" opacity=".4"/>
+              <ellipse cx="130" cy="110" rx="10" ry="7" fill="#fca5a5" opacity=".4"/>
+            </svg>
+          </div>
+          <div class="eating-counter"><span id="eat-count">0</span> <span>/ <span id="eat-target">5</span></span></div>
+          <div class="food-grid" id="food-grid"></div>
+        </div>
+      </div>
+
+      <!-- 층수 엘리베이터 -->
+      <div class="game-view elev-view" id="elev-view">
+        <div class="elevator-area">
+          <div class="elev-question" id="elev-q">3층에서 4칸 올라가면?</div>
+          <div class="elev-main">
+            <!-- 건물 샤프트 -->
+            <div class="building-shaft" id="building-shaft">
+              <!-- 엘리베이터 카 -->
+              <div class="elev-car" id="elevator-car">
+                <div class="elev-car-cable"></div>
+                <div class="elev-car-top"></div>
+                <div class="elev-car-light" id="elev-car-light"></div>
+                <div class="elev-car-frame"></div>
+                <div class="elev-car-window left"></div>
+                <div class="elev-car-window right"></div>
+                <div class="elev-car-seam"></div>
+              </div>
+            </div>
+            <!-- 버튼 패널 -->
+            <div class="elev-panel">
+              <div class="elev-led">
+                <div class="elev-led-num" id="elev-led">1</div>
+                <div class="elev-led-label">FLOOR</div>
+              </div>
+              <div class="elev-dir">
+                <div class="elev-dir-ind" id="elev-arrow-up">▲</div>
+                <div class="elev-dir-ind" id="elev-arrow-down">▼</div>
+              </div>
+              <div class="elev-btn-grid" id="floor-btns"></div>
+            </div>
+          </div>
+          <div class="elev-result" id="elev-result"></div>
+        </div>
+      </div>
+
+      <!-- 내 기록 -->
+      <div class="game-view record-view" id="record-view">
+        <div class="records-area">
+          <div class="record-card">
+            <h3>🏆 종합 성적</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-total">0</div><div class="record-label">총 문제</div></div>
+              <div class="record-item"><div class="record-num" id="r-correct">0</div><div class="record-label">정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-rate">0%</div><div class="record-label">정답률</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>💣 폭탄 해체반</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-bomb-defused">0</div><div class="record-label">해체 성공</div></div>
+              <div class="record-item"><div class="record-num" id="r-bomb-best">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-bomb-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🍎 숫자 먹방</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-eat-fed">0</div><div class="record-label">먹이기 성공</div></div>
+              <div class="record-item"><div class="record-num" id="r-eat-best">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-eat-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>🏢 엘리베이터</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-elev-correct">0</div><div class="record-label">정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-elev-floors">0</div><div class="record-label">방문 층</div></div>
+              <div class="record-item"><div class="record-num" id="r-elev-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오른쪽 패널 -->
+    <div class="right-panel" id="right-panel">
+      <button class="action-btn btn-cyan" id="act1" onclick="actionBtn(1)"><span class="icon">💡</span>힌트</button>
+      <button class="action-btn btn-green" id="act2" onclick="actionBtn(2)"><span class="icon">⏭</span>다음</button>
+      <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🗑</span>지우기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 히어로 게임 -->
+<div id="hero-game" class="hero-game hidden">
+  <div class="hg-header">
+    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
+    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
+    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+    <div class="hg-ctrls">
+      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+    </div>
+  </div>
+  <div class="hg-arena" id="hg-arena">
+    <div class="hg-ground"></div>
+  </div>
+  <div class="hg-numpad" id="hg-numpad"></div>
+  <div id="hg-over" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>게임 끝!</h2>
+      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="msg" id="hg-over-msg">잘했어요!</div>
+      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+  <div id="hg-pause" class="hg-overlay hidden">
+    <div class="hg-overlay-box">
+      <h2>⏸ 일시정지</h2>
+      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 관리자 모달 -->
+<div id="admin-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>⚙ 설정</h3><button class="modal-close" onclick="hideAdmin()">×</button></div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h4>👤 프로필</h4>
+        <input class="modal-input" id="adm-name" placeholder="이름 입력" maxlength="10">
+        <button class="modal-btn" onclick="saveProfile()">저장</button>
+      </div>
+      <div class="modal-section">
+        <h4>🔄 초기화</h4>
+        <button class="modal-btn" style="background:linear-gradient(145deg,#ef4444,#dc2626)" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 캐릭터 모달 -->
+<div id="char-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3>🎭 캐릭터 선택</h3><button class="modal-close" onclick="hideCharModal()">×</button></div>
+    <div class="modal-body">
+      <div class="char-grid" id="char-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 전역 변수 =====
+let currentTab = 'bomb';
+let soundEnabled = true;
+const LS = localStorage;
+
+// 프로필
+let profile = {
+  name: LS.getItem('mathName') || '수학왕',
+  char: LS.getItem('mathChar') || '🧒',
+  totalCorrect: parseInt(LS.getItem('mathCorrect')) || 0,
+  totalPlayed: parseInt(LS.getItem('mathPlayed')) || 0
+};
+
+// 폭탄 게임 상태
+let bomb = {
+  answer: 0, round: 1, score: 0, streak: 0, bestStreak: parseInt(LS.getItem('bombBest')) || 0,
+  wrongCount: 0, timer: null, timeLeft: 15, defused: parseInt(LS.getItem('bombDefused')) || 0,
+  bestScore: parseInt(LS.getItem('bombBestScore')) || 0,
+  inputStr: '', started: false
+};
+
+// 먹방 게임 상태
+let eat = {
+  target: 5, count: 0, score: 0, streak: 0, bestStreak: parseInt(LS.getItem('eatBest')) || 0,
+  fed: parseInt(LS.getItem('eatFed')) || 0, bestScore: parseInt(LS.getItem('eatBestScore')) || 0,
+  foods: [], confirmed: false
+};
+
+// 엘리베이터 상태
+let elev = {
+  startFloor: 1, delta: 0, answer: 0, currentFloor: 1, score: 0, qNum: 1,
+  visited: new Set(), correctCount: parseInt(LS.getItem('elevCorrect')) || 0,
+  bestScore: parseInt(LS.getItem('elevBestScore')) || 0
+};
+
+// 히어로 게임 상태
+let hg = {
+  score: 0, lives: 5, level: 1, running: false, paused: false,
+  bombs: [], spawnTimer: null, animId: null, combo: 0, maxCombo: 0
+};
+
+// ===== TTS =====
+let audioQueue = [];
+let isSpeaking = false;
+function speak(text) {
+  if (!soundEnabled) return;
+  audioQueue.push(text);
+  processQueue();
+}
+function processQueue() {
+  if (isSpeaking || !audioQueue.length) return;
+  isSpeaking = true;
+  const u = new SpeechSynthesisUtterance(audioQueue.shift());
+  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.onend = () => { isSpeaking = false; processQueue(); };
+  u.onerror = () => { isSpeaking = false; processQueue(); };
+  speechSynthesis.speak(u);
+}
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sb-sound').textContent = soundEnabled ? '🔊' : '🔇';
+  if (!soundEnabled) speechSynthesis.cancel();
+}
+
+// ===== 프로필 =====
+function updateProfile() {
+  document.getElementById('pf-name').textContent = profile.name;
+  document.getElementById('pf-char').textContent = profile.char;
+  const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  document.getElementById('pf-level').textContent = lv;
+  const prog = (profile.totalCorrect % 10);
+  document.getElementById('pf-done').textContent = prog;
+  document.getElementById('pf-total').textContent = 10;
+  document.getElementById('pf-bar').style.width = (prog * 10) + '%';
+}
+function changeName() {
+  const n = prompt('이름을 입력하세요:', profile.name);
+  if (n && n.trim()) { profile.name = n.trim(); LS.setItem('mathName', profile.name); updateProfile(); }
+}
+function showCharModal() {
+  document.getElementById('char-modal').classList.remove('hidden');
+  const chars = ['🧒','👦','👧','🦸‍♂️','🦸‍♀️','🧙‍♂️','🐱','🐶','🦊','🐻','🐰','🐸','🦁','🐯','🐼'];
+  const g = document.getElementById('char-grid');
+  g.innerHTML = chars.map(c => `<div class="char-item${c===profile.char?' selected':''}" onclick="pickChar('${c}')">${c}</div>`).join('');
+}
+function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
+function pickChar(c) { profile.char = c; LS.setItem('mathChar', c); updateProfile(); hideCharModal(); }
+function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
+function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+function saveProfile() {
+  const n = document.getElementById('adm-name').value.trim();
+  if (n) { profile.name = n; LS.setItem('mathName', n); updateProfile(); }
+  hideAdmin();
+}
+function resetAll() {
+  if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
+  ['mathName','mathChar','mathCorrect','mathPlayed','bombBest','bombDefused','bombBestScore','eatBest','eatFed','eatBestScore','elevCorrect','elevBestScore'].forEach(k => LS.removeItem(k));
+  location.reload();
+}
+function saveStats() {
+  LS.setItem('mathCorrect', profile.totalCorrect);
+  LS.setItem('mathPlayed', profile.totalPlayed);
+  LS.setItem('bombBest', bomb.bestStreak);
+  LS.setItem('bombDefused', bomb.defused);
+  LS.setItem('bombBestScore', bomb.bestScore);
+  LS.setItem('eatBest', eat.bestStreak);
+  LS.setItem('eatFed', eat.fed);
+  LS.setItem('eatBestScore', eat.bestScore);
+  LS.setItem('elevCorrect', elev.correctCount);
+  LS.setItem('elevBestScore', elev.bestScore);
+}
+
+// ===== 탭 전환 =====
+function switchTab(tab) {
+  // 폭탄 타이머 정지 (다른 탭 이동 시)
+  if (currentTab === 'bomb' && tab !== 'bomb') {
+    clearInterval(bomb.timer);
+    bomb.timer = null;
+  }
+  // TTS 정리 (탭 전환 시 이전 소리 중단)
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['bomb','eat','elev','record'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.' + tab + '-side').classList.add('active');
+  document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.' + tab + '-view').classList.add('active');
+  updateActionButtons();
+  if (tab === 'record') updateRecords();
+}
+
+function updateActionButtons() {
+  const a1 = document.getElementById('act1');
+  const a2 = document.getElementById('act2');
+  const a3 = document.getElementById('act3');
+  if (currentTab === 'bomb') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">🗑</span>지우기'; a3.className = 'action-btn btn-red'; a3.disabled = false;
+  } else if (currentTab === 'eat') {
+    a1.innerHTML = '<span class="icon">✅</span>확인!'; a1.className = 'action-btn btn-green'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🔄</span>다시'; a2.className = 'action-btn btn-cyan'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">⏭</span>다음'; a3.className = 'action-btn btn-orange'; a3.disabled = false;
+  } else if (currentTab === 'elev') {
+    a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
+    a2.innerHTML = '<span class="icon">🔄</span>다시'; a2.className = 'action-btn btn-orange'; a2.disabled = false;
+    a3.innerHTML = '<span class="icon">⏭</span>다음'; a3.className = 'action-btn btn-green'; a3.disabled = false;
+  } else {
+    a1.innerHTML = '<span class="icon">📊</span>기록'; a1.className = 'action-btn btn-cyan'; a1.disabled = true;
+    a2.innerHTML = '<span class="icon">—</span>—'; a2.className = 'action-btn btn-green'; a2.disabled = true;
+    a3.innerHTML = '<span class="icon">—</span>—'; a3.className = 'action-btn btn-red'; a3.disabled = true;
+  }
+}
+
+function actionBtn(n) {
+  if (currentTab === 'bomb') {
+    if (n === 1) bombHint();
+    else if (n === 2) newBombRound();
+    else bombClearInput();
+  } else if (currentTab === 'eat') {
+    if (n === 1) eatConfirm();
+    else if (n === 2) eatRetry();
+    else eatNext();
+  } else if (currentTab === 'elev') {
+    if (n === 1) elevHint();
+    else if (n === 2) elevRetry();
+    else newElevQuestion();
+  }
+}
+
+// ===== 폭탄 해체반 =====
+const bombTypes = ['💣 시한폭탄','🎈 풍선폭탄','🎂 케이크폭탄'];
+
+function bombStart() {
+  bomb.started = true;
+  bomb.round = 1;
+  bomb.score = 0;
+  bomb.streak = 0;
+  document.getElementById('bomb-start-screen').style.display = 'none';
+  document.getElementById('bomb-game-screen').style.display = 'flex';
+  updateBombUI();
+  newBombRound();
+}
+
+function newBombRound() {
+  bomb.wrongCount = 0;
+  bomb.inputStr = '';
+  updateBombInput();
+
+  // 수식 생성 (라운드가 올라가면 범위 확대)
+  const ops = ['+', '-'];
+  const op = ops[Math.floor(Math.random() * ops.length)];
+  let a, b, c;
+  const maxNum = Math.min(5 + bomb.round * 2, 20);
+  if (op === '+') {
+    a = Math.floor(Math.random() * maxNum) + 1;
+    b = Math.floor(Math.random() * maxNum) + 1;
+    c = a + b;
+  } else {
+    a = Math.floor(Math.random() * maxNum) + 2;
+    b = Math.floor(Math.random() * (a - 1)) + 1;
+    c = a - b;
+  }
+  // 랜덤으로 빈칸 위치 결정
+  const pos = Math.floor(Math.random() * 3);
+  let eq, ans;
+  if (pos === 0) { eq = `?${op}${b}=${c}`; ans = a; }
+  else if (pos === 1) { eq = `${a}${op}?=${c}`; ans = b; }
+  else { eq = `${a}${op}${b}=?`; ans = c; }
+
+  bomb.answer = ans;
+  document.getElementById('bomb-eq').textContent = eq;
+  document.getElementById('bomb-info').textContent = `💣 라운드 ${bomb.round} — ${bombTypes[(bomb.round - 1) % 3]}`;
+  document.getElementById('bomb-round').textContent = bomb.round;
+
+  // 타이머 리셋
+  bomb.timeLeft = 15;
+  clearInterval(bomb.timer);
+  const ring = document.getElementById('bomb-timer-ring');
+  ring.style.strokeDashoffset = '0';
+
+  // SVG 애니메이션 리셋
+  const anim = document.getElementById('bomb-timer-anim');
+  anim.setAttribute('dur', '15s');
+  anim.beginElement();
+
+  bomb.timer = setInterval(() => {
+    bomb.timeLeft--;
+    if (bomb.timeLeft <= 0) {
+      clearInterval(bomb.timer);
+      bombExplode();
+    }
+  }, 1000);
+}
+
+function bombInput(n) {
+  if (!bomb.started) return;
+  if (bomb.inputStr.length >= 3) return; // 최대 3자리
+  bomb.inputStr += n.toString();
+  updateBombInput();
+}
+
+function bombConfirm() {
+  if (!bomb.started || bomb.inputStr === '') return;
+  const val = parseInt(bomb.inputStr);
+  if (val === bomb.answer) {
+    clearInterval(bomb.timer);
+    bomb.score += (10 + bomb.streak * 2);
+    bomb.streak++;
+    bomb.defused++;
+    if (bomb.streak > bomb.bestStreak) bomb.bestStreak = bomb.streak;
+    if (bomb.score > bomb.bestScore) bomb.bestScore = bomb.score;
+    profile.totalCorrect++;
+    profile.totalPlayed++;
+
+    bombDefuseAnimation();
+    speak('정답! 폭탄 해체 성공!');
+    document.getElementById('bomb-input').style.color = '#22c55e';
+
+    updateBombUI();
+    updateProfile();
+    saveStats();
+
+    setTimeout(() => { bomb.round++; newBombRound(); }, 1500);
+  } else {
+    bomb.wrongCount++;
+    profile.totalPlayed++;
+    document.getElementById('bomb-input').style.color = '#ef4444';
+    document.getElementById('bomb-area').classList.add('bomb-shaking');
+    setTimeout(() => {
+      document.getElementById('bomb-area').classList.remove('bomb-shaking');
+      document.getElementById('bomb-input').style.color = '#f97316';
+    }, 900);
+
+    if (bomb.wrongCount >= 3) {
+      clearInterval(bomb.timer);
+      bombExplode();
+    } else {
+      speak('틀렸어요! 다시 해보세요');
+      bomb.inputStr = '';
+      updateBombInput();
+    }
+    saveStats();
+  }
+}
+
+function bombClear() {
+  bomb.inputStr = '';
+  updateBombInput();
+}
+
+function updateBombInput() {
+  const el = document.getElementById('bomb-input');
+  if (bomb.inputStr === '') {
+    el.textContent = '정답을 눌러주세요';
+    el.classList.add('empty');
+    el.style.color = '';
+  } else {
+    el.textContent = bomb.inputStr;
+    el.classList.remove('empty');
+    el.style.color = '#f97316';
+  }
+}
+
+function bombExplode() {
+  bomb.streak = 0;
+  speak(`펑! 정답은 ${bomb.answer}이었어요`);
+  updateBombUI();
+  bombExplodeAnimation();
+  // 시작 화면으로 돌아감 (게임 끝)
+  setTimeout(() => {
+    clearInterval(bomb.timer);
+    bomb.started = false;
+    document.getElementById('bomb-game-screen').style.display = 'none';
+    document.getElementById('bomb-start-screen').style.display = 'flex';
+    document.getElementById('bomb-start-screen').querySelector('.bomb-start-title').textContent = `💥 ${bomb.round}라운드에서 폭발!`;
+    document.getElementById('bomb-start-screen').querySelector('div[style]').textContent = `점수: ${bomb.score}점 | 최고 연속: ${bomb.bestStreak}회`;
+  }, 2500);
+}
+
+function bombExplodeAnimation() {
+  const area = document.getElementById('bomb-area');
+  const container = document.getElementById('bomb-container');
+  const areaRect = area.getBoundingClientRect();
+  const contRect = container.getBoundingClientRect();
+  const cx = contRect.left - areaRect.left + contRect.width / 2;
+  const cy = contRect.top - areaRect.top + contRect.height / 2;
+
+  // 오버레이
+  const overlay = document.createElement('div');
+  overlay.className = 'bomb-explode-overlay';
+  area.appendChild(overlay);
+
+  // 화면 흔들림
+  area.classList.add('bomb-shake-hard');
+  setTimeout(() => area.classList.remove('bomb-shake-hard'), 500);
+
+  // 1단계: 흰색 플래시 (섬광)
+  const wFlash = document.createElement('div');
+  wFlash.className = 'bomb-flash-white';
+  overlay.appendChild(wFlash);
+  setTimeout(() => wFlash.remove(), 300);
+
+  // 2단계: 빨간 플래시
+  setTimeout(() => {
+    const rFlash = document.createElement('div');
+    rFlash.className = 'bomb-flash-red';
+    overlay.appendChild(rFlash);
+    setTimeout(() => rFlash.remove(), 600);
+  }, 100);
+
+  // 3단계: 충격파 링 2개
+  for (let i = 0; i < 2; i++) {
+    setTimeout(() => {
+      const ring = document.createElement('div');
+      ring.className = 'bomb-ring';
+      const size = 250 + i * 100;
+      ring.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px`;
+      overlay.appendChild(ring);
+      setTimeout(() => ring.remove(), 800);
+    }, i * 150);
+  }
+
+  // 4단계: 불꽃 파티클 (20개)
+  const fireColors = ['#ef4444','#f97316','#fbbf24','#fde68a','#ff6b6b','#ff922b','#ffd43b'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'bomb-particle';
+    const size = 10 + Math.random() * 22;
+    const angle = (Math.PI * 2 / 20) * i + (Math.random() - 0.5) * 0.4;
+    const dist = 100 + Math.random() * 180;
+    const dur = 0.6 + Math.random() * 0.5;
+    const color = fireColors[Math.floor(Math.random() * fireColors.length)];
+    p.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;background:${color};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--dur:${dur}s;box-shadow:0 0 ${size}px ${color}`;
+    overlay.appendChild(p);
+    setTimeout(() => p.remove(), dur * 1000);
+  }
+
+  // 5단계: 스파크 (빛줄기 12개)
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('div');
+    s.className = 'bomb-spark';
+    const angle = (Math.PI * 2 / 12) * i;
+    const dist = 120 + Math.random() * 140;
+    const dur = 0.4 + Math.random() * 0.3;
+    const h = 12 + Math.random() * 18;
+    const color = Math.random() > 0.5 ? '#fbbf24' : '#fff';
+    s.style.cssText = `left:${cx}px;top:${cy}px;height:${h}px;background:${color};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--rot:${angle*180/Math.PI+90}deg;--dur:${dur}s;box-shadow:0 0 6px ${color}`;
+    overlay.appendChild(s);
+    setTimeout(() => s.remove(), dur * 1000);
+  }
+
+  // 6단계: 연기 (8개)
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      const sm = document.createElement('div');
+      sm.className = 'bomb-smoke';
+      const size = 40 + Math.random() * 50;
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 30 + Math.random() * 80;
+      sm.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist-60}px`;
+      overlay.appendChild(sm);
+      setTimeout(() => sm.remove(), 1200);
+    }, 100 + i * 50);
+  }
+
+  // 7단계: 정답 텍스트
+  setTimeout(() => {
+    const txt = document.createElement('div');
+    txt.className = 'bomb-text-pop';
+    txt.textContent = `💥 펑! 정답: ${bomb.answer}`;
+    txt.style.cssText = `left:${cx}px;top:${cy}px`;
+    overlay.appendChild(txt);
+    setTimeout(() => txt.remove(), 2000);
+  }, 300);
+
+  // 폭탄 SVG 숨기기
+  container.style.opacity = '0';
+  container.style.transition = 'opacity .3s';
+  document.getElementById('bomb-eq').style.opacity = '0';
+
+  // 전체 정리
+  setTimeout(() => {
+    overlay.remove();
+    container.style.opacity = '1';
+    container.style.transition = '';
+    document.getElementById('bomb-eq').style.opacity = '1';
+  }, 2500);
+}
+
+function bombDefuseAnimation() {
+  const area = document.getElementById('bomb-area');
+  const container = document.getElementById('bomb-container');
+  const areaRect = area.getBoundingClientRect();
+  const contRect = container.getBoundingClientRect();
+  const cx = contRect.left - areaRect.left + contRect.width / 2;
+  const cy = contRect.top - areaRect.top + contRect.height / 2;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'bomb-defuse-overlay';
+  area.appendChild(overlay);
+
+  // 초록 플래시
+  const flash = document.createElement('div');
+  flash.className = 'bomb-defuse-flash';
+  overlay.appendChild(flash);
+
+  // 체크마크
+  const check = document.createElement('div');
+  check.className = 'bomb-check';
+  check.textContent = '✅';
+  check.style.cssText = `left:${cx}px;top:${cy}px`;
+  overlay.appendChild(check);
+
+  // 별/스파클 12개
+  const emojis = ['⭐','✨','🌟','💫','🎉','🎊'];
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('div');
+    s.className = 'bomb-star';
+    const angle = (Math.PI * 2 / 12) * i;
+    const dist = 80 + Math.random() * 100;
+    const dur = 0.6 + Math.random() * 0.4;
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.cssText = `left:${cx}px;top:${cy}px;font-size:${20+Math.random()*16}px;--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--dur:${dur}s`;
+    overlay.appendChild(s);
+  }
+
+  setTimeout(() => overlay.remove(), 1200);
+}
+
+function showBombResult(emoji) {
+  const r = document.createElement('div');
+  r.className = 'bomb-result';
+  r.textContent = emoji;
+  document.getElementById('bomb-area').appendChild(r);
+  setTimeout(() => r.remove(), 800);
+}
+
+function bombHint() {
+  if (!bomb.started) return;
+  const hint = bomb.answer <= 9 ? (bomb.answer <= 5 ? '작은 수예요 (1~5)' : '큰 수예요 (6~9)') : `두 자리 수예요`;
+  speak(`힌트! ${hint}`);
+  document.getElementById('bomb-eq').innerHTML += `<br><span style="font-size:18px;color:#fde68a">${hint}</span>`;
+}
+
+function bombClearInput() {
+  bombClear();
+}
+
+function updateBombUI() {
+  document.getElementById('bomb-score').textContent = bomb.score;
+  document.getElementById('bomb-streak').textContent = bomb.streak;
+  document.getElementById('bomb-best').textContent = bomb.bestStreak;
+}
+
+// ===== 숫자 먹방 =====
+const FOODS = ['🍎','🍊','🍋','🍇','🍓','🍌','🍑','🍒','🥝','🍍'];
+
+function initEatGame() {
+  eat.target = Math.floor(Math.random() * 9) + 1;
+  eat.count = 0;
+  eat.confirmed = false;
+  document.getElementById('eat-target').textContent = eat.target;
+  document.getElementById('eat-target-side').textContent = eat.target;
+  document.getElementById('eat-count').textContent = 0;
+  document.getElementById('eat-count-side').textContent = 0;
+  document.getElementById('eat-speech').textContent = `${eat.target}만큼 먹여줘!`;
+  setMouth('smile');
+
+  // 음식 그리드 생성
+  const grid = document.getElementById('food-grid');
+  eat.foods = [];
+  const total = eat.target + Math.floor(Math.random() * 5) + 2;
+  let html = '';
+  for (let i = 0; i < Math.min(total, 10); i++) {
+    const f = FOODS[Math.floor(Math.random() * FOODS.length)];
+    eat.foods.push(f);
+    html += `<div class="food-item" onclick="eatFood(this,${i})">${f}</div>`;
+  }
+  grid.innerHTML = html;
+}
+
+function eatFood(el, idx) {
+  if (eat.confirmed) return;
+  el.classList.add('eaten');
+  eat.count++;
+  document.getElementById('eat-count').textContent = eat.count;
+  document.getElementById('eat-count-side').textContent = eat.count;
+  setMouth('eating');
+  // 먹기 파티클 이펙트
+  eatSpawnParticles(el);
+  setTimeout(() => { if (!eat.confirmed) setMouth('smile'); }, 500);
+}
+
+function eatSpawnParticles(el) {
+  const area = document.querySelector('.eating-area');
+  const rect = el.getBoundingClientRect();
+  const aRect = area.getBoundingClientRect();
+  const cx = rect.left - aRect.left + rect.width/2;
+  const cy = rect.top - aRect.top + rect.height/2;
+  const sparks = ['⭐','✨','💛','🧡'];
+  for (let i = 0; i < 5; i++) {
+    const p = document.createElement('div');
+    p.className = 'eat-particle';
+    p.textContent = sparks[Math.floor(Math.random()*sparks.length)];
+    const angle = (Math.PI*2/5)*i;
+    const dist = 30+Math.random()*40;
+    p.style.cssText = `left:${cx}px;top:${cy}px;font-size:${16+Math.random()*12}px;--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist-20}px;--dur:${.4+Math.random()*.3}s`;
+    area.appendChild(p);
+    setTimeout(() => p.remove(), 700);
+  }
+  // 냠 텍스트
+  if (eat.count <= eat.target) {
+    const yum = document.createElement('div');
+    yum.className = 'eat-yum';
+    yum.textContent = eat.count === eat.target ? '딱 맞아!' : `${eat.count}!`;
+    yum.style.cssText = `left:${cx}px;top:${cy-10}px;color:${eat.count===eat.target?'#22c55e':'#f97316'}`;
+    area.appendChild(yum);
+    setTimeout(() => yum.remove(), 800);
+  } else {
+    const yum = document.createElement('div');
+    yum.className = 'eat-yum';
+    yum.textContent = '너무 많아!';
+    yum.style.cssText = `left:${cx}px;top:${cy-10}px;color:#ef4444`;
+    area.appendChild(yum);
+    setTimeout(() => yum.remove(), 800);
+  }
+}
+
+function eatConfirm() {
+  if (eat.confirmed) return;
+  eat.confirmed = true;
+  profile.totalPlayed++;
+
+  if (eat.count === eat.target) {
+    eat.score += 10 + eat.streak * 3;
+    eat.streak++;
+    eat.fed++;
+    if (eat.streak > eat.bestStreak) eat.bestStreak = eat.streak;
+    if (eat.score > eat.bestScore) eat.bestScore = eat.score;
+    profile.totalCorrect++;
+    setMouth('happy');
+    document.getElementById('eat-speech').textContent = '맛있다! 딱 맞아!';
+    speak('정답! 맛있게 먹었어요!');
+    eatSuccessEffect();
+  } else if (eat.count < eat.target) {
+    eat.streak = 0;
+    setMouth('sad');
+    document.getElementById('eat-speech').textContent = '아직 배고파요...';
+    speak(`${eat.target - eat.count}개 부족해요`);
+  } else {
+    eat.streak = 0;
+    setMouth('sick');
+    document.getElementById('eat-speech').textContent = '배 터져요~!';
+    speak(`${eat.count - eat.target}개 너무 많아요`);
+  }
+
+  updateEatUI();
+  updateProfile();
+  saveStats();
+}
+
+function eatRetry() {
+  eat.count = 0;
+  eat.confirmed = false;
+  document.getElementById('eat-count').textContent = 0;
+  document.getElementById('eat-count-side').textContent = 0;
+  document.getElementById('eat-speech').textContent = `${eat.target}만큼 먹여줘!`;
+  setMouth('smile');
+  document.querySelectorAll('.food-item').forEach(f => f.classList.remove('eaten'));
+}
+
+function eatNext() { initEatGame(); }
+
+function eatSuccessEffect() {
+  const area = document.querySelector('.eating-area');
+  const overlay = document.createElement('div');
+  overlay.className = 'eat-success-overlay';
+  area.appendChild(overlay);
+  const colors = ['#ef4444','#f97316','#fbbf24','#22c55e','#3b82f6','#8b5cf6','#ec4899'];
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement('div');
+    c.className = 'eat-confetti';
+    c.style.cssText = `left:${Math.random()*100}%;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};--tx:${(Math.random()-.5)*200}px;--ty:${200+Math.random()*300}px;--dur:${.8+Math.random()*.6}s;animation-delay:${Math.random()*.3}s;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'}`;
+    overlay.appendChild(c);
+  }
+  setTimeout(() => overlay.remove(), 1500);
+}
+
+function setMouth(state) {
+  const m = document.getElementById('char-mouth');
+  if (!m) return;
+  switch(state) {
+    case 'smile': m.setAttribute('d', 'M65 120 Q90 140 115 120'); break;
+    case 'eating': m.setAttribute('d', 'M75 118 Q90 135 105 118'); break;
+    case 'happy': m.setAttribute('d', 'M60 115 Q90 150 120 115'); break;
+    case 'sad': m.setAttribute('d', 'M70 130 Q90 118 110 130'); break;
+    case 'sick': m.setAttribute('d', 'M70 125 Q90 138 110 125 Q100 115 70 125'); m.setAttribute('fill', '#86efac'); break;
+  }
+  if (state !== 'sick') m.setAttribute('fill', 'none');
+}
+
+function updateEatUI() {
+  document.getElementById('eat-score').textContent = eat.score;
+  document.getElementById('eat-streak').textContent = eat.streak;
+}
+
+// ===== 층수 엘리베이터 =====
+const FLOOR_THEMES = ['','🌊 바다','🌲 숲','🏠 마을','🌸 꽃밭','☁️ 구름','🌙 달','⭐ 별','🚀 우주','🌈 무지개','👑 왕궁'];
+const FLOOR_EMOJIS = ['','🌊','🌲','🏠','🌸','☁️','🌙','⭐','🚀','🌈','👑'];
+const FLOOR_NAMES = ['','바다','숲','마을','꽃밭','구름','달','별','우주','무지개','왕궁'];
+const FLOOR_COLORS = [
+  '',
+  'linear-gradient(90deg,#a5f3fc,#67e8f9,#a5f3fc)',  // 1 바다 — soft cyan
+  'linear-gradient(90deg,#bbf7d0,#86efac,#bbf7d0)',  // 2 숲 — soft green
+  'linear-gradient(90deg,#fed7aa,#fdba74,#fed7aa)',  // 3 마을 — soft orange
+  'linear-gradient(90deg,#fbcfe8,#f9a8d4,#fbcfe8)',  // 4 꽃밭 — soft pink
+  'linear-gradient(90deg,#e0f2fe,#bae6fd,#e0f2fe)',  // 5 구름 — soft sky
+  'linear-gradient(90deg,#bfdbfe,#93c5fd,#bfdbfe)',  // 6 달 — soft blue
+  'linear-gradient(90deg,#ddd6fe,#c4b5fd,#ddd6fe)',  // 7 별 — soft purple
+  'linear-gradient(90deg,#334155,#475569,#334155)',  // 8 우주 — muted dark
+  'linear-gradient(90deg,#fecaca,#fde68a,#bbf7d0,#bfdbfe,#ddd6fe)', // 9 무지개 — pastel rainbow
+  'linear-gradient(90deg,#fef3c7,#fde68a,#fef3c7)'   // 10 왕궁 — soft gold
+];
+const FLOOR_GLOW = ['','#67e8f9','#86efac','#fdba74','#f9a8d4','#bae6fd','#93c5fd','#c4b5fd','#64748b','#fde68a','#fde68a'];
+
+function initElevator() {
+  const shaft = document.getElementById('building-shaft');
+  const car = document.getElementById('elevator-car');
+  // 층별 색상 배경이 있는 건물 렌더
+  for (let i = 10; i >= 1; i--) {
+    const top = (10 - i) * 10;
+    const fl = document.createElement('div');
+    fl.className = 'shaft-floor';
+    fl.id = 'sf-' + i;
+    fl.style.top = top + '%';
+    fl.innerHTML = `<div class="sf-bg" style="background:${FLOOR_COLORS[i]}"></div><div class="sf-shine"></div><div class="sf-num">${i}</div><div class="sf-content"><span class="sf-emoji">${FLOOR_EMOJIS[i]}</span><span>${FLOOR_NAMES[i]}</span></div>`;
+    shaft.insertBefore(fl, car);
+  }
+
+  // 버튼 패널
+  const btns = document.getElementById('floor-btns');
+  let btnHtml = '';
+  for (let i = 10; i >= 1; i--) {
+    btnHtml += `<div class="elev-btn" onclick="selectFloor(${i})" id="fb-${i}">${i}</div>`;
+  }
+  btns.innerHTML = btnHtml;
+
+  newElevQuestion();
+}
+
+function newElevQuestion() {
+  const maxFloor = 10;
+  const isUp = Math.random() > 0.3;
+  if (isUp) {
+    elev.startFloor = Math.floor(Math.random() * 7) + 1;
+    elev.delta = Math.floor(Math.random() * (maxFloor - elev.startFloor)) + 1;
+    elev.answer = elev.startFloor + elev.delta;
+    document.getElementById('elev-q').textContent = `${elev.startFloor}층에서 ${elev.delta}칸 올라가면?`;
+  } else {
+    elev.startFloor = Math.floor(Math.random() * 7) + 4;
+    elev.delta = Math.floor(Math.random() * (elev.startFloor - 1)) + 1;
+    elev.answer = elev.startFloor - elev.delta;
+    document.getElementById('elev-q').textContent = `${elev.startFloor}층에서 ${elev.delta}칸 내려가면?`;
+  }
+
+  elev.currentFloor = elev.startFloor;
+  moveElevator(elev.startFloor, false);
+
+  // 버튼 리셋
+  document.querySelectorAll('.elev-btn').forEach(b => b.classList.remove('current','correct-floor'));
+  const curBtn = document.getElementById('fb-' + elev.startFloor);
+  if (curBtn) curBtn.classList.add('current');
+
+  // 방향 표시
+  const isGoingUp = elev.answer > elev.startFloor;
+  document.getElementById('elev-arrow-up').classList.toggle('active', isGoingUp);
+  document.getElementById('elev-arrow-down').classList.toggle('active', !isGoingUp);
+
+  document.getElementById('elev-result').textContent = '';
+  document.getElementById('elev-result').style.background = '';
+  document.getElementById('elev-result').style.color = '';
+  document.getElementById('elev-qnum').textContent = elev.qNum;
+}
+
+function moveElevator(floor, animate) {
+  const car = document.getElementById('elevator-car');
+  const bottom = (floor - 1) * 10;
+  car.style.transition = animate ? 'bottom .8s cubic-bezier(.34,1.56,.64,1)' : 'none';
+  car.style.bottom = bottom + '%';
+  // LED 표시 업데이트
+  document.getElementById('elev-led').textContent = floor;
+  // 카 표시등 색상
+  const light = document.getElementById('elev-car-light');
+  if (light) { light.style.background = '#22c55e'; light.style.boxShadow = '0 0 12px #22c55e,0 0 24px rgba(34,197,94,.3)'; }
+}
+
+function selectFloor(floor) {
+  moveElevator(floor, true);
+  elev.currentFloor = floor;
+  profile.totalPlayed++;
+
+  setTimeout(() => {
+    if (floor === elev.answer) {
+      elev.score += 10;
+      elev.correctCount++;
+      elev.visited.add(floor);
+      if (elev.score > elev.bestScore) elev.bestScore = elev.score;
+      profile.totalCorrect++;
+
+      const btn = document.getElementById('fb-' + floor);
+      if (btn) btn.classList.add('correct-floor');
+      // 카 표시등 초록
+      const light = document.getElementById('elev-car-light');
+      if (light) { light.style.background = '#22c55e'; light.style.boxShadow = '0 0 16px #22c55e,0 0 30px rgba(34,197,94,.5)'; }
+
+      // 도착 축하 이펙트!
+      elevArriveEffect(floor);
+
+      // 층 하이라이트
+      const sf = document.getElementById('sf-' + floor);
+      if (sf) { sf.classList.add('floor-highlight'); setTimeout(() => sf.classList.remove('floor-highlight'), 1500); }
+
+      document.getElementById('elev-result').textContent = `🎉 정답! ${floor}층 — ${FLOOR_THEMES[floor]}`;
+      document.getElementById('elev-result').style.background = '#f0fdf4';
+      document.getElementById('elev-result').style.color = '#16a34a';
+      speak(`딩동! ${floor}층!`);
+
+      // Web Audio 딩동 효과음
+      try {
+        const actx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = actx.createOscillator(); const gain = actx.createGain();
+        osc.connect(gain); gain.connect(actx.destination);
+        osc.frequency.setValueAtTime(830, actx.currentTime);
+        osc.frequency.setValueAtTime(1050, actx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.15, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.5);
+        osc.start(actx.currentTime); osc.stop(actx.currentTime + 0.5);
+      } catch(e) {}
+
+      updateElevUI();
+      updateProfile();
+      saveStats();
+      setTimeout(() => { elev.qNum++; newElevQuestion(); }, 2000);
+    } else {
+      // 카 표시등 빨강
+      const light = document.getElementById('elev-car-light');
+      if (light) { light.style.background = '#ef4444'; light.style.boxShadow = '0 0 12px #ef4444,0 0 24px rgba(239,68,68,.3)'; }
+
+      // 오답 흔들림
+      const shaft = document.getElementById('building-shaft');
+      shaft.classList.add('elev-wrong-shake');
+      setTimeout(() => shaft.classList.remove('elev-wrong-shake'), 400);
+
+      // Web Audio 삐 효과음
+      try {
+        const actx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = actx.createOscillator(); const gain = actx.createGain();
+        osc.connect(gain); gain.connect(actx.destination);
+        osc.type = 'square'; osc.frequency.setValueAtTime(200, actx.currentTime);
+        gain.gain.setValueAtTime(0.08, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.3);
+        osc.start(actx.currentTime); osc.stop(actx.currentTime + 0.3);
+      } catch(e) {}
+
+      document.getElementById('elev-result').textContent = `❌ ${floor}층이 아니에요! 다시 가볼까?`;
+      document.getElementById('elev-result').style.background = '#fef2f2';
+      document.getElementById('elev-result').style.color = '#dc2626';
+      speak('다시 생각해 볼까요?');
+      setTimeout(() => {
+        moveElevator(elev.startFloor, true);
+        setTimeout(() => {
+          const l = document.getElementById('elev-car-light');
+          if (l) { l.style.background = '#22c55e'; l.style.boxShadow = '0 0 12px #22c55e,0 0 24px rgba(34,197,94,.3)'; }
+        }, 800);
+      }, 800);
+      saveStats();
+    }
+  }, 900);
+}
+
+function elevArriveEffect(floor) {
+  const shaft = document.getElementById('building-shaft');
+  const car = document.getElementById('elevator-car');
+  const shaftRect = shaft.getBoundingClientRect();
+  const carRect = car.getBoundingClientRect();
+  const cx = (carRect.left - shaftRect.left) + carRect.width / 2;
+  const cy = (carRect.top - shaftRect.top) + carRect.height / 2;
+
+  // 카 도착 펄스
+  car.classList.add('arriving');
+  setTimeout(() => car.classList.remove('arriving'), 600);
+
+  // 딩동 이모지
+  const ding = document.createElement('div');
+  ding.className = 'elev-ding';
+  ding.textContent = '🔔';
+  shaft.appendChild(ding);
+  setTimeout(() => ding.remove(), 1000);
+
+  // 테마 이모지 파티클 폭발
+  const emoji = FLOOR_EMOJIS[floor];
+  const glowColor = FLOOR_GLOW[floor] || '#f97316';
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div');
+    p.className = 'elev-arrive-particle';
+    const angle = (Math.PI * 2 / 10) * i;
+    const dist = 40 + Math.random() * 70;
+    const dur = 0.5 + Math.random() * 0.3;
+    p.textContent = i % 2 === 0 ? emoji : '✨';
+    p.style.cssText = `left:${cx}px;top:${cy}px;font-size:${18+Math.random()*16}px;--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--dur:${dur}s`;
+    shaft.appendChild(p);
+    setTimeout(() => p.remove(), dur * 1000 + 100);
+  }
+
+  // 테마 색상 링
+  for (let i = 0; i < 2; i++) {
+    setTimeout(() => {
+      const ring = document.createElement('div');
+      ring.className = 'elev-arrive-ring';
+      const size = 120 + i * 80;
+      ring.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;border:4px solid ${glowColor};box-shadow:0 0 20px ${glowColor}`;
+      shaft.appendChild(ring);
+      setTimeout(() => ring.remove(), 700);
+    }, i * 120);
+  }
+}
+
+function elevHint() {
+  const dir = elev.answer > elev.startFloor ? '위' : '아래';
+  speak(`정답은 ${dir}에 있어요`);
+}
+
+function elevRetry() {
+  moveElevator(elev.startFloor, true);
+  document.getElementById('elev-result').textContent = '';
+  document.getElementById('elev-result').style.background = '';
+}
+
+function updateElevUI() {
+  document.getElementById('elev-score').textContent = elev.score;
+  document.getElementById('elev-visited').textContent = elev.visited.size;
+}
+
+// ===== 내 기록 =====
+function updateRecords() {
+  document.getElementById('r-total').textContent = profile.totalPlayed;
+  document.getElementById('r-correct').textContent = profile.totalCorrect;
+  document.getElementById('r-rate').textContent = profile.totalPlayed ? Math.round(profile.totalCorrect / profile.totalPlayed * 100) + '%' : '0%';
+  document.getElementById('rec-total').textContent = profile.totalPlayed;
+  document.getElementById('rec-rate').textContent = profile.totalPlayed ? Math.round(profile.totalCorrect / profile.totalPlayed * 100) + '%' : '0%';
+  document.getElementById('r-bomb-defused').textContent = bomb.defused;
+  document.getElementById('r-bomb-best').textContent = bomb.bestStreak;
+  document.getElementById('r-bomb-score').textContent = bomb.bestScore;
+  document.getElementById('r-eat-fed').textContent = eat.fed;
+  document.getElementById('r-eat-best').textContent = eat.bestStreak;
+  document.getElementById('r-eat-score').textContent = eat.bestScore;
+  document.getElementById('r-elev-correct').textContent = elev.correctCount;
+  document.getElementById('r-elev-floors').textContent = elev.visited.size;
+  document.getElementById('r-elev-score').textContent = elev.bestScore;
+}
+
+// ===== 히어로: 연산 폭격 =====
+function startHeroGame() {
+  document.getElementById('hero-game').classList.remove('hidden');
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.bombs = []; hg.combo = 0; hg.maxCombo = 0;
+  updateHgUI();
+  addHgClouds();
+  hgLoop();
+}
+
+function addHgClouds() {
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-cloud').forEach(c => c.remove());
+  for (let i = 0; i < 5; i++) {
+    const c = document.createElement('div');
+    c.className = 'hg-cloud'; c.textContent = '☁️';
+    c.style.top = (Math.random() * 35) + '%';
+    c.style.animationDelay = -(Math.random() * 20) + 's';
+    c.style.fontSize = (28 + Math.random() * 28) + 'px';
+    arena.appendChild(c);
+  }
+}
+
+function hgLoop() {
+  const interval = Math.max(1500, 3500 - hg.level * 300);
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  hg.spawnTimer = setInterval(() => {
+    if (!hg.paused && hg.running) hgSpawn();
+  }, interval);
+  function tick() {
+    if (!hg.running) return;
+    if (!hg.paused) hgMove();
+    hg.animId = requestAnimationFrame(tick);
+  }
+  hg.animId = requestAnimationFrame(tick);
+}
+
+function hgSpawn() {
+  // 5% 파워업
+  if (Math.random() < 0.05) { hgSpawnPower(); return; }
+
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  // 수식 생성
+  const op = Math.random() > 0.5 ? '+' : '-';
+  let a, b, ans;
+  if (op === '+') {
+    a = Math.floor(Math.random() * (5 + hg.level * 2)) + 1;
+    b = Math.floor(Math.random() * (5 + hg.level)) + 1;
+    ans = a + b;
+  } else {
+    ans = Math.floor(Math.random() * (5 + hg.level * 2)) + 2;
+    b = Math.floor(Math.random() * (ans - 1)) + 1;
+    a = ans;
+    ans = a - b;
+  }
+  const text = `${a}${op}${b}=?`;
+
+  const el = document.createElement('div');
+  el.className = 'falling-bomb';
+  el.innerHTML = `<div class="fb-fuse"></div><div class="fb-body"><div class="fb-text">${text}</div></div>`;
+  el.style.left = (Math.random() * (w - 90) + 10) + 'px';
+  el.style.top = '-100px';
+  arena.appendChild(el);
+
+  const speed = 0.3 + hg.level * 0.08 + Math.random() * 0.15;
+  const sway = (Math.random() - 0.5) * 1.5;
+  hg.bombs.push({ el, y: -100, x: parseFloat(el.style.left), speed, sway, ans, text });
+}
+
+function hgSpawnPower() {
+  const types = [{e:'❤️',fx:'life'},{e:'⏰',fx:'slow'},{e:'💎',fx:'points'}];
+  const t = types[Math.floor(Math.random() * types.length)];
+  const arena = document.getElementById('hg-arena');
+  const w = arena.offsetWidth;
+  const el = document.createElement('div');
+  el.className = 'falling-bomb';
+  el.innerHTML = `<div class="fb-body" style="background:linear-gradient(145deg,#fbbf24,#f59e0b);border-color:#fde68a"><div class="fb-text" style="font-size:28px">${t.e}</div></div>`;
+  el.style.left = (Math.random() * (w - 80) + 10) + 'px';
+  el.style.top = '-80px';
+  el.style.pointerEvents = 'auto';
+  el.style.cursor = 'pointer';
+  el.onclick = () => hgPowerUp(t.fx, el);
+  arena.appendChild(el);
+  hg.bombs.push({ el, y: -80, x: parseFloat(el.style.left), speed: 0.2, sway: 0, ans: -999, isPower: true, fx: t.fx });
+}
+
+function hgPowerUp(fx, el) {
+  if (fx === 'life') hg.lives = Math.min(hg.lives + 1, 7);
+  else if (fx === 'slow') { hg.bombs.forEach(b => b.speed *= 0.5); setTimeout(() => hg.bombs.forEach(b => b.speed *= 2), 3000); }
+  else if (fx === 'points') hg.score += 5;
+  hg.bombs = hg.bombs.filter(b => b.el !== el);
+  el.remove();
+  updateHgUI();
+}
+
+function hgMove() {
+  const arena = document.getElementById('hg-arena');
+  const groundY = arena.offsetHeight * 0.88;
+  const arenaW = arena.offsetWidth;
+  hg.bombs = hg.bombs.filter(item => {
+    item.y += item.speed;
+    if (item.sway) {
+      item.x += Math.sin(item.y / 80) * item.sway * 0.3;
+      item.x = Math.max(5, Math.min(arenaW - 85, item.x));
+      item.el.style.left = item.x + 'px';
+    }
+    item.el.style.top = item.y + 'px';
+    if (item.y >= groundY) {
+      if (item.isPower) { item.el.remove(); return false; }
+      hgMissEffect(item.el);
+      item.el.remove();
+      hg.lives--; hg.combo = 0;
+      speak('펑!');
+      updateHgUI();
+      if (hg.lives <= 0) hgEnd();
+      return false;
+    }
+    return true;
+  });
+}
+
+function hgMissEffect(el) {
+  const a = document.getElementById('hg-arena');
+  const e = document.createElement('div');
+  e.className = 'char-explode'; e.textContent = '💥';
+  e.style.left = el.style.left; e.style.top = el.style.top;
+  a.appendChild(e);
+  setTimeout(() => e.remove(), 800);
+  // 미스 플래시 + 화면 흔들림
+  const mf = document.createElement('div');
+  mf.className = 'hg-miss-flash';
+  a.appendChild(mf);
+  setTimeout(() => mf.remove(), 400);
+  a.classList.add('hg-arena-shake');
+  setTimeout(() => a.classList.remove('hg-arena-shake'), 400);
+}
+
+function hgMatchEffect(el) {
+  const a = document.getElementById('hg-arena');
+  const e = document.createElement('div');
+  e.className = 'char-explode'; e.textContent = '⭐';
+  e.style.left = el.style.left; e.style.top = el.style.top;
+  a.appendChild(e);
+  ['✨','🌟','💫'].forEach((s, i) => {
+    const b = document.createElement('div');
+    b.className = 'star-burst'; b.textContent = s;
+    b.style.left = (parseFloat(el.style.left) + (Math.random()-0.5)*60) + 'px';
+    b.style.top = el.style.top;
+    a.appendChild(b);
+    setTimeout(() => b.remove(), 600);
+  });
+  setTimeout(() => e.remove(), 800);
+}
+
+function hgAnswer(n) {
+  if (!hg.running || hg.paused) return;
+  // n이 한자리 → 직접 매칭. 두자리면 입력 모드 필요하지만 일단 한자리 기준
+  let matched = null;
+  for (const b of hg.bombs) {
+    if (!b.isPower && b.ans === n) { matched = b; break; }
+  }
+  if (matched) {
+    hg.combo++;
+    if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+    const bonus = Math.min(hg.combo - 1, 5);
+    hg.score += 1 + bonus;
+    if (hg.combo >= 3) {
+      const a = document.getElementById('hg-arena');
+      const ce = document.createElement('div');
+      ce.textContent = `${hg.combo} COMBO!`;
+      ce.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;font-weight:900;color:#f59e0b;text-shadow:0 4px 8px rgba(0,0,0,.3);z-index:50;pointer-events:none;animation:comboPop 1s ease-out forwards';
+      a.appendChild(ce);
+      setTimeout(() => ce.remove(), 1000);
+    }
+    hgMatchEffect(matched.el);
+    speak('정답!');
+    // 정답 플래시
+    const flash = document.createElement('div');
+    flash.className = 'hg-flash';
+    document.getElementById('hg-arena').appendChild(flash);
+    setTimeout(() => flash.remove(), 300);
+
+    matched.el.remove();
+    hg.bombs = hg.bombs.filter(b => b !== matched);
+    const nl = Math.floor(hg.score / 10) + 1;
+    if (nl > hg.level) { hg.level = nl; hgUpdateBg(); }
+    updateHgUI();
+  } else {
+    // 없는 숫자 누름 - 무시 (벌칙 없음)
+  }
+}
+
+function hgUpdateBg() {
+  const bgs = [
+    'linear-gradient(180deg,#dbeafe 0%,#93c5fd 25%,#a7f3d0 75%,#6ee7b7 100%)',
+    'linear-gradient(180deg,#fef3c7 0%,#fde68a 25%,#fed7aa 75%,#fdba74 100%)',
+    'linear-gradient(180deg,#1e293b 0%,#334155 25%,#475569 75%,#64748b 100%)',
+    'linear-gradient(180deg,#0f172a 0%,#1e1b4b 25%,#312e81 75%,#4338ca 100%)'
+  ];
+  document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
+}
+
+function updateHgUI() {
+  document.getElementById('hg-score').textContent = hg.score;
+  document.getElementById('hg-level').textContent = hg.level;
+  document.getElementById('hg-hearts').textContent = '❤️'.repeat(hg.lives) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+}
+
+function hgEnd() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.bombs.forEach(b => b.el.remove());
+  hg.bombs = [];
+  document.getElementById('hg-final-score').textContent = hg.score;
+  let msg = '잘했어요!';
+  if (hg.score >= 30) msg = '대단해요! 수학 천재!';
+  else if (hg.score >= 20) msg = '와! 정말 잘했어요!';
+  else if (hg.score >= 10) msg = '멋져요! 계속 연습!';
+  document.getElementById('hg-over-msg').textContent = msg;
+  document.getElementById('hg-over').classList.remove('hidden');
+  speak(msg);
+}
+
+function hgRestart() {
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-arena').querySelectorAll('.falling-bomb,.char-explode,.star-burst').forEach(e => e.remove());
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
+  hg.bombs = []; hg.combo = 0; hg.maxCombo = 0;
+  updateHgUI(); hgUpdateBg(); hgLoop();
+}
+
+function hgPause() {
+  hg.paused = !hg.paused;
+  document.getElementById('hg-pause').classList.toggle('hidden', !hg.paused);
+}
+
+function hgExit() {
+  hg.running = false;
+  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
+  if (hg.animId) cancelAnimationFrame(hg.animId);
+  hg.bombs.forEach(b => b.el.remove());
+  hg.bombs = [];
+  document.getElementById('hg-over').classList.add('hidden');
+  document.getElementById('hg-pause').classList.add('hidden');
+  document.getElementById('hero-game').classList.add('hidden');
+}
+
+// ===== 초기화 =====
+document.addEventListener('DOMContentLoaded', function() {
+  // fitScale
+  function fitScale() {
+    const c = document.querySelector('.container');
+    if (!c || getComputedStyle(c).display === 'none') return;
+    const M = 0.03;
+    const aW = window.innerWidth * (1 - M * 2);
+    const aH = window.innerHeight * (1 - M * 2);
+    const s = Math.min(aW / 1920, aH / 1080);
+    c.style.transform = `scale(${s})`;
+    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+  }
+  fitScale();
+  window.addEventListener('resize', fitScale);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
+
+  // 넘패드 생성 (0~9 + 확인 + 지우기)
+  const bp = document.getElementById('bomb-numpad');
+  let bh = '';
+  for (let i = 0; i <= 9; i++) bh += `<div class="numpad-btn" onclick="bombInput(${i})">${i}</div>`;
+  bh += `<div class="numpad-btn numpad-clear" onclick="bombClear()">✕</div>`;
+  bh += `<div class="numpad-btn numpad-confirm" onclick="bombConfirm()">✔</div>`;
+  bp.innerHTML = bh;
+
+  // 히어로 넘패드
+  const hp = document.getElementById('hg-numpad');
+  let hph = '';
+  for (let i = 0; i <= 9; i++) hph += `<div class="hg-num-btn" onclick="hgAnswer(${i})">${i}</div>`;
+  hp.innerHTML = hph;
+
+  // 프로필
+  updateProfile();
+  updateActionButtons();
+
+  // 게임 초기화 (폭탄은 시작 버튼으로 시작)
+  initEatGame();
+  initElevator();
+});
+
+// 더블탭 방지
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+</script>
+</body>
+</html>
