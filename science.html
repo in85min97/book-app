@@ -54,7 +54,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .game-view.active{display:flex}
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
 .action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn .icon{font-size:52px;opacity:.9}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-teal{background:linear-gradient(145deg,#14b8a6,#0d9488);box-shadow:0 2px 8px rgba(20,184,166,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -70,7 +70,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .mix-ingredients-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;max-width:600px}
 .mix-ingredient{width:105px;height:105px;background:linear-gradient(145deg,#f0fdfa,#ccfbf1);border:3px solid #99f6e4;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;font-size:13px;font-weight:700;color:#134e4a;gap:2px}
 .mix-ingredient:active{transform:scale(.93)}
-.mix-ingredient .mi-emoji{font-size:40px}
+.mix-ingredient .mi-emoji{font-size:82px}
 .mix-ingredient.selected{border-color:#0d9488;background:linear-gradient(145deg,#ccfbf1,#99f6e4);box-shadow:0 0 20px rgba(13,148,136,.4)}
 .mix-ingredient.used{opacity:.35;pointer-events:none}
 .mix-bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);pointer-events:none;animation:bubUp var(--dur,1.5s) ease-out forwards}
@@ -85,7 +85,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .weight-item{width:170px;height:170px;background:linear-gradient(145deg,#f0fdfa,#ccfbf1);border:4px solid #99f6e4;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;gap:6px}
 .weight-item:active{transform:scale(.95)}
 .weight-item:hover{border-color:#0d9488;box-shadow:0 0 20px rgba(13,148,136,.3)}
-.weight-item .wi-emoji{font-size:60px}
+.weight-item .wi-emoji{font-size:130px}
 .weight-item .wi-name{font-size:17px;font-weight:700;color:#134e4a}
 .weight-result{font-size:22px;font-weight:800;text-align:center;min-height:36px;color:#0d9488}
 
@@ -126,7 +126,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-tube-label{font-size:14px;font-weight:800;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.5);margin-top:4px}
 .falling-item{position:absolute;z-index:8;pointer-events:none;animation:fiFloat 2s linear infinite}
 @keyframes fiFloat{0%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}100%{transform:rotate(-3deg)}}
-.fi-body{width:70px;height:70px;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.05));border:3px solid rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;backdrop-filter:blur(4px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.fi-body{width:70px;height:70px;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.05));border:3px solid rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:56px;backdrop-filter:blur(4px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
 .hg-flash-green{position:absolute;inset:0;pointer-events:none;z-index:30;animation:hgFG .3s ease-out forwards}
 @keyframes hgFG{0%{background:rgba(34,197,94,.3)}100%{background:transparent}}
 .hg-flash-red{position:absolute;inset:0;pointer-events:none;z-index:30;animation:hgFR .4s ease-out forwards}
@@ -892,9 +892,30 @@ function initLightMode() {
 function initPrism(canvas) {
   document.getElementById('light-info').textContent = '프리즘을 클릭하면 빛이 무지개로 나뉘어요!';
   canvas.innerHTML = '<svg width="100%" height="100%" viewBox="0 0 800 500" style="position:absolute;inset:0">' +
-    '<defs><linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fbbf24"/></linearGradient></defs>' +
+    '<defs>' +
+    '<linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fbbf24"/></linearGradient>' +
+    '<linearGradient id="rainbowDeco" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ef4444"/><stop offset="16%" stop-color="#f97316"/><stop offset="33%" stop-color="#eab308"/><stop offset="50%" stop-color="#22c55e"/><stop offset="66%" stop-color="#3b82f6"/><stop offset="83%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>' +
+    '<radialGradient id="starGlow"><stop offset="0%" stop-color="rgba(255,255,255,.8)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient>' +
+    '</defs>' +
+    /* 배경 장식: 반짝이는 별들 */
+    '<circle cx="50" cy="60" r="3" fill="#fff" opacity=".6"><animate attributeName="opacity" values=".3;.9;.3" dur="2s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="150" cy="40" r="2" fill="#fff" opacity=".4"><animate attributeName="opacity" values=".2;.8;.2" dur="2.5s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="680" cy="50" r="3" fill="#fff" opacity=".5"><animate attributeName="opacity" values=".3;1;.3" dur="1.8s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="750" cy="90" r="2" fill="#fff" opacity=".4"><animate attributeName="opacity" values=".2;.7;.2" dur="3s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="600" cy="420" r="2" fill="#5eead4" opacity=".5"><animate attributeName="opacity" values=".3;.9;.3" dur="2.2s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="720" cy="380" r="3" fill="#5eead4" opacity=".4"><animate attributeName="opacity" values=".2;.8;.2" dur="2.7s" repeatCount="indefinite"/></circle>' +
+    /* 장식 무지개 아치 (우하단) */
+    '<path d="M 560 460 Q 660 340 760 460" fill="none" stroke="url(#rainbowDeco)" stroke-width="8" opacity=".2" stroke-linecap="round"/>' +
+    '<path d="M 570 460 Q 660 350 750 460" fill="none" stroke="url(#rainbowDeco)" stroke-width="5" opacity=".12" stroke-linecap="round"/>' +
+    /* 광선 빔 */
     '<line id="prism-beam" x1="0" y1="250" x2="310" y2="250" stroke="url(#beam)" stroke-width="8" opacity=".8"/>' +
+    /* 프리즘 글로우 */
+    '<polygon points="350,150 450,350 250,350" fill="rgba(94,234,212,.06)" stroke="none" style="filter:blur(20px)"/>' +
+    /* 프리즘 본체 */
     '<polygon id="prism-shape" points="350,150 450,350 250,350" fill="rgba(255,255,255,.1)" stroke="#5eead4" stroke-width="3" style="cursor:pointer;filter:drop-shadow(0 0 20px rgba(94,234,212,.5))"/>' +
+    /* 프리즘 안 반짝임 */
+    '<polygon points="340,180 410,320 280,320" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"/>' +
+    '<text x="350" y="280" text-anchor="middle" font-size="18" fill="rgba(255,255,255,.5)" font-weight="700">클릭!</text>' +
     '<g id="rainbow-group" opacity="0"></g>' +
     '</svg>';
   document.getElementById('prism-shape').addEventListener('click', activatePrism);

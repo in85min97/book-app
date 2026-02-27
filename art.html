@@ -77,7 +77,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .parts-category{background:linear-gradient(145deg,#fce7f3,#fbcfe8);border-radius:12px;padding:10px;border:2px solid #f9a8d4}
 .parts-cat-title{font-size:14px;font-weight:700;color:#9d174d;margin-bottom:8px;text-align:center}
 .parts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.face-part-item{width:52px;height:52px;background:#fff;border:2px solid #e2e8f0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:grab;transition:.15s;font-size:28px}
+.face-part-item{width:52px;height:52px;background:#fff;border:2px solid #e2e8f0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:grab;transition:.15s;font-size:42px}
 .face-part-item:active{transform:scale(.9);border-color:#ec4899}
 .face-part-item.selected{border-color:#ec4899;background:linear-gradient(145deg,#fce7f3,#fdf2f8);box-shadow:0 0 8px rgba(236,72,153,.3)}
 .placed-part{position:absolute;cursor:move;font-size:40px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));transition:transform .1s;z-index:5}
@@ -123,7 +123,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes stickerEnter{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.15) rotate(5deg);opacity:1}100%{transform:scale(1) rotate(0deg);opacity:.85}}
 .theater-controls{display:flex;gap:8px;padding:8px 12px;flex-shrink:0;align-items:center}
 .sticker-palette{display:flex;gap:8px;flex:1;overflow-x:auto;padding:4px}
-.sticker-item{width:56px;height:56px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border:2px solid #f9a8d4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:32px;cursor:grab;flex-shrink:0;transition:.15s}
+.sticker-item{width:56px;height:56px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border:2px solid #f9a8d4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:44px;cursor:grab;flex-shrink:0;transition:.15s}
 .sticker-item:active{transform:scale(.9);border-color:#ec4899}
 .sticker-item.selected{border-color:#ec4899;background:#fbcfe8;box-shadow:0 0 8px rgba(236,72,153,.3)}
 .theater-btn{padding:10px 20px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
@@ -147,7 +147,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
 .action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn .icon{font-size:52px;opacity:.9}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-pink{background:linear-gradient(145deg,#ec4899,#db2777);box-shadow:0 2px 8px rgba(236,72,153,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -919,10 +919,36 @@ function initPaintCanvas() {
   canvas.addEventListener('mousemove', e => { if (e.buttons) paintSplat(e); });
   canvas.addEventListener('touchstart', e => { e.preventDefault(); paintSplat(e.touches[0]); }, {passive:false});
   canvas.addEventListener('touchmove', e => { e.preventDefault(); paintSplat(e.touches[0]); }, {passive:false});
+  // 초기 안내 SVG
+  addPaintGuide();
+}
+function addPaintGuide() {
+  const canvas = document.getElementById('paint-canvas');
+  if (canvas.querySelector('.paint-guide')) return;
+  const guide = document.createElement('div');
+  guide.className = 'paint-guide';
+  guide.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none';
+  guide.innerHTML = '<svg width="320" height="280" viewBox="0 0 320 280">' +
+    '<defs><linearGradient id="pgGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ec4899" stop-opacity=".15"/><stop offset="100%" stop-color="#f472b6" stop-opacity=".08"/></linearGradient></defs>' +
+    '<circle cx="160" cy="120" r="100" fill="url(#pgGrad)" stroke="#f9a8d4" stroke-width="2" stroke-dasharray="8 6" opacity=".6"><animate attributeName="r" values="95;105;95" dur="3s" repeatCount="indefinite"/></circle>' +
+    /* 손가락 아이콘 */
+    '<text x="160" y="135" text-anchor="middle" font-size="72" opacity=".5">👆</text>' +
+    /* 물감 방울 장식 */
+    '<circle cx="80" cy="60" r="12" fill="#ec4899" opacity=".18"><animate attributeName="opacity" values=".1;.25;.1" dur="2s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="240" cy="70" r="10" fill="#8b5cf6" opacity=".15"><animate attributeName="opacity" values=".1;.22;.1" dur="2.3s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="60" cy="170" r="8" fill="#3b82f6" opacity=".15"><animate attributeName="opacity" values=".08;.2;.08" dur="2.6s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="260" cy="160" r="11" fill="#22c55e" opacity=".15"><animate attributeName="opacity" values=".1;.22;.1" dur="1.8s" repeatCount="indefinite"/></circle>' +
+    '<circle cx="120" cy="190" r="9" fill="#f97316" opacity=".15"><animate attributeName="opacity" values=".08;.2;.08" dur="2.1s" repeatCount="indefinite"/></circle>' +
+    /* 안내 텍스트 */
+    '<text x="160" y="250" text-anchor="middle" font-size="22" font-weight="800" fill="#ec4899" opacity=".5">여기를 터치해서 그려보세요!</text>' +
+    '</svg>';
+  canvas.appendChild(guide);
 }
 
 function paintSplat(e) {
   const canvas = document.getElementById('paint-canvas');
+  const guide = canvas.querySelector('.paint-guide');
+  if (guide) guide.remove();
   const svg = document.getElementById('paint-svg');
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -995,6 +1021,9 @@ function paintSplat(e) {
 function paintClearCanvas() {
   const svg = document.getElementById('paint-svg');
   while (svg.firstChild) svg.removeChild(svg.firstChild);
+  const canvas = document.getElementById('paint-canvas');
+  const oldGuide = canvas.querySelector('.paint-guide');
+  if (!oldGuide) addPaintGuide();
   speak('깨끗해졌어요!');
 }
 

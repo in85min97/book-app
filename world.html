@@ -86,7 +86,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .pilot-start-title{font-size:48px;font-weight:900;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,.3)}
 .pilot-start-btn{background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff;border:4px solid #bae6fd;border-radius:24px;padding:24px 60px;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(14,165,233,.4);animation:gPulse 2s ease-in-out infinite}
 .pilot-start-btn:active{transform:scale(.95)}
-.cloud-bg{position:absolute;font-size:40px;opacity:.15;pointer-events:none;animation:cloudDrift 25s linear infinite}
+.cloud-bg{position:absolute;opacity:.2;pointer-events:none;animation:cloudDrift 25s linear infinite}
 @keyframes cloudDrift{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100% + 200px))}}
 
 /* ===== 옷 입히기 ===== */
@@ -97,7 +97,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .dress-item{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:16px;padding:12px;text-align:center;cursor:pointer;transition:.2s;font-size:14px;font-weight:700;color:#1e293b}
 .dress-item:active{transform:scale(.95)}
 .dress-item.selected{border-color:#0ea5e9;background:linear-gradient(145deg,#e0f2fe,#bae6fd);box-shadow:0 0 12px rgba(14,165,233,.3)}
-.dress-item-emoji{font-size:36px;margin-bottom:4px;display:block}
+.dress-item-emoji{font-size:64px;margin-bottom:4px;display:block;line-height:1}
 .dress-result{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);border-radius:16px;padding:16px 24px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:10;animation:cardSlideUp .5s ease-out}
 .dress-quiz-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:20;backdrop-filter:blur(5px)}
 .dress-quiz-box{background:#fff;border-radius:24px;padding:30px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3);min-width:400px}
@@ -132,7 +132,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
 .action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn .icon{font-size:52px;opacity:.9;line-height:1}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-sky{background:linear-gradient(145deg,#0ea5e9,#0284c7);box-shadow:0 2px 8px rgba(14,165,233,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -155,10 +155,10 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-plane{position:absolute;bottom:80px;width:80px;height:80px;z-index:10;transition:left .15s ease-out;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3))}
 .hg-plane.invincible{filter:drop-shadow(0 0 20px #fbbf24) drop-shadow(0 0 40px #fbbf24)}
 .falling-flag{position:absolute;z-index:5;pointer-events:none;text-align:center}
-.ff-emoji{font-size:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));display:block}
+.ff-emoji{font-size:72px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));display:block}
 .ff-highlight{animation:flagHighlight .5s ease-in-out infinite}
 @keyframes flagHighlight{0%,100%{filter:drop-shadow(0 0 8px #fbbf24)}50%{filter:drop-shadow(0 0 20px #fbbf24)}}
-.hg-cloud{position:absolute;font-size:36px;opacity:.2;pointer-events:none;animation:hgCloudFloat 20s linear infinite;z-index:1}
+.hg-cloud{position:absolute;opacity:.25;pointer-events:none;animation:hgCloudFloat 20s linear infinite;z-index:1}
 @keyframes hgCloudFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
 .hg-powerup{position:absolute;z-index:6;pointer-events:none;animation:puFloat 1s ease-in-out infinite}
 @keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -302,10 +302,10 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <!-- 비행기 조종사 -->
       <div class="game-view pilot-view active" id="pilot-view">
         <div class="pilot-area" id="pilot-area">
-          <!-- 구름 배경 -->
-          <div class="cloud-bg" style="top:10%;left:5%">☁️</div>
-          <div class="cloud-bg" style="top:25%;left:70%;animation-delay:-8s">☁️</div>
-          <div class="cloud-bg" style="top:60%;left:30%;animation-delay:-15s;font-size:30px">☁️</div>
+          <!-- 구름 배경 (SVG) -->
+          <div class="cloud-bg" style="top:10%;left:5%"><svg width="120" height="60" viewBox="0 0 120 60"><ellipse cx="60" cy="40" rx="50" ry="18" fill="#fff"/><ellipse cx="40" cy="30" rx="28" ry="20" fill="#fff"/><ellipse cx="75" cy="28" rx="24" ry="18" fill="#fff"/><ellipse cx="55" cy="22" rx="20" ry="15" fill="#fff"/></svg></div>
+          <div class="cloud-bg" style="top:25%;left:70%;animation-delay:-8s"><svg width="100" height="50" viewBox="0 0 100 50"><ellipse cx="50" cy="35" rx="42" ry="14" fill="#fff"/><ellipse cx="35" cy="25" rx="22" ry="16" fill="#fff"/><ellipse cx="62" cy="22" rx="20" ry="14" fill="#fff"/><ellipse cx="48" cy="18" rx="16" ry="12" fill="#fff"/></svg></div>
+          <div class="cloud-bg" style="top:60%;left:30%;animation-delay:-15s"><svg width="80" height="40" viewBox="0 0 80 40"><ellipse cx="40" cy="28" rx="34" ry="11" fill="#fff"/><ellipse cx="28" cy="20" rx="18" ry="13" fill="#fff"/><ellipse cx="50" cy="18" rx="16" ry="11" fill="#fff"/><ellipse cx="38" cy="14" rx="13" ry="10" fill="#fff"/></svg></div>
           <div class="globe-container" id="globe-container">
             <svg id="globe-svg" viewBox="0 0 500 500" width="500" height="500">
               <defs>
@@ -1025,15 +1025,15 @@ function initSoundMap() {
     g.setAttribute('transform', `translate(${s.x},${s.y})`);
 
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('r', '22');
+    circle.setAttribute('r', '28');
     circle.setAttribute('fill', sound.heard.includes(s.id) ? 'rgba(14,165,233,.3)' : 'rgba(255,255,255,.6)');
     circle.setAttribute('stroke', sound.heard.includes(s.id) ? '#0ea5e9' : '#94a3b8');
-    circle.setAttribute('stroke-width', '2');
+    circle.setAttribute('stroke-width', '2.5');
 
     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     text.setAttribute('text-anchor', 'middle');
     text.setAttribute('dominant-baseline', 'central');
-    text.setAttribute('font-size', '20');
+    text.setAttribute('font-size', '28');
     text.textContent = s.emoji;
 
     g.appendChild(circle);
@@ -1306,10 +1306,11 @@ function hgSpawnClouds() {
   for (let i = 0; i < 5; i++) {
     const cloud = document.createElement('div');
     cloud.className = 'hg-cloud';
-    cloud.textContent = '☁️';
+    const cw = 80 + Math.random() * 60;
+    const ch = cw * 0.5;
+    cloud.innerHTML = `<svg width="${cw}" height="${ch}" viewBox="0 0 120 60"><ellipse cx="60" cy="40" rx="50" ry="18" fill="#fff"/><ellipse cx="40" cy="30" rx="28" ry="20" fill="#fff"/><ellipse cx="75" cy="28" rx="24" ry="18" fill="#fff"/><ellipse cx="55" cy="22" rx="20" ry="15" fill="#fff"/></svg>`;
     cloud.style.top = (Math.random() * 70 + 5) + '%';
     cloud.style.animationDelay = (-Math.random() * 20) + 's';
-    cloud.style.fontSize = (30 + Math.random() * 20) + 'px';
     arena.appendChild(cloud);
   }
 }

@@ -75,10 +75,10 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .fish-title{font-size:24px;font-weight:900;color:#064e3b;text-align:center;padding:10px;background:linear-gradient(145deg,#ecfdf5,#d1fae5);border-radius:14px;border:2px solid #6ee7b7}
 .fish-day-info{font-size:18px;font-weight:700;color:#065f46;text-align:center}
 .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:8px}
-.shop-item{background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #a7f3d0;border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:.2s}
+.shop-item{background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #a7f3d0;border-radius:16px;padding:12px 16px;text-align:center;cursor:pointer;transition:.2s}
 .shop-item:active{transform:scale(.96)}
 .shop-item.selected{border-color:#059669;background:linear-gradient(145deg,#d1fae5,#a7f3d0);box-shadow:0 0 16px rgba(5,150,105,.3)}
-.shop-emoji{font-size:48px;margin-bottom:8px}
+.shop-emoji{font-size:72px;margin-bottom:8px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
 .shop-name{font-size:18px;font-weight:800;color:#064e3b}
 .shop-price{font-size:16px;font-weight:700;color:#059669;margin-top:4px}
 .fish-slider-row{display:flex;align-items:center;gap:16px;padding:12px 20px;background:#fff;border-radius:14px;border:2px solid #a7f3d0}
@@ -89,8 +89,9 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .fish-btn{background:linear-gradient(145deg,#10b981,#059669);color:#fff;border:3px solid #6ee7b7;border-radius:16px;padding:14px 30px;font-size:22px;font-weight:800;cursor:pointer;font-family:inherit;text-align:center;box-shadow:0 4px 12px rgba(5,150,105,.3)}
 .fish-btn:active{transform:scale(.96)}
 .fish-btn.restart{background:linear-gradient(145deg,#6ee7b7,#34d399);color:#064e3b}
-.weather-card{background:linear-gradient(145deg,#fff,#ecfdf5);border:3px solid #6ee7b7;border-radius:20px;padding:20px;text-align:center;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
-.weather-emoji{font-size:64px}
+.weather-card{background:linear-gradient(145deg,#fff,#ecfdf5);border:3px solid #6ee7b7;border-radius:20px;padding:20px;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
+.weather-card::before{content:'';position:absolute;inset:0;opacity:.08;pointer-events:none}
+.weather-emoji{font-size:100px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15))}
 .weather-name{font-size:22px;font-weight:800;color:#064e3b}
 .weather-desc{font-size:16px;color:#065f46;font-weight:600}
 .result-box{background:linear-gradient(145deg,#ecfdf5,#d1fae5);border:3px solid #10b981;border-radius:20px;padding:20px;text-align:center}
@@ -99,6 +100,13 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .result-val{font-size:22px;font-weight:900;color:#059669}
 .result-val.loss{color:#ef4444}
 .result-val.profit{color:#059669}
+/* 붕어빵 틀 SVG */
+.fish-grill-container{display:flex;justify-content:center;padding:8px 0}
+.fish-grill-svg{width:100%;max-width:500px;height:auto;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2))}
+/* 장사 결과 동전 이펙트 */
+.fish-coin-rain{position:absolute;inset:0;pointer-events:none;z-index:20;overflow:hidden}
+.fish-flying-coin{position:absolute;animation:fishCoinFly 1.2s ease-out forwards}
+@keyframes fishCoinFly{0%{transform:translate(0,0) rotate(0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-100px)) rotate(360deg) scale(0.3);opacity:0}}
 .fish-summary{background:linear-gradient(145deg,#064e3b,#065f46);border-radius:20px;padding:24px;text-align:center;color:#fff}
 .fish-summary h2{font-size:28px;font-weight:900;margin-bottom:16px;color:#6ee7b7}
 .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -107,19 +115,27 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .summary-label{font-size:14px;color:#a7f3d0;margin-top:4px}
 
 /* ====== 지갑 탈출 ====== */
-.wallet-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden}
+.wallet-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden;position:relative}
 .wallet-header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:linear-gradient(145deg,#ecfdf5,#d1fae5);border-radius:14px;border:2px solid #6ee7b7;flex-shrink:0}
 .wallet-money{font-size:28px;font-weight:900;color:#064e3b}
 .wallet-piggy{font-size:24px;font-weight:700;color:#059669;display:flex;align-items:center;gap:8px}
-.wallet-piggy .piggy-icon{font-size:36px;transition:transform .3s}
+.wallet-piggy .piggy-icon{font-size:36px;transition:transform .3s;display:inline-flex;align-items:center}
+.piggy-svg{width:48px;height:48px;filter:drop-shadow(0 2px 6px rgba(236,72,153,.3))}
+.piggy-svg .piggy-ear{animation:piggyEarWiggle 2s ease-in-out infinite}
+@keyframes piggyEarWiggle{0%,100%{transform:rotate(0)}50%{transform:rotate(-5deg)}}
+.piggy-svg .piggy-eye-blink{animation:piggyBlink 3s ease-in-out infinite}
+@keyframes piggyBlink{0%,42%,46%,100%{ry:3}44%{ry:0.5}}
 .wallet-piggy .piggy-icon.bounce{animation:piggyBounce .5s ease-out}
 @keyframes piggyBounce{0%{transform:scale(1)}30%{transform:scale(1.3) rotate(-10deg)}60%{transform:scale(1.1) rotate(5deg)}100%{transform:scale(1)}}
-.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:4px;flex:1;overflow-y:auto;align-content:start}
-.product-item{background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #d1fae5;border-radius:16px;padding:12px;text-align:center;cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:4px;flex:1;overflow-y:auto;align-content:start;grid-auto-rows:1fr}
+.product-item{background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #d1fae5;border-radius:16px;padding:14px 12px;text-align:center;cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
 .product-item:active{transform:scale(.95)}
 .product-item.in-cart{border-color:#059669;background:linear-gradient(145deg,#d1fae5,#a7f3d0)}
 .product-item.over-budget{border-color:#ef4444;background:linear-gradient(145deg,#fef2f2,#fecaca)}
-.product-emoji{font-size:40px}
+.product-emoji{font-size:72px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12));transition:transform .2s;line-height:1}
+.product-item:hover .product-emoji{transform:scale(1.1)}
+.product-item.in-cart .product-emoji{animation:cartBounce .4s ease-out}
+@keyframes cartBounce{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
 .product-name{font-size:14px;font-weight:700;color:#064e3b}
 .product-price{font-size:16px;font-weight:800;color:#059669}
 .cart-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:#fff;border-radius:14px;border:2px solid #a7f3d0;flex-shrink:0}
@@ -135,23 +151,30 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes piggyPart{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,-30px)) scale(0);opacity:0}}
 
 /* ====== 물물교환 ====== */
-.trade-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden}
+.trade-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden;position:relative}
 .trade-goal{font-size:20px;font-weight:800;color:#064e3b;text-align:center;padding:12px;background:linear-gradient(145deg,#ecfdf5,#d1fae5);border-radius:14px;border:2px solid #6ee7b7;flex-shrink:0}
 .trade-inventory{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border-radius:14px;border:2px solid #a7f3d0;flex-shrink:0;flex-wrap:wrap}
 .trade-inv-label{font-size:16px;font-weight:700;color:#064e3b}
-.inv-item{background:linear-gradient(145deg,#d1fae5,#a7f3d0);border-radius:10px;padding:6px 12px;font-size:16px;font-weight:700;color:#064e3b;display:flex;align-items:center;gap:4px}
+.inv-item{background:linear-gradient(145deg,#d1fae5,#a7f3d0);border-radius:12px;padding:8px 14px;font-size:18px;font-weight:700;color:#064e3b;display:flex;align-items:center;gap:6px}
+.inv-item .inv-emoji{font-size:32px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.1))}
 .trade-table{flex:1;display:flex;flex-direction:column;gap:8px;overflow-y:auto;padding:4px}
-.trade-row{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(145deg,#fff,#f0fdf4);border:2px solid #d1fae5;border-radius:16px;cursor:pointer;transition:.2s}
+.trade-row{display:flex;align-items:center;gap:12px;padding:16px 20px;background:linear-gradient(145deg,#fff,#f0fdf4);border:2px solid #d1fae5;border-radius:16px;cursor:pointer;transition:.2s}
 .trade-row:hover{border-color:#10b981;box-shadow:0 2px 8px rgba(16,185,129,.2)}
 .trade-row:active{transform:scale(.98)}
 .trade-row.disabled{opacity:.4;pointer-events:none}
-.trade-give{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:700;color:#dc2626;min-width:140px}
-.trade-arrow{font-size:24px;color:#10b981;font-weight:900}
-.trade-receive{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:700;color:#059669;min-width:140px}
+.trade-give{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700;color:#dc2626;min-width:160px}
+.trade-give .trade-item-emoji,.trade-receive .trade-item-emoji{font-size:40px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+.trade-arrow-svg{width:60px;height:36px;flex-shrink:0}
+.trade-receive{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700;color:#059669;min-width:160px}
 .trade-result{text-align:center;font-size:22px;font-weight:800;padding:12px;border-radius:14px;flex-shrink:0;min-height:50px;transition:.3s}
 .trade-success-overlay{position:absolute;inset:0;pointer-events:none;z-index:20;overflow:hidden}
 .trade-confetti{position:absolute;width:8px;height:8px;border-radius:2px;pointer-events:none;animation:tradeConf var(--dur,1s) ease-out forwards}
 @keyframes tradeConf{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,200px)) rotate(720deg);opacity:0}}
+.trade-star-burst{position:absolute;pointer-events:none;z-index:25;animation:starBurst .8s ease-out forwards}
+@keyframes starBurst{0%{transform:translate(0,0) scale(0) rotate(0);opacity:1}50%{transform:translate(var(--tx,0),var(--ty,0)) scale(1.5) rotate(180deg);opacity:1}100%{transform:translate(calc(var(--tx,0) * 2),calc(var(--ty,0) * 2)) scale(0) rotate(360deg);opacity:0}}
+/* 상품 반짝이 이펙트 */
+.sparkle-effect{position:absolute;pointer-events:none;z-index:10;animation:sparkleFloat 0.6s ease-out forwards}
+@keyframes sparkleFloat{0%{transform:scale(0) rotate(0);opacity:1}100%{transform:scale(1.5) rotate(180deg);opacity:0}}
 
 /* 내 기록 */
 .records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
@@ -165,7 +188,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
 .action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn .icon{font-size:52px;opacity:.9;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-emerald{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -186,11 +209,15 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-ctrl-btn:active{transform:scale(.9)}
 .hg-arena{flex:1;position:relative;overflow:hidden}
 .hg-ground{position:absolute;bottom:0;left:0;right:0;height:8%;background:linear-gradient(180deg,#059669,#047857);border-top:4px solid #6ee7b7;border-radius:50% 50% 0 0/20px 20px 0 0}
-.hg-wallet{position:absolute;bottom:9%;left:50%;transform:translateX(-50%);font-size:80px;z-index:5;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2));pointer-events:none}
+.hg-wallet{position:absolute;bottom:9%;left:50%;transform:translateX(-50%);z-index:5;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2));pointer-events:none}
+.hg-wallet svg{width:120px;height:100px}
+.wallet-mouth{animation:walletMouth 2s ease-in-out infinite}
+@keyframes walletMouth{0%,100%{d:path('M25,30 Q50,35 75,30')}50%{d:path('M25,30 Q50,42 75,30')}}
 .falling-coin{position:absolute;z-index:5;cursor:pointer;transition:transform .1s;animation:coinSpin 1.5s linear infinite}
 .falling-coin:active{transform:scale(.85)}
 @keyframes coinSpin{0%{filter:brightness(1)}50%{filter:brightness(1.2)}100%{filter:brightness(1)}}
-.falling-coin .coin-body{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3);border:3px solid rgba(255,255,255,.6);box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.falling-coin .coin-body{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.3)}
+.falling-coin .coin-svg{width:72px;height:72px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
 .coin-10{background:linear-gradient(145deg,#d97706,#b45309)}
 .coin-50{background:linear-gradient(145deg,#f59e0b,#d97706)}
 .coin-100{background:linear-gradient(145deg,#6ee7b7,#10b981)}
@@ -241,6 +268,64 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 </style>
 </head>
 <body>
+<!-- SVG 정의 -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden">
+<defs>
+  <!-- 금색 동전 그라데이션 -->
+  <radialGradient id="coinGold" cx="35%" cy="35%">
+    <stop offset="0%" stop-color="#fef08a"/>
+    <stop offset="40%" stop-color="#fbbf24"/>
+    <stop offset="80%" stop-color="#d97706"/>
+    <stop offset="100%" stop-color="#92400e"/>
+  </radialGradient>
+  <radialGradient id="coinSilver" cx="35%" cy="35%">
+    <stop offset="0%" stop-color="#e2e8f0"/>
+    <stop offset="40%" stop-color="#94a3b8"/>
+    <stop offset="80%" stop-color="#64748b"/>
+    <stop offset="100%" stop-color="#475569"/>
+  </radialGradient>
+  <radialGradient id="coinCopper" cx="35%" cy="35%">
+    <stop offset="0%" stop-color="#fcd34d"/>
+    <stop offset="40%" stop-color="#b45309"/>
+    <stop offset="80%" stop-color="#78350f"/>
+    <stop offset="100%" stop-color="#451a03"/>
+  </radialGradient>
+  <radialGradient id="coinGreen" cx="35%" cy="35%">
+    <stop offset="0%" stop-color="#a7f3d0"/>
+    <stop offset="40%" stop-color="#34d399"/>
+    <stop offset="80%" stop-color="#059669"/>
+    <stop offset="100%" stop-color="#047857"/>
+  </radialGradient>
+  <!-- 날씨 SVG 그라데이션 -->
+  <linearGradient id="sunGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#fbbf24"/>
+    <stop offset="100%" stop-color="#f59e0b"/>
+  </linearGradient>
+  <linearGradient id="cloudGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e2e8f0"/>
+    <stop offset="100%" stop-color="#94a3b8"/>
+  </linearGradient>
+  <linearGradient id="rainGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#60a5fa"/>
+    <stop offset="100%" stop-color="#3b82f6"/>
+  </linearGradient>
+  <linearGradient id="snowGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#e0f2fe"/>
+    <stop offset="100%" stop-color="#bae6fd"/>
+  </linearGradient>
+  <linearGradient id="stormGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#6b7280"/>
+    <stop offset="100%" stop-color="#374151"/>
+  </linearGradient>
+  <!-- 교환 화살표 그라데이션 -->
+  <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#ef4444"/>
+    <stop offset="50%" stop-color="#f59e0b"/>
+    <stop offset="100%" stop-color="#10b981"/>
+  </linearGradient>
+</defs>
+</svg>
+
 <div class="rotate-notice"><div class="rotate-icon">📱</div>화면을 가로로 돌려주세요!</div>
 
 <div class="container">
@@ -393,7 +478,24 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
         <div class="wallet-area" id="wallet-area">
           <div class="wallet-header">
             <div class="wallet-money">💰 용돈: <span id="wallet-budget">3000</span>원</div>
-            <div class="wallet-piggy"><span class="piggy-icon" id="piggy-icon">🐷</span> 저금통: <span id="wallet-saved">0</span>원</div>
+            <div class="wallet-piggy"><span class="piggy-icon" id="piggy-icon"><svg class="piggy-svg" viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="30" cy="30" rx="22" ry="16" fill="#f9a8d4" stroke="#ec4899" stroke-width="1.5"/>
+              <ellipse cx="14" cy="20" rx="6" ry="5" fill="#f9a8d4" stroke="#ec4899" stroke-width="1" class="piggy-ear" transform-origin="14 25"/>
+              <ellipse cx="46" cy="20" rx="6" ry="5" fill="#f9a8d4" stroke="#ec4899" stroke-width="1" class="piggy-ear" transform-origin="46 25"/>
+              <ellipse cx="22" cy="27" rx="3" ry="3" fill="#1e293b" class="piggy-eye-blink"/>
+              <ellipse cx="38" cy="27" rx="3" ry="3" fill="#1e293b" class="piggy-eye-blink"/>
+              <circle cx="23" cy="26" r="1" fill="#fff"/>
+              <circle cx="39" cy="26" r="1" fill="#fff"/>
+              <ellipse cx="30" cy="34" rx="7" ry="5" fill="#fb7185"/>
+              <ellipse cx="27" cy="33" rx="1.5" ry="2" fill="#be185d"/>
+              <ellipse cx="33" cy="33" rx="1.5" ry="2" fill="#be185d"/>
+              <rect x="22" y="10" width="16" height="3" rx="1.5" fill="#fbbf24" stroke="#f59e0b" stroke-width=".5"/>
+              <line x1="18" y1="44" x2="18" y2="48" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="26" y1="44" x2="26" y2="48" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="34" y1="44" x2="34" y2="48" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="42" y1="44" x2="42" y2="48" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M45,38 Q52,38 50,42" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round"/>
+            </svg></span> 저금통: <span id="wallet-saved">0</span>원</div>
           </div>
           <div class="product-grid" id="product-grid"></div>
           <div class="cart-bar">
@@ -479,7 +581,17 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
   </div>
   <div class="hg-arena" id="hg-arena">
     <div class="hg-ground"></div>
-    <div class="hg-wallet">👛</div>
+    <div class="hg-wallet"><svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="walletBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
+      <rect x="10" y="30" width="100" height="60" rx="12" fill="url(#walletBody)" stroke="#6d28d9" stroke-width="2"/>
+      <rect x="10" y="30" width="100" height="20" rx="10" fill="#c4b5fd"/>
+      <path class="wallet-mouth" d="M25,30 Q50,35 75,30" fill="none" stroke="#4c1d95" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="90" cy="60" r="10" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+      <text x="90" y="64" text-anchor="middle" font-size="10" font-weight="900" fill="#92400e">$</text>
+      <rect x="14" y="35" width="30" height="6" rx="3" fill="rgba(255,255,255,.3)"/>
+      <circle cx="30" cy="75" r="3" fill="rgba(255,255,255,.2)"/>
+      <circle cx="80" cy="75" r="2" fill="rgba(255,255,255,.15)"/>
+    </svg></div>
   </div>
   <div id="hg-over" class="hg-overlay hidden">
     <div class="hg-overlay-box">
@@ -706,6 +818,75 @@ function actionBtn(n) {
   }
 }
 
+// ===== SVG 헬퍼 =====
+function weatherSVG(type) {
+  const svgs = {
+    '맑음': `<svg viewBox="0 0 120 120" style="width:110px;height:110px"><circle cx="60" cy="60" r="28" fill="url(#sunGrad)"><animate attributeName="r" values="28;30;28" dur="2s" repeatCount="indefinite"/></circle>${[0,45,90,135,180,225,270,315].map(a=>`<line x1="60" y1="60" x2="${60+Math.cos(a*Math.PI/180)*46}" y2="${60+Math.sin(a*Math.PI/180)*46}" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"><animate attributeName="stroke-width" values="4;6;4" dur="1.5s" begin="${a/360}s" repeatCount="indefinite"/></line>`).join('')}</svg>`,
+    '흐림': `<svg viewBox="0 0 120 120" style="width:110px;height:110px"><circle cx="45" cy="72" r="14" fill="#fbbf24" opacity=".6"/><line x1="45" y1="52" x2="45" y2="46" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" opacity=".6"/><line x1="32" y1="60" x2="28" y2="56" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" opacity=".6"/><ellipse cx="65" cy="65" rx="30" ry="18" fill="url(#cloudGrad)"/><ellipse cx="48" cy="58" rx="18" ry="14" fill="#cbd5e1"/><ellipse cx="78" cy="60" rx="16" ry="12" fill="#e2e8f0"/></svg>`,
+    '비': `<svg viewBox="0 0 120 120" style="width:110px;height:110px"><ellipse cx="60" cy="42" rx="32" ry="18" fill="url(#cloudGrad)"/><ellipse cx="40" cy="36" rx="20" ry="14" fill="#94a3b8"/><ellipse cx="76" cy="38" rx="18" ry="12" fill="#cbd5e1"/>${[35,50,65,80].map((x,i)=>`<line x1="${x}" y1="65" x2="${x-5}" y2="85" stroke="url(#rainGrad)" stroke-width="2.5" stroke-linecap="round"><animate attributeName="y1" values="65;70;65" dur="0.8s" begin="${i*0.2}s" repeatCount="indefinite"/><animate attributeName="y2" values="85;92;85" dur="0.8s" begin="${i*0.2}s" repeatCount="indefinite"/></line>`).join('')}</svg>`,
+    '눈': `<svg viewBox="0 0 120 120" style="width:110px;height:110px"><ellipse cx="60" cy="38" rx="32" ry="18" fill="url(#snowGrad)"/><ellipse cx="40" cy="32" rx="20" ry="14" fill="#e0f2fe"/><ellipse cx="76" cy="34" rx="18" ry="12" fill="#bae6fd"/>${[30,50,70,90].map((x,i)=>`<text x="${x}" y="${75+i*5}" font-size="14" fill="#60a5fa" opacity=".8"><animate attributeName="y" values="${65+i*5};${95+i*5};${65+i*5}" dur="${1.5+i*0.3}s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;.3;.8" dur="${1.5+i*0.3}s" repeatCount="indefinite"/>❄</text>`).join('')}</svg>`,
+    '폭풍': `<svg viewBox="0 0 120 120" style="width:110px;height:110px"><ellipse cx="60" cy="38" rx="34" ry="20" fill="url(#stormGrad)"/><ellipse cx="38" cy="32" rx="22" ry="16" fill="#4b5563"/><ellipse cx="78" cy="34" rx="18" ry="13" fill="#6b7280"/><polygon points="55,58 48,78 56,73 50,95 68,68 58,72 65,58" fill="#fbbf24"><animate attributeName="opacity" values="1;.4;1" dur=".3s" repeatCount="indefinite"/></polygon>${[35,80].map((x,i)=>`<line x1="${x}" y1="60" x2="${x-8}" y2="88" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" opacity=".6"><animate attributeName="opacity" values=".6;0;.6" dur="0.6s" begin="${i*0.3}s" repeatCount="indefinite"/></line>`).join('')}</svg>`
+  };
+  return svgs[type] || `<span style="font-size:100px">${type}</span>`;
+}
+
+function tradeSvgArrow() {
+  return `<svg class="trade-arrow-svg" viewBox="0 0 60 32" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="arrGr${Math.random().toString(36).slice(2,6)}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f87171"/><stop offset="50%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#34d399"/></linearGradient></defs>
+    <path d="M4,16 L44,16" stroke="url(#arrowGrad)" stroke-width="4" stroke-linecap="round"/>
+    <polygon points="42,8 56,16 42,24" fill="#34d399"/>
+    <circle cx="8" cy="16" r="3" fill="#f87171" opacity=".5"><animate attributeName="cx" values="8;38;8" dur="1.5s" repeatCount="indefinite"/></circle>
+  </svg>`;
+}
+
+function svgFishGrill() {
+  let slots = '';
+  for(let r=0;r<2;r++) for(let c=0;c<3;c++){
+    const x=30+c*145, y=20+r*85;
+    slots += `<rect x="${x}" y="${y}" width="125" height="70" rx="8" fill="#78350f" stroke="#451a03" stroke-width="2"/>`;
+    slots += `<ellipse cx="${x+62}" cy="${y+35}" rx="48" ry="25" fill="#d97706" opacity=".8"/>`;
+    // 붕어빵 모양
+    slots += `<path d="M${x+30},${y+20} Q${x+62},${y+8} ${x+94},${y+20} Q${x+100},${y+35} ${x+94},${y+50} Q${x+62},${y+62} ${x+30},${y+50} Q${x+24},${y+35} ${x+30},${y+20}Z" fill="#b45309" stroke="#92400e" stroke-width="1"/>`;
+    slots += `<ellipse cx="${x+50}" cy="${y+32}" rx="4" ry="3" fill="#451a03" opacity=".6"/>`;
+    // 증기
+    slots += `<path d="M${x+55},${y+5} Q${x+58},${y-5} ${x+62},${y+2}" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><animate attributeName="opacity" values=".4;.1;.4" dur="${1.5+r*0.3}s" repeatCount="indefinite"/></path>`;
+  }
+  return `<svg class="fish-grill-svg" viewBox="0 0 480 195" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="5" width="470" height="185" rx="14" fill="#292524" stroke="#78350f" stroke-width="4"/>
+    <rect x="10" y="10" width="460" height="175" rx="10" fill="linear-gradient(145deg,#44403c,#292524)" opacity=".3"/>
+    ${slots}
+  </svg>`;
+}
+
+function coinRainEffect(container) {
+  const overlay = document.createElement('div');
+  overlay.className = 'fish-coin-rain';
+  overlay.style.position = 'relative';
+  container.style.position = 'relative';
+  container.appendChild(overlay);
+  for(let i=0;i<12;i++){
+    const coin = document.createElement('div');
+    coin.className = 'fish-flying-coin';
+    coin.innerHTML = `<svg viewBox="0 0 30 30" width="30" height="30"><circle cx="15" cy="15" r="13" fill="url(#coinGold)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><text x="15" y="19" text-anchor="middle" font-size="9" font-weight="900" fill="#fff">$</text></svg>`;
+    coin.style.cssText = `left:${10+Math.random()*80}%;top:${30+Math.random()*40}%;--tx:${(Math.random()-.5)*120}px;--ty:${-80-Math.random()*120}px;animation-delay:${Math.random()*0.5}s`;
+    overlay.appendChild(coin);
+  }
+  setTimeout(()=>overlay.remove(), 1800);
+}
+
+function spawnSparkleAt(container, x, y) {
+  for(let i=0;i<5;i++){
+    const sp = document.createElement('div');
+    sp.className = 'sparkle-effect';
+    sp.innerHTML = `<svg viewBox="0 0 20 20" width="20" height="20"><polygon points="10,0 12,7 20,7 14,12 16,20 10,15 4,20 6,12 0,7 8,7" fill="#fbbf24" opacity=".8"/></svg>`;
+    const angle = (Math.PI*2/5)*i;
+    const dist = 15+Math.random()*20;
+    sp.style.cssText = `left:${x+Math.cos(angle)*dist}px;top:${y+Math.sin(angle)*dist}px;position:absolute;animation-delay:${i*0.05}s`;
+    container.appendChild(sp);
+    setTimeout(()=>sp.remove(), 600);
+  }
+}
+
 // ===== 붕어빵 장사 =====
 const INGREDIENTS = [
   { name: '밀가루', emoji: '🌾', price: 500, desc: '반죽용' },
@@ -757,6 +938,17 @@ function renderShop() {
       <div class="shop-price">${ing.price}원</div>
     </div>`
   ).join('');
+
+  // 붕어빵 틀 SVG 표시
+  let grillContainer = document.querySelector('.fish-grill-container');
+  if(!grillContainer){
+    grillContainer = document.createElement('div');
+    grillContainer.className = 'fish-grill-container';
+    const buyPhase = document.getElementById('fish-phase-buy');
+    const titleEl = buyPhase.querySelector('.fish-title');
+    titleEl.insertAdjacentElement('afterend', grillContainer);
+  }
+  grillContainer.innerHTML = svgFishGrill();
 }
 
 function toggleIngredient(idx) {
@@ -813,7 +1005,7 @@ function fishSetPrice() {
 
   // 날씨 결정
   const weather = WEATHERS[Math.floor(Math.random() * WEATHERS.length)];
-  document.getElementById('weather-emoji').textContent = weather.emoji;
+  document.getElementById('weather-emoji').innerHTML = weatherSVG(weather.name);
   document.getElementById('weather-name').textContent = weather.name;
   document.getElementById('weather-desc').textContent = weather.desc;
 
@@ -856,6 +1048,11 @@ function fishSetPrice() {
 
   if (dailyProfit >= 0) {
     speak(`${customers}명이 왔어요! ${dailyProfit}원 벌었어요!`);
+    // 동전 날리기 이펙트
+    setTimeout(()=>{
+      const sellResult = document.getElementById('sell-result');
+      if(sellResult) coinRainEffect(sellResult);
+    }, 300);
   } else {
     speak(`${customers}명밖에 안 왔어요. ${Math.abs(dailyProfit)}원 손해예요.`);
   }
@@ -1001,6 +1198,11 @@ function toggleProduct(idx) {
     // 장바구니에 추가
     wallet.cart.push({ idx, name, emoji, price });
     el.classList.add('in-cart');
+    // 반짝이 이펙트
+    const rect = el.getBoundingClientRect();
+    const area = document.getElementById('wallet-area');
+    const areaRect = area.getBoundingClientRect();
+    spawnSparkleAt(area, rect.left - areaRect.left + rect.width/2, rect.top - areaRect.top + rect.height/2);
   }
 
   updateCartDisplay();
@@ -1206,7 +1408,7 @@ function renderTradeInventory() {
   let html = '<div class="trade-inv-label">내 물건:</div>';
   for (const [name, data] of Object.entries(trade.inventory)) {
     if (data.count > 0) {
-      html += `<div class="inv-item">${data.emoji} ${name} x${data.count}</div>`;
+      html += `<div class="inv-item"><span class="inv-emoji">${data.emoji}</span> ${name} x${data.count}</div>`;
     }
   }
   if (Object.values(trade.inventory).every(d => d.count === 0)) {
@@ -1220,9 +1422,9 @@ function renderTradeTable() {
   table.innerHTML = currentRecipe.exchanges.map((ex, i) => {
     const hasEnough = trade.inventory[ex.give.name] && trade.inventory[ex.give.name].count >= ex.give.count;
     return `<div class="trade-row${hasEnough ? '' : ' disabled'}" onclick="executeTrade(${i})">
-      <div class="trade-give">${ex.give.emoji} ${ex.give.name} x${ex.give.count}</div>
-      <div class="trade-arrow">➡️</div>
-      <div class="trade-receive">${ex.receive.emoji} ${ex.receive.name} x${ex.receive.count}</div>
+      <div class="trade-give"><span class="trade-item-emoji">${ex.give.emoji}</span> ${ex.give.name} x${ex.give.count}</div>
+      ${tradeSvgArrow()}
+      <div class="trade-receive"><span class="trade-item-emoji">${ex.receive.emoji}</span> ${ex.receive.name} x${ex.receive.count}</div>
     </div>`;
   }).join('');
 }
@@ -1283,11 +1485,24 @@ function tradeSuccessEffect() {
   overlay.className = 'trade-success-overlay';
   area.appendChild(overlay);
   const colors = ['#10b981','#6ee7b7','#34d399','#fbbf24','#f59e0b','#3b82f6','#8b5cf6'];
+  // 컨페티
   for (let i = 0; i < 25; i++) {
     const c = document.createElement('div');
     c.className = 'trade-confetti';
     c.style.cssText = `left:${Math.random()*100}%;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};--tx:${(Math.random()-.5)*200}px;--ty:${200+Math.random()*300}px;--dur:${.8+Math.random()*.6}s;animation-delay:${Math.random()*.3}s;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'}`;
     overlay.appendChild(c);
+  }
+  // SVG 별 버스트
+  for (let i = 0; i < 8; i++) {
+    const star = document.createElement('div');
+    star.className = 'trade-star-burst';
+    const angle = (Math.PI*2/8)*i;
+    const dist = 60+Math.random()*80;
+    const size = 20+Math.random()*16;
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    star.innerHTML = `<svg viewBox="0 0 24 24" width="${size}" height="${size}"><polygon points="12,0 15,8 24,8 17,14 19,24 12,18 5,24 7,14 0,8 9,8" fill="${col}"/></svg>`;
+    star.style.cssText = `left:50%;top:50%;--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;animation-delay:${i*0.05}s`;
+    overlay.appendChild(star);
   }
   setTimeout(() => overlay.remove(), 1500);
 }
@@ -1390,11 +1605,17 @@ function hgSpawn() {
   // 12% 빚 폭탄
   if (Math.random() < 0.12) { hgSpawnDebt(); return; }
 
-  // 일반 동전
+  // 일반 동전 (SVG)
   const coin = COIN_TYPES[Math.floor(Math.random() * COIN_TYPES.length)];
   const el = document.createElement('div');
   el.className = 'falling-coin';
-  el.innerHTML = `<div class="coin-body ${coin.cls}">${coin.label}</div>`;
+  const gradId = coin.value === 10 ? 'coinCopper' : coin.value === 50 ? 'coinGold' : coin.value === 100 ? 'coinGreen' : 'coinGold';
+  el.innerHTML = `<svg class="coin-svg" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="36" cy="36" r="33" fill="url(#${gradId})" stroke="rgba(255,255,255,.6)" stroke-width="3"/>
+    <circle cx="36" cy="36" r="26" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+    <ellipse cx="26" cy="26" rx="12" ry="8" fill="rgba(255,255,255,.2)" transform="rotate(-30,26,26)"/>
+    <text x="36" y="42" text-anchor="middle" font-size="${coin.value>=100?'14':'18'}" font-weight="900" fill="#fff" style="text-shadow:0 1px 3px rgba(0,0,0,.4)">${coin.label}</text>
+  </svg>`;
   el.style.left = (Math.random() * (w - 70) + 10) + 'px';
   el.style.top = '-80px';
   el.style.pointerEvents = 'auto';

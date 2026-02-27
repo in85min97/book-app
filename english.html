@@ -66,11 +66,11 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hunt-scene.space{background:linear-gradient(180deg,#0f172a,#1e1b4b 40%,#312e81 70%,#4c1d95 100%)}
 .hunt-theme-label{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.4);color:#fff;padding:8px 24px;border-radius:20px;font-size:18px;font-weight:800;z-index:5;backdrop-filter:blur(4px)}
 .hunt-spot{position:absolute;width:130px;height:130px;border-radius:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:3;overflow:hidden}
-.hunt-spot .spot-cover{position:absolute;inset:0;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:50px;transition:all .5s;z-index:2}
+.hunt-spot .spot-cover{position:absolute;inset:0;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:64px;transition:all .5s;z-index:2}
 .hunt-spot .spot-animal{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:all .5s;z-index:1}
 .hunt-spot.revealed .spot-cover{opacity:0;transform:scale(0) rotate(180deg)}
 .hunt-spot.revealed .spot-animal{opacity:1;transform:scale(1)}
-.hunt-spot .animal-emoji{font-size:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.hunt-spot .animal-emoji{font-size:80px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
 .hunt-spot .animal-letter{font-size:32px;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5)}
 .hunt-spot .animal-word{font-size:14px;font-weight:700;color:rgba(255,255,255,.8)}
 .hunt-score-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:12px;margin:8px;border:2px solid #22c55e}
@@ -83,10 +83,19 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes huntRing{0%{transform:translate(-50%,-50%) scale(0);opacity:.8}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
 /* 정글 장식 */
 .jungle-deco{position:absolute;pointer-events:none;z-index:1;font-size:40px;opacity:.6}
+.jungle-svg-deco{position:absolute;pointer-events:none;z-index:1;opacity:.5}
+.jungle-svg-deco.sway{animation:jungleSway 4s ease-in-out infinite}
+@keyframes jungleSway{0%,100%{transform:rotate(var(--rot,0deg))}50%{transform:rotate(calc(var(--rot,0deg) + 6deg))}}
 .sea-bubble{position:absolute;pointer-events:none;z-index:1;width:12px;height:12px;background:rgba(255,255,255,.3);border-radius:50%;animation:bubbleUp var(--dur,4s) ease-in infinite}
 @keyframes bubbleUp{0%{transform:translateY(0);opacity:.3}100%{transform:translateY(-300px);opacity:0}}
+.sea-svg-deco{position:absolute;pointer-events:none;z-index:1;opacity:.45}
+.sea-svg-deco.swim{animation:seaSwim var(--dur,6s) ease-in-out infinite}
+@keyframes seaSwim{0%{transform:translateX(0) scaleX(1)}25%{transform:translateX(30px) scaleX(1)}50%{transform:translateX(0) scaleX(1)}75%{transform:translateX(-30px) scaleX(-1)}100%{transform:translateX(0) scaleX(1)}}
 .space-star{position:absolute;pointer-events:none;z-index:1;width:3px;height:3px;background:#fff;border-radius:50%;animation:twinkle var(--dur,2s) ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+.space-svg-deco{position:absolute;pointer-events:none;z-index:1;opacity:.5}
+.space-svg-deco.orbit{animation:spaceOrbit var(--dur,12s) linear infinite}
+@keyframes spaceOrbit{0%{transform:rotate(0deg) translateX(var(--orb,10px)) rotate(0deg)}100%{transform:rotate(360deg) translateX(var(--orb,10px)) rotate(-360deg)}}
 
 /* 글자 뒤집기 */
 .flip-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:16px}
@@ -97,8 +106,10 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
 .flip-card.matched .flip-card-inner{transform:rotateY(180deg)}
 .flip-card-front,.flip-card-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #c7d2fe;box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.flip-card-front{background:linear-gradient(145deg,#6366f1,#4f46e5);color:#fff;font-size:48px;font-weight:900}
-.flip-card-front::after{content:'';position:absolute;inset:8px;border:2px dashed rgba(255,255,255,.2);border-radius:14px}
+.flip-card-front{background:linear-gradient(145deg,#6366f1,#4f46e5);color:#fff;font-size:48px;font-weight:900;overflow:hidden}
+.flip-card-front::after{content:'';position:absolute;inset:8px;border:2px dashed rgba(255,255,255,.2);border-radius:14px;z-index:2}
+.flip-card-front .flip-front-svg{position:absolute;inset:0;z-index:1}
+.flip-card-front .flip-front-q{position:relative;z-index:3;text-shadow:0 2px 8px rgba(0,0,0,.3)}
 .flip-card-back{transform:rotateY(180deg);background:linear-gradient(145deg,#fff,#eef2ff);font-size:64px;font-weight:900;color:#4f46e5}
 .flip-card-back .flip-label{font-size:14px;font-weight:700;color:#6366f1;margin-top:4px}
 .flip-card.matched .flip-card-back{background:linear-gradient(145deg,#dcfce7,#bbf7d0);border-color:#22c55e}
@@ -148,7 +159,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
 .action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn .icon{font-size:52px;opacity:.9;line-height:1}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-indigo{background:linear-gradient(145deg,#6366f1,#4f46e5);box-shadow:0 2px 8px rgba(99,102,241,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -178,10 +189,8 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes emojiComplete{0%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.5)}100%{transform:translateX(-50%) scale(1.2)}}
 .balloon{position:absolute;z-index:5;cursor:pointer;pointer-events:auto;display:flex;flex-direction:column;align-items:center;animation:balloonSway 3s ease-in-out infinite}
 @keyframes balloonSway{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
-.balloon-body{width:70px;height:85px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.2);position:relative;box-shadow:0 4px 16px rgba(0,0,0,.15)}
-.balloon-body::after{content:'';position:absolute;top:12px;left:16px;width:14px;height:20px;background:rgba(255,255,255,.3);border-radius:50%;transform:rotate(-30deg)}
-.balloon-string{width:2px;height:30px;background:#94a3b8;margin-top:-2px}
-.balloon-knot{width:8px;height:8px;background:inherit;border-radius:50%;margin-top:-2px}
+.balloon svg{filter:drop-shadow(0 4px 12px rgba(0,0,0,.2))}
+.balloon .balloon-letter{position:absolute;top:28px;left:50%;transform:translateX(-50%);font-size:38px;font-weight:900;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.25);z-index:2;pointer-events:none}
 .balloon:active{transform:scale(.95)}
 .balloon-pop{position:absolute;pointer-events:none;z-index:25;animation:bPop .6s ease-out forwards}
 @keyframes bPop{0%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}100%{transform:scale(0);opacity:0}}
@@ -705,27 +714,93 @@ function initHuntGame() {
   document.getElementById('hunt-theme-side').textContent = theme.name;
 
   // 기존 요소 정리
-  scene.querySelectorAll('.hunt-spot,.jungle-deco,.sea-bubble,.space-star').forEach(e => e.remove());
+  scene.querySelectorAll('.hunt-spot,.jungle-deco,.jungle-svg-deco,.sea-bubble,.sea-svg-deco,.space-star,.space-svg-deco').forEach(e => e.remove());
 
-  // 배경 장식
+  // 배경 장식 (SVG)
   if (hunt.theme === 0) {
-    const decos = ['🌿','🌳','🍃','🌴','🌺','🦋','🌻','🍂'];
-    for (let i = 0; i < 12; i++) {
+    // 정글: SVG 나무, 덩굴, 잎사귀
+    const jungleSVGs = [
+      // 나무
+      {svg:`<svg viewBox="0 0 80 120" width="80" height="120"><rect x="32" y="50" width="16" height="70" rx="4" fill="#8B5E3C"/><ellipse cx="40" cy="40" rx="35" ry="32" fill="#22c55e" opacity=".85"/><ellipse cx="30" cy="30" rx="20" ry="18" fill="#16a34a" opacity=".7"/><circle cx="55" cy="35" r="5" fill="#fbbf24" opacity=".6"/></svg>`,w:80,h:120},
+      // 덩굴
+      {svg:`<svg viewBox="0 0 50 140" width="40" height="110"><path d="M25 0 Q10 30 25 50 Q40 70 25 90 Q10 110 25 140" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/><circle cx="20" cy="30" r="7" fill="#22c55e"/><circle cx="30" cy="60" r="6" fill="#15803d"/><circle cx="18" cy="95" r="8" fill="#22c55e"/><circle cx="32" cy="120" r="5" fill="#86efac"/></svg>`,w:40,h:110},
+      // 큰 잎사귀
+      {svg:`<svg viewBox="0 0 70 50" width="70" height="50"><path d="M5 40 Q35 -10 65 40" fill="#22c55e" opacity=".8"/><path d="M5 40 Q35 5 65 40" fill="none" stroke="#16a34a" stroke-width="2"/><line x1="35" y1="8" x2="35" y2="42" stroke="#16a34a" stroke-width="1.5"/></svg>`,w:70,h:50},
+      // 꽃
+      {svg:`<svg viewBox="0 0 50 50" width="45" height="45"><circle cx="25" cy="25" r="8" fill="#fbbf24"/><circle cx="25" cy="12" r="8" fill="#ec4899" opacity=".8"/><circle cx="36" cy="18" r="8" fill="#f472b6" opacity=".8"/><circle cx="36" cy="32" r="8" fill="#ec4899" opacity=".8"/><circle cx="25" cy="38" r="8" fill="#f472b6" opacity=".8"/><circle cx="14" cy="32" r="8" fill="#ec4899" opacity=".8"/><circle cx="14" cy="18" r="8" fill="#f472b6" opacity=".8"/><circle cx="25" cy="25" r="6" fill="#fbbf24"/></svg>`,w:45,h:45},
+      // 버섯
+      {svg:`<svg viewBox="0 0 50 50" width="42" height="42"><rect x="20" y="28" width="10" height="18" rx="3" fill="#fde68a"/><ellipse cx="25" cy="28" rx="22" ry="14" fill="#ef4444"/><circle cx="18" cy="22" r="4" fill="#fff" opacity=".5"/><circle cx="32" cy="25" r="3" fill="#fff" opacity=".4"/><circle cx="24" cy="18" r="2.5" fill="#fff" opacity=".4"/></svg>`,w:42,h:42}
+    ];
+    for (let i = 0; i < 10; i++) {
+      const item = jungleSVGs[Math.floor(Math.random()*jungleSVGs.length)];
+      const d = document.createElement('div');
+      d.className = 'jungle-svg-deco' + (Math.random()>.5?' sway':'');
+      const rot = Math.random()*20-10;
+      d.style.cssText = `left:${Math.random()*88}%;top:${Math.random()*80}%;--rot:${rot}deg;opacity:${.35+Math.random()*.3}`;
+      d.innerHTML = item.svg;
+      scene.appendChild(d);
+    }
+    // 반딧불 파티클 추가
+    for (let i=0;i<8;i++){
       const d = document.createElement('div');
       d.className = 'jungle-deco';
-      d.textContent = decos[Math.floor(Math.random()*decos.length)];
-      d.style.cssText = `left:${Math.random()*90}%;top:${Math.random()*85}%;font-size:${25+Math.random()*30}px;opacity:${.3+Math.random()*.3};transform:rotate(${Math.random()*40-20}deg)`;
+      d.innerHTML = `<svg viewBox="0 0 12 12" width="12" height="12"><circle cx="6" cy="6" r="4" fill="#fbbf24" opacity=".8"><animate attributeName="opacity" values=".8;.2;.8" dur="${1.5+Math.random()*2}s" repeatCount="indefinite"/></circle><circle cx="6" cy="6" r="6" fill="#fbbf24" opacity=".15"><animate attributeName="r" values="6;10;6" dur="${1.5+Math.random()*2}s" repeatCount="indefinite"/></circle></svg>`;
+      d.style.cssText = `left:${Math.random()*95}%;top:${Math.random()*90}%;opacity:1`;
       scene.appendChild(d);
     }
   } else if (hunt.theme === 1) {
-    for (let i = 0; i < 15; i++) {
+    // 바다: SVG 물고기, 산호, 파도, 해초
+    const seaSVGs = [
+      // 물고기
+      {svg:`<svg viewBox="0 0 70 40" width="65" height="38"><ellipse cx="32" cy="20" rx="22" ry="14" fill="#f97316"/><polygon points="54,20 68,8 68,32" fill="#ea580c"/><circle cx="22" cy="16" r="3" fill="#fff"/><circle cx="23" cy="16" r="1.5" fill="#1e293b"/><path d="M28 25 Q35 28 42 25" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>`,cls:'swim'},
+      // 산호 1
+      {svg:`<svg viewBox="0 0 60 70" width="55" height="65"><path d="M20 70 Q18 45 10 30 Q5 18 12 10" fill="none" stroke="#f472b6" stroke-width="6" stroke-linecap="round"/><path d="M30 70 Q32 40 25 25 Q20 15 28 5" fill="none" stroke="#ec4899" stroke-width="5" stroke-linecap="round"/><path d="M40 70 Q42 50 48 35 Q52 22 45 12" fill="none" stroke="#f9a8d4" stroke-width="5" stroke-linecap="round"/><circle cx="12" cy="10" r="5" fill="#f472b6"/><circle cx="28" cy="5" r="4" fill="#ec4899"/><circle cx="45" cy="12" r="5" fill="#f9a8d4"/></svg>`},
+      // 해초
+      {svg:`<svg viewBox="0 0 40 100" width="35" height="90"><path d="M20 100 Q10 75 20 55 Q30 35 20 15 Q15 5 20 0" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round"><animate attributeName="d" values="M20 100 Q10 75 20 55 Q30 35 20 15 Q15 5 20 0;M20 100 Q30 75 20 55 Q10 35 20 15 Q25 5 20 0;M20 100 Q10 75 20 55 Q30 35 20 15 Q15 5 20 0" dur="3s" repeatCount="indefinite"/></path><path d="M22 100 Q32 80 22 60 Q12 40 22 20" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round" opacity=".6"><animate attributeName="d" values="M22 100 Q32 80 22 60 Q12 40 22 20;M22 100 Q12 80 22 60 Q32 40 22 20;M22 100 Q32 80 22 60 Q12 40 22 20" dur="3.5s" repeatCount="indefinite"/></path></svg>`},
+      // 불가사리
+      {svg:`<svg viewBox="0 0 50 50" width="44" height="44"><polygon points="25,2 30,18 48,18 34,28 39,46 25,35 11,46 16,28 2,18 20,18" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5"/><circle cx="25" cy="24" r="4" fill="#f59e0b"/></svg>`},
+      // 조개
+      {svg:`<svg viewBox="0 0 50 40" width="46" height="38"><ellipse cx="25" cy="30" rx="22" ry="10" fill="#e9d5ff"/><path d="M5 28 Q25 -5 45 28" fill="#c4b5fd" stroke="#a78bfa" stroke-width="1.5"/><line x1="25" y1="4" x2="25" y2="28" stroke="#a78bfa" stroke-width="1" opacity=".5"/><line x1="15" y1="8" x2="18" y2="28" stroke="#a78bfa" stroke-width="1" opacity=".3"/><line x1="35" y1="8" x2="32" y2="28" stroke="#a78bfa" stroke-width="1" opacity=".3"/></svg>`}
+    ];
+    for (let i = 0; i < 8; i++) {
+      const item = seaSVGs[Math.floor(Math.random()*seaSVGs.length)];
+      const d = document.createElement('div');
+      d.className = 'sea-svg-deco' + (item.cls?' '+item.cls:'');
+      d.style.cssText = `left:${Math.random()*88}%;top:${15+Math.random()*70}%;--dur:${4+Math.random()*4}s;opacity:${.35+Math.random()*.3}`;
+      d.innerHTML = item.svg;
+      scene.appendChild(d);
+    }
+    // 거품도 유지
+    for (let i = 0; i < 12; i++) {
       const b = document.createElement('div');
       b.className = 'sea-bubble';
       b.style.cssText = `left:${Math.random()*95}%;bottom:${Math.random()*30}%;--dur:${3+Math.random()*4}s;animation-delay:${Math.random()*3}s;width:${6+Math.random()*12}px;height:${6+Math.random()*12}px`;
       scene.appendChild(b);
     }
   } else {
-    for (let i = 0; i < 30; i++) {
+    // 우주: SVG 별, 행성, 로켓
+    const spaceSVGs = [
+      // 행성1 (줄무늬)
+      {svg:`<svg viewBox="0 0 60 60" width="55" height="55"><circle cx="30" cy="30" r="24" fill="#8b5cf6"/><ellipse cx="30" cy="30" rx="32" ry="6" fill="none" stroke="#c4b5fd" stroke-width="3" opacity=".5" transform="rotate(-20 30 30)"/><path d="M12 22 Q30 18 48 22" fill="none" stroke="#a78bfa" stroke-width="2.5" opacity=".4"/><path d="M10 32 Q30 28 50 32" fill="none" stroke="#ddd6fe" stroke-width="2" opacity=".3"/><circle cx="22" cy="20" r="3" fill="#c4b5fd" opacity=".4"/></svg>`},
+      // 행성2 (빨간)
+      {svg:`<svg viewBox="0 0 50 50" width="45" height="45"><circle cx="25" cy="25" r="20" fill="#ef4444" opacity=".8"/><circle cx="18" cy="18" r="5" fill="#dc2626" opacity=".4"/><circle cx="32" cy="30" r="3" fill="#b91c1c" opacity=".3"/><circle cx="22" cy="33" r="4" fill="#dc2626" opacity=".3"/></svg>`},
+      // 로켓
+      {svg:`<svg viewBox="0 0 40 80" width="36" height="72"><path d="M20 5 Q30 20 30 45 L25 55 L15 55 L10 45 Q10 20 20 5Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><rect x="13" y="42" width="14" height="8" rx="2" fill="#3b82f6"/><circle cx="20" cy="30" r="5" fill="#0ea5e9" stroke="#0284c7" stroke-width="1.5"/><path d="M10 45 L4 58 L13 50Z" fill="#ef4444"/><path d="M30 45 L36 58 L27 50Z" fill="#ef4444"/><path d="M15 55 Q20 75 25 55" fill="#f97316"><animate attributeName="d" values="M15 55 Q20 75 25 55;M15 55 Q20 68 25 55;M15 55 Q20 75 25 55" dur=".4s" repeatCount="indefinite"/></path></svg>`},
+      // 반짝이는 별
+      {svg:`<svg viewBox="0 0 40 40" width="35" height="35"><polygon points="20,2 24,14 38,14 27,22 31,36 20,28 9,36 13,22 2,14 16,14" fill="#fbbf24"><animate attributeName="opacity" values="1;.5;1" dur="${1.5+Math.random()*1.5}s" repeatCount="indefinite"/></polygon></svg>`},
+      // 위성
+      {svg:`<svg viewBox="0 0 50 50" width="40" height="40"><rect x="18" y="18" width="14" height="14" rx="2" fill="#64748b" stroke="#94a3b8" stroke-width="1.5"/><rect x="5" y="22" width="14" height="6" rx="1" fill="#3b82f6" opacity=".7"/><rect x="31" y="22" width="14" height="6" rx="1" fill="#3b82f6" opacity=".7"/><circle cx="25" cy="25" r="2" fill="#22c55e"><animate attributeName="opacity" values="1;.3;1" dur="1s" repeatCount="indefinite"/></circle></svg>`,cls:'orbit'}
+    ];
+    for (let i = 0; i < 7; i++) {
+      const item = spaceSVGs[Math.floor(Math.random()*spaceSVGs.length)];
+      const d = document.createElement('div');
+      d.className = 'space-svg-deco' + (item.cls?' '+item.cls:'');
+      d.style.cssText = `left:${Math.random()*88}%;top:${Math.random()*85}%;--dur:${8+Math.random()*8}s;--orb:${8+Math.random()*12}px;opacity:${.35+Math.random()*.35}`;
+      d.innerHTML = item.svg;
+      scene.appendChild(d);
+    }
+    // 기존 반짝이 별도 유지
+    for (let i = 0; i < 25; i++) {
       const s = document.createElement('div');
       s.className = 'space-star';
       s.style.cssText = `left:${Math.random()*98}%;top:${Math.random()*95}%;--dur:${1+Math.random()*3}s;animation-delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px`;
@@ -935,10 +1010,15 @@ function initFlipGame() {
   flip.cards = cards;
 
   const grid = document.getElementById('flip-grid');
+  const flipFrontSVGs = [
+    `<svg class="flip-front-svg" viewBox="0 0 200 180" preserveAspectRatio="none"><polygon points="40,20 46,38 65,38 50,50 55,68 40,58 25,68 30,50 15,38 34,38" fill="#fbbf24" opacity=".25"><animate attributeName="opacity" values=".25;.12;.25" dur="2s" repeatCount="indefinite"/></polygon><polygon points="155,30 159,42 172,42 162,50 165,63 155,56 145,63 148,50 138,42 151,42" fill="#a5b4fc" opacity=".3"><animate attributeName="opacity" values=".3;.15;.3" dur="2.5s" repeatCount="indefinite"/></polygon><circle cx="120" cy="140" r="12" fill="#c4b5fd" opacity=".2"><animate attributeName="r" values="12;15;12" dur="2s" repeatCount="indefinite"/></circle><polygon points="30,130 34,142 47,142 37,150 40,163 30,156 20,163 23,150 13,142 26,142" fill="#fde68a" opacity=".2"><animate attributeName="opacity" values=".2;.1;.2" dur="1.8s" repeatCount="indefinite"/></polygon><circle cx="170" cy="150" r="6" fill="#fff" opacity=".15"><animate attributeName="opacity" values=".15;.05;.15" dur="1.5s" repeatCount="indefinite"/></circle><circle cx="85" cy="25" r="4" fill="#e0e7ff" opacity=".2"/><polygon points="170,80 173,88 182,88 175,93 177,102 170,97 163,102 165,93 158,88 167,88" fill="#fbbf24" opacity=".18"/></svg>`,
+    `<svg class="flip-front-svg" viewBox="0 0 200 180" preserveAspectRatio="none"><circle cx="35" cy="35" r="15" fill="#818cf8" opacity=".2"><animate attributeName="r" values="15;18;15" dur="2.5s" repeatCount="indefinite"/></circle><polygon points="160,25 164,37 177,37 167,45 170,58 160,51 150,58 153,45 143,37 156,37" fill="#fbbf24" opacity=".22"><animate attributeName="opacity" values=".22;.1;.22" dur="1.7s" repeatCount="indefinite"/></polygon><polygon points="50,145 54,157 67,157 57,165 60,178 50,171 40,178 43,165 33,157 46,157" fill="#c4b5fd" opacity=".25"/><circle cx="155" cy="135" r="10" fill="#a5b4fc" opacity=".15"><animate attributeName="opacity" values=".15;.08;.15" dur="2s" repeatCount="indefinite"/></circle><polygon points="100,10 103,18 112,18 105,23 107,32 100,27 93,32 95,23 88,18 97,18" fill="#fde68a" opacity=".2"/><circle cx="95" cy="155" r="5" fill="#e0e7ff" opacity=".18"/></svg>`,
+    `<svg class="flip-front-svg" viewBox="0 0 200 180" preserveAspectRatio="none"><polygon points="100,10 106,30 128,30 110,42 117,62 100,50 83,62 90,42 72,30 94,30" fill="#fbbf24" opacity=".2"><animate attributeName="opacity" values=".2;.1;.2" dur="2.2s" repeatCount="indefinite"/></polygon><circle cx="30" cy="140" r="12" fill="#818cf8" opacity=".2"/><circle cx="170" cy="45" r="8" fill="#c4b5fd" opacity=".2"><animate attributeName="r" values="8;11;8" dur="1.8s" repeatCount="indefinite"/></circle><polygon points="165,140 168,148 177,148 170,153 172,162 165,157 158,162 160,153 153,148 162,148" fill="#a5b4fc" opacity=".2"/><polygon points="25,45 28,53 37,53 30,58 32,67 25,62 18,67 20,58 13,53 22,53" fill="#fde68a" opacity=".22"/><circle cx="100" cy="160" r="6" fill="#fff" opacity=".12"/></svg>`
+  ];
   grid.innerHTML = cards.map((c, i) => `
     <div class="flip-card" id="fc-${i}" onclick="flipCard(${i})">
       <div class="flip-card-inner">
-        <div class="flip-card-front">?</div>
+        <div class="flip-card-front">${flipFrontSVGs[i % flipFrontSVGs.length]}<span class="flip-front-q">?</span></div>
         <div class="flip-card-back">
           <span>${c.display}</span>
           <span class="flip-label">${c.type==='upper'?'대문자':'소문자'}</span>
@@ -1333,23 +1413,37 @@ function hgSpawnBalloon() {
     letter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)];
   }
 
-  const balloonColors = [
-    'linear-gradient(145deg,#ef4444,#dc2626)',
-    'linear-gradient(145deg,#f97316,#ea580c)',
-    'linear-gradient(145deg,#fbbf24,#f59e0b)',
-    'linear-gradient(145deg,#22c55e,#16a34a)',
-    'linear-gradient(145deg,#3b82f6,#2563eb)',
-    'linear-gradient(145deg,#8b5cf6,#7c3aed)',
-    'linear-gradient(145deg,#ec4899,#db2777)'
+  const balloonColorSets = [
+    {main:'#ef4444',light:'#fca5a5',dark:'#dc2626',glow:'rgba(239,68,68,.4)'},
+    {main:'#f97316',light:'#fdba74',dark:'#ea580c',glow:'rgba(249,115,22,.4)'},
+    {main:'#fbbf24',light:'#fde68a',dark:'#f59e0b',glow:'rgba(251,191,36,.4)'},
+    {main:'#22c55e',light:'#86efac',dark:'#16a34a',glow:'rgba(34,197,94,.4)'},
+    {main:'#3b82f6',light:'#93c5fd',dark:'#2563eb',glow:'rgba(59,130,246,.4)'},
+    {main:'#8b5cf6',light:'#c4b5fd',dark:'#7c3aed',glow:'rgba(139,92,246,.4)'},
+    {main:'#ec4899',light:'#f9a8d4',dark:'#db2777',glow:'rgba(236,72,153,.4)'}
   ];
-  const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+  const bc = balloonColorSets[Math.floor(Math.random() * balloonColorSets.length)];
   const x = Math.random() * (w - 80) + 20;
 
   const el = document.createElement('div');
   el.className = 'balloon';
-  el.innerHTML = `<div class="balloon-body" style="background:${color}">${letter}</div><div class="balloon-knot" style="background:${color.includes('#ef4444')?'#dc2626':color.includes('#3b82f6')?'#2563eb':'#94a3b8'}"></div><div class="balloon-string"></div>`;
+  el.style.position = 'absolute';
+  el.innerHTML = `<svg width="80" height="130" viewBox="0 0 80 130">
+    <defs>
+      <radialGradient id="bg${Date.now()}" cx="35%" cy="30%">
+        <stop offset="0%" stop-color="${bc.light}" stop-opacity=".9"/>
+        <stop offset="50%" stop-color="${bc.main}" stop-opacity=".85"/>
+        <stop offset="100%" stop-color="${bc.dark}" stop-opacity=".8"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="40" cy="42" rx="34" ry="40" fill="url(#bg${Date.now()})" stroke="${bc.dark}" stroke-width="1.5" opacity=".9"/>
+    <ellipse cx="28" cy="28" rx="10" ry="14" fill="rgba(255,255,255,.3)" transform="rotate(-20 28 28)"/>
+    <ellipse cx="40" cy="42" rx="34" ry="40" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
+    <polygon points="40,82 35,90 45,90" fill="${bc.main}" opacity=".9"/>
+    <path d="M40 90 Q42 100 38 110 Q36 120 40 128" fill="none" stroke="${bc.dark}" stroke-width="1.5" opacity=".5" stroke-dasharray="3,2"/>
+  </svg><span class="balloon-letter">${letter}</span>`;
   el.style.left = x + 'px';
-  el.style.bottom = '-120px';
+  el.style.bottom = '-130px';
   el.onclick = () => hgPopBalloon(letter, el);
   arena.appendChild(el);
 

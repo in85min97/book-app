@@ -69,9 +69,10 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .game-view.active{display:flex}
 
 /* ===== 수의사 놀이 ===== */
-.vet-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:8px;padding:10px}
+.vet-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:8px;padding:10px;overflow:hidden}
+.vet-bg-deco{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.12}
 .vet-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
-.vet-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;width:100%}
+.vet-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;width:100%;z-index:1}
 .vet-animal-container{position:relative;width:320px;height:320px;display:flex;align-items:center;justify-content:center}
 .vet-animal-svg{width:280px;height:280px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.15))}
 .vet-sick-indicator{position:absolute;top:10px;right:10px;font-size:40px;animation:sickPulse 1s ease-in-out infinite}
@@ -79,8 +80,8 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .vet-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .vet-heart{position:absolute;font-size:30px;animation:heartFloat 1.5s ease-out forwards;pointer-events:none}
 @keyframes heartFloat{0%{transform:translate(0,0) scale(0);opacity:0}30%{transform:translate(var(--tx),var(--ty)) scale(1.2);opacity:1}100%{transform:translate(var(--tx),calc(var(--ty) - 80px)) scale(.6);opacity:0}}
-.vet-tool-palette{display:flex;gap:16px;padding:12px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:16px;border:2px solid #86efac}
-.vet-tool{width:90px;height:90px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:48px;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);position:relative}
+.vet-tool-palette{display:flex;gap:16px;padding:12px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:16px;border:2px solid #86efac;z-index:1;position:relative}
+.vet-tool{width:90px;height:90px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:72px;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);position:relative}
 .vet-tool:active{transform:scale(.9);cursor:grabbing}
 .vet-tool.used{opacity:.3;pointer-events:none;border-color:#d1d5db}
 .vet-tool-label{position:absolute;bottom:-4px;font-size:11px;font-weight:700;color:#365314;background:#ecfccb;padding:2px 8px;border-radius:6px;white-space:nowrap}
@@ -101,7 +102,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .feed-type-carn{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
 .feed-type-omni{background:#fef3c7;color:#92400e;border:1px solid #fcd34d}
 .food-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:420px}
-.food-choice{font-size:56px;background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;height:100px;width:130px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.food-choice{font-size:90px;background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;height:120px;width:140px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08)}
 .food-choice:active{transform:scale(.9)}
 .food-choice.correct{background:linear-gradient(145deg,#dcfce7,#bbf7d0)!important;border-color:#22c55e!important;animation:correctBounce .5s ease}
 .food-choice.wrong{background:linear-gradient(145deg,#fee2e2,#fecaca)!important;border-color:#ef4444!important;animation:shake .5s}
@@ -120,15 +121,15 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .transform-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
 .transform-set-name{font-size:20px;font-weight:800;color:#1e293b;margin-bottom:4px}
 .slot-row{display:flex;gap:16px;align-items:center}
-.slot-box{width:150px;height:150px;background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:3px dashed #94a3b8;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;transition:.2s}
+.slot-box{width:150px;height:150px;background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:3px dashed #94a3b8;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:120px;position:relative;transition:.2s}
 .slot-box.filled{border-style:solid;border-color:#22c55e;background:linear-gradient(145deg,#dcfce7,#bbf7d0)}
 .slot-box.wrong-slot{border-color:#ef4444;background:linear-gradient(145deg,#fee2e2,#fecaca);animation:shake .5s}
 .slot-arrow{font-size:36px;color:#94a3b8;font-weight:900}
 .slot-num{position:absolute;top:6px;left:10px;font-size:14px;font-weight:800;color:#64748b;background:#f1f5f9;padding:2px 8px;border-radius:6px}
 .card-pool{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:700px}
-.stage-card{width:120px;height:120px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);gap:4px}
+.stage-card{width:130px;height:130px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);gap:2px}
 .stage-card:active{transform:scale(.9);cursor:grabbing}
-.stage-card .card-emoji{font-size:50px}
+.stage-card .card-emoji{font-size:70px}
 .stage-card .card-label{font-size:13px;font-weight:700;color:#365314}
 .stage-card.placed{opacity:.3;pointer-events:none}
 .transform-anim-overlay{position:absolute;inset:0;pointer-events:none;z-index:20;display:flex;align-items:center;justify-content:center}
@@ -151,7 +152,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
 .action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:30px;opacity:.9}
+.action-btn .icon{font-size:52px;opacity:.9}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-lime{background:linear-gradient(145deg,#84cc16,#65a30d);box-shadow:0 2px 8px rgba(132,204,22,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -192,7 +193,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-divider3{position:absolute;left:66.66%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
 .hg-divider4{position:absolute;left:25%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
 .hg-divider5{position:absolute;left:75%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
-.falling-animal{position:absolute;z-index:15;font-size:64px;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2));transition:none;touch-action:none}
+.falling-animal{position:absolute;z-index:15;font-size:100px;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2));transition:none;touch-action:none}
 .falling-animal.dragging{z-index:50;transform:scale(1.2);filter:drop-shadow(0 8px 20px rgba(0,0,0,.3))}
 .falling-animal.placed{pointer-events:none}
 .hg-flash-green{position:absolute;inset:0;pointer-events:none;z-index:30;animation:screenFlashG .3s ease-out forwards}
@@ -334,7 +335,39 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <!-- 수의사 놀이 -->
       <div class="game-view vet-view active" id="vet-view">
         <div class="vet-area" id="vet-area">
-          <div class="vet-info" id="vet-info">🩺 아픈 동물을 치료해 주세요!</div>
+          <svg class="vet-bg-deco" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+            <!-- 청진기 -->
+            <g transform="translate(80,60)" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round">
+              <path d="M0,0 Q0,60 30,80 T60,120 Q60,150 40,160" /><circle cx="40" cy="170" r="14" fill="#22c55e"/><circle cx="40" cy="170" r="6" fill="#fff"/>
+              <path d="M60,0 Q60,60 30,80"/><circle cx="0" cy="0" r="8" fill="#22c55e"/><circle cx="60" cy="0" r="8" fill="#22c55e"/>
+            </g>
+            <!-- 반창고 왼쪽위 -->
+            <g transform="translate(250,40) rotate(-15)">
+              <rect x="0" y="0" width="100" height="40" rx="8" fill="#fbbf24"/><rect x="35" y="0" width="30" height="40" rx="4" fill="#fde68a"/><rect x="42" y="12" width="16" height="16" rx="3" fill="#f59e0b" opacity=".5"/>
+            </g>
+            <!-- 체온계 오른쪽 -->
+            <g transform="translate(1050,80) rotate(20)">
+              <rect x="0" y="0" width="14" height="120" rx="7" fill="#e2e8f0"/><circle cx="7" cy="130" r="16" fill="#ef4444"/><circle cx="7" cy="130" r="10" fill="#fca5a5"/>
+              <rect x="4" y="30" width="6" height="60" rx="3" fill="#ef4444" opacity=".6"/>
+            </g>
+            <!-- 하트 -->
+            <g transform="translate(1100,300)" fill="#f87171" opacity=".6"><path d="M0,-15 C-10,-30 -30,-20 -25,-5 C-20,10 0,25 0,25 C0,25 20,10 25,-5 C30,-20 10,-30 0,-15Z"><animate attributeName="transform" type="scale" values="1;1.1;1" dur="2s" repeatCount="indefinite"/></path></g>
+            <!-- 반창고 오른쪽아래 -->
+            <g transform="translate(950,550) rotate(25)">
+              <rect x="0" y="0" width="80" height="32" rx="6" fill="#fbbf24" opacity=".7"/><rect x="28" y="0" width="24" height="32" rx="3" fill="#fde68a"/><rect x="34" y="10" width="12" height="12" rx="2" fill="#f59e0b" opacity=".4"/>
+            </g>
+            <!-- 십자가 마크들 -->
+            <g fill="#22c55e" opacity=".3">
+              <rect x="170" y="550" width="8" height="30" rx="4"/><rect x="159" y="561" width="30" height="8" rx="4"/>
+              <rect x="900" y="100" width="6" height="24" rx="3"/><rect x="891" y="109" width="24" height="6" rx="3"/>
+              <rect x="600" y="620" width="7" height="26" rx="3.5"/><rect x="590" y="630" width="26" height="7" rx="3.5"/>
+            </g>
+            <!-- 반짝이 점들 -->
+            <circle cx="500" cy="50" r="4" fill="#86efac" opacity=".4"><animate attributeName="opacity" values=".4;.1;.4" dur="2.5s" repeatCount="indefinite"/></circle>
+            <circle cx="800" cy="600" r="3" fill="#a7f3d0" opacity=".3"><animate attributeName="opacity" values=".3;.08;.3" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="150" cy="400" r="3.5" fill="#bbf7d0" opacity=".35"><animate attributeName="opacity" values=".35;.1;.35" dur="2s" repeatCount="indefinite"/></circle>
+          </svg>
+          <div class="vet-info" id="vet-info" style="position:relative;z-index:1">🩺 아픈 동물을 치료해 주세요!</div>
           <div class="vet-stage" id="vet-stage">
             <div class="vet-animal-container" id="vet-animal-container">
               <div id="vet-animal-display" style="font-size:160px;position:relative">
@@ -1033,6 +1066,42 @@ function feedConfettiEffect() {
     area.appendChild(c);
     setTimeout(() => c.remove(), 1500);
   }
+  // SVG 하트/별 파티클
+  feedSvgParticles();
+}
+
+function feedSvgParticles() {
+  const area = document.getElementById('feed-area');
+  const aRect = area.getBoundingClientRect();
+  const cx = aRect.width / 2;
+  const cy = aRect.height / 2;
+  const heartPath = 'M0,-8 C-5,-16 -16,-10 -13,-2.5 C-10,5 0,13 0,13 C0,13 10,5 13,-2.5 C16,-10 5,-16 0,-8Z';
+  const starPath = 'M0,-12 L3,-4 L12,-4 L5,2 L8,11 L0,6 L-8,11 L-5,2 L-12,-4 L-3,-4Z';
+  const svgColors = ['#ef4444','#f472b6','#fbbf24','#22c55e','#8b5cf6','#3b82f6'];
+  for (let i = 0; i < 12; i++) {
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '-16 -16 32 32');
+    const isHeart = Math.random() > 0.5;
+    const path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', isHeart ? heartPath : starPath);
+    path.setAttribute('fill', svgColors[Math.floor(Math.random() * svgColors.length)]);
+    svg.appendChild(path);
+    svg.style.cssText = `position:absolute;pointer-events:none;z-index:20;width:${28+Math.random()*20}px;height:${28+Math.random()*20}px;left:${cx}px;top:${cy}px;`;
+    area.appendChild(svg);
+    const angle = (Math.PI * 2 / 12) * i + (Math.random() - .5) * .5;
+    const dist = 80 + Math.random() * 120;
+    const tx = Math.cos(angle) * dist;
+    const ty = Math.sin(angle) * dist;
+    const dur = 600 + Math.random() * 400;
+    const rot = (Math.random() - .5) * 360;
+    svg.animate([
+      { transform: 'translate(0,0) scale(0) rotate(0deg)', opacity: 0 },
+      { transform: `translate(${tx*.3}px,${ty*.3}px) scale(1.3) rotate(${rot*.3}deg)`, opacity: 1, offset: 0.3 },
+      { transform: `translate(${tx}px,${ty}px) scale(.4) rotate(${rot}deg)`, opacity: 0 }
+    ], { duration: dur, easing: 'ease-out', fill: 'forwards' });
+    setTimeout(() => svg.remove(), dur);
+  }
 }
 
 function updateFeedUI() {
@@ -1087,7 +1156,7 @@ function tfSelectCard(card) {
   if (cardEmoji === expected.emoji) {
     // 정답!
     card.classList.add('placed');
-    slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:60px">${cardEmoji}</span>`;
+    slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:110px">${cardEmoji}</span>`;
     slot.classList.add('filled');
     speak(`${cardLabel}!`);
     tf.nextSlotIdx++;
@@ -1099,7 +1168,7 @@ function tfSelectCard(card) {
   } else {
     // 오답 - 웃긴 결과물
     slot.classList.add('wrong-slot');
-    slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:50px">${cardEmoji}</span>`;
+    slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:100px">${cardEmoji}</span>`;
     speak('앗! 순서가 달라요!');
 
     const area = document.getElementById('transform-area');
@@ -1239,6 +1308,46 @@ function hgSetupBiomes() {
     document.getElementById('hg-divider5').style.left = '75%';
   }
 
+  const BIOME_SVG = {
+    forest: `<svg class="biome-svg-deco" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.35">
+      <g fill="#0d5016"><polygon points="60,280 80,120 100,280"/><polygon points="50,280 80,180 110,280"/></g>
+      <g fill="#166534"><polygon points="160,280 185,90 210,280"/><polygon points="145,280 185,150 225,280"/></g>
+      <g fill="#14532d"><polygon points="280,280 300,140 320,280"/><polygon points="268,280 300,200 332,280"/></g>
+      <g fill="#15803d" opacity=".5"><polygon points="340,280 355,170 370,280"/><polygon points="20,280 38,200 56,280"/></g>
+      <circle cx="90" cy="80" r="4" fill="#86efac" opacity=".6"><animate attributeName="opacity" values=".6;.2;.6" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="300" cy="100" r="3" fill="#bbf7d0" opacity=".5"><animate attributeName="opacity" values=".5;.15;.5" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="200" cy="60" r="3.5" fill="#a7f3d0" opacity=".4"><animate attributeName="opacity" values=".4;.1;.4" dur="2s" repeatCount="indefinite"/></circle>
+    </svg>`,
+    ocean: `<svg class="biome-svg-deco" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.35">
+      <path d="M0,200 Q50,185 100,200 T200,200 T300,200 T400,200 L400,300 L0,300Z" fill="#1d4ed8" opacity=".5"><animate attributeName="d" values="M0,200 Q50,185 100,200 T200,200 T300,200 T400,200 L400,300 L0,300Z;M0,200 Q50,215 100,200 T200,200 T300,200 T400,200 L400,300 L0,300Z;M0,200 Q50,185 100,200 T200,200 T300,200 T400,200 L400,300 L0,300Z" dur="4s" repeatCount="indefinite"/></path>
+      <path d="M0,220 Q60,205 120,220 T240,220 T360,220 T400,220 L400,300 L0,300Z" fill="#1e40af" opacity=".4"><animate attributeName="d" values="M0,220 Q60,205 120,220 T240,220 T360,220 T400,220 L400,300 L0,300Z;M0,220 Q60,235 120,220 T240,220 T360,220 T400,220 L400,300 L0,300Z;M0,220 Q60,205 120,220 T240,220 T360,220 T400,220 L400,300 L0,300Z" dur="3.5s" repeatCount="indefinite"/></path>
+      <g fill="#60a5fa" opacity=".3"><ellipse cx="80" cy="240" rx="20" ry="6"><animate attributeName="rx" values="20;25;20" dur="2s" repeatCount="indefinite"/></ellipse><ellipse cx="300" cy="250" rx="18" ry="5"><animate attributeName="rx" values="18;23;18" dur="2.5s" repeatCount="indefinite"/></ellipse></g>
+      <g opacity=".25" fill="#93c5fd"><path d="M150,180 Q155,170 160,175 Q165,165 170,170 Q175,160 180,175 L175,180 Q170,176 165,180 Q160,174 155,180Z"><animate attributeName="transform" type="translate" values="0,0;-5,3;0,0" dur="5s" repeatCount="indefinite"/></path><path d="M260,200 Q265,190 270,195 Q275,185 280,190 Q285,180 290,195 L285,200 Q280,196 275,200 Q270,194 265,200Z"><animate attributeName="transform" type="translate" values="0,0;5,-3;0,0" dur="4s" repeatCount="indefinite"/></path></g>
+      <circle cx="100" cy="260" r="6" fill="#7dd3fc" opacity=".2"><animate attributeName="cy" values="260;255;260" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="320" cy="270" r="5" fill="#7dd3fc" opacity=".15"><animate attributeName="cy" values="270;265;270" dur="2.5s" repeatCount="indefinite"/></circle>
+    </svg>`,
+    desert: `<svg class="biome-svg-deco" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.35">
+      <g fill="#a16207" opacity=".6"><path d="M80,280 L80,200 Q75,195 80,190 Q85,195 80,200 M80,210 Q65,205 60,215 M80,230 Q95,225 100,235"/><path d="M300,280 L300,180 Q295,175 300,170 Q305,175 300,180 M300,200 Q285,195 280,205 M300,220 Q315,215 320,225 M300,190 Q315,185 320,195"/></g>
+      <g fill="#ca8a04" opacity=".4"><path d="M200,280 L200,220 Q195,215 200,210 Q205,215 200,220 M200,240 Q190,236 186,244"/></g>
+      <circle cx="350" cy="50" r="25" fill="#fbbf24" opacity=".3"/><circle cx="350" cy="50" r="18" fill="#fde68a" opacity=".2"/>
+      <g fill="#d97706" opacity=".15"><path d="M0,270 Q100,255 200,270 T400,270 L400,300 L0,300Z"/></g>
+      <circle cx="150" cy="260" r="3" fill="#fde68a" opacity=".3"><animate attributeName="opacity" values=".3;.1;.3" dur="4s" repeatCount="indefinite"/></circle>
+      <circle cx="250" cy="250" r="2" fill="#fef3c7" opacity=".25"><animate attributeName="opacity" values=".25;.08;.25" dur="3s" repeatCount="indefinite"/></circle>
+    </svg>`,
+    arctic: `<svg class="biome-svg-deco" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.35">
+      <g fill="#e0f2fe" opacity=".5"><polygon points="60,160 70,80 80,160"/><polygon points="55,160 70,120 85,160"/></g>
+      <g stroke="#bae6fd" stroke-width="1.5" fill="none" opacity=".5">
+        <g transform="translate(100,60)"><line x1="0" y1="-15" x2="0" y2="15"/><line x1="-13" y1="-7.5" x2="13" y2="7.5"/><line x1="-13" y1="7.5" x2="13" y2="-7.5"/><line x1="-5" y1="-12" x2="5" y2="12" transform="rotate(30)"/><line x1="-5" y1="-12" x2="5" y2="12" transform="rotate(60)"/><line x1="-5" y1="-12" x2="5" y2="12" transform="rotate(120)"/><animate attributeName="opacity" values=".5;.2;.5" dur="3s" repeatCount="indefinite"/></g>
+        <g transform="translate(300,80) scale(.7)"><line x1="0" y1="-15" x2="0" y2="15"/><line x1="-13" y1="-7.5" x2="13" y2="7.5"/><line x1="-13" y1="7.5" x2="13" y2="-7.5"/><animate attributeName="opacity" values=".4;.15;.4" dur="2.5s" repeatCount="indefinite"/></g>
+        <g transform="translate(200,40) scale(.5)"><line x1="0" y1="-15" x2="0" y2="15"/><line x1="-13" y1="-7.5" x2="13" y2="7.5"/><line x1="-13" y1="7.5" x2="13" y2="-7.5"/><animate attributeName="opacity" values=".35;.1;.35" dur="3.5s" repeatCount="indefinite"/></g>
+      </g>
+      <g fill="#fff" opacity=".15"><ellipse cx="120" cy="270" rx="50" ry="12"/><ellipse cx="300" cy="260" rx="40" ry="10"/></g>
+      <circle cx="50" cy="100" r="2" fill="#fff" opacity=".4"><animate attributeName="opacity" values=".4;.1;.4" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="350" cy="120" r="2.5" fill="#fff" opacity=".3"><animate attributeName="opacity" values=".3;.08;.3" dur="2.8s" repeatCount="indefinite"/></circle>
+      <circle cx="180" cy="90" r="1.5" fill="#e0f2fe" opacity=".35"><animate attributeName="opacity" values=".35;.1;.35" dur="3.2s" repeatCount="indefinite"/></circle>
+    </svg>`
+  };
+
   biomeKeys.forEach((key, i) => {
     const data = BIOME_DATA[key];
     const biome = document.createElement('div');
@@ -1250,6 +1359,7 @@ function hgSetupBiomes() {
     biome.dataset.biome = key;
     biome.style.background = data.bg;
     biome.innerHTML = `
+      ${BIOME_SVG[key] || ''}
       <div class="hg-biome-ground" style="background:${data.ground}"></div>
       <div class="hg-biome-icon">${data.emoji}</div>
       <div class="hg-biome-label">${data.emoji} ${data.name}</div>
