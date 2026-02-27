@@ -46,22 +46,25 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 /* 탭 */
 .tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
-.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
-.tab-btn.active{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff;border-color:#f97316}
-.tab-btn:active{transform:scale(.97)}
+.tab-btn{background:linear-gradient(180deg,#fff7ed,#ffedd5);border:3px solid #fed7aa;border-bottom:5px solid #fdba74;border-radius:14px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.15s;color:#9a3412;display:flex;align-items:center;justify-content:center;height:50px;white-space:nowrap;font-family:inherit;box-shadow:0 3px 0 rgba(234,88,12,.15),0 4px 8px rgba(0,0,0,.06);text-shadow:0 1px 2px rgba(0,0,0,.08)}
+.tab-btn.active{background:linear-gradient(180deg,#fb923c,#f97316);color:#fff;border-color:#ea580c;border-bottom-color:#c2410c;box-shadow:0 3px 0 #c2410c,0 4px 12px rgba(249,115,22,.3);text-shadow:0 2px 4px rgba(0,0,0,.2)}
+.tab-btn:active{transform:translateY(3px);border-bottom-width:2px;box-shadow:0 1px 0 rgba(234,88,12,.15)}
 .tab-content{display:none;flex:1;overflow:hidden}
 .tab-content.active{display:flex;flex-direction:column}
 
 /* 사이드 정보 */
-.side-info{background:linear-gradient(145deg,#fff7ed,#ffedd5);border-radius:16px;padding:15px;border:2px solid #f97316;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
+.side-info{background:linear-gradient(145deg,#fff7ed,#ffedd5);border-radius:16px;padding:15px;border:2px solid rgba(249,115,22,.3);display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden;position:relative}
+.side-info::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#f97316,#fbbf24,#f97316);border-radius:16px 16px 0 0}
 .side-title{font-size:17px;font-weight:700;color:#9a3412;text-align:center;flex-shrink:0}
-.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
-.side-val{font-size:20px;font-weight:800;color:#f97316}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:linear-gradient(145deg,#fff,#fffbf5);border-radius:10px;font-size:15px;font-weight:600;color:#1e293b;border:1px solid rgba(249,115,22,.1);box-shadow:0 2px 4px rgba(0,0,0,.03)}
+.side-val{font-size:22px;font-weight:900;color:#ea580c;text-shadow:0 1px 2px rgba(234,88,12,.2)}
 
 /* 게임 런치 */
-.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#fbbf24,#f59e0b);color:#78350f;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(251,191,36,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+.game-launch-btn{flex-shrink:0;background:linear-gradient(180deg,#fcd34d,#fbbf24,#f59e0b);color:#78350f;border:3px solid #fff;border-bottom:6px solid #d97706;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 0 #b45309,0 6px 16px rgba(251,191,36,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite;text-shadow:0 1px 2px rgba(0,0,0,.12);position:relative;overflow:hidden}
+.game-launch-btn::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.3) 50%,transparent 60%);animation:btnShine 3s linear infinite}
+@keyframes btnShine{0%{transform:translateX(-100%) rotate(45deg)}100%{transform:translateX(100%) rotate(45deg)}}
 @keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
-.game-launch-btn:active{transform:scale(.97)}
+.game-launch-btn:active{transform:translateY(4px);border-bottom-width:2px;box-shadow:0 1px 0 #b45309,0 2px 8px rgba(251,191,36,.3)}
 
 /* 중앙 */
 .center-panel{display:flex;flex-direction:column;overflow:hidden;position:relative}
@@ -69,16 +72,16 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .game-view.active{display:flex}
 
 /* 숫자패드 */
-.numpad{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:12px;flex-shrink:0}
-.numpad-btn{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:16px;font-size:36px;font-weight:800;cursor:pointer;transition:.15s;color:#1e293b;display:flex;align-items:center;justify-content:center;height:80px;box-shadow:0 4px 12px rgba(0,0,0,.08);font-family:inherit}
-.numpad-btn:active{transform:scale(.93);background:linear-gradient(145deg,#fed7aa,#fdba74);border-color:#f97316}
+.numpad{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:12px;flex-shrink:0;background:linear-gradient(180deg,rgba(15,23,42,.6),rgba(15,23,42,.8));border-top:2px solid rgba(251,191,36,.15);border-radius:0 0 16px 16px}
+.numpad-btn{background:linear-gradient(180deg,#fff,#f1f5f9);border:3px solid #e2e8f0;border-bottom:5px solid #cbd5e1;border-radius:14px;font-size:34px;font-weight:800;cursor:pointer;transition:all .12s;color:#1e293b;display:flex;align-items:center;justify-content:center;height:75px;box-shadow:0 3px 0 rgba(0,0,0,.08),0 4px 8px rgba(0,0,0,.05);font-family:inherit}
+.numpad-btn:active{transform:translateY(3px);border-bottom-width:2px;box-shadow:0 1px 0 rgba(0,0,0,.08);background:linear-gradient(180deg,#fed7aa,#fdba74);border-color:#f97316;border-bottom-color:#ea580c}
 .numpad-btn.correct{background:linear-gradient(145deg,#86efac,#4ade80)!important;border-color:#22c55e!important;color:#fff}
 .numpad-btn.wrong{background:linear-gradient(145deg,#fca5a5,#f87171)!important;border-color:#ef4444!important;color:#fff;animation:shake .5s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 
 /* 폭탄 해체반 */
 .bomb-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:10px}
-.bomb-container{position:relative;width:280px;height:300px}
+.bomb-container{position:relative;width:350px;height:380px}
 .bomb-equation{position:absolute;top:55%;left:50%;transform:translate(-50%,-50%);font-size:40px;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);z-index:2;pointer-events:none;text-align:center}
 .bomb-info{font-size:20px;font-weight:700;color:#78350f;text-align:center;padding:8px 20px;background:linear-gradient(145deg,#fef3c7,#fde68a);border-radius:12px}
 .bomb-result{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:10;animation:resPop .8s ease-out forwards;pointer-events:none}
@@ -124,7 +127,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 /* 숫자 먹방 */
 .eating-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.eating-char{width:180px;height:180px;position:relative}
+.eating-char{width:220px;height:220px;position:relative}
 .eating-speech{position:absolute;top:-40px;left:50%;transform:translateX(-50%);background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:8px 16px;font-size:20px;font-weight:700;color:#1e293b;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.1);z-index:5}
 .eating-speech::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid #fff}
 .eating-counter{font-size:50px;font-weight:900;color:#f97316}
@@ -204,15 +207,15 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .record-label{font-size:13px;font-weight:600;color:#9a3412;margin-top:4px}
 
 /* 오른쪽 */
-.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
-.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:52px;opacity:.9}
-.action-btn:active{transform:scale(.95)}
-.action-btn.btn-orange{background:linear-gradient(145deg,#f97316,#ea580c);box-shadow:0 2px 8px rgba(249,115,22,.3)}
-.action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
-.action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
-.action-btn.btn-green{background:linear-gradient(145deg,#10b981,#059669);box-shadow:0 2px 8px rgba(16,185,129,.2)}
-.action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
+.right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden;background:linear-gradient(180deg,rgba(249,115,22,.04),rgba(234,88,12,.08));border-radius:20px;padding:10px;border:2px solid rgba(249,115,22,.12);position:relative}
+.action-btn{border:none;border-radius:20px;font-size:28px;font-weight:800;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex:1;min-height:60px;font-family:inherit;color:#fff;position:relative;border-bottom:6px solid rgba(0,0,0,.25);border-top:2px solid rgba(255,255,255,.3);box-shadow:0 6px 0 rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.2);text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.action-btn .icon{font-size:48px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.action-btn:active{transform:translateY(4px);border-bottom-width:2px;box-shadow:0 2px 0 rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.15)}
+.action-btn.btn-orange{background:linear-gradient(180deg,#fb923c,#f97316 40%,#ea580c);border-bottom-color:#c2410c}
+.action-btn.btn-cyan{background:linear-gradient(180deg,#22d3ee,#06b6d4 40%,#0891b2);border-bottom-color:#0e7490}
+.action-btn.btn-red{background:linear-gradient(180deg,#fb7185,#f43f5e 40%,#e11d48);border-bottom-color:#be123c}
+.action-btn.btn-green{background:linear-gradient(180deg,#34d399,#10b981 40%,#059669);border-bottom-color:#047857}
+.action-btn:disabled{background:linear-gradient(180deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none!important;border-bottom-color:#9ca3af!important;border-top-color:transparent!important}
 
 /* 히어로 */
 .hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#dbeafe 0%,#93c5fd 25%,#a7f3d0 75%,#6ee7b7 100%);overflow:hidden}
@@ -274,6 +277,48 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
 .char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
 .char-item.selected{background:linear-gradient(145deg,#fbbf24,#f59e0b);border-color:#f59e0b}
+
+/* ===== 배경 씬 ===== */
+.bomb-view{background:linear-gradient(180deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px;overflow:hidden;position:relative}
+.bomb-view::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'><defs><pattern id='g' width='60' height='60' patternUnits='userSpaceOnUse'><path d='M60 0V60H0' fill='none' stroke='rgba(249,115,22,.06)' stroke-width='1'/></pattern></defs><rect width='1200' height='900' fill='url(%23g)'/><rect x='30' y='30' width='140' height='90' rx='8' fill='none' stroke='rgba(249,115,22,.15)' stroke-width='2'/><rect x='35' y='35' width='130' height='50' rx='4' fill='rgba(34,197,94,.03)'/><line x1='40' y1='50' x2='80' y2='50' stroke='rgba(34,197,94,.2)' stroke-width='2'><animate attributeName='x2' values='40;120;40' dur='3s' repeatCount='indefinite'/></line><line x1='40' y1='62' x2='100' y2='62' stroke='rgba(34,197,94,.12)' stroke-width='1.5'><animate attributeName='x2' values='60;140;60' dur='4s' repeatCount='indefinite'/></line><rect x='1030' y='30' width='140' height='90' rx='8' fill='none' stroke='rgba(249,115,22,.15)' stroke-width='2'/><circle cx='1100' cy='60' r='15' fill='none' stroke='rgba(249,115,22,.15)' stroke-width='1.5'><animate attributeName='r' values='10;20;10' dur='2s' repeatCount='indefinite'/><animate attributeName='opacity' values='.3;.08;.3' dur='2s' repeatCount='indefinite'/></circle><path d='M0 800Q150 775 300 810Q450 840 600 800Q750 770 900 810Q1050 840 1200 800' fill='none' stroke='rgba(239,68,68,.1)' stroke-width='3'/><path d='M0 830Q200 800 400 840Q600 860 800 820Q1000 790 1200 830' fill='none' stroke='rgba(251,191,36,.08)' stroke-width='2'/><circle cx='50' cy='850' r='4' fill='%23ef4444' opacity='.5'><animate attributeName='opacity' values='.2;.7;.2' dur='1s' repeatCount='indefinite'/></circle><circle cx='1150' cy='855' r='4' fill='%23ef4444' opacity='.4'><animate attributeName='opacity' values='.4;.1;.4' dur='1.3s' repeatCount='indefinite'/></circle><circle cx='80' cy='840' r='3' fill='%23fbbf24' opacity='.3'><animate attributeName='opacity' values='.3;.08;.3' dur='1.5s' repeatCount='indefinite'/></circle></svg>") no-repeat center/cover;pointer-events:none;z-index:0}
+.bomb-view .bomb-start-screen,.bomb-view #bomb-game-screen{position:relative;z-index:1}
+.bomb-start-title{font-size:48px;font-weight:900;color:#fff!important;text-shadow:0 4px 12px rgba(0,0,0,.4)}
+.bomb-view .bomb-start-screen>div:nth-child(2){color:#94a3b8!important}
+.bomb-info{background:linear-gradient(145deg,rgba(251,191,36,.2),rgba(249,115,22,.15))!important;color:#fde68a!important;border:2px solid rgba(251,191,36,.3);backdrop-filter:blur(4px)}
+.bomb-input-display{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.04))!important;border-color:rgba(251,191,36,.3)!important;color:#fbbf24!important;box-shadow:inset 0 2px 4px rgba(0,0,0,.2),0 0 20px rgba(251,191,36,.1)!important}
+.bomb-input-display.empty{color:rgba(148,163,184,.5)!important}
+.bomb-start-btn{border-bottom:6px solid #9a3412;box-shadow:0 4px 0 #9a3412,0 8px 24px rgba(249,115,22,.5)!important}
+.bomb-start-btn:active{transform:translateY(4px)!important;border-bottom-width:2px;box-shadow:0 1px 0 #9a3412,0 2px 8px rgba(249,115,22,.3)!important}
+
+.eat-view{background:linear-gradient(180deg,#fef7ed 0%,#fff7ed 40%,#fce7c8 100%);border-radius:16px;overflow:hidden;position:relative}
+.eat-view::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'><defs><pattern id='ck' width='40' height='40' patternUnits='userSpaceOnUse'><rect width='20' height='20' fill='rgba(249,115,22,.05)'/><rect x='20' y='20' width='20' height='20' fill='rgba(249,115,22,.05)'/></pattern></defs><rect y='580' width='1200' height='320' fill='url(%23ck)'/><path d='M0 580Q600 560 1200 580' fill='none' stroke='rgba(234,88,12,.1)' stroke-width='3'/><line x1='30' y1='100' x2='200' y2='100' stroke='rgba(180,120,60,.12)' stroke-width='4'/><rect x='50' y='68' width='30' height='32' rx='4' fill='rgba(249,115,22,.06)'/><rect x='90' y='55' width='25' height='45' rx='4' fill='rgba(239,68,68,.05)'/><rect x='130' y='72' width='28' height='28' rx='4' fill='rgba(34,197,94,.05)'/><line x1='1000' y1='100' x2='1170' y2='100' stroke='rgba(180,120,60,.12)' stroke-width='4'/><rect x='1020' y='58' width='35' height='42' rx='6' fill='rgba(251,191,36,.06)'/><rect x='1070' y='68' width='25' height='32' rx='4' fill='rgba(59,130,246,.05)'/><rect x='1110' y='62' width='30' height='38' rx='5' fill='rgba(168,85,247,.05)'/><text x='100' y='300' font-size='30' opacity='.06'>🍪</text><text x='1050' y='250' font-size='25' opacity='.05'>🧁</text><text x='150' y='700' font-size='28' opacity='.06'>🍩</text><text x='1080' y='650' font-size='26' opacity='.05'>🍰</text><ellipse cx='600' cy='30' rx='80' ry='15' fill='rgba(255,255,255,.25)'/><ellipse cx='550' cy='48' rx='60' ry='10' fill='rgba(255,255,255,.15)'/></svg>") no-repeat center/cover;pointer-events:none;z-index:0}
+.eat-view .eating-area{position:relative;z-index:1}
+.food-grid{background:radial-gradient(ellipse at center,rgba(255,255,255,.5) 0%,rgba(255,247,237,.2) 60%,transparent 80%);border-radius:24px;padding:16px!important;border:2px solid rgba(249,115,22,.08)}
+.food-item{border-bottom:4px solid #cbd5e1;box-shadow:0 3px 0 rgba(0,0,0,.06),0 4px 8px rgba(0,0,0,.04)}
+.food-item:active{transform:translateY(2px) scale(.95)!important;border-bottom-width:2px}
+
+.record-view{background:linear-gradient(180deg,#fffbeb 0%,#fef3c7 50%,#fde68a80 100%);border-radius:16px;overflow:hidden;position:relative}
+.record-view::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'><rect x='80' y='200' width='1040' height='6' rx='3' fill='rgba(180,120,60,.08)'/><rect x='80' y='450' width='1040' height='6' rx='3' fill='rgba(180,120,60,.08)'/><rect x='80' y='700' width='1040' height='6' rx='3' fill='rgba(180,120,60,.08)'/><text x='120' y='190' font-size='40' opacity='.08'>🏆</text><text x='500' y='192' font-size='30' opacity='.06'>🌟</text><text x='900' y='188' font-size='38' opacity='.07'>🏅</text><text x='200' y='440' font-size='35' opacity='.06'>🎯</text><text x='950' y='438' font-size='36' opacity='.07'>🎉</text><circle cx='150' cy='100' r='2' fill='%23fbbf24' opacity='.25'><animate attributeName='opacity' values='.1;.35;.1' dur='2s' repeatCount='indefinite'/></circle><circle cx='600' cy='80' r='2.5' fill='%23fbbf24' opacity='.2'><animate attributeName='opacity' values='.1;.3;.1' dur='1.8s' repeatCount='indefinite'/></circle><circle cx='1050' cy='120' r='2' fill='%23fbbf24' opacity='.15'><animate attributeName='opacity' values='.08;.25;.08' dur='2.2s' repeatCount='indefinite'/></circle><path d='M0 0Q30 200 15 400Q0 600 20 900' fill='rgba(234,88,12,.04)' stroke='rgba(234,88,12,.06)' stroke-width='2'/><path d='M1200 0Q1170 200 1185 400Q1200 600 1180 900' fill='rgba(234,88,12,.04)' stroke='rgba(234,88,12,.06)' stroke-width='2'/></svg>") no-repeat center/cover;pointer-events:none;z-index:0}
+.record-view .records-area{position:relative;z-index:1}
+.record-card{background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,247,237,.92))!important;border:2px solid #fed7aa!important;box-shadow:0 4px 12px rgba(0,0,0,.06),0 0 0 1px rgba(251,191,36,.08)!important;backdrop-filter:blur(4px)}
+.record-card h3{padding-bottom:8px;border-bottom:2px solid rgba(249,115,22,.12)}
+.record-item{box-shadow:0 2px 4px rgba(0,0,0,.03);position:relative;overflow:hidden}
+.record-item::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(251,191,36,.06) 0%,transparent 70%);pointer-events:none}
+
+/* 마스코트 */
+.mascot-wrap{position:absolute;bottom:12px;right:12px;z-index:5;pointer-events:none}
+.mascot-svg{filter:drop-shadow(0 4px 8px rgba(0,0,0,.15));animation:mascotBob 3s ease-in-out infinite}
+@keyframes mascotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.mascot-speech{position:absolute;bottom:100%;right:0;margin-bottom:8px;background:#fff;border:2px solid #fed7aa;border-radius:16px 16px 16px 4px;padding:8px 14px;font-size:14px;font-weight:700;color:#78350f;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.1);animation:speechIn .3s ease-out;pointer-events:none}
+@keyframes speechIn{0%{opacity:0;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
+.mascot-svg.happy{animation:mascotBob 3s ease-in-out infinite,mascotJump .5s ease-out}
+@keyframes mascotJump{0%{transform:translateY(0)}40%{transform:translateY(-20px) scale(1.1)}100%{transform:translateY(0) scale(1)}}
+.mascot-svg.worried{animation:mascotShake .4s ease-out}
+@keyframes mascotShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+
+/* 폭탄 장식 */
+.bomb-deco{position:absolute;pointer-events:none;z-index:0;animation:bombDecoFloat var(--dur,6s) ease-in-out infinite}
+@keyframes bombDecoFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(5deg)}}
 </style>
 </head>
 <body>
@@ -370,13 +415,30 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
           <div class="bomb-start-title">💣 폭탄 해체반</div>
           <div style="font-size:22px;color:#64748b;font-weight:600">수식을 풀어서 폭탄을 해체하세요!</div>
           <button class="bomb-start-btn" onclick="bombStart()">🚀 시작!</button>
+          <!-- 마스코트 수리 -->
+          <div class="mascot-wrap" id="mascot-bomb">
+            <div class="mascot-speech" id="mascot-bomb-speech">폭탄 해체하러 가자!</div>
+            <svg class="mascot-svg" id="mascot-bomb-svg" viewBox="0 0 100 120" width="90" height="108">
+              <ellipse cx="50" cy="72" rx="38" ry="34" fill="#fb923c"/>
+              <ellipse cx="50" cy="72" rx="38" ry="34" fill="url(#mascotGrad)" opacity=".5"/>
+              <defs><radialGradient id="mascotGrad" cx="40%" cy="35%"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#fb923c"/></radialGradient></defs>
+              <ellipse cx="36" cy="64" rx="8" ry="9" fill="#fff"/>
+              <circle cx="38" cy="65" r="4.5" fill="#1e293b"/><circle cx="39.5" cy="63.5" r="1.5" fill="#fff"/>
+              <ellipse cx="64" cy="64" rx="8" ry="9" fill="#fff"/>
+              <circle cx="66" cy="65" r="4.5" fill="#1e293b"/><circle cx="67.5" cy="63.5" r="1.5" fill="#fff"/>
+              <path id="mascot-mouth" d="M38 82 Q50 94 62 82" stroke="#78350f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="26" cy="78" rx="6" ry="4" fill="#fca5a5" opacity=".35"/>
+              <ellipse cx="74" cy="78" rx="6" ry="4" fill="#fca5a5" opacity=".35"/>
+              <text x="50" y="38" text-anchor="middle" font-size="28" font-weight="900" fill="#78350f">➕</text>
+            </svg>
+          </div>
         </div>
         <!-- 게임 화면 -->
         <div id="bomb-game-screen" style="display:none;flex:1;flex-direction:column">
           <div class="bomb-info" id="bomb-info">💣 라운드 1 — 시한폭탄</div>
           <div class="bomb-area" id="bomb-area">
             <div class="bomb-container" id="bomb-container">
-              <svg viewBox="0 0 280 300" width="280" height="300">
+              <svg viewBox="0 0 280 300" width="350" height="380">
                 <defs>
                   <radialGradient id="bGrad" cx="40%" cy="35%"><stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#1e293b"/></radialGradient>
                 </defs>
@@ -403,7 +465,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
         <div class="eating-area">
           <div class="eating-char" id="eating-char">
             <div class="eating-speech" id="eat-speech">5만큼 먹여줘!</div>
-            <svg viewBox="0 0 180 180" width="180" height="180">
+            <svg viewBox="0 0 180 180" width="220" height="220">
               <defs><radialGradient id="cGrad" cx="40%" cy="35%"><stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/></radialGradient></defs>
               <ellipse cx="90" cy="105" rx="75" ry="65" fill="url(#cGrad)" filter="drop-shadow(0 4px 8px rgba(0,0,0,.15))"/>
               <ellipse cx="65" cy="88" rx="13" ry="15" fill="#fff"/>
@@ -415,6 +477,10 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
               <ellipse cx="130" cy="110" rx="10" ry="7" fill="#fca5a5" opacity=".4"/>
             </svg>
           </div>
+          <svg viewBox="0 0 260 30" width="260" height="30" style="margin-top:-10px">
+            <ellipse cx="130" cy="15" rx="125" ry="13" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+            <ellipse cx="130" cy="12" rx="100" ry="8" fill="#fff" opacity=".5"/>
+          </svg>
           <div class="eating-counter"><span id="eat-count">0</span> <span>/ <span id="eat-target">5</span></span></div>
           <div class="food-grid" id="food-grid"></div>
         </div>
@@ -453,6 +519,22 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
           </div>
           <div class="elev-result" id="elev-result"></div>
         </div>
+        <!-- 마스코트 수리 (엘리베이터) -->
+        <div class="mascot-wrap" id="mascot-elev" style="bottom:60px">
+          <svg class="mascot-svg" id="mascot-elev-svg" viewBox="0 0 100 120" width="70" height="84">
+            <ellipse cx="50" cy="72" rx="38" ry="34" fill="#fb923c"/>
+            <ellipse cx="50" cy="72" rx="38" ry="34" fill="url(#mascotGrad2)" opacity=".5"/>
+            <defs><radialGradient id="mascotGrad2" cx="40%" cy="35%"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#fb923c"/></radialGradient></defs>
+            <ellipse cx="36" cy="64" rx="8" ry="9" fill="#fff"/>
+            <circle cx="38" cy="65" r="4.5" fill="#1e293b"/><circle cx="39.5" cy="63.5" r="1.5" fill="#fff"/>
+            <ellipse cx="64" cy="64" rx="8" ry="9" fill="#fff"/>
+            <circle cx="66" cy="65" r="4.5" fill="#1e293b"/><circle cx="67.5" cy="63.5" r="1.5" fill="#fff"/>
+            <path d="M38 82 Q50 94 62 82" stroke="#78350f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="26" cy="78" rx="6" ry="4" fill="#fca5a5" opacity=".35"/>
+            <ellipse cx="74" cy="78" rx="6" ry="4" fill="#fca5a5" opacity=".35"/>
+            <text x="50" y="38" text-anchor="middle" font-size="28" font-weight="900" fill="#78350f">➕</text>
+          </svg>
+        </div>
       </div>
 
       <!-- 내 기록 -->
@@ -490,6 +572,30 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
               <div class="record-item"><div class="record-num" id="r-elev-score">0</div><div class="record-label">최고 점수</div></div>
             </div>
           </div>
+        </div>
+        <!-- 마스코트 수리 (트로피) -->
+        <div class="mascot-wrap" id="mascot-record">
+          <svg class="mascot-svg" viewBox="0 0 100 130" width="80" height="104">
+            <ellipse cx="50" cy="82" rx="38" ry="34" fill="#fb923c"/>
+            <ellipse cx="50" cy="82" rx="38" ry="34" fill="url(#mascotGrad3)" opacity=".5"/>
+            <defs><radialGradient id="mascotGrad3" cx="40%" cy="35%"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#fb923c"/></radialGradient></defs>
+            <ellipse cx="36" cy="74" rx="8" ry="9" fill="#fff"/>
+            <circle cx="38" cy="75" r="4.5" fill="#1e293b"/><circle cx="39.5" cy="73.5" r="1.5" fill="#fff"/>
+            <ellipse cx="64" cy="74" rx="8" ry="9" fill="#fff"/>
+            <circle cx="66" cy="75" r="4.5" fill="#1e293b"/><circle cx="67.5" cy="73.5" r="1.5" fill="#fff"/>
+            <path d="M38 92 Q50 104 62 92" stroke="#78350f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="26" cy="88" rx="6" ry="4" fill="#fca5a5" opacity=".35"/>
+            <ellipse cx="74" cy="88" rx="6" ry="4" fill="#fca5a5" opacity=".35"/>
+            <!-- 트로피 -->
+            <g transform="translate(28, 5) scale(0.6)">
+              <path d="M25 20h50v15c0 20-10 35-25 40c-15-5-25-20-25-40z" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+              <rect x="35" y="75" width="30" height="6" rx="2" fill="#d97706"/>
+              <rect x="30" y="81" width="40" height="8" rx="3" fill="#b45309"/>
+              <path d="M25 20H10c0 18 10 30 20 32v-5c-8-3-14-12-14-27z" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+              <path d="M75 20h15c0 18-10 30-20 32v-5c8-3 14-12 14-27z" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+              <text x="50" y="52" text-anchor="middle" font-size="20" font-weight="900" fill="#92400e">★</text>
+            </g>
+          </svg>
         </div>
       </div>
     </div>
@@ -826,6 +932,7 @@ function bombConfirm() {
 
     bombDefuseAnimation();
     speak('정답! 폭탄 해체 성공!');
+    setMascotEmotion('bomb','happy');
     document.getElementById('bomb-input').style.color = '#22c55e';
 
     updateBombUI();
@@ -875,6 +982,7 @@ function updateBombInput() {
 
 function bombExplode() {
   bomb.streak = 0;
+  setMascotEmotion('bomb','worried');
   speak(`펑! 정답은 ${bomb.answer}이었어요`);
   updateBombUI();
   bombExplodeAnimation();
@@ -1720,6 +1828,37 @@ function hgExit() {
   document.getElementById('hero-game').classList.add('hidden');
 }
 
+// ===== 마스코트 감정 =====
+function setMascotEmotion(viewId, emotion) {
+  const svg = document.querySelector(`#mascot-${viewId} .mascot-svg`);
+  if (!svg) return;
+  svg.classList.remove('happy','worried');
+  if (emotion !== 'idle') svg.classList.add(emotion);
+  // 폭탄 마스코트 입 변경
+  const mouth = document.getElementById('mascot-mouth');
+  if (mouth && viewId === 'bomb') {
+    switch(emotion) {
+      case 'happy': mouth.setAttribute('d','M38 82 Q50 96 62 82'); break;
+      case 'worried': mouth.setAttribute('d','M40 88 Q50 80 60 88'); break;
+      default: mouth.setAttribute('d','M38 82 Q50 94 62 82');
+    }
+  }
+  // 말풍선
+  const speech = document.getElementById(`mascot-${viewId}-speech`);
+  if (speech) {
+    switch(emotion) {
+      case 'happy': speech.textContent = '잘했어! 멋져!'; break;
+      case 'worried': speech.textContent = '으앗! 위험해!'; break;
+      default: speech.textContent = '폭탄 해체하러 가자!';
+    }
+    speech.style.display = 'block';
+    clearTimeout(speech._timer);
+    speech._timer = setTimeout(() => { if(emotion !== 'idle') speech.style.display = 'none'; }, 2000);
+  }
+  // 자동 복귀
+  if (emotion !== 'idle') setTimeout(() => setMascotEmotion(viewId, 'idle'), 2500);
+}
+
 // ===== 초기화 =====
 document.addEventListener('DOMContentLoaded', function() {
   // fitScale
@@ -1755,6 +1894,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // 프로필
   updateProfile();
   updateActionButtons();
+
+  // 폭탄 영역 부유 장식
+  (function addBombDecorations() {
+    const view = document.getElementById('bomb-view');
+    if (!view) return;
+    const decos = ['⚠️','🔧','⚡','🔩','💡','⚙️'];
+    for (let i = 0; i < 8; i++) {
+      const d = document.createElement('div');
+      d.className = 'bomb-deco';
+      d.textContent = decos[i % decos.length];
+      d.style.cssText = `font-size:${18+Math.random()*14}px;opacity:.10;left:${5+Math.random()*85}%;top:${10+Math.random()*70}%;--dur:${5+Math.random()*4}s;animation-delay:${Math.random()*3}s`;
+      view.appendChild(d);
+    }
+  })();
 
   // 게임 초기화 (폭탄은 시작 버튼으로 시작)
   initEatGame();
