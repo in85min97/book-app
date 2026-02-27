@@ -213,6 +213,89 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 방문 스탬프 */
 .stamp{position:absolute;pointer-events:none;z-index:15;font-size:20px;animation:stampPop .5s ease-out forwards}
 @keyframes stampPop{0%{transform:scale(0) rotate(-30deg);opacity:0}60%{transform:scale(1.3) rotate(10deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+
+/* ===== 비주얼 업그레이드 ===== */
+/* 탭별 배경 씬 */
+.pilot-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><defs><linearGradient id='sky' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%230c4a6e'/><stop offset='50%' stop-color='%230284c7'/><stop offset='100%' stop-color='%2338bdf8'/></linearGradient></defs><rect fill='url(%23sky)' width='1320' height='900'/><circle cx='200' cy='140' r='5' fill='%23fbbf24' opacity='.6'><animate attributeName='opacity' values='.6;.2;.6' dur='3s' repeatCount='indefinite'/></circle><circle cx='400' cy='80' r='3' fill='%23fbbf24' opacity='.4'><animate attributeName='opacity' values='.4;.1;.4' dur='2s' repeatCount='indefinite'/></circle><circle cx='900' cy='100' r='4' fill='%23fbbf24' opacity='.5'><animate attributeName='opacity' values='.5;.15;.5' dur='2.5s' repeatCount='indefinite'/></circle><circle cx='1100' cy='160' r='3' fill='%23fbbf24' opacity='.3'><animate attributeName='opacity' values='.3;.1;.3' dur='1.8s' repeatCount='indefinite'/></circle><circle cx='660' cy='60' r='6' fill='%23fbbf24' opacity='.7'><animate attributeName='opacity' values='.7;.2;.7' dur='4s' repeatCount='indefinite'/></circle></svg>") center/cover no-repeat;
+  opacity:.15;border-radius:16px}
+.pilot-view{position:relative}
+
+.dress-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><rect fill='%23fef3c7' width='1320' height='900'/><rect x='0' y='750' width='1320' height='150' fill='%23fde68a'/><rect x='20' y='100' width='120' height='600' rx='10' fill='%23fff' opacity='.3'/><rect x='25' y='120' width='110' height='3' rx='1' fill='%23d4a' opacity='.15'/><rect x='25' y='200' width='110' height='3' rx='1' fill='%23d4a' opacity='.15'/><rect x='25' y='280' width='110' height='3' rx='1' fill='%23d4a' opacity='.15'/><rect x='1180' y='100' width='120' height='600' rx='10' fill='%23fff' opacity='.3'/><rect x='1185' y='120' width='110' height='3' rx='1' fill='%23d4a' opacity='.15'/><rect x='1185' y='200' width='110' height='3' rx='1' fill='%23d4a' opacity='.15'/><text x='660' y='50' text-anchor='middle' font-size='28' fill='%23d97706' opacity='.15' font-weight='900'>FASHION WORLD</text></svg>") center/cover no-repeat;
+  opacity:.2;border-radius:16px}
+.dress-view{position:relative}
+
+.sound-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><rect fill='%23ecfdf5' width='1320' height='900'/><circle cx='200' cy='450' r='180' fill='none' stroke='%2310b981' stroke-width='1' opacity='.12'><animate attributeName='r' values='180;220;180' dur='4s' repeatCount='indefinite'/></circle><circle cx='660' cy='450' r='250' fill='none' stroke='%2306b6d4' stroke-width='1.5' opacity='.1'><animate attributeName='r' values='250;300;250' dur='5s' repeatCount='indefinite'/></circle><circle cx='1100' cy='450' r='160' fill='none' stroke='%238b5cf6' stroke-width='1' opacity='.12'><animate attributeName='r' values='160;200;160' dur='3.5s' repeatCount='indefinite'/></circle><text x='100' y='800' font-size='60' fill='%2310b981' opacity='.06'>♪</text><text x='600' y='100' font-size='50' fill='%2306b6d4' opacity='.06'>♫</text><text x='1100' y='820' font-size='55' fill='%238b5cf6' opacity='.06'>♩</text></svg>") center/cover no-repeat;
+  opacity:.25;border-radius:16px}
+.sound-view{position:relative}
+
+.record-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><defs><linearGradient id='rg' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23e0f2fe'/><stop offset='100%' stop-color='%23bae6fd'/></linearGradient></defs><rect fill='url(%23rg)' width='1320' height='900'/><rect x='80' y='50' width='200' height='12' rx='6' fill='%230ea5e9' opacity='.08'/><rect x='80' y='80' width='160' height='12' rx='6' fill='%230ea5e9' opacity='.06'/><rect x='1040' y='50' width='200' height='12' rx='6' fill='%230ea5e9' opacity='.08'/><rect x='1040' y='80' width='160' height='12' rx='6' fill='%230ea5e9' opacity='.06'/><text x='660' y='860' text-anchor='middle' font-size='100' fill='%230ea5e9' opacity='.04' font-weight='900'>🏆</text></svg>") center/cover no-repeat;
+  opacity:.2;border-radius:16px}
+.record-view{position:relative}
+
+/* 3D 아케이드 버튼 */
+.tab-btn{border-bottom:5px solid #7c8a9a;transition:transform .1s,border-bottom-width .1s}
+.tab-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.97);border-bottom-width:2px}
+.tab-btn.active{border-bottom:5px solid #0369a1}
+.tab-btn.active:active{border-bottom-width:2px}
+
+.action-btn{border-bottom:6px solid rgba(0,0,0,.25);transition:transform .1s,border-bottom-width .1s}
+.action-btn:active{transform:translateY(4px) scaleX(1.02) scaleY(.97)!important;border-bottom-width:2px}
+.action-btn.btn-sky{border-bottom-color:#075985}
+.action-btn.btn-cyan{border-bottom-color:#0e7490}
+.action-btn.btn-green{border-bottom-color:#047857}
+.action-btn.btn-orange{border-bottom-color:#c2410c}
+.action-btn.btn-red{border-bottom-color:#b91c1c}
+
+.game-launch-btn{border-bottom:6px solid #075985;transition:transform .1s,border-bottom-width .1s}
+.game-launch-btn:active{transform:translateY(4px) scaleX(1.02) scaleY(.97)!important;border-bottom-width:2px;animation:none}
+.game-launch-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:btnShine 3s ease-in-out infinite}
+@keyframes btnShine{0%,100%{left:-100%}50%{left:150%}}
+.game-launch-btn{position:relative;overflow:hidden}
+
+.pilot-start-btn{border-bottom:6px solid #075985}
+.pilot-start-btn:active{transform:translateY(4px) scaleX(1.02) scaleY(.97)!important;border-bottom-width:2px;animation:none}
+
+.dress-quiz-opt{border-bottom:4px solid #94a3b8;transition:transform .1s,border-bottom-width .1s}
+.dress-quiz-opt:active{transform:translateY(3px);border-bottom-width:1px}
+.dress-quiz-opt.correct{border-bottom-color:#15803d}
+.dress-quiz-opt.wrong{border-bottom-color:#b91c1c}
+
+/* 패널 비주얼 보강 */
+.side-info::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0ea5e9,#38bdf8,#7dd3fc,#38bdf8,#0ea5e9);border-radius:16px 16px 0 0}
+.side-info{position:relative}
+.side-stat{box-shadow:0 2px 6px rgba(14,165,233,.08);transition:transform .15s}
+.side-stat:hover{transform:translateX(4px)}
+.side-val{text-shadow:0 1px 4px rgba(2,132,199,.2)}
+
+.right-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(14,165,233,.06) 0%,transparent 70%);pointer-events:none;border-radius:20px;z-index:0}
+.right-panel{position:relative}
+.action-btn .icon{filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+
+.record-card{backdrop-filter:blur(5px);background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(248,250,252,.9));transition:transform .15s}
+.record-card:hover{transform:translateY(-2px)}
+
+/* 탭 전환 애니메이션 */
+@keyframes viewFadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+.game-view.active{animation:viewFadeIn .3s ease-out}
+
+/* 스코어 팝업 */
+.score-popup{position:absolute;font-size:28px;font-weight:900;color:#0ea5e9;pointer-events:none;z-index:50;animation:scorePop .9s ease-out forwards;text-shadow:0 2px 4px rgba(0,0,0,.2);paint-order:stroke fill;-webkit-text-stroke:2px #fff}
+@keyframes scorePop{0%{opacity:1;transform:translateY(0) scale(.5)}40%{transform:translateY(-30px) scale(1.2)}100%{opacity:0;transform:translateY(-70px) scale(.8)}}
+
+/* 레벨업 오버레이 */
+.levelup-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9000;pointer-events:none;background:rgba(14,165,233,.15)}
+.levelup-box{background:linear-gradient(145deg,#0ea5e9,#0284c7);color:#fff;padding:30px 60px;border-radius:24px;font-size:42px;font-weight:900;text-shadow:0 3px 8px rgba(0,0,0,.3);border:4px solid #bae6fd;box-shadow:0 12px 40px rgba(14,165,233,.5);animation:lvPop .8s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes lvPop{0%{transform:scale(0) rotate(-10deg);opacity:0}50%{transform:scale(1.15) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:0}}
+
+/* 마스코트 */
+.mascot-wrap{position:absolute;z-index:5;pointer-events:none}
+.mascot-bubble{position:absolute;top:-40px;left:50%;transform:translateX(-50%);background:#fff;border-radius:12px;padding:6px 14px;font-size:14px;font-weight:700;color:#0c4a6e;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.15);opacity:0;transition:opacity .3s}
+.mascot-bubble.show{opacity:1}
+.mascot-bubble::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#fff}
 </style>
 </head>
 <body>
@@ -301,6 +384,22 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
     <div class="center-panel">
       <!-- 비행기 조종사 -->
       <div class="game-view pilot-view active" id="pilot-view">
+        <!-- 마스코트 "글로비" -->
+        <div class="mascot-wrap" style="bottom:16px;right:16px">
+          <div class="mascot-bubble" id="bubble-pilot">출발!</div>
+          <svg width="60" height="60" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="27" cy="27" r="25" fill="url(#globeGrad)" stroke="#0369a1" stroke-width="2"/>
+            <defs><radialGradient id="globeGrad" cx="40%" cy="35%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></radialGradient></defs>
+            <ellipse cx="22" cy="20" rx="8" ry="5" fill="#4ade80" opacity=".6" transform="rotate(-10 22 20)"/>
+            <ellipse cx="34" cy="22" rx="6" ry="7" fill="#4ade80" opacity=".6"/>
+            <ellipse cx="20" cy="32" rx="5" ry="6" fill="#4ade80" opacity=".5"/>
+            <circle cx="19" cy="26" r="3.5" fill="#fff"/>
+            <circle cx="35" cy="26" r="3.5" fill="#fff"/>
+            <circle cx="19.5" cy="26.5" r="2" fill="#0c4a6e"><animate attributeName="r" values="2;1.5;2" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="35.5" cy="26.5" r="2" fill="#0c4a6e"><animate attributeName="r" values="2;1.5;2" dur="3s" repeatCount="indefinite"/></circle>
+            <path id="mascot-pilot-mouth" d="M23,36 Q27,42 31,36" fill="none" stroke="#0c4a6e" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
         <div class="pilot-area" id="pilot-area">
           <!-- 구름 배경 (SVG) -->
           <div class="cloud-bg" style="top:10%;left:5%"><svg width="120" height="60" viewBox="0 0 120 60"><ellipse cx="60" cy="40" rx="50" ry="18" fill="#fff"/><ellipse cx="40" cy="30" rx="28" ry="20" fill="#fff"/><ellipse cx="75" cy="28" rx="24" ry="18" fill="#fff"/><ellipse cx="55" cy="22" rx="20" ry="15" fill="#fff"/></svg></div>
@@ -451,6 +550,22 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
               <div class="record-item"><div class="record-num" id="r-hero-flags">0</div><div class="record-label">수집 깃발</div></div>
             </div>
           </div>
+        </div>
+        <!-- 기록 마스코트 "글로비" -->
+        <div class="mascot-wrap" style="bottom:16px;right:16px">
+          <div class="mascot-bubble" id="bubble-record">기록!</div>
+          <svg width="60" height="60" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="27" cy="27" r="25" fill="url(#globeGrad2)" stroke="#0369a1" stroke-width="2"/>
+            <defs><radialGradient id="globeGrad2" cx="40%" cy="35%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></radialGradient></defs>
+            <ellipse cx="22" cy="20" rx="8" ry="5" fill="#4ade80" opacity=".6" transform="rotate(-10 22 20)"/>
+            <ellipse cx="34" cy="22" rx="6" ry="7" fill="#4ade80" opacity=".6"/>
+            <circle cx="19" cy="26" r="3.5" fill="#fff"/>
+            <circle cx="35" cy="26" r="3.5" fill="#fff"/>
+            <circle cx="19.5" cy="26.5" r="2" fill="#0c4a6e"><animate attributeName="r" values="2;1.5;2" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="35.5" cy="26.5" r="2" fill="#0c4a6e"><animate attributeName="r" values="2;1.5;2" dur="3s" repeatCount="indefinite"/></circle>
+            <path id="mascot-rec-mouth" d="M23,36 Q27,42 31,36" fill="none" stroke="#0c4a6e" stroke-width="2" stroke-linecap="round"/>
+            <text x="27" y="12" text-anchor="middle" font-size="10" fill="#fbbf24">🏆</text>
+          </svg>
         </div>
       </div>
     </div>
@@ -666,11 +781,63 @@ function toggleSound() {
   if (!soundEnabled) speechSynthesis.cancel();
 }
 
+// ===== SFX 시스템 =====
+const SFX = {
+  _ctx: null,
+  _getCtx() { if (!this._ctx) this._ctx = new (window.AudioContext || window.webkitAudioContext)(); return this._ctx; },
+  _play(fn) { try { if (!soundEnabled) return; fn(this._getCtx()); } catch(e) {} },
+  takeoff() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(400,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(1200,ctx.currentTime+.25);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.25);o.start();o.stop(ctx.currentTime+.25); }); },
+  land() { this._play(ctx => { [784,988,1175].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.05,ctx.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.06+.12);o.start(ctx.currentTime+i*.06);o.stop(ctx.currentTime+i*.06+.12); }); }); },
+  correct() { this._play(ctx => { [523,659,784].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.07);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.07+.15);o.start(ctx.currentTime+i*.07);o.stop(ctx.currentTime+i*.07+.15); }); }); },
+  wrong() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.setValueAtTime(250,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(120,ctx.currentTime+.18);g.gain.setValueAtTime(.04,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.18);o.start();o.stop(ctx.currentTime+.18); }); },
+  whoosh() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(600,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(200,ctx.currentTime+.2);g.gain.setValueAtTime(.04,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.2);o.start();o.stop(ctx.currentTime+.2); }); },
+  fanfare() { this._play(ctx => { [523,659,784,1047].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='square';o.frequency.value=f;g.gain.setValueAtTime(.04,ctx.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.12+.25);o.start(ctx.currentTime+i*.12);o.stop(ctx.currentTime+i*.12+.25); }); }); },
+  levelup() { this._play(ctx => { for(let i=0;i<8;i++){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=523*(1+i*.15);g.gain.setValueAtTime(.05,ctx.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.06+.15);o.start(ctx.currentTime+i*.06);o.stop(ctx.currentTime+i*.06+.15);} }); },
+  combo(n) { this._play(ctx => { const f=800+Math.min(n,10)*60;const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(f,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(f*1.3,ctx.currentTime+.1);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.12);o.start();o.stop(ctx.currentTime+.12); }); },
+  gameStart() { this._play(ctx => { [392,523,659,784].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.1+.2);o.start(ctx.currentTime+i*.1);o.stop(ctx.currentTime+i*.1+.2); }); }); },
+  gameOver() { this._play(ctx => { [523,440,349,262].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.15);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.15+.3);o.start(ctx.currentTime+i*.15);o.stop(ctx.currentTime+i*.15+.3); }); }); }
+};
+
+function showScorePopup(container, points, x, y) {
+  const el = document.createElement('div');
+  el.className = 'score-popup';
+  el.textContent = (typeof points === 'number' && points > 0 ? '+' : '') + points;
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 900);
+}
+function showLevelUp(lv) {
+  SFX.levelup();
+  const ov = document.createElement('div');
+  ov.className = 'levelup-overlay';
+  ov.innerHTML = `<div class="levelup-box">🌍 레벨 ${lv} 달성!</div>`;
+  document.body.appendChild(ov);
+  setTimeout(() => ov.remove(), 800);
+}
+function setMascotEmotion(mouthId, bubbleId, emotion) {
+  const mouth = document.getElementById(mouthId);
+  const bubble = document.getElementById(bubbleId);
+  if (!mouth) return;
+  if (emotion === 'happy') {
+    mouth.setAttribute('d', 'M21,36 Q27,44 33,36');
+    if (bubble) { bubble.textContent = ['와!','대박!','짱!','멋져!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
+  } else if (emotion === 'worried') {
+    mouth.setAttribute('d', 'M23,40 Q27,35 31,40');
+    if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
+  } else {
+    mouth.setAttribute('d', 'M23,36 Q27,42 31,36');
+  }
+  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M23,36 Q27,42 31,36'); }, 2500);
+}
+
 // ===== 프로필 =====
+let _prevMainLevel = 1;
 function updateProfile() {
   document.getElementById('pf-name').textContent = profile.name;
   document.getElementById('pf-char').textContent = profile.char;
   const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  if (lv > _prevMainLevel && _prevMainLevel > 0) showLevelUp(lv);
+  _prevMainLevel = lv;
   document.getElementById('pf-level').textContent = lv;
   const prog = (profile.totalCorrect % 10);
   document.getElementById('pf-done').textContent = prog;
@@ -853,8 +1020,10 @@ function flyTo(id) {
       <div class="country-capital">수도: ${c.capital}</div>
       <div class="country-greeting">"${c.greeting}"</div>
     `;
+    SFX.land(); setMascotEmotion('mascot-pilot-mouth','bubble-pilot','happy');
     speak(`${c.name}에 도착했어요! ${c.greeting}`);
   }, 800);
+  SFX.takeoff();
 
   // 지구본 나라 점 업데이트 (방문 표시)
   const dots = document.querySelectorAll('.country-dot');
@@ -984,6 +1153,7 @@ function dressQuizAnswer(selected, correct, btn) {
     dress.streak++;
     if (dress.streak > dress.bestStreak) dress.bestStreak = dress.streak;
     profile.totalCorrect++;
+    SFX.correct(); setMascotEmotion('mascot-pilot-mouth','bubble-pilot','happy');
     speak('정답이에요! 대단해요!');
   } else {
     dress.streak = 0;
@@ -992,6 +1162,7 @@ function dressQuizAnswer(selected, correct, btn) {
     document.querySelectorAll('.dress-quiz-opt').forEach(el => {
       if (el.textContent.includes(correctCountry.name)) el.classList.add('correct');
     });
+    SFX.wrong(); setMascotEmotion('mascot-pilot-mouth','bubble-pilot','worried');
     speak(`아쉬워요. 정답은 ${correctCountry.name}이에요.`);
   }
   profile.totalPlayed++;
@@ -1080,6 +1251,7 @@ function playSound(id) {
   const country = COUNTRIES.find(c => c.id === s.country);
   document.getElementById('sound-info').textContent = `🎵 ${s.region} — ${s.name} (${country ? country.name : ''} ${country ? country.flag : ''})`;
 
+  SFX.whoosh();
   speak(`${s.name}! ${s.region}의 악기예요.`);
 
   setTimeout(() => speaker.classList.remove('playing'), 2000);
@@ -1254,6 +1426,7 @@ function updateRecords() {
 
 // ===== 히어로: 깃발 레이스 =====
 function startHeroGame() {
+  SFX.gameStart();
   hg.score = 0; hg.lives = 5; hg.level = 1; hg.combo = 0; hg.maxCombo = 0;
   hg.flags = []; hg.running = true; hg.paused = false; hg.planeX = 50;
   hg.collected = 0;
@@ -1450,11 +1623,14 @@ function hgCollectCorrect(flag) {
     setTimeout(() => combo.remove(), 1000);
   }
 
+  SFX.correct();
+  if (hg.combo >= 3) SFX.combo(hg.combo);
   speak('좋아요!');
 
   // 5개 모을 때마다 레벨업 + 새 타겟
   if (hg.collected % 5 === 0) {
     hg.level++;
+    SFX.levelup();
     hgPickTarget();
     hgStartSpawning();
     speak(`레벨 ${hg.level}! ${hg.targetCountry.name} 국기를 모으세요!`);
@@ -1477,6 +1653,7 @@ function hgCollectWrong(flag) {
   arena.classList.add('hg-arena-shake');
   setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
 
+  SFX.wrong();
   speak('아이쿠!');
   hgUpdateUI();
 
@@ -1532,6 +1709,7 @@ function hgGameOver() {
   else msg = '괜찮아요! 연습하면 더 잘할 수 있어요!';
   document.getElementById('hg-over-msg').textContent = msg;
   document.getElementById('hg-over').classList.remove('hidden');
+  SFX.gameOver();
   speak('비행 끝! ' + msg);
 
   saveStats();
@@ -1590,7 +1768,9 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', fitScale);
   if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
 
-  // 프로필
+  // 프로필 — _prevMainLevel 초기화
+  const _p = parseInt(localStorage.getItem('worldCorrect')) || 0;
+  _prevMainLevel = Math.floor(_p / 10) + 1;
   updateProfile();
   updateActionButtons();
 
