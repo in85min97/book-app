@@ -735,6 +735,208 @@ function toggleSound() {
   if (!soundEnabled) speechSynthesis.cancel();
 }
 
+// ===== SFX (Web Audio) =====
+const SFX = {
+  _ctx: null,
+  _getCtx() {
+    if (!this._ctx) try { this._ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+    return this._ctx;
+  },
+  _play(fn) {
+    if (!soundEnabled) return;
+    const ctx = this._getCtx();
+    if (!ctx) return;
+    if (ctx.state === 'suspended') ctx.resume();
+    try { fn(ctx); } catch(e) {}
+  },
+  // 버튼/넘패드 클릭
+  pop() {
+    this._play(ctx => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(400, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.06);
+      g.gain.setValueAtTime(0.12, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.06);
+    });
+  },
+  // 정답 차임
+  ding() {
+    this._play(ctx => {
+      [523, 659, 784].forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sine';
+        o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.1);
+        g.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.1);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.3);
+        o.start(ctx.currentTime + i * 0.1); o.stop(ctx.currentTime + i * 0.1 + 0.3);
+      });
+    });
+  },
+  // 오답 버즈
+  buzz() {
+    this._play(ctx => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'square';
+      o.frequency.setValueAtTime(200, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.25);
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.25);
+    });
+  },
+  // 폭발
+  boom() {
+    this._play(ctx => {
+      // 저주파 럼블
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(100, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.5);
+      g.gain.setValueAtTime(0.2, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.5);
+      // 노이즈 burst
+      const buf = ctx.createBuffer(1, ctx.sampleRate * 0.3, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.max(0, 1 - i / data.length);
+      const ns = ctx.createBufferSource(), ng = ctx.createGain();
+      ns.buffer = buf; ns.connect(ng); ng.connect(ctx.destination);
+      ng.gain.setValueAtTime(0.15, ctx.currentTime);
+      ng.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      ns.start(ctx.currentTime);
+    });
+  },
+  // 음식 먹기
+  chomp() {
+    this._play(ctx => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(300, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.08);
+      g.gain.setValueAtTime(0.12, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.08);
+    });
+  },
+  // 성공 팡파레 (도미솔도)
+  fanfare() {
+    this._play(ctx => {
+      [523, 659, 784, 1047].forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.12);
+        g.gain.setValueAtTime(0.13, ctx.currentTime + i * 0.12);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.35);
+        o.start(ctx.currentTime + i * 0.12); o.stop(ctx.currentTime + i * 0.12 + 0.35);
+      });
+    });
+  },
+  // 레벨업
+  levelup() {
+    this._play(ctx => {
+      [523, 587, 659, 698, 784, 880, 988, 1047].forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.06);
+        g.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.06);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.2);
+        o.start(ctx.currentTime + i * 0.06); o.stop(ctx.currentTime + i * 0.06 + 0.2);
+      });
+    });
+  },
+  // 타이머 틱
+  tick() {
+    this._play(ctx => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(800, ctx.currentTime);
+      g.gain.setValueAtTime(0.06, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.04);
+    });
+  },
+  // 파워업
+  powerup() {
+    this._play(ctx => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(600, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(1400, ctx.currentTime + 0.25);
+      g.gain.setValueAtTime(0.12, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.3);
+    });
+  },
+  // 콤보 (콤보 수에 따라 높아지는 음)
+  combo(n) {
+    this._play(ctx => {
+      const base = 523 + Math.min(n, 10) * 50;
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(base, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(base * 1.5, ctx.currentTime + 0.15);
+      g.gain.setValueAtTime(0.12, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.2);
+    });
+  },
+  // 엘리베이터 딩동
+  elevDing() {
+    this._play(ctx => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(830, ctx.currentTime);
+      o.frequency.setValueAtTime(1050, ctx.currentTime + 0.15);
+      g.gain.setValueAtTime(0.15, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.5);
+    });
+  },
+  // 엘리베이터 삐
+  elevBuzz() {
+    this._play(ctx => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'square';
+      o.frequency.setValueAtTime(200, ctx.currentTime);
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.3);
+    });
+  },
+  // 게임 시작
+  gameStart() {
+    this._play(ctx => {
+      [392, 523, 659, 784].forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08);
+        g.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.08);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.2);
+        o.start(ctx.currentTime + i * 0.08); o.stop(ctx.currentTime + i * 0.08 + 0.2);
+      });
+    });
+  },
+  // 게임오버
+  gameOver() {
+    this._play(ctx => {
+      [400, 350, 300, 200].forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sawtooth';
+        o.frequency.setValueAtTime(f, ctx.currentTime + i * 0.15);
+        g.gain.setValueAtTime(0.06, ctx.currentTime + i * 0.15);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.3);
+        o.start(ctx.currentTime + i * 0.15); o.stop(ctx.currentTime + i * 0.15 + 0.3);
+      });
+    });
+  }
+};
+
 // ===== 프로필 =====
 function updateProfile() {
   document.getElementById('pf-name').textContent = profile.name;
@@ -853,6 +1055,7 @@ function bombStart() {
   bomb.round = 1;
   bomb.score = 0;
   bomb.streak = 0;
+  SFX.gameStart();
   document.getElementById('bomb-start-screen').style.display = 'none';
   document.getElementById('bomb-game-screen').style.display = 'flex';
   updateBombUI();
@@ -903,6 +1106,7 @@ function newBombRound() {
 
   bomb.timer = setInterval(() => {
     bomb.timeLeft--;
+    if (bomb.timeLeft <= 5 && bomb.timeLeft > 0) SFX.tick();
     if (bomb.timeLeft <= 0) {
       clearInterval(bomb.timer);
       bombExplode();
@@ -913,6 +1117,7 @@ function newBombRound() {
 function bombInput(n) {
   if (!bomb.started) return;
   if (bomb.inputStr.length >= 3) return; // 최대 3자리
+  SFX.pop();
   bomb.inputStr += n.toString();
   updateBombInput();
 }
@@ -931,6 +1136,7 @@ function bombConfirm() {
     profile.totalPlayed++;
 
     bombDefuseAnimation();
+    SFX.fanfare();
     speak('정답! 폭탄 해체 성공!');
     setMascotEmotion('bomb','happy');
     document.getElementById('bomb-input').style.color = '#22c55e';
@@ -943,6 +1149,7 @@ function bombConfirm() {
   } else {
     bomb.wrongCount++;
     profile.totalPlayed++;
+    SFX.buzz();
     document.getElementById('bomb-input').style.color = '#ef4444';
     document.getElementById('bomb-area').classList.add('bomb-shaking');
     setTimeout(() => {
@@ -982,6 +1189,7 @@ function updateBombInput() {
 
 function bombExplode() {
   bomb.streak = 0;
+  SFX.boom();
   setMascotEmotion('bomb','worried');
   speak(`펑! 정답은 ${bomb.answer}이었어요`);
   updateBombUI();
@@ -1201,6 +1409,7 @@ function initEatGame() {
 
 function eatFood(el, idx) {
   if (eat.confirmed) return;
+  SFX.chomp();
   el.classList.add('eaten');
   eat.count++;
   document.getElementById('eat-count').textContent = eat.count;
@@ -1259,16 +1468,19 @@ function eatConfirm() {
     if (eat.score > eat.bestScore) eat.bestScore = eat.score;
     profile.totalCorrect++;
     setMouth('happy');
+    SFX.fanfare();
     document.getElementById('eat-speech').textContent = '맛있다! 딱 맞아!';
     speak('정답! 맛있게 먹었어요!');
     eatSuccessEffect();
   } else if (eat.count < eat.target) {
     eat.streak = 0;
+    SFX.buzz();
     setMouth('sad');
     document.getElementById('eat-speech').textContent = '아직 배고파요...';
     speak(`${eat.target - eat.count}개 부족해요`);
   } else {
     eat.streak = 0;
+    SFX.buzz();
     setMouth('sick');
     document.getElementById('eat-speech').textContent = '배 터져요~!';
     speak(`${eat.count - eat.target}개 너무 많아요`);
@@ -1415,6 +1627,7 @@ function moveElevator(floor, animate) {
 }
 
 function selectFloor(floor) {
+  SFX.pop();
   moveElevator(floor, true);
   elev.currentFloor = floor;
   profile.totalPlayed++;
@@ -1444,18 +1657,7 @@ function selectFloor(floor) {
       document.getElementById('elev-result').style.background = '#f0fdf4';
       document.getElementById('elev-result').style.color = '#16a34a';
       speak(`딩동! ${floor}층!`);
-
-      // Web Audio 딩동 효과음
-      try {
-        const actx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = actx.createOscillator(); const gain = actx.createGain();
-        osc.connect(gain); gain.connect(actx.destination);
-        osc.frequency.setValueAtTime(830, actx.currentTime);
-        osc.frequency.setValueAtTime(1050, actx.currentTime + 0.15);
-        gain.gain.setValueAtTime(0.15, actx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.5);
-        osc.start(actx.currentTime); osc.stop(actx.currentTime + 0.5);
-      } catch(e) {}
+      SFX.elevDing();
 
       updateElevUI();
       updateProfile();
@@ -1471,16 +1673,7 @@ function selectFloor(floor) {
       shaft.classList.add('elev-wrong-shake');
       setTimeout(() => shaft.classList.remove('elev-wrong-shake'), 400);
 
-      // Web Audio 삐 효과음
-      try {
-        const actx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = actx.createOscillator(); const gain = actx.createGain();
-        osc.connect(gain); gain.connect(actx.destination);
-        osc.type = 'square'; osc.frequency.setValueAtTime(200, actx.currentTime);
-        gain.gain.setValueAtTime(0.08, actx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.3);
-        osc.start(actx.currentTime); osc.stop(actx.currentTime + 0.3);
-      } catch(e) {}
+      SFX.elevBuzz();
 
       document.getElementById('elev-result').textContent = `❌ ${floor}층이 아니에요! 다시 가볼까?`;
       document.getElementById('elev-result').style.background = '#fef2f2';
@@ -1581,6 +1774,7 @@ function updateRecords() {
 
 // ===== 히어로: 연산 폭격 =====
 function startHeroGame() {
+  SFX.gameStart();
   document.getElementById('hero-game').classList.remove('hidden');
   hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
   hg.bombs = []; hg.combo = 0; hg.maxCombo = 0;
@@ -1667,6 +1861,7 @@ function hgSpawnPower() {
 }
 
 function hgPowerUp(fx, el) {
+  SFX.powerup();
   if (fx === 'life') hg.lives = Math.min(hg.lives + 1, 7);
   else if (fx === 'slow') { hg.bombs.forEach(b => b.speed *= 0.5); setTimeout(() => hg.bombs.forEach(b => b.speed *= 2), 3000); }
   else if (fx === 'points') hg.score += 5;
@@ -1692,6 +1887,7 @@ function hgMove() {
       hgMissEffect(item.el);
       item.el.remove();
       hg.lives--; hg.combo = 0;
+      SFX.boom();
       speak('펑!');
       updateHgUI();
       if (hg.lives <= 0) hgEnd();
@@ -1736,6 +1932,7 @@ function hgMatchEffect(el) {
 
 function hgAnswer(n) {
   if (!hg.running || hg.paused) return;
+  SFX.pop();
   // n이 한자리 → 직접 매칭. 두자리면 입력 모드 필요하지만 일단 한자리 기준
   let matched = null;
   for (const b of hg.bombs) {
@@ -1747,12 +1944,15 @@ function hgAnswer(n) {
     const bonus = Math.min(hg.combo - 1, 5);
     hg.score += 1 + bonus;
     if (hg.combo >= 3) {
+      SFX.combo(hg.combo);
       const a = document.getElementById('hg-arena');
       const ce = document.createElement('div');
       ce.textContent = `${hg.combo} COMBO!`;
       ce.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;font-weight:900;color:#f59e0b;text-shadow:0 4px 8px rgba(0,0,0,.3);z-index:50;pointer-events:none;animation:comboPop 1s ease-out forwards';
       a.appendChild(ce);
       setTimeout(() => ce.remove(), 1000);
+    } else {
+      SFX.ding();
     }
     hgMatchEffect(matched.el);
     speak('정답!');
@@ -1765,7 +1965,7 @@ function hgAnswer(n) {
     matched.el.remove();
     hg.bombs = hg.bombs.filter(b => b !== matched);
     const nl = Math.floor(hg.score / 10) + 1;
-    if (nl > hg.level) { hg.level = nl; hgUpdateBg(); }
+    if (nl > hg.level) { hg.level = nl; SFX.levelup(); hgUpdateBg(); }
     updateHgUI();
   } else {
     // 없는 숫자 누름 - 무시 (벌칙 없음)
@@ -1794,6 +1994,7 @@ function hgEnd() {
   if (hg.animId) cancelAnimationFrame(hg.animId);
   hg.bombs.forEach(b => b.el.remove());
   hg.bombs = [];
+  SFX.gameOver();
   document.getElementById('hg-final-score').textContent = hg.score;
   let msg = '잘했어요!';
   if (hg.score >= 30) msg = '대단해요! 수학 천재!';
