@@ -319,6 +319,64 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 폭탄 장식 */
 .bomb-deco{position:absolute;pointer-events:none;z-index:0;animation:bombDecoFloat var(--dur,6s) ease-in-out infinite}
 @keyframes bombDecoFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(5deg)}}
+
+/* ===== 2차 업그레이드 ===== */
+
+/* 1. text-stroke 게임 타이포 */
+.bomb-start-title{-webkit-text-stroke:2px #7c2d12;paint-order:stroke fill}
+.bomb-equation{-webkit-text-stroke:1.5px rgba(0,0,0,.4);paint-order:stroke fill}
+.eating-counter{-webkit-text-stroke:1.5px #9a3412;paint-order:stroke fill}
+.eating-counter span{-webkit-text-stroke:0}
+.side-val{font-size:26px;-webkit-text-stroke:1px #9a3412;paint-order:stroke fill}
+.record-num{-webkit-text-stroke:1px #9a3412;paint-order:stroke fill}
+.elev-question{-webkit-text-stroke:1px #1e3a8a;paint-order:stroke fill}
+.game-launch-btn{-webkit-text-stroke:1px #78350f;paint-order:stroke fill;font-size:22px}
+.hg-stat{font-size:26px;-webkit-text-stroke:1px #1e3a8a;paint-order:stroke fill}
+.side-title{font-size:18px;-webkit-text-stroke:.5px #7c2d12;paint-order:stroke fill}
+
+/* 2. 점수 팝업 */
+.score-popup{position:absolute;pointer-events:none;z-index:30;font-size:36px;font-weight:900;-webkit-text-stroke:1.5px rgba(0,0,0,.3);paint-order:stroke fill;animation:scorePop .8s ease-out forwards}
+@keyframes scorePop{0%{transform:translateY(0) scale(0);opacity:0}20%{transform:translateY(-10px) scale(1.3);opacity:1}50%{transform:translateY(-30px) scale(1);opacity:1}100%{transform:translateY(-60px) scale(.7);opacity:0}}
+
+/* 3. 탭 전환 페이드 */
+.game-view{animation:viewFadeIn .25s ease-out}
+.tab-content{animation:viewFadeIn .25s ease-out}
+@keyframes viewFadeIn{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+
+/* 4. side-info 배경 강화 */
+.side-info{background:linear-gradient(145deg,#fef3c7,#ffedd5,#fed7aa)}
+.side-stat{background:linear-gradient(145deg,#fff7ed,#fef3c7);border:1.5px solid rgba(249,115,22,.18)}
+
+/* 5. 우측 패널 배경 강화 */
+.right-panel{background:linear-gradient(180deg,rgba(249,115,22,.12),rgba(234,88,12,.18),rgba(194,65,12,.12));border:3px solid rgba(249,115,22,.25)}
+
+/* 6. 버튼 squash/stretch */
+.tab-btn:active{transform:translateY(3px) scaleX(1.06) scaleY(0.94)}
+.action-btn:active{transform:translateY(4px) scaleX(1.06) scaleY(0.92)}
+.numpad-btn:active{transform:translateY(3px) scaleX(1.08) scaleY(0.92)}
+.bomb-start-btn:active{transform:scale(.92) scaleX(1.08)!important}
+.game-launch-btn:active{transform:translateY(4px) scaleX(1.06) scaleY(0.92)}
+.food-item:active{transform:translateY(2px) scaleX(1.06) scaleY(0.92)!important}
+
+/* 7. 먹방 캐릭터 idle */
+.eating-char svg{animation:charBreathe 3s ease-in-out infinite}
+@keyframes charBreathe{0%,100%{transform:scaleY(1) scaleX(1)}50%{transform:scaleY(1.03) scaleX(0.98)}}
+
+/* 8. 하트 잃기 */
+.hg-heart-lost{display:inline-block;animation:heartLost .5s ease-out forwards}
+@keyframes heartLost{0%{transform:scale(1);opacity:1}30%{transform:scale(1.3);opacity:1}60%{transform:scale(.8) rotate(15deg);opacity:.6}100%{transform:scale(0) rotate(30deg);opacity:0}}
+
+/* 9. 레벨업 오버레이 */
+.levelup-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);animation:lvFade .8s ease-out forwards;pointer-events:none}
+@keyframes lvFade{0%{opacity:0}15%{opacity:1}70%{opacity:1}100%{opacity:0}}
+.levelup-text{font-size:80px;font-weight:900;color:#fbbf24;-webkit-text-stroke:3px #78350f;paint-order:stroke fill;text-shadow:0 4px 12px rgba(0,0,0,.4),0 0 40px rgba(251,191,36,.5);animation:lvPop .8s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes lvPop{0%{transform:scale(0) rotate(-10deg)}30%{transform:scale(1.3) rotate(5deg)}50%{transform:scale(1) rotate(0deg)}100%{transform:scale(.9) rotate(0deg)}}
+
+/* 10. 폭탄 시작 화면 보강 */
+.bomb-start-screen{gap:16px!important}
+.bomb-start-title{font-size:56px!important;animation:titleFloat 3s ease-in-out infinite}
+@keyframes titleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bomb-start-btn{font-size:40px;padding:28px 80px!important}
 </style>
 </head>
 <body>
@@ -468,10 +526,14 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
             <svg viewBox="0 0 180 180" width="220" height="220">
               <defs><radialGradient id="cGrad" cx="40%" cy="35%"><stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/></radialGradient></defs>
               <ellipse cx="90" cy="105" rx="75" ry="65" fill="url(#cGrad)" filter="drop-shadow(0 4px 8px rgba(0,0,0,.15))"/>
-              <ellipse cx="65" cy="88" rx="13" ry="15" fill="#fff"/>
-              <circle cx="68" cy="90" r="7" fill="#1e293b"/><circle cx="70" cy="88" r="2.5" fill="#fff"/>
-              <ellipse cx="115" cy="88" rx="13" ry="15" fill="#fff"/>
-              <circle cx="118" cy="90" r="7" fill="#1e293b"/><circle cx="120" cy="88" r="2.5" fill="#fff"/>
+              <ellipse cx="65" cy="88" rx="13" ry="15" fill="#fff">
+                <animate attributeName="ry" values="15;1;15" dur="0.15s" begin="3s;blink1.end+4s" id="blink1" fill="freeze"/>
+              </ellipse>
+              <circle cx="68" cy="90" r="7" fill="#1e293b"><animate attributeName="r" values="7;1;7" dur="0.15s" begin="3s;blink1b.end+4s" id="blink1b" fill="freeze"/></circle><circle cx="70" cy="88" r="2.5" fill="#fff"/>
+              <ellipse cx="115" cy="88" rx="13" ry="15" fill="#fff">
+                <animate attributeName="ry" values="15;1;15" dur="0.15s" begin="3s;blink2.end+4s" id="blink2" fill="freeze"/>
+              </ellipse>
+              <circle cx="118" cy="90" r="7" fill="#1e293b"><animate attributeName="r" values="7;1;7" dur="0.15s" begin="3s;blink2b.end+4s" id="blink2b" fill="freeze"/></circle><circle cx="120" cy="88" r="2.5" fill="#fff"/>
               <path id="char-mouth" d="M65 120 Q90 140 115 120" stroke="#1e293b" stroke-width="3" fill="none" stroke-linecap="round"/>
               <ellipse cx="50" cy="110" rx="10" ry="7" fill="#fca5a5" opacity=".4"/>
               <ellipse cx="130" cy="110" rx="10" ry="7" fill="#fca5a5" opacity=".4"/>
@@ -938,10 +1000,13 @@ const SFX = {
 };
 
 // ===== 프로필 =====
+let _prevLevel = 1;
 function updateProfile() {
   document.getElementById('pf-name').textContent = profile.name;
   document.getElementById('pf-char').textContent = profile.char;
   const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  if (lv > _prevLevel && _prevLevel > 0) showLevelUp(lv);
+  _prevLevel = lv;
   document.getElementById('pf-level').textContent = lv;
   const prog = (profile.totalCorrect % 10);
   document.getElementById('pf-done').textContent = prog;
@@ -1139,6 +1204,7 @@ function bombConfirm() {
     SFX.fanfare();
     speak('정답! 폭탄 해체 성공!');
     setMascotEmotion('bomb','happy');
+    showScorePopup('bomb-area', 10 + bomb.streak * 2);
     document.getElementById('bomb-input').style.color = '#22c55e';
 
     updateBombUI();
@@ -1469,6 +1535,7 @@ function eatConfirm() {
     profile.totalCorrect++;
     setMouth('happy');
     SFX.fanfare();
+    showScorePopup(document.querySelector('.eating-area'), 10 + eat.streak * 3);
     document.getElementById('eat-speech').textContent = '맛있다! 딱 맞아!';
     speak('정답! 맛있게 먹었어요!');
     eatSuccessEffect();
@@ -1646,6 +1713,7 @@ function selectFloor(floor) {
       const light = document.getElementById('elev-car-light');
       if (light) { light.style.background = '#22c55e'; light.style.boxShadow = '0 0 16px #22c55e,0 0 30px rgba(34,197,94,.5)'; }
 
+      showScorePopup(document.querySelector('.elevator-area'), 10);
       // 도착 축하 이펙트!
       elevArriveEffect(floor);
 
@@ -1955,6 +2023,7 @@ function hgAnswer(n) {
       SFX.ding();
     }
     hgMatchEffect(matched.el);
+    showScorePopup('hg-arena', 1 + bonus, matched.el.style.left, matched.el.style.top);
     speak('정답!');
     // 정답 플래시
     const flash = document.createElement('div');
@@ -1965,7 +2034,7 @@ function hgAnswer(n) {
     matched.el.remove();
     hg.bombs = hg.bombs.filter(b => b !== matched);
     const nl = Math.floor(hg.score / 10) + 1;
-    if (nl > hg.level) { hg.level = nl; SFX.levelup(); hgUpdateBg(); }
+    if (nl > hg.level) { hg.level = nl; showLevelUp(nl); hgUpdateBg(); }
     updateHgUI();
   } else {
     // 없는 숫자 누름 - 무시 (벌칙 없음)
@@ -1982,10 +2051,24 @@ function hgUpdateBg() {
   document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
 }
 
+let _prevLives = 5;
 function updateHgUI() {
   document.getElementById('hg-score').textContent = hg.score;
   document.getElementById('hg-level').textContent = hg.level;
-  document.getElementById('hg-hearts').textContent = '❤️'.repeat(hg.lives) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+  const hEl = document.getElementById('hg-hearts');
+  if (hg.lives < _prevLives) {
+    // 하트 잃기 애니메이션
+    let html = '';
+    for (let i = 0; i < 5; i++) {
+      if (i < hg.lives) html += '❤️';
+      else if (i === hg.lives) html += `<span class="hg-heart-lost">❤️</span>`;
+      else html += '🖤';
+    }
+    hEl.innerHTML = html;
+  } else {
+    hEl.textContent = '❤️'.repeat(hg.lives) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+  }
+  _prevLives = hg.lives;
 }
 
 function hgEnd() {
@@ -2009,7 +2092,7 @@ function hgRestart() {
   document.getElementById('hg-over').classList.add('hidden');
   document.getElementById('hg-arena').querySelectorAll('.falling-bomb,.char-explode,.star-burst').forEach(e => e.remove());
   hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
-  hg.bombs = []; hg.combo = 0; hg.maxCombo = 0;
+  hg.bombs = []; hg.combo = 0; hg.maxCombo = 0; _prevLives = 5;
   updateHgUI(); hgUpdateBg(); hgLoop();
 }
 
@@ -2060,6 +2143,29 @@ function setMascotEmotion(viewId, emotion) {
   if (emotion !== 'idle') setTimeout(() => setMascotEmotion(viewId, 'idle'), 2500);
 }
 
+// ===== 점수 팝업 =====
+function showScorePopup(container, points, x, y) {
+  const el = document.createElement('div');
+  el.className = 'score-popup';
+  el.textContent = `+${points}`;
+  el.style.cssText = `left:${x||'50%'};top:${y||'40%'};color:${points>=10?'#fbbf24':'#22c55e'};transform:translate(-50%,-50%)`;
+  const parent = typeof container === 'string' ? document.getElementById(container) : container;
+  if (!parent) return;
+  parent.style.position = 'relative';
+  parent.appendChild(el);
+  setTimeout(() => el.remove(), 800);
+}
+
+// ===== 레벨업 연출 =====
+function showLevelUp(level) {
+  const ov = document.createElement('div');
+  ov.className = 'levelup-overlay';
+  ov.innerHTML = `<div class="levelup-text">LEVEL ${level}!</div>`;
+  document.body.appendChild(ov);
+  SFX.levelup();
+  setTimeout(() => ov.remove(), 900);
+}
+
 // ===== 초기화 =====
 document.addEventListener('DOMContentLoaded', function() {
   // fitScale
@@ -2092,7 +2198,8 @@ document.addEventListener('DOMContentLoaded', function() {
   for (let i = 0; i <= 9; i++) hph += `<div class="hg-num-btn" onclick="hgAnswer(${i})">${i}</div>`;
   hp.innerHTML = hph;
 
-  // 프로필
+  // 프로필 (초기 로드 시 레벨업 연출 방지)
+  _prevLevel = Math.floor(profile.totalCorrect / 10) + 1;
   updateProfile();
   updateActionButtons();
 
