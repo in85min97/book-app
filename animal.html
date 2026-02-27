@@ -244,6 +244,80 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px}
 .char-item{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:2px solid #cbd5e1;border-radius:14px;padding:12px;text-align:center;cursor:pointer;font-size:32px;height:70px;display:flex;align-items:center;justify-content:center;transition:.2s}
 .char-item.selected{background:linear-gradient(145deg,#bef264,#a3e635);border-color:#a3e635}
+
+/* ===== 비주얼 업그레이드 ===== */
+/* 탭별 배경 씬 */
+.vet-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><rect fill='%23f0fdf4' width='1320' height='900'/><rect x='0' y='700' width='1320' height='200' rx='0' fill='%23dcfce7'/><rect x='50' y='200' width='80' height='500' rx='10' fill='%23fff' opacity='.4'/><rect x='55' y='220' width='70' height='6' rx='3' fill='%2386efac' opacity='.3'/><rect x='55' y='260' width='70' height='6' rx='3' fill='%2386efac' opacity='.3'/><rect x='55' y='300' width='70' height='6' rx='3' fill='%2386efac' opacity='.3'/><rect x='1190' y='200' width='80' height='500' rx='10' fill='%23fff' opacity='.4'/><rect x='1195' y='220' width='70' height='6' rx='3' fill='%2386efac' opacity='.3'/><rect x='1195' y='260' width='70' height='6' rx='3' fill='%2386efac' opacity='.3'/><text x='660' y='60' text-anchor='middle' font-size='30' fill='%2365a30d' opacity='.08' font-weight='900'>ANIMAL HOSPITAL</text><circle cx='200' cy='780' r='40' fill='%2386efac' opacity='.2'/><circle cx='1100' cy='770' r='35' fill='%2386efac' opacity='.15'/></svg>") center/cover no-repeat;
+  opacity:.2;border-radius:16px}
+.vet-view{position:relative}
+
+.feed-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><rect fill='%23fefce8' width='1320' height='900'/><rect x='0' y='750' width='1320' height='150' fill='%23fef9c3'/><circle cx='150' cy='800' r='50' fill='%23fde68a' opacity='.2'/><circle cx='1170' cy='810' r='45' fill='%23fde68a' opacity='.15'/><text x='100' y='120' font-size='80' fill='%2365a30d' opacity='.05'>🥬</text><text x='1100' y='200' font-size='70' fill='%2365a30d' opacity='.05'>🥕</text><text x='600' y='850' font-size='60' fill='%2365a30d' opacity='.05'>🍖</text></svg>") center/cover no-repeat;
+  opacity:.25;border-radius:16px}
+.feed-view{position:relative}
+
+.transform-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><rect fill='%23ecfdf5' width='1320' height='900'/><circle cx='200' cy='450' r='200' fill='none' stroke='%234ade80' stroke-width='1' opacity='.1'><animate attributeName='r' values='200;240;200' dur='4s' repeatCount='indefinite'/></circle><circle cx='1100' cy='450' r='180' fill='none' stroke='%2384cc16' stroke-width='1' opacity='.1'><animate attributeName='r' values='180;220;180' dur='3.5s' repeatCount='indefinite'/></circle><text x='100' y='100' font-size='60' fill='%234ade80' opacity='.06'>🥚</text><text x='660' y='850' font-size='50' fill='%234ade80' opacity='.06'>🦋</text><text x='1100' y='120' font-size='55' fill='%234ade80' opacity='.06'>🐛</text></svg>") center/cover no-repeat;
+  opacity:.25;border-radius:16px}
+.transform-view{position:relative}
+
+.record-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 900'><defs><linearGradient id='rg' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23f7fee7'/><stop offset='100%' stop-color='%23ecfccb'/></linearGradient></defs><rect fill='url(%23rg)' width='1320' height='900'/><rect x='80' y='50' width='200' height='12' rx='6' fill='%2384cc16' opacity='.08'/><rect x='80' y='80' width='160' height='12' rx='6' fill='%2384cc16' opacity='.06'/><rect x='1040' y='50' width='200' height='12' rx='6' fill='%2384cc16' opacity='.08'/><text x='660' y='860' text-anchor='middle' font-size='100' fill='%2384cc16' opacity='.04' font-weight='900'>🏆</text></svg>") center/cover no-repeat;
+  opacity:.2;border-radius:16px}
+.record-view{position:relative}
+
+/* 3D 아케이드 버튼 */
+.tab-btn{border-bottom:5px solid #7c8a9a;transition:transform .1s,border-bottom-width .1s}
+.tab-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.97);border-bottom-width:2px}
+.tab-btn.active{border-bottom:5px solid #365314}
+.tab-btn.active:active{border-bottom-width:2px}
+
+.action-btn{border-bottom:6px solid rgba(0,0,0,.25);transition:transform .1s,border-bottom-width .1s}
+.action-btn:active{transform:translateY(4px) scaleX(1.02) scaleY(.97)!important;border-bottom-width:2px}
+.action-btn.btn-lime{border-bottom-color:#365314}
+.action-btn.btn-green{border-bottom-color:#047857}
+.action-btn.btn-yellow{border-bottom-color:#a16207}
+.action-btn.btn-red{border-bottom-color:#b91c1c}
+.action-btn.btn-rose{border-bottom-color:#be123c}
+
+.game-launch-btn{border-bottom:6px solid #4d7c0f;transition:transform .1s,border-bottom-width .1s;position:relative;overflow:hidden}
+.game-launch-btn:active{transform:translateY(4px) scaleX(1.02) scaleY(.97)!important;border-bottom-width:2px;animation:none}
+.game-launch-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:btnShine 3s ease-in-out infinite}
+@keyframes btnShine{0%,100%{left:-100%}50%{left:150%}}
+
+/* 패널 비주얼 보강 */
+.side-info::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#84cc16,#a3e635,#bef264,#a3e635,#84cc16);border-radius:16px 16px 0 0}
+.side-info{position:relative}
+.side-stat{box-shadow:0 2px 6px rgba(101,163,13,.08);transition:transform .15s}
+.side-stat:hover{transform:translateX(4px)}
+.side-val{text-shadow:0 1px 4px rgba(101,163,13,.2)}
+
+.right-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(101,163,13,.06) 0%,transparent 70%);pointer-events:none;border-radius:20px;z-index:0}
+.right-panel{position:relative}
+.action-btn .icon{filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+
+.record-card{backdrop-filter:blur(5px);background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(248,250,252,.9));transition:transform .15s}
+.record-card:hover{transform:translateY(-2px)}
+
+/* 탭 전환 애니메이션 */
+@keyframes viewFadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+.game-view.active{animation:viewFadeIn .3s ease-out}
+
+/* 스코어 팝업 */
+.score-popup{position:absolute;font-size:28px;font-weight:900;color:#65a30d;pointer-events:none;z-index:50;animation:scorePop .9s ease-out forwards;text-shadow:0 2px 4px rgba(0,0,0,.2);paint-order:stroke fill;-webkit-text-stroke:2px #fff}
+@keyframes scorePop{0%{opacity:1;transform:translateY(0) scale(.5)}40%{transform:translateY(-30px) scale(1.2)}100%{opacity:0;transform:translateY(-70px) scale(.8)}}
+
+/* 레벨업 오버레이 */
+.levelup-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9000;pointer-events:none;background:rgba(101,163,13,.15)}
+.levelup-box{background:linear-gradient(145deg,#65a30d,#4d7c0f);color:#fff;padding:30px 60px;border-radius:24px;font-size:42px;font-weight:900;text-shadow:0 3px 8px rgba(0,0,0,.3);border:4px solid #bef264;box-shadow:0 12px 40px rgba(101,163,13,.5);animation:lvPop .8s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes lvPop{0%{transform:scale(0) rotate(-10deg);opacity:0}50%{transform:scale(1.15) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:0}}
+
+/* 마스코트 */
+.mascot-wrap{position:absolute;z-index:5;pointer-events:none}
+.mascot-bubble{position:absolute;top:-40px;left:50%;transform:translateX(-50%);background:#fff;border-radius:12px;padding:6px 14px;font-size:14px;font-weight:700;color:#365314;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.15);opacity:0;transition:opacity .3s}
+.mascot-bubble.show{opacity:1}
+.mascot-bubble::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#fff}
 </style>
 </head>
 <body>
@@ -334,6 +408,23 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
     <div class="center-panel">
       <!-- 수의사 놀이 -->
       <div class="game-view vet-view active" id="vet-view">
+        <!-- 마스코트 "파우" (발바닥 캐릭터) -->
+        <div class="mascot-wrap" style="bottom:16px;right:16px">
+          <div class="mascot-bubble" id="bubble-vet">치료!</div>
+          <svg width="60" height="60" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="27" cy="30" r="22" fill="#a3e635" stroke="#4d7c0f" stroke-width="2"/>
+            <circle cx="20" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="34" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="12" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="42" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <ellipse cx="27" cy="32" rx="10" ry="8" fill="#bef264"/>
+            <circle cx="22" cy="28" r="3" fill="#fff"/>
+            <circle cx="32" cy="28" r="3" fill="#fff"/>
+            <circle cx="22.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="32.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
+            <path id="mascot-vet-mouth" d="M24,36 Q27,42 30,36" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
         <div class="vet-area" id="vet-area">
           <svg class="vet-bg-deco" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
             <!-- 청진기 -->
@@ -443,6 +534,24 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
               <div class="record-item"><div class="record-num" id="r-tf-score">0</div><div class="record-label">최고 점수</div></div>
             </div>
           </div>
+        </div>
+        <!-- 기록 마스코트 "파우" -->
+        <div class="mascot-wrap" style="bottom:16px;right:16px">
+          <div class="mascot-bubble" id="bubble-rec">기록!</div>
+          <svg width="60" height="60" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="27" cy="30" r="22" fill="#a3e635" stroke="#4d7c0f" stroke-width="2"/>
+            <circle cx="20" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="34" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="12" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="42" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <ellipse cx="27" cy="32" rx="10" ry="8" fill="#bef264"/>
+            <circle cx="22" cy="28" r="3" fill="#fff"/>
+            <circle cx="32" cy="28" r="3" fill="#fff"/>
+            <circle cx="22.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="32.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
+            <path id="mascot-rec-mouth" d="M24,36 Q27,42 30,36" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
+            <text x="27" y="12" text-anchor="middle" font-size="10" fill="#fbbf24">🏆</text>
+          </svg>
         </div>
       </div>
     </div>
@@ -649,11 +758,63 @@ function toggleSound() {
   if (!soundEnabled) speechSynthesis.cancel();
 }
 
+// ===== SFX 시스템 =====
+const SFX = {
+  _ctx: null,
+  _getCtx() { if (!this._ctx) this._ctx = new (window.AudioContext || window.webkitAudioContext)(); return this._ctx; },
+  _play(fn) { try { if (!soundEnabled) return; fn(this._getCtx()); } catch(e) {} },
+  heal() { this._play(ctx => { [523,659,784,1047].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.05,ctx.currentTime+i*.07);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.07+.15);o.start(ctx.currentTime+i*.07);o.stop(ctx.currentTime+i*.07+.15); }); }); },
+  feed() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(800,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(1600,ctx.currentTime+.1);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.12);o.start();o.stop(ctx.currentTime+.12); }); },
+  correct() { this._play(ctx => { [659,784,988].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.06+.12);o.start(ctx.currentTime+i*.06);o.stop(ctx.currentTime+i*.06+.12); }); }); },
+  wrong() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.setValueAtTime(250,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(120,ctx.currentTime+.18);g.gain.setValueAtTime(.04,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.18);o.start();o.stop(ctx.currentTime+.18); }); },
+  transform() { this._play(ctx => { for(let i=0;i<5;i++){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=400+i*150;g.gain.setValueAtTime(.04,ctx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.08+.15);o.start(ctx.currentTime+i*.08);o.stop(ctx.currentTime+i*.08+.15);} }); },
+  fanfare() { this._play(ctx => { [523,659,784,1047].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='square';o.frequency.value=f;g.gain.setValueAtTime(.04,ctx.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.12+.25);o.start(ctx.currentTime+i*.12);o.stop(ctx.currentTime+i*.12+.25); }); }); },
+  levelup() { this._play(ctx => { for(let i=0;i<8;i++){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=523*(1+i*.15);g.gain.setValueAtTime(.05,ctx.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.06+.15);o.start(ctx.currentTime+i*.06);o.stop(ctx.currentTime+i*.06+.15);} }); },
+  combo(n) { this._play(ctx => { const f=800+Math.min(n,10)*60;const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(f,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(f*1.3,ctx.currentTime+.1);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.12);o.start();o.stop(ctx.currentTime+.12); }); },
+  gameStart() { this._play(ctx => { [392,523,659,784].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.1+.2);o.start(ctx.currentTime+i*.1);o.stop(ctx.currentTime+i*.1+.2); }); }); },
+  gameOver() { this._play(ctx => { [523,440,349,262].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.15);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.15+.3);o.start(ctx.currentTime+i*.15);o.stop(ctx.currentTime+i*.15+.3); }); }); }
+};
+
+function showScorePopup(container, points, x, y) {
+  const el = document.createElement('div');
+  el.className = 'score-popup';
+  el.textContent = (typeof points === 'number' && points > 0 ? '+' : '') + points;
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 900);
+}
+function showLevelUp(lv) {
+  SFX.levelup();
+  const ov = document.createElement('div');
+  ov.className = 'levelup-overlay';
+  ov.innerHTML = `<div class="levelup-box">🐾 레벨 ${lv} 달성!</div>`;
+  document.body.appendChild(ov);
+  setTimeout(() => ov.remove(), 800);
+}
+function setMascotEmotion(mouthId, bubbleId, emotion) {
+  const mouth = document.getElementById(mouthId);
+  const bubble = document.getElementById(bubbleId);
+  if (!mouth) return;
+  if (emotion === 'happy') {
+    mouth.setAttribute('d', 'M22,36 Q27,44 32,36');
+    if (bubble) { bubble.textContent = ['좋아!','대박!','짱!','멋져!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
+  } else if (emotion === 'worried') {
+    mouth.setAttribute('d', 'M24,40 Q27,35 30,40');
+    if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
+  } else {
+    mouth.setAttribute('d', 'M24,36 Q27,42 30,36');
+  }
+  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M24,36 Q27,42 30,36'); }, 2500);
+}
+
 // ===== 프로필 =====
+let _prevMainLevel = 1;
 function updateProfile() {
   document.getElementById('pf-name').textContent = profile.name;
   document.getElementById('pf-char').textContent = profile.char;
   const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  if (lv > _prevMainLevel && _prevMainLevel > 0) showLevelUp(lv);
+  _prevMainLevel = lv;
   document.getElementById('pf-level').textContent = lv;
   const prog = (profile.totalCorrect % 10);
   document.getElementById('pf-done').textContent = prog;
@@ -902,6 +1063,7 @@ function vetCureComplete() {
   display.innerHTML = vet.currentAnimal.emoji;
 
   document.getElementById('vet-info').textContent = `🎉 ${vet.currentAnimal.name}(이)가 건강해졌어요!`;
+  SFX.heal(); SFX.fanfare(); setMascotEmotion('mascot-vet-mouth','bubble-vet','happy');
   speak(`${vet.currentAnimal.name}(이)가 건강해졌어요! 고마워요!`);
 
   // 하트 파티클
@@ -996,6 +1158,7 @@ function feedSelect(el, food) {
     document.getElementById('feed-speech').textContent = '맛있다! 냠냠!';
     document.getElementById('feed-result').textContent = `🎉 정답! ${animal.name}은 ${animal.foodName}을 좋아해요!`;
     document.getElementById('feed-result').style.color = '#16a34a';
+    SFX.feed(); SFX.correct(); setMascotEmotion('mascot-vet-mouth','bubble-vet','happy');
     speak(`정답! ${animal.name}은 ${animal.foodName}을 좋아해요!`);
 
     // 먹기 성공 이펙트 - 파티클
@@ -1022,6 +1185,7 @@ function feedSelect(el, food) {
     document.getElementById('feed-speech').textContent = '이건 아니야~!';
     document.getElementById('feed-result').textContent = `❌ ${animal.name}은 이걸 안 먹어요! ${animal.foodName}을 줘야 해요`;
     document.getElementById('feed-result').style.color = '#dc2626';
+    SFX.wrong(); setMascotEmotion('mascot-vet-mouth','bubble-vet','worried');
     speak(`틀렸어요! ${animal.name}은 ${animal.foodName}을 좋아해요`);
 
     // 뱉어냄 애니메이션
@@ -1158,6 +1322,7 @@ function tfSelectCard(card) {
     card.classList.add('placed');
     slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:110px">${cardEmoji}</span>`;
     slot.classList.add('filled');
+    SFX.transform();
     speak(`${cardLabel}!`);
     tf.nextSlotIdx++;
 
@@ -1169,6 +1334,7 @@ function tfSelectCard(card) {
     // 오답 - 웃긴 결과물
     slot.classList.add('wrong-slot');
     slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:100px">${cardEmoji}</span>`;
+    SFX.wrong(); setMascotEmotion('mascot-vet-mouth','bubble-vet','worried');
     speak('앗! 순서가 달라요!');
 
     const area = document.getElementById('transform-area');
@@ -1199,6 +1365,7 @@ function tfComplete() {
   profile.totalCorrect++;
 
   document.getElementById('transform-info').textContent = `🎉 ${tf.currentSet.name} 완성!`;
+  SFX.fanfare(); setMascotEmotion('mascot-vet-mouth','bubble-vet','happy');
   speak(`대단해요! ${tf.currentSet.name} 완성!`);
 
   // 변신 애니메이션
@@ -1270,6 +1437,7 @@ function startHeroGame() {
 }
 
 function hgStart() {
+  SFX.gameStart();
   document.getElementById('hg-start').classList.add('hidden');
   hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
   hg.started = true; hg.animals = []; hg.combo = 0; hg.maxCombo = 0;
@@ -1513,6 +1681,8 @@ function hgPlaceAnimal(item, targetBiome) {
     arena.appendChild(scorePop);
     setTimeout(() => scorePop.remove(), 800);
 
+    SFX.correct();
+    if (hg.combo >= 3) SFX.combo(hg.combo);
     speak('정답!');
 
     // 콤보 표시
@@ -1533,6 +1703,7 @@ function hgPlaceAnimal(item, targetBiome) {
     const nl = Math.floor(hg.score / 8) + 1;
     if (nl > hg.level) {
       hg.level = nl;
+      SFX.levelup();
       hgSetupBiomes();
       hgUpdateBg();
     }
@@ -1553,6 +1724,7 @@ function hgPlaceAnimal(item, targetBiome) {
     arena.classList.add('hg-arena-shake');
     setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
 
+    SFX.wrong();
     speak('앗! 여기가 아니에요!');
 
     // 동물 원래 위치로 복귀
@@ -1682,10 +1854,12 @@ function hgEnd() {
   else if (hg.score >= 10) msg = '멋져요! 계속 연습!';
   document.getElementById('hg-over-msg').textContent = msg;
   document.getElementById('hg-over').classList.remove('hidden');
+  SFX.gameOver();
   speak(msg);
 }
 
 function hgRestart() {
+  SFX.gameStart();
   document.getElementById('hg-over').classList.add('hidden');
   const arena = document.getElementById('hg-arena');
   arena.querySelectorAll('.falling-animal,.hg-powerup,.hg-score-pop,.hg-combo-text').forEach(e => e.remove());
@@ -1729,7 +1903,9 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', fitScale);
   if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
 
-  // 프로필
+  // 프로필 — _prevMainLevel 초기화
+  const _p = parseInt(localStorage.getItem('animalCorrect')) || 0;
+  _prevMainLevel = Math.floor(_p / 10) + 1;
   updateProfile();
   updateActionButtons();
 
