@@ -221,6 +221,95 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-picture-svg{border:4px solid #e2e8f0;border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.1)}
 .hg-section{stroke:#94a3b8;stroke-width:2;fill:#f1f5f9;transition:fill .5s}
 .hg-section.filled{stroke:#475569;stroke-width:2.5}
+
+/* ===== 비주얼 업그레이드 ===== */
+
+/* 배경 씬: 얼굴조물주 — 아틀리에(화실) */
+.face-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='ab' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23fdf2f8'/><stop offset='100%' stop-color='%23fce7f3'/></linearGradient></defs><rect fill='url(%23ab)' width='1300' height='900'/><rect x='30' y='80' width='120' height='160' rx='6' fill='%23fff' stroke='%23d4a574' stroke-width='3'/><rect x='40' y='90' width='100' height='120' fill='%23fef3c7'/><circle cx='90' cy='130' r='20' fill='%23fca5a5' opacity='.5'/><circle cx='70' cy='150' r='12' fill='%2393c5fd' opacity='.4'/><rect x='1140' y='60' width='130' height='180' rx='6' fill='%23fff' stroke='%23d4a574' stroke-width='3'/><rect x='1150' y='70' width='110' height='140' fill='%23ecfccb'/><polygon points='1205,100 1180,160 1230,160' fill='%2386efac' opacity='.5'/><rect x='1160' y='750' width='100' height='80' rx='8' fill='%23f9a8d4' opacity='.2'/><circle cx='1210' cy='770' r='10' fill='%23ec4899' opacity='.3'/><circle cx='1190' cy='790' r='8' fill='%23a855f7' opacity='.25'/><circle cx='1220' cy='800' r='7' fill='%233b82f6' opacity='.2'/><line x1='50' y1='260' x2='50' y2='700' stroke='%23d4a574' stroke-width='4' opacity='.15'/><line x1='60' y1='700' x2='30' y2='720' stroke='%23d4a574' stroke-width='3' opacity='.15'/><line x1='60' y1='700' x2='70' y2='720' stroke='%23d4a574' stroke-width='3' opacity='.15'/></svg>") center/cover no-repeat;opacity:.6}
+.face-view{position:relative}
+
+/* 배경 씬: 폭발물감 — 추상화 갤러리 */
+.paint-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><rect fill='%23fdf2f8' width='1300' height='900'/><circle cx='100' cy='100' r='60' fill='%23fca5a5' opacity='.08'><animate attributeName='r' values='55;65;55' dur='4s' repeatCount='indefinite'/></circle><circle cx='1200' cy='150' r='50' fill='%2393c5fd' opacity='.08'><animate attributeName='r' values='45;55;45' dur='3.5s' repeatCount='indefinite'/></circle><circle cx='200' cy='800' r='40' fill='%23a5b4fc' opacity='.07'/><circle cx='1100' cy='780' r='55' fill='%2386efac' opacity='.06'/><circle cx='650' cy='50' r='35' fill='%23fcd34d' opacity='.06'/></svg>") center/cover no-repeat;opacity:.7}
+.paint-view{position:relative}
+
+/* 배경 씬: 그림자극장 — 극장 분위기 보강 (이미 비주얼 있으므로 가벼운 장식만) */
+.theater-view{position:relative}
+
+/* 배경 씬: 내기록 — 미술관/갤러리 */
+.record-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='gb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23fdf2f8'/><stop offset='100%' stop-color='%23fce7f3'/></linearGradient></defs><rect fill='url(%23gb)' width='1300' height='900'/><rect x='40' y='150' width='150' height='120' rx='4' fill='none' stroke='%23d4a574' stroke-width='4' opacity='.2'/><rect x='1110' y='120' width='140' height='110' rx='4' fill='none' stroke='%23d4a574' stroke-width='4' opacity='.2'/><rect x='500' y='50' width='180' height='140' rx='4' fill='none' stroke='%23d4a574' stroke-width='4' opacity='.15'/><circle cx='100' cy='800' r='4' fill='%23ec4899' opacity='.15'><animate attributeName='opacity' values='.1;.25;.1' dur='3s' repeatCount='indefinite'/></circle><circle cx='650' cy='820' r='3' fill='%23f472b6' opacity='.12'><animate attributeName='opacity' values='.08;.2;.08' dur='2.5s' repeatCount='indefinite'/></circle><circle cx='1200' cy='810' r='3.5' fill='%23ec4899' opacity='.15'><animate attributeName='opacity' values='.1;.22;.1' dur='2.8s' repeatCount='indefinite'/></circle></svg>") center/cover no-repeat;opacity:.5}
+.record-view{position:relative}
+
+/* 3D 아케이드 버튼 */
+.tab-btn{border-bottom:5px solid #7c8ba5;transition:.15s}
+.tab-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px}
+.tab-btn.active{border-color:#be185d;border-bottom:5px solid #be185d}
+.tab-btn.active:active{border-bottom-width:2px}
+
+.action-btn{border-bottom:6px solid rgba(0,0,0,.25);transition:.1s}
+.action-btn:active:not(:disabled){transform:translateY(4px) scaleX(1.03) scaleY(.94)!important;border-bottom-width:2px}
+.action-btn.btn-pink{border-bottom-color:#9d174d}
+.action-btn.btn-cyan{border-bottom-color:#0e7490}
+.action-btn.btn-red{border-bottom-color:#b91c1c}
+.action-btn.btn-green{border-bottom-color:#047857}
+.action-btn.btn-orange{border-bottom-color:#c2410c}
+
+.face-action-btn{border-bottom:4px solid rgba(0,0,0,.2);transition:.15s}
+.face-action-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:1px}
+.face-action-btn.pink{border-bottom-color:#9d174d}
+.face-action-btn.gray{border-bottom-color:#6b7280}
+
+.theater-btn{border-bottom:4px solid rgba(0,0,0,.2)}
+.theater-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:1px}
+.theater-btn.play{border-bottom-color:#047857}
+.theater-btn.clear{border-bottom-color:#b91c1c}
+
+.game-launch-btn{border-bottom:6px solid #9d174d;position:relative;overflow:hidden}
+.game-launch-btn:active{transform:translateY(4px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px;animation:none}
+.game-launch-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:btnSweep 3s ease-in-out infinite}
+@keyframes btnSweep{0%,100%{left:-100%}50%{left:120%}}
+
+.face-part-item{border-bottom:3px solid #c7d1dc;transition:.15s}
+.face-part-item:active{transform:translateY(2px) scale(.9)!important;border-bottom-width:1px}
+.sticker-item{border-bottom:3px solid #e58bb0;transition:.15s}
+.sticker-item:active{transform:translateY(2px) scale(.9)!important;border-bottom-width:1px}
+
+/* 패널 보강 */
+.right-panel{background:linear-gradient(180deg,rgba(252,231,243,.3),rgba(249,168,212,.15));border-radius:20px;padding:10px}
+.side-info{background:linear-gradient(145deg,#fdf2f8,#fce7f3);position:relative;overflow:hidden}
+.side-info::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#ec4899,#f472b6,#ec4899);border-radius:4px 4px 0 0}
+.side-val{text-shadow:0 0 12px rgba(236,72,153,.35)}
+.side-stat{transition:transform .2s}
+.side-stat:hover{transform:translateX(3px)}
+
+/* 디자인 포뮬러: text-stroke */
+.hg-stat,.hg-combo,.game-launch-btn,.side-title{-webkit-text-stroke:.5px rgba(0,0,0,.1);paint-order:stroke fill}
+
+/* 디자인 포뮬러: 스코어 팝업 */
+.score-popup{position:absolute;pointer-events:none;z-index:50;font-size:28px;font-weight:900;color:#ec4899;text-shadow:0 2px 8px rgba(0,0,0,.2);animation:scorePop .9s ease-out forwards}
+@keyframes scorePop{0%{opacity:1;transform:translateY(0) scale(.5)}40%{transform:translateY(-30px) scale(1.2)}100%{opacity:0;transform:translateY(-70px) scale(.8)}}
+
+/* 디자인 포뮬러: 뷰 전환 */
+.game-view.active{animation:viewFadeIn .35s ease-out}
+@keyframes viewFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* 디자인 포뮬러: 레벨업 오버레이 */
+.levelup-overlay{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;background:rgba(236,72,153,.15);pointer-events:none;animation:lvFlash .8s ease-out forwards}
+@keyframes lvFlash{0%{background:rgba(236,72,153,.25)}100%{background:transparent}}
+.levelup-box{font-size:52px;font-weight:900;color:#ec4899;text-shadow:0 4px 20px rgba(236,72,153,.5);animation:lvPop .8s cubic-bezier(.175,.885,.32,1.275) forwards}
+@keyframes lvPop{0%{opacity:0;transform:scale(0) rotate(-10deg)}50%{opacity:1;transform:scale(1.3) rotate(3deg)}100%{opacity:0;transform:scale(1) rotate(0)}}
+
+/* 디자인 포뮬러: 하트 잃기 */
+@keyframes heartLost{0%{transform:scale(1)}25%{transform:scale(1.4);filter:brightness(2)}50%{transform:scale(.8)}100%{transform:scale(1)}}
+
+/* 마스코트 스타일 */
+.mascot{position:absolute;z-index:5;pointer-events:none;animation:mascotBob 3s ease-in-out infinite}
+@keyframes mascotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.mascot-bubble{position:absolute;background:#fff;border-radius:16px;padding:6px 14px;font-size:13px;font-weight:700;color:#831843;box-shadow:0 3px 12px rgba(0,0,0,.12);white-space:nowrap;opacity:0;transition:opacity .3s;top:-40px;left:50%;transform:translateX(-50%)}
+.mascot-bubble::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fff}
+.mascot-bubble.show{opacity:1}
 </style>
 </head>
 <body>
@@ -308,6 +397,27 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
     <div class="center-panel">
       <!-- 얼굴 조물주 -->
       <div class="game-view face-view active" id="face-view">
+        <!-- 마스코트 "붓이" -->
+        <div class="mascot" id="mascot-face" style="top:12px;right:220px">
+          <svg width="60" height="80" viewBox="0 0 60 80">
+            <rect x="18" y="0" width="24" height="18" rx="4" fill="#ec4899"/>
+            <rect x="22" y="12" width="16" height="6" rx="2" fill="#f472b6"/>
+            <ellipse cx="30" cy="44" rx="22" ry="24" fill="#f9a8d4"/>
+            <ellipse cx="30" cy="44" rx="18" ry="20" fill="#fce7f3"/>
+            <circle cx="22" cy="40" r="4" fill="#1e293b">
+              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="1s"/>
+            </circle>
+            <circle cx="38" cy="40" r="4" fill="#1e293b">
+              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="1s"/>
+            </circle>
+            <path id="mascot-face-mouth" d="M24,52 Q30,58 36,52" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="14" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
+            <circle cx="46" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
+            <rect x="26" y="68" width="8" height="12" rx="2" fill="#d4a574"/>
+            <rect x="22" y="74" width="16" height="6" rx="2" fill="#f9a8d4" opacity=".6"/>
+          </svg>
+          <div class="mascot-bubble" id="bubble-face">예쁘게 꾸며봐!</div>
+        </div>
         <div class="face-area">
           <div class="face-workspace">
             <div class="face-canvas-wrap" id="face-canvas-wrap">
@@ -406,6 +516,27 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
       <!-- 내 기록 -->
       <div class="game-view record-view" id="record-view">
+        <!-- 마스코트 "붓이" (기록뷰) -->
+        <div class="mascot" id="mascot-record" style="bottom:20px;right:20px">
+          <svg width="55" height="75" viewBox="0 0 60 80">
+            <rect x="18" y="0" width="24" height="18" rx="4" fill="#ec4899"/>
+            <rect x="22" y="12" width="16" height="6" rx="2" fill="#f472b6"/>
+            <ellipse cx="30" cy="44" rx="22" ry="24" fill="#f9a8d4"/>
+            <ellipse cx="30" cy="44" rx="18" ry="20" fill="#fce7f3"/>
+            <circle cx="22" cy="40" r="4" fill="#1e293b">
+              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="2s"/>
+            </circle>
+            <circle cx="38" cy="40" r="4" fill="#1e293b">
+              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="2s"/>
+            </circle>
+            <path d="M24,52 Q30,58 36,52" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="14" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
+            <circle cx="46" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
+            <rect x="26" y="68" width="8" height="12" rx="2" fill="#d4a574"/>
+            <text x="30" y="78" text-anchor="middle" font-size="14">🏆</text>
+          </svg>
+          <div class="mascot-bubble" id="bubble-record">내 작품들!</div>
+        </div>
         <div class="records-area">
           <div class="record-card">
             <h3>🏆 종합 성적</h3>
@@ -585,6 +716,70 @@ let hg = {
   ]
 };
 
+// ===== SFX (Web Audio) =====
+const SFX = {
+  _ctx: null,
+  _getCtx() { if (!this._ctx) this._ctx = new (window.AudioContext || window.webkitAudioContext)(); return this._ctx; },
+  _play(fn) { try { if (!soundEnabled) return; fn(this._getCtx()); } catch(e) {} },
+  // 붓질 소리 (부드러운 노이즈)
+  brush() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.setValueAtTime(800,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(200,ctx.currentTime+.15);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.15);o.start();o.stop(ctx.currentTime+.15); }); },
+  // 톡 소리 (파츠 배치)
+  pop() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(600,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(300,ctx.currentTime+.08);g.gain.setValueAtTime(.1,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.1);o.start();o.stop(ctx.currentTime+.1); }); },
+  // 반짝 (스파클)
+  sparkle() { this._play(ctx => { [880,1100,1320].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.04,ctx.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.06+.12);o.start(ctx.currentTime+i*.06);o.stop(ctx.currentTime+i*.06+.12); }); }); },
+  // 물감 튀김
+  splat() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.setValueAtTime(150,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(80,ctx.currentTime+.1);g.gain.setValueAtTime(.05,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.12);o.start();o.stop(ctx.currentTime+.12); }); },
+  // 환호 (완성)
+  cheer() { this._play(ctx => { [523,659,784,1047].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.1+.2);o.start(ctx.currentTime+i*.1);o.stop(ctx.currentTime+i*.1+.2); }); }); },
+  // 팡파레
+  fanfare() { this._play(ctx => { [523,659,784,1047].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='square';o.frequency.value=f;g.gain.setValueAtTime(.04,ctx.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.12+.25);o.start(ctx.currentTime+i*.12);o.stop(ctx.currentTime+i*.12+.25); }); }); },
+  // 레벨업
+  levelup() { this._play(ctx => { for(let i=0;i<8;i++){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=523*(1+i*.15);g.gain.setValueAtTime(.05,ctx.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.06+.15);o.start(ctx.currentTime+i*.06);o.stop(ctx.currentTime+i*.06+.15);} }); },
+  // 콤보
+  combo(n) { this._play(ctx => { const f=523+Math.min(n,10)*50;const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(f,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(f*1.5,ctx.currentTime+.1);g.gain.setValueAtTime(.07,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.15);o.start();o.stop(ctx.currentTime+.15); }); },
+  // 게임 시작
+  gameStart() { this._play(ctx => { [392,523,659,784].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.1+.2);o.start(ctx.currentTime+i*.1);o.stop(ctx.currentTime+i*.1+.2); }); }); },
+  // 게임 오버
+  gameOver() { this._play(ctx => { [523,440,349,262].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.15);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.15+.3);o.start(ctx.currentTime+i*.15);o.stop(ctx.currentTime+i*.15+.3); }); }); }
+};
+
+// 유틸: 스코어 팝업
+function showScorePopup(container, points, x, y) {
+  const el = document.createElement('div');
+  el.className = 'score-popup';
+  el.textContent = '+' + points;
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 900);
+}
+
+// 유틸: 레벨업 오버레이
+function showLevelUp(lv) {
+  SFX.levelup();
+  const ov = document.createElement('div');
+  ov.className = 'levelup-overlay';
+  ov.innerHTML = `<div class="levelup-box">🎨 레벨 ${lv} 달성!</div>`;
+  document.body.appendChild(ov);
+  setTimeout(() => ov.remove(), 800);
+}
+
+// 유틸: 마스코트 감정
+function setMascotEmotion(viewId, emotion) {
+  const mouth = document.getElementById('mascot-face-mouth');
+  const bubble = document.getElementById('bubble-face');
+  if (!mouth) return;
+  if (emotion === 'happy') {
+    mouth.setAttribute('d', 'M22,50 Q30,60 38,50');
+    if (bubble) { bubble.textContent = ['멋져!','최고!','예쁘다!','와!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
+  } else if (emotion === 'worried') {
+    mouth.setAttribute('d', 'M24,56 Q30,50 36,56');
+    if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
+  } else {
+    mouth.setAttribute('d', 'M24,52 Q30,58 36,52');
+  }
+  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M24,52 Q30,58 36,52'); }, 2500);
+}
+
 // ===== TTS =====
 let audioQueue = [];
 let isSpeaking = false;
@@ -609,10 +804,13 @@ function toggleSound() {
 }
 
 // ===== 프로필 =====
+let _prevMainLevel = 1;
 function updateProfile() {
   document.getElementById('pf-name').textContent = profile.name;
   document.getElementById('pf-char').textContent = profile.char;
   const lv = Math.floor(profile.totalActivity / 10) + 1;
+  if (lv > _prevMainLevel && _prevMainLevel > 0) showLevelUp(lv);
+  _prevMainLevel = lv;
   document.getElementById('pf-level').textContent = lv;
   const prog = (profile.totalActivity % 10);
   document.getElementById('pf-done').textContent = prog;
@@ -788,6 +986,7 @@ function faceCanvasDown(e) {
     face.partsUsed++;
     document.getElementById('face-parts-used').textContent = face.partsUsed;
     // 배치 이펙트
+    SFX.pop();
     faceSpawnEffect(x, y, rect);
   }
 }
@@ -836,6 +1035,8 @@ function faceDone() {
   face.count++;
   profile.totalActivity++;
   document.getElementById('face-count').textContent = face.count;
+  SFX.cheer();
+  setMascotEmotion('face', 'happy');
   speak(`안녕! 나는 ${name}이야!`);
   updateProfile();
   saveStats();
@@ -883,6 +1084,7 @@ function faceRandom() {
   document.getElementById('face-parts-used').textContent = face.partsUsed;
   const names = ['뽀로로','꾸러기','말랑이','번개맨','구름이','반짝이','두리','하늘이'];
   document.getElementById('face-name').value = names[Math.floor(Math.random()*names.length)];
+  SFX.sparkle();
   speak('랜덤 얼굴 완성!');
 }
 
@@ -1031,6 +1233,8 @@ function paintSave() {
   paint.works++;
   profile.totalActivity++;
   document.getElementById('paint-works').textContent = paint.works;
+  SFX.fanfare();
+  setMascotEmotion('face', 'happy');
   speak('멋진 작품이에요! 저장했어요!');
   updateProfile();
   saveStats();
@@ -1173,6 +1377,7 @@ function theaterPlay() {
 
   // 관객 등장
   document.getElementById('audience-bar').classList.add('visible');
+  SFX.fanfare();
   speak('공연이 시작됩니다!');
 
   // 순서대로 등장
@@ -1304,6 +1509,7 @@ function startHeroGame() {
   hgSetNextTarget();
   updateHgUI();
   addHgClouds();
+  SFX.gameStart();
   hgLoop();
 }
 
@@ -1357,6 +1563,7 @@ function hgSetNextTarget() {
 }
 
 function hgCompletionEffect() {
+  SFX.levelup();
   const arena = document.getElementById('hg-arena');
   for (let i = 0; i < 30; i++) {
     const p = document.createElement('div');
@@ -1515,6 +1722,8 @@ function hgTapBall(ball) {
 
     // 색칠 이펙트
     hgPaintBurst(ball.x + ball.size/2, ball.y + ball.size/2, ball.color);
+    if (hg.combo >= 3) SFX.combo(hg.combo); else SFX.sparkle();
+    showScorePopup(arena, 2 + bonus, ball.x, ball.y);
     speak('정답!');
 
     // 섹션 채우기
@@ -1544,6 +1753,7 @@ function hgTapBall(ball) {
     stain.style.cssText = `left:${ball.x}px;top:${ball.y}px;width:${stainSize}px;height:${stainSize}px;background:${ball.color}`;
     arena.appendChild(stain);
 
+    SFX.splat();
     speak('앗! 틀린 색이에요');
 
     ball.el.remove();
@@ -1615,11 +1825,17 @@ function hgUpdateBg() {
   document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
 }
 
+let _prevHgLives = 5, _prevHgLevel = 1;
 function updateHgUI() {
   document.getElementById('hg-score').textContent = hg.score;
   document.getElementById('hg-level').textContent = hg.level;
   document.getElementById('hg-filled').textContent = hg.filledCount;
-  document.getElementById('hg-hearts').textContent = '❤️'.repeat(Math.max(0,hg.lives)) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+  const heartsEl = document.getElementById('hg-hearts');
+  heartsEl.textContent = '❤️'.repeat(Math.max(0,hg.lives)) + '🖤'.repeat(Math.max(0, 5 - hg.lives));
+  if (hg.lives < _prevHgLives) { heartsEl.style.animation = 'none'; heartsEl.offsetHeight; heartsEl.style.animation = 'heartLost .5s ease-out'; }
+  _prevHgLives = hg.lives;
+  if (hg.level > _prevHgLevel) { showLevelUp(hg.level); }
+  _prevHgLevel = hg.level;
 }
 
 function hgEnd() {
@@ -1639,6 +1855,7 @@ function hgEnd() {
   else if (hg.score >= 15) msg = '잘했어요! 계속 그려봐요!';
   document.getElementById('hg-over-msg').textContent = msg;
   document.getElementById('hg-over').classList.remove('hidden');
+  SFX.gameOver();
   speak(msg);
 }
 
@@ -1646,6 +1863,7 @@ function hgRestart() {
   document.getElementById('hg-over').classList.add('hidden');
   const arena = document.getElementById('hg-arena');
   arena.querySelectorAll('.flying-ball,.hg-paint-burst,.hg-star-pop,.hg-stain,.hg-powerup').forEach(e => e.remove());
+  SFX.gameStart();
   startHeroGame();
 }
 
@@ -1684,6 +1902,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
 
   // 프로필
+  _prevMainLevel = Math.floor(profile.totalActivity / 10) + 1;
   updateProfile();
   updateActionButtons();
 
