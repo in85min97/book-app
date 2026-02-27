@@ -221,6 +221,80 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 @keyframes correctPop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:0}}
+
+/* ===== 비주얼 업그레이드 ===== */
+
+/* 배경 씬: 요리타이머 — 주방 */
+.cook-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='kb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23cffafe'/></linearGradient></defs><rect fill='url(%23kb)' width='1300' height='900'/><rect x='0' y='780' width='1300' height='120' fill='%23f1f5f9' stroke='%23e2e8f0' stroke-width='2'/><line x1='0' y1='800' x2='1300' y2='800' stroke='%2394a3b8' stroke-width='1' opacity='.2'/><rect x='50' y='40' width='60' height='90' rx='6' fill='%23a5f3fc' opacity='.15'/><rect x='55' y='45' width='50' height='5' rx='2' fill='%2306b6d4' opacity='.2'/><rect x='1190' y='60' width='50' height='70' rx='6' fill='%23a5f3fc' opacity='.15'/><rect x='1195' y='65' width='40' height='4' rx='2' fill='%2306b6d4' opacity='.2'/><circle cx='80' cy='830' r='18' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.12'/><circle cx='1220' cy='840' r='15' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.12'/></svg>") center/cover no-repeat;opacity:.5}
+.cook-view{position:relative}
+
+/* 배경 씬: 쌍둥이시계 — 시계공방 */
+.twin-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='wb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23e0f2fe'/></linearGradient></defs><rect fill='url(%23wb)' width='1300' height='900'/><circle cx='80' cy='120' r='40' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.1'><animateTransform attributeName='transform' type='rotate' values='0 80 120;360 80 120' dur='20s' repeatCount='indefinite'/></circle><circle cx='80' cy='120' r='5' fill='%2306b6d4' opacity='.15'/><line x1='80' y1='120' x2='80' y2='85' stroke='%2306b6d4' stroke-width='2' opacity='.12'/><circle cx='1220' cy='100' r='35' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.1'><animateTransform attributeName='transform' type='rotate' values='360 1220 100;0 1220 100' dur='15s' repeatCount='indefinite'/></circle><rect x='50' y='750' width='1200' height='3' fill='%2306b6d4' opacity='.06'/></svg>") center/cover no-repeat;opacity:.5}
+.twin-view{position:relative}
+
+/* 배경 씬: 내기록 — 시계탑 */
+.record-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='rb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23cffafe'/></linearGradient></defs><rect fill='url(%23rb)' width='1300' height='900'/><circle cx='100' cy='800' r='3' fill='%2306b6d4' opacity='.15'><animate attributeName='opacity' values='.1;.25;.1' dur='3s' repeatCount='indefinite'/></circle><circle cx='650' cy='820' r='2.5' fill='%2322d3ee' opacity='.12'><animate attributeName='opacity' values='.08;.2;.08' dur='2.5s' repeatCount='indefinite'/></circle><circle cx='1200' cy='810' r='3' fill='%2306b6d4' opacity='.15'><animate attributeName='opacity' values='.1;.22;.1' dur='2.8s' repeatCount='indefinite'/></circle><rect x='40' y='80' width='100' height='80' rx='8' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.08'/><rect x='1160' y='100' width='90' height='70' rx='8' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.08'/></svg>") center/cover no-repeat;opacity:.5}
+.record-view{position:relative}
+
+/* 시간여행자 — 이미 동적 배경이 있으므로 position만 */
+.travel-view{position:relative}
+
+/* 3D 아케이드 버튼 */
+.tab-btn{border-bottom:5px solid #7c8ba5;transition:.15s}
+.tab-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px}
+.tab-btn.active{border-color:#0e7490;border-bottom:5px solid #0e7490}
+.tab-btn.active:active{border-bottom-width:2px}
+
+.action-btn{border-bottom:6px solid rgba(0,0,0,.25);transition:.1s}
+.action-btn:active:not(:disabled){transform:translateY(4px) scaleX(1.03) scaleY(.94)!important;border-bottom-width:2px}
+.action-btn.btn-cyan{border-bottom-color:#0e7490}
+.action-btn.btn-red{border-bottom-color:#b91c1c}
+.action-btn.btn-green{border-bottom-color:#047857}
+.action-btn.btn-teal{border-bottom-color:#0d6e6e}
+
+.travel-confirm-btn{border-bottom:5px solid #0e7490;transition:.15s}
+.travel-confirm-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px}
+.cook-btn{border-bottom:4px solid rgba(0,0,0,.2);transition:.15s}
+.cook-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:1px}
+.cook-btn-open{border-bottom-color:#9a3412}
+.cook-btn-wait{border-bottom-color:#0e7490}
+.twin-submit{border-bottom:5px solid #0e7490;transition:.15s}
+.twin-submit:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px}
+
+.game-launch-btn{border-bottom:6px solid #0e7490;position:relative;overflow:hidden}
+.game-launch-btn:active{transform:translateY(4px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px;animation:none}
+.game-launch-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:btnSweep 3s ease-in-out infinite}
+@keyframes btnSweep{0%,100%{left:-100%}50%{left:120%}}
+
+/* 패널 보강 */
+.right-panel{background:linear-gradient(180deg,rgba(236,254,255,.3),rgba(207,250,254,.15));border-radius:20px;padding:10px}
+.side-info{position:relative;overflow:hidden}
+.side-info::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#06b6d4,#22d3ee,#06b6d4);border-radius:4px 4px 0 0}
+.side-val{text-shadow:0 0 12px rgba(6,182,212,.35)}
+.side-stat{transition:transform .2s}
+.side-stat:hover{transform:translateX(3px)}
+
+/* 디자인 포뮬러 */
+.hg-stat,.game-launch-btn,.side-title,.travel-question{-webkit-text-stroke:.5px rgba(0,0,0,.1);paint-order:stroke fill}
+.score-popup{position:absolute;pointer-events:none;z-index:50;font-size:28px;font-weight:900;color:#06b6d4;text-shadow:0 2px 8px rgba(0,0,0,.2);animation:scorePop .9s ease-out forwards}
+@keyframes scorePop{0%{opacity:1;transform:translateY(0) scale(.5)}40%{transform:translateY(-30px) scale(1.2)}100%{opacity:0;transform:translateY(-70px) scale(.8)}}
+.game-view.active{animation:viewFadeIn .35s ease-out}
+@keyframes viewFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.levelup-overlay{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;background:rgba(6,182,212,.15);pointer-events:none;animation:lvFlash .8s ease-out forwards}
+@keyframes lvFlash{0%{background:rgba(6,182,212,.25)}100%{background:transparent}}
+.levelup-box{font-size:52px;font-weight:900;color:#0891b2;text-shadow:0 4px 20px rgba(6,182,212,.5);animation:lvPop .8s cubic-bezier(.175,.885,.32,1.275) forwards}
+@keyframes lvPop{0%{opacity:0;transform:scale(0) rotate(-10deg)}50%{opacity:1;transform:scale(1.3) rotate(3deg)}100%{opacity:0;transform:scale(1) rotate(0)}}
+@keyframes heartLost{0%{transform:scale(1)}25%{transform:scale(1.4);filter:brightness(2)}50%{transform:scale(.8)}100%{transform:scale(1)}}
+
+/* 마스코트 */
+.mascot{position:absolute;z-index:5;pointer-events:none;animation:mascotBob 3s ease-in-out infinite}
+@keyframes mascotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.mascot-bubble{position:absolute;background:#fff;border-radius:16px;padding:6px 14px;font-size:13px;font-weight:700;color:#164e63;box-shadow:0 3px 12px rgba(0,0,0,.12);white-space:nowrap;opacity:0;transition:opacity .3s;top:-40px;left:50%;transform:translateX(-50%)}
+.mascot-bubble::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fff}
+.mascot-bubble.show{opacity:1}
 </style>
 </head>
 <body>
@@ -306,6 +380,29 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
     <div class="center-panel">
       <!-- 시간 여행자 -->
       <div class="game-view travel-view active" id="travel-view">
+        <!-- 마스코트 "똑딱이" -->
+        <div class="mascot" id="mascot-travel" style="top:8px;right:220px">
+          <svg width="55" height="70" viewBox="0 0 55 70">
+            <circle cx="27" cy="6" r="6" fill="#06b6d4"/>
+            <rect x="22" y="4" width="11" height="4" rx="2" fill="#0891b2"/>
+            <rect x="8" y="14" width="39" height="42" rx="10" fill="#22d3ee"/>
+            <rect x="12" y="18" width="31" height="34" rx="7" fill="#ecfeff"/>
+            <circle cx="27" cy="35" r="14" fill="none" stroke="#06b6d4" stroke-width="2"/>
+            <line x1="27" y1="35" x2="27" y2="25" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="27" y1="35" x2="35" y2="35" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="27" cy="35" r="2" fill="#0891b2"/>
+            <circle cx="19" cy="28" r="3.5" fill="#1e293b">
+              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="1s"/>
+            </circle>
+            <circle cx="35" cy="28" r="3.5" fill="#1e293b">
+              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="1s"/>
+            </circle>
+            <path id="mascot-travel-mouth" d="M21,44 Q27,50 33,44" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round"/>
+            <rect x="14" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
+            <rect x="31" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
+          </svg>
+          <div class="mascot-bubble" id="bubble-travel">시간 여행 출발!</div>
+        </div>
         <div class="travel-area" id="travel-area">
           <div class="travel-bg travel-bg-noon" id="travel-bg"></div>
           <!-- 태양 SVG -->
@@ -417,6 +514,26 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
       <!-- 내 기록 -->
       <div class="game-view record-view" id="record-view">
+        <!-- 마스코트 "똑딱이" (기록뷰) -->
+        <div class="mascot" id="mascot-record" style="bottom:20px;right:20px">
+          <svg width="50" height="65" viewBox="0 0 55 70">
+            <circle cx="27" cy="6" r="6" fill="#06b6d4"/>
+            <rect x="22" y="4" width="11" height="4" rx="2" fill="#0891b2"/>
+            <rect x="8" y="14" width="39" height="42" rx="10" fill="#22d3ee"/>
+            <rect x="12" y="18" width="31" height="34" rx="7" fill="#ecfeff"/>
+            <circle cx="19" cy="28" r="3.5" fill="#1e293b">
+              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="2s"/>
+            </circle>
+            <circle cx="35" cy="28" r="3.5" fill="#1e293b">
+              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="2s"/>
+            </circle>
+            <path d="M21,44 Q27,50 33,44" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round"/>
+            <rect x="14" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
+            <rect x="31" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
+            <text x="27" y="64" text-anchor="middle" font-size="12">🏆</text>
+          </svg>
+          <div class="mascot-bubble" id="bubble-record">내 기록!</div>
+        </div>
         <div class="records-area">
           <div class="record-card">
             <h3>🏆 종합 성적</h3>
@@ -689,6 +806,57 @@ function getTimePeriodName(hour) {
   return '밤';
 }
 
+// ===== SFX (Web Audio) =====
+const SFX = {
+  _ctx: null,
+  _getCtx() { if (!this._ctx) this._ctx = new (window.AudioContext || window.webkitAudioContext)(); return this._ctx; },
+  _play(fn) { try { if (!soundEnabled) return; fn(this._getCtx()); } catch(e) {} },
+  tick() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=1200;g.gain.setValueAtTime(.04,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.04);o.start();o.stop(ctx.currentTime+.04); }); },
+  tock() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=800;g.gain.setValueAtTime(.05,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.06);o.start();o.stop(ctx.currentTime+.06); }); },
+  chime() { this._play(ctx => { [1047,1319,1568].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.05,ctx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.08+.2);o.start(ctx.currentTime+i*.08);o.stop(ctx.currentTime+i*.08+.2); }); }); },
+  buzz() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.setValueAtTime(150,ctx.currentTime);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.15);o.start();o.stop(ctx.currentTime+.15); }); },
+  ding() { this._play(ctx => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=880;g.gain.setValueAtTime(.07,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.3);o.start();o.stop(ctx.currentTime+.3); }); },
+  fanfare() { this._play(ctx => { [523,659,784,1047].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='square';o.frequency.value=f;g.gain.setValueAtTime(.04,ctx.currentTime+i*.12);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.12+.25);o.start(ctx.currentTime+i*.12);o.stop(ctx.currentTime+i*.12+.25); }); }); },
+  levelup() { this._play(ctx => { for(let i=0;i<8;i++){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=523*(1+i*.15);g.gain.setValueAtTime(.05,ctx.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.06+.15);o.start(ctx.currentTime+i*.06);o.stop(ctx.currentTime+i*.06+.15);} }); },
+  combo(n) { this._play(ctx => { const f=800+Math.min(n,10)*60;const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(f,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(f*1.3,ctx.currentTime+.1);g.gain.setValueAtTime(.06,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.12);o.start();o.stop(ctx.currentTime+.12); }); },
+  gameStart() { this._play(ctx => { [392,523,659,784].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.1+.2);o.start(ctx.currentTime+i*.1);o.stop(ctx.currentTime+i*.1+.2); }); }); },
+  gameOver() { this._play(ctx => { [523,440,349,262].forEach((f,i) => { const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.15);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.15+.3);o.start(ctx.currentTime+i*.15);o.stop(ctx.currentTime+i*.15+.3); }); }); }
+};
+
+function showScorePopup(container, points, x, y) {
+  const el = document.createElement('div');
+  el.className = 'score-popup';
+  el.textContent = '+' + points;
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 900);
+}
+
+function showLevelUp(lv) {
+  SFX.levelup();
+  const ov = document.createElement('div');
+  ov.className = 'levelup-overlay';
+  ov.innerHTML = `<div class="levelup-box">🕐 레벨 ${lv} 달성!</div>`;
+  document.body.appendChild(ov);
+  setTimeout(() => ov.remove(), 800);
+}
+
+function setMascotEmotion(viewId, emotion) {
+  const mouth = document.getElementById('mascot-travel-mouth');
+  const bubble = document.getElementById('bubble-travel');
+  if (!mouth) return;
+  if (emotion === 'happy') {
+    mouth.setAttribute('d', 'M19,42 Q27,52 35,42');
+    if (bubble) { bubble.textContent = ['맞았어!','최고!','잘했어!','와!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
+  } else if (emotion === 'worried') {
+    mouth.setAttribute('d', 'M22,48 Q27,42 32,48');
+    if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
+  } else {
+    mouth.setAttribute('d', 'M21,44 Q27,50 33,44');
+  }
+  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M21,44 Q27,50 33,44'); }, 2500);
+}
+
 // ===== TTS =====
 let audioQueue = [];
 let isSpeaking = false;
@@ -713,10 +881,13 @@ function toggleSound() {
 }
 
 // ===== 프로필 =====
+let _prevMainLevel = 1;
 function updateProfileUI() {
   document.getElementById('pf-name').textContent = profile.name;
   document.getElementById('pf-char').textContent = profile.char;
   const lv = Math.floor(profile.totalCorrect / 10) + 1;
+  if (lv > _prevMainLevel && _prevMainLevel > 0) showLevelUp(lv);
+  _prevMainLevel = lv;
   document.getElementById('pf-level').textContent = lv;
   const prog = (profile.totalCorrect % 10);
   document.getElementById('pf-done').textContent = prog;
@@ -887,12 +1058,14 @@ function travelConfirm() {
     updateTravelBg(period);
 
     document.getElementById('travel-result').innerHTML = `<span style="color:#22c55e">⭕ 정답! ${getTimePeriodName(travel.targetHour)}이에요!</span>`;
+    SFX.chime(); setMascotEmotion('travel', 'happy');
     speak(`정답! ${travel.targetHour}시 ${travel.targetMin > 0 ? travel.targetMin + '분' : ''}! ${getTimePeriodName(travel.targetHour)}이에요!`);
 
     setTimeout(() => newTravelQuestion(), 2000);
   } else {
     travel.streak = 0;
     document.getElementById('travel-result').innerHTML = `<span style="color:#ef4444">❌ 다시 해보세요! ${travel.targetHour}시 ${travel.targetMin > 0 ? travel.targetMin + '분' : '정각'}으로 맞춰보세요</span>`;
+    SFX.buzz(); setMascotEmotion('travel', 'worried');
     speak('다시 해보세요!');
   }
   updateTravelSide();
@@ -1079,8 +1252,10 @@ function cookQuizAnswer(selected, correct) {
     cook.score += 5;
     cook.quizCorrect++;
     profile.totalCorrect++;
+    SFX.chime();
     speak('정답! 잘 알고 있네요!');
   } else {
+    SFX.buzz();
     speak(`${correct}분이 지났어요!`);
   }
   updateCookSide();
@@ -1105,6 +1280,7 @@ function cookOpen() {
   if (pct < 0.7) {
     // 너무 일찍
     showCookResult('raw');
+    SFX.buzz(); setMascotEmotion('travel', 'worried');
     speak('아직 덜 익었어요! 조금만 더 기다려요!');
   } else if (pct >= 0.7 && pct <= 1.2) {
     // 적당!
@@ -1112,10 +1288,12 @@ function cookOpen() {
     cook.score += 15;
     cook.successCount++;
     profile.totalCorrect++;
+    SFX.fanfare(); setMascotEmotion('travel', 'happy');
     speak('완벽해요! 맛있게 익었어요!');
   } else {
     // 늦음
     showCookResult('burnt');
+    SFX.buzz(); setMascotEmotion('travel', 'worried');
     speak('앗, 너무 오래 끓였어요! 탔어요!');
   }
   updateCookSide();
@@ -1262,6 +1440,7 @@ function twinConfirm() {
     profile.totalCorrect++;
 
     document.getElementById('twin-result').innerHTML = '<span style="color:#22c55e">⭕ 정답! 잘했어요!</span>';
+    SFX.chime(); setMascotEmotion('travel', 'happy');
     // 양쪽 모두 보이기
     if (twin.mode === 'analog-to-digital') {
       const h = twin.targetHour.toString();
@@ -1278,6 +1457,7 @@ function twinConfirm() {
     twin.streak = 0;
     const correct = `${twin.targetHour}시 ${twin.targetMin > 0 ? twin.targetMin + '분' : '정각'}`;
     document.getElementById('twin-result').innerHTML = `<span style="color:#ef4444">❌ 다시 해보세요!</span>`;
+    SFX.buzz(); setMascotEmotion('travel', 'worried');
     speak('다시 해보세요!');
   }
   updateTwinSide();
@@ -1346,6 +1526,7 @@ function startHeroGame() {
   document.getElementById('hg-quiz').classList.add('hidden');
   updateHgUI();
   drawHgScene();
+  SFX.gameStart();
   hgLoop();
 
   // 탭으로 점프
@@ -1358,12 +1539,18 @@ function startHeroGame() {
   hg.spawnTimer = setInterval(hgSpawnObstacle, 3000);
 }
 
+let _prevHgLives = 5, _prevHgLevel = 1;
 function updateHgUI() {
   document.getElementById('hg-score').textContent = hg.score;
   document.getElementById('hg-level').textContent = hg.level;
+  const heartsEl = document.getElementById('hg-hearts');
   let hearts = '';
   for (let i = 0; i < 5; i++) hearts += i < hg.lives ? '❤️' : '🖤';
-  document.getElementById('hg-hearts').textContent = hearts;
+  heartsEl.textContent = hearts;
+  if (hg.lives < _prevHgLives) { heartsEl.style.animation = 'none'; heartsEl.offsetHeight; heartsEl.style.animation = 'heartLost .5s ease-out'; }
+  _prevHgLives = hg.lives;
+  if (hg.level > _prevHgLevel) showLevelUp(hg.level);
+  _prevHgLevel = hg.level;
 }
 
 function drawHgScene() {
@@ -1482,6 +1669,7 @@ function hgJump() {
   if (!hg.jumping) {
     hg.jumping = true;
     hg.jumpVel = 18;
+    SFX.tick();
 
     // 점프 이펙트
     const arena = document.getElementById('hg-arena');
@@ -1577,6 +1765,7 @@ function checkHgCollisions() {
       arena.style.animation = 'shake .4s ease-out';
       setTimeout(() => arena.style.animation = '', 400);
 
+      SFX.buzz();
       speak('앗!');
       if (hg.lives <= 0) hgGameOver();
     } else if (close && hg.jumpY >= 20) {
@@ -1586,6 +1775,7 @@ function checkHgCollisions() {
       if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
       o.el.remove();
       hg.obstacles.splice(i, 1);
+      if (hg.combo >= 3) SFX.combo(hg.combo); else SFX.ding();
       updateHgUI();
       if (hg.combo >= 3) {
         speak('콤보!');
@@ -1644,8 +1834,10 @@ function hgQuizAnswer(selected, correct) {
   if (selected === correct) {
     hg.score += 20;
     hg.combo++;
+    SFX.fanfare();
     speak('정답! 보너스!');
   } else {
+    SFX.buzz();
     speak(`${correct}시였어요!`);
   }
   updateHgUI();
@@ -1666,6 +1858,7 @@ function hgGameOver() {
   else if (hg.score >= 50) msg = '멋져요! 시계 박사!';
   document.getElementById('hg-over-msg').textContent = msg;
   document.getElementById('hg-over').classList.remove('hidden');
+  SFX.gameOver();
   speak(`게임 끝! ${hg.score}점! ${msg}`);
 }
 
@@ -1677,7 +1870,9 @@ function hgRestart() {
   hg.angle = 0; hg.speed = 1; hg.jumping = false; hg.jumpY = 0;
   hg.obstacles = []; hg.powerups = []; hg.combo = 0; hg.maxCombo = 0;
   hg.quizActive = false; hg.currentHour = 12;
-  updateHgUI(); drawHgScene(); hgLoop();
+  updateHgUI(); drawHgScene();
+  SFX.gameStart();
+  hgLoop();
   if (hg.spawnTimer) clearInterval(hg.spawnTimer);
   hg.spawnTimer = setInterval(hgSpawnObstacle, 3000);
 }
@@ -1718,6 +1913,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (window.visualViewport) window.visualViewport.addEventListener('resize', fitScale);
 
   // 프로필
+  _prevMainLevel = Math.floor(profile.totalCorrect / 10) + 1;
   updateProfileUI();
   updateActionButtons();
   hg.charEmoji = profile.char;
