@@ -38,28 +38,28 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .profile-info{flex:1;color:#fff}
 .profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
 .profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
-.profile-level{font-size:18px;font-weight:700;color:#fce7f3;display:flex;align-items:center;gap:8px}
-.level-badge{background:linear-gradient(145deg,#f9a8d4,#f472b6);color:#831843;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.profile-level{font-size:22px;font-weight:700;color:#fce7f3;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#f9a8d4,#f472b6);color:#831843;padding:4px 12px;border-radius:8px;font-size:22px;font-weight:800;border:1px solid #fff}
 .progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#f9a8d4,#ec4899,#f9a8d4);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
 @keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 /* 탭 */
 .tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
-.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:20px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:62px;white-space:nowrap;font-family:inherit}
 .tab-btn.active{background:linear-gradient(145deg,#ec4899,#db2777);color:#fff;border-color:#ec4899}
 .tab-btn:active{transform:scale(.97)}
 .tab-content{display:none;flex:1;overflow:hidden}
 .tab-content.active{display:flex;flex-direction:column}
 
 /* 사이드 정보 */
-.side-info{background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-radius:16px;padding:15px;border:2px solid #ec4899;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
-.side-title{font-size:17px;font-weight:700;color:#9d174d;text-align:center;flex-shrink:0}
-.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
-.side-val{font-size:20px;font-weight:800;color:#ec4899}
+.side-info{background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-radius:16px;padding:18px;border:2px solid #ec4899;display:flex;flex-direction:column;gap:12px;height:100%;overflow:hidden}
+.side-title{font-size:28px;font-weight:700;color:#9d174d;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:22px;font-weight:600;color:#1e293b}
+.side-val{font-size:36px;font-weight:800;color:#ec4899}
 
 /* 게임 런치 */
-.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#f9a8d4,#f472b6);color:#831843;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(244,114,182,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#f9a8d4,#f472b6);color:#831843;border:3px solid #fff;border-radius:16px;padding:14px;font-size:24px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(244,114,182,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite;white-space:nowrap}
 @keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 .game-launch-btn:active{transform:scale(.97)}
 
@@ -68,24 +68,24 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .game-view{display:none;flex-direction:column;flex:1;overflow:hidden}
 .game-view.active{display:flex}
 
-/* ===== 얼굴 조물주 ===== */
+/* ===== 얼굴 꾸미기 ===== */
 .face-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .face-workspace{flex:1;display:flex;gap:12px;padding:12px;overflow:hidden}
 .face-canvas-wrap{flex:1;background:linear-gradient(145deg,#fdf2f8,#fff);border:3px solid #f9a8d4;border-radius:20px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.face-svg-container{width:400px;height:450px;position:relative}
-.face-parts-panel{width:200px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;padding:4px}
+.face-svg-container{width:400px;height:450px;position:relative;transform:scale(1.9);transform-origin:center}
+.face-parts-panel{width:300px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;overflow-x:hidden;padding:8px;background:linear-gradient(145deg,#fdf2f8,#fff);border-radius:16px;border:2px solid #f9a8d4;position:relative;z-index:2}
 .parts-category{background:linear-gradient(145deg,#fce7f3,#fbcfe8);border-radius:12px;padding:10px;border:2px solid #f9a8d4}
-.parts-cat-title{font-size:14px;font-weight:700;color:#9d174d;margin-bottom:8px;text-align:center}
+.parts-cat-title{font-size:22px;font-weight:700;color:#9d174d;margin-bottom:8px;text-align:center}
 .parts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.face-part-item{width:52px;height:52px;background:#fff;border:2px solid #e2e8f0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:grab;transition:.15s;font-size:42px}
+.face-part-item{width:auto;height:auto;min-height:76px;background:#fff;border:2px solid #e2e8f0;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;transition:.15s;padding:4px 2px}
 .face-part-item:active{transform:scale(.9);border-color:#ec4899}
 .face-part-item.selected{border-color:#ec4899;background:linear-gradient(145deg,#fce7f3,#fdf2f8);box-shadow:0 0 8px rgba(236,72,153,.3)}
-.placed-part{position:absolute;cursor:move;font-size:40px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));transition:transform .1s;z-index:5}
+.placed-part{position:absolute;cursor:move;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));transition:transform .1s;z-index:5}
 .placed-part:active{transform:scale(1.15)}
-.face-name-input{width:100%;padding:10px 16px;border:3px solid #f9a8d4;border-radius:12px;font-size:18px;font-weight:700;text-align:center;outline:none;font-family:inherit;background:#fdf2f8;color:#831843}
+.face-name-input{width:100%;padding:12px 18px;border:3px solid #f9a8d4;border-radius:12px;font-size:28px;font-weight:700;text-align:center;outline:none;font-family:inherit;background:#fdf2f8;color:#831843}
 .face-name-input:focus{border-color:#ec4899}
 .face-bottom{display:flex;gap:10px;padding:8px 12px;align-items:center;flex-shrink:0}
-.face-action-btn{padding:10px 24px;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.face-action-btn{padding:12px 28px;border:none;border-radius:12px;font-size:26px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
 .face-action-btn:active{transform:scale(.95)}
 .face-action-btn.pink{background:linear-gradient(145deg,#ec4899,#db2777);color:#fff}
 .face-action-btn.gray{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
@@ -93,12 +93,12 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* ===== 폭발 물감 ===== */
 .paint-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .paint-toolbar{display:flex;align-items:center;gap:10px;padding:8px 12px;flex-shrink:0;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-bottom:2px solid #f9a8d4}
-.paint-color-btn{width:44px;height:44px;border-radius:50%;border:3px solid #fff;cursor:pointer;transition:.15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.paint-color-btn{width:64px;height:64px;border-radius:50%;border:3px solid #fff;cursor:pointer;transition:.15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .paint-color-btn.active{border-color:#1e293b;transform:scale(1.15);box-shadow:0 0 12px rgba(0,0,0,.3)}
 .paint-color-btn:active{transform:scale(.9)}
-.paint-size-label{font-size:14px;font-weight:700;color:#9d174d;margin-left:12px}
+.paint-size-label{font-size:17px;font-weight:700;color:#9d174d;margin-left:12px}
 .paint-size-slider{width:100px;accent-color:#ec4899}
-.paint-clear-btn{margin-left:auto;padding:8px 20px;background:linear-gradient(145deg,#f87171,#ef4444);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.paint-clear-btn{margin-left:auto;padding:10px 24px;background:linear-gradient(145deg,#f87171,#ef4444);color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit}
 .paint-canvas{flex:1;position:relative;overflow:hidden;cursor:crosshair;background:linear-gradient(145deg,#fffbeb,#fff)}
 .paint-splat{position:absolute;pointer-events:none}
 .paint-particle{position:absolute;border-radius:50%;pointer-events:none;animation:paintSplash var(--dur,.6s) cubic-bezier(.25,.46,.45,.94) forwards}
@@ -112,42 +112,42 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .stage-curtain-left,.stage-curtain-right{position:absolute;top:0;bottom:0;width:60px;z-index:10}
 .stage-curtain-left{left:0;background:linear-gradient(90deg,#7f1d1d,#991b1b,transparent)}
 .stage-curtain-right{right:0;background:linear-gradient(270deg,#7f1d1d,#991b1b,transparent)}
-.stage-top{position:absolute;top:0;left:0;right:0;height:40px;background:linear-gradient(180deg,#7f1d1d 0%,#991b1b 60%,transparent 100%);z-index:11;display:flex;align-items:center;justify-content:center}
-.stage-top-text{color:#fde68a;font-size:16px;font-weight:700;text-shadow:0 2px 4px rgba(0,0,0,.5)}
-.stage-floor{position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(180deg,#4a2810,#3a1f0b);z-index:5}
+.stage-top{position:absolute;top:0;left:0;right:0;height:55px;background:linear-gradient(180deg,#7f1d1d 0%,#991b1b 60%,transparent 100%);z-index:11;display:flex;align-items:center;justify-content:center}
+.stage-top-text{color:#fde68a;font-size:28px;font-weight:700;text-shadow:0 2px 4px rgba(0,0,0,.5)}
+.stage-floor{position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(180deg,#4a2810,#3a1f0b);z-index:5}
 .stage-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0f172a 0%,#1e293b 40%,#334155 100%);z-index:1}
 .stage-stars{position:absolute;inset:0;z-index:2;pointer-events:none}
-.stage-sticker{position:absolute;z-index:6;cursor:move;font-size:60px;filter:brightness(0) invert(0);opacity:.85;transition:transform .2s}
+.stage-sticker{position:absolute;z-index:6;cursor:move;font-size:130px;filter:brightness(0) invert(0);opacity:.85;transition:transform .2s}
 .stage-sticker:active{transform:scale(1.1)}
 .stage-sticker.playing{animation:stickerEnter .8s ease-out forwards}
 @keyframes stickerEnter{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.15) rotate(5deg);opacity:1}100%{transform:scale(1) rotate(0deg);opacity:.85}}
 .theater-controls{display:flex;gap:8px;padding:8px 12px;flex-shrink:0;align-items:center}
 .sticker-palette{display:flex;gap:8px;flex:1;overflow-x:auto;padding:4px}
-.sticker-item{width:56px;height:56px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border:2px solid #f9a8d4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:44px;cursor:grab;flex-shrink:0;transition:.15s}
+.sticker-item{width:90px;height:90px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border:2px solid #f9a8d4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:72px;cursor:grab;flex-shrink:0;transition:.15s}
 .sticker-item:active{transform:scale(.9);border-color:#ec4899}
 .sticker-item.selected{border-color:#ec4899;background:#fbcfe8;box-shadow:0 0 8px rgba(236,72,153,.3)}
-.theater-btn{padding:10px 20px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.theater-btn{padding:12px 24px;border:none;border-radius:12px;font-size:26px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
 .theater-btn:active{transform:scale(.95)}
 .theater-btn.play{background:linear-gradient(145deg,#22c55e,#16a34a);color:#fff}
 .theater-btn.clear{background:linear-gradient(145deg,#f87171,#ef4444);color:#fff}
-.audience-bar{position:absolute;bottom:55px;left:70px;right:70px;z-index:8;display:flex;justify-content:space-around;font-size:28px;pointer-events:none;opacity:0;transition:opacity .5s}
+.audience-bar{position:absolute;bottom:55px;left:70px;right:70px;z-index:8;display:flex;justify-content:space-around;font-size:42px;pointer-events:none;opacity:0;transition:opacity .5s}
 .audience-bar.visible{opacity:1}
 .audience-member{animation:audienceBob 1s ease-in-out infinite}
 @keyframes audienceBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
 /* ===== 내 기록 ===== */
-.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.records-area{flex:1;display:flex;flex-direction:column;gap:20px;padding:20px;overflow-y:auto}
 .record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-card h3{font-size:24px;font-weight:800;color:#1e293b;margin-bottom:10px}
 .record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-radius:12px;border:2px solid #fbcfe8}
-.record-num{font-size:32px;font-weight:900;color:#ec4899}
-.record-label{font-size:13px;font-weight:600;color:#9d174d;margin-top:4px}
+.record-item{text-align:center;padding:16px;background:linear-gradient(145deg,#fdf2f8,#fce7f3);border-radius:12px;border:2px solid #fbcfe8}
+.record-num{font-size:42px;font-weight:900;color:#ec4899}
+.record-label{font-size:17px;font-weight:600;color:#9d174d;margin-top:4px}
 
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
-.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:52px;opacity:.9}
+.action-btn{border:none;border-radius:20px;font-size:36px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:62px;opacity:.9}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-pink{background:linear-gradient(145deg,#ec4899,#db2777);box-shadow:0 2px 8px rgba(236,72,153,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -157,19 +157,19 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
 
 /* ===== 히어로: 팔레트 디펜스 ===== */
-.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#fdf2f8 0%,#fce7f3 25%,#fbcfe8 75%,#f9a8d4 100%);overflow:hidden}
+.hero-game{position:absolute;top:0;left:0;width:1920px;height:1080px;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#fdf2f8 0%,#fce7f3 25%,#fbcfe8 75%,#f9a8d4 100%);overflow:hidden}
 .hero-game.hidden{display:none}
 .hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.4)}
-.hg-stat{font-size:22px;font-weight:800;color:#831843}
-.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-stat{font-size:38px;font-weight:800;color:#831843}
+.hg-hearts{font-size:38px;letter-spacing:3px}
 .hg-ctrls{display:flex;gap:8px}
 .hg-ctrl-btn{background:rgba(255,255,255,.6);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569}
 .hg-ctrl-btn:active{transform:scale(.9)}
 .hg-arena{flex:1;position:relative;overflow:hidden}
-.hg-target-color{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:16px;padding:10px 24px;font-size:20px;font-weight:800;color:#1e293b;display:flex;align-items:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.hg-target-swatch{width:36px;height:36px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.hg-picture-area{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5}
-.hg-combo{position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:20;font-size:36px;font-weight:900;color:#ec4899;text-shadow:0 2px 8px rgba(0,0,0,.2);opacity:0;transition:opacity .3s}
+.hg-target-color{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-radius:16px;padding:16px 36px;font-size:28px;font-weight:800;color:#1e293b;display:flex;align-items:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.hg-target-swatch{width:52px;height:52px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hg-picture-area{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;filter:drop-shadow(0 0 20px rgba(236,72,153,.3))}
+.hg-combo{position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:20;font-size:100px;font-weight:900;color:#ec4899;text-shadow:0 2px 8px rgba(0,0,0,.2);opacity:0;transition:opacity .3s}
 .hg-combo.visible{opacity:1}
 .hg-stain{position:absolute;border-radius:50%;pointer-events:none;z-index:4;opacity:.5}
 .flying-ball{position:absolute;z-index:15;pointer-events:auto;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:transform .1s}
@@ -186,19 +186,27 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes paintBurst{0%{transform:translate(0,0) scale(1);opacity:.8}100%{transform:translate(var(--tx,0),var(--ty,0)) scale(0);opacity:0}}
 .hg-star-pop{position:absolute;pointer-events:none;z-index:25;animation:starPop .7s ease-out forwards}
 @keyframes starPop{0%{transform:translate(0,0) scale(0);opacity:0}30%{transform:translate(calc(var(--tx)*.3),calc(var(--ty)*.3)) scale(1.2);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
-.hg-powerup{position:absolute;z-index:18;pointer-events:auto;cursor:pointer;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(145deg,#fbbf24,#f59e0b);border:3px solid #fde68a;box-shadow:0 0 16px rgba(251,191,36,.5);animation:puFloat 2s ease-in-out infinite}
+.hg-powerup{position:absolute;z-index:18;pointer-events:auto;cursor:pointer;width:75px;height:75px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:42px;background:linear-gradient(145deg,#fbbf24,#f59e0b);border:3px solid #fde68a;box-shadow:0 0 16px rgba(251,191,36,.5);animation:puFloat 2s ease-in-out infinite}
 @keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
 .hg-overlay.hidden{display:none}
 .hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
-.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
-.hg-overlay-box .score{font-size:28px;font-weight:700;color:#ec4899;margin-bottom:8px}
-.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
-.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box h2{font-size:42px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:34px;font-weight:700;color:#ec4899;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:24px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:24px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
 .hg-overlay-box .btn-retry{background:linear-gradient(145deg,#ec4899,#db2777);color:#fff}
 .hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
-.hg-cloud{position:absolute;font-size:36px;opacity:.15;pointer-events:none;animation:cFloat 25s linear infinite;z-index:1}
-@keyframes cFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
+.hg-cloud{position:absolute;font-size:50px;opacity:.15;pointer-events:none;animation:cFloat 25s linear infinite;z-index:1}
+@keyframes cFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(1920px + 100px))}}
+.hg-ground{position:absolute;bottom:0;left:0;right:0;height:140px;z-index:3;pointer-events:none;overflow:hidden}
+.hg-ground-item{position:absolute;bottom:0;pointer-events:none}
+.hg-deco{animation:decoFloat 6s ease-in-out infinite}
+@keyframes decoFloat{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-10px) rotate(3deg)}75%{transform:translateY(10px) rotate(-3deg)}}
+.hg-bg-sparkle{position:absolute;pointer-events:none;z-index:2;animation:bgSparkle 3s ease-in-out infinite}
+@keyframes bgSparkle{0%,100%{opacity:.08;transform:scale(.8)}50%{opacity:.2;transform:scale(1.2)}}
+.hg-drip{position:absolute;top:0;z-index:2;pointer-events:none;animation:dripDown 4s ease-in infinite}
+@keyframes dripDown{0%{transform:translateY(-20px);opacity:.3}50%{transform:translateY(60px);opacity:.15}100%{transform:translateY(120px);opacity:0}}
 
 /* 모달 */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
@@ -224,9 +232,9 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 /* ===== 비주얼 업그레이드 ===== */
 
-/* 배경 씬: 얼굴조물주 — 아틀리에(화실) */
+/* 배경 씬: 얼굴꾸미기 — 아틀리에(화실) */
 .face-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
-  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='ab' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23fdf2f8'/><stop offset='100%' stop-color='%23fce7f3'/></linearGradient></defs><rect fill='url(%23ab)' width='1300' height='900'/><rect x='30' y='80' width='120' height='160' rx='6' fill='%23fff' stroke='%23d4a574' stroke-width='3'/><rect x='40' y='90' width='100' height='120' fill='%23fef3c7'/><circle cx='90' cy='130' r='20' fill='%23fca5a5' opacity='.5'/><circle cx='70' cy='150' r='12' fill='%2393c5fd' opacity='.4'/><rect x='1140' y='60' width='130' height='180' rx='6' fill='%23fff' stroke='%23d4a574' stroke-width='3'/><rect x='1150' y='70' width='110' height='140' fill='%23ecfccb'/><polygon points='1205,100 1180,160 1230,160' fill='%2386efac' opacity='.5'/><rect x='1160' y='750' width='100' height='80' rx='8' fill='%23f9a8d4' opacity='.2'/><circle cx='1210' cy='770' r='10' fill='%23ec4899' opacity='.3'/><circle cx='1190' cy='790' r='8' fill='%23a855f7' opacity='.25'/><circle cx='1220' cy='800' r='7' fill='%233b82f6' opacity='.2'/><line x1='50' y1='260' x2='50' y2='700' stroke='%23d4a574' stroke-width='4' opacity='.15'/><line x1='60' y1='700' x2='30' y2='720' stroke='%23d4a574' stroke-width='3' opacity='.15'/><line x1='60' y1='700' x2='70' y2='720' stroke='%23d4a574' stroke-width='3' opacity='.15'/></svg>") center/cover no-repeat;opacity:.6}
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='ab' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23fdf2f8'/><stop offset='100%' stop-color='%23fce7f3'/></linearGradient></defs><rect fill='url(%23ab)' width='1300' height='900'/><rect x='30' y='80' width='120' height='160' rx='6' fill='%23fff' stroke='%23d4a574' stroke-width='3'/><rect x='40' y='90' width='100' height='120' fill='%23fef3c7'/><circle cx='90' cy='130' r='20' fill='%23fca5a5' opacity='.5'/><circle cx='70' cy='150' r='12' fill='%2393c5fd' opacity='.4'/><rect x='1160' y='750' width='100' height='80' rx='8' fill='%23f9a8d4' opacity='.2'/><circle cx='1210' cy='770' r='10' fill='%23ec4899' opacity='.3'/><circle cx='1190' cy='790' r='8' fill='%23a855f7' opacity='.25'/><circle cx='1220' cy='800' r='7' fill='%233b82f6' opacity='.2'/><line x1='50' y1='260' x2='50' y2='700' stroke='%23d4a574' stroke-width='4' opacity='.15'/><line x1='60' y1='700' x2='30' y2='720' stroke='%23d4a574' stroke-width='3' opacity='.15'/><line x1='60' y1='700' x2='70' y2='720' stroke='%23d4a574' stroke-width='3' opacity='.15'/></svg>") center/cover no-repeat;opacity:.6}
 .face-view{position:relative}
 
 /* 배경 씬: 폭발물감 — 추상화 갤러리 */
@@ -288,7 +296,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-stat,.hg-combo,.game-launch-btn,.side-title{-webkit-text-stroke:.5px rgba(0,0,0,.1);paint-order:stroke fill}
 
 /* 디자인 포뮬러: 스코어 팝업 */
-.score-popup{position:absolute;pointer-events:none;z-index:50;font-size:28px;font-weight:900;color:#ec4899;text-shadow:0 2px 8px rgba(0,0,0,.2);animation:scorePop .9s ease-out forwards}
+.score-popup{position:absolute;pointer-events:none;z-index:50;font-size:40px;font-weight:900;color:#ec4899;text-shadow:0 2px 8px rgba(0,0,0,.2);animation:scorePop .9s ease-out forwards}
 @keyframes scorePop{0%{opacity:1;transform:translateY(0) scale(.5)}40%{transform:translateY(-30px) scale(1.2)}100%{opacity:0;transform:translateY(-70px) scale(.8)}}
 
 /* 디자인 포뮬러: 뷰 전환 */
@@ -317,8 +325,6 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 <div class="container">
   <div class="subject-bar">
-    <a class="sb-tab" href="hangul.html">📝 한글</a>
-    <a class="sb-tab" href="math.html">🔢 숫자</a>
     <button class="sb-tab active">🎨 미술</button>
     <div class="sb-spacer"></div>
     <div class="sb-btns">
@@ -347,7 +353,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       </div>
 
       <div class="tab-headers">
-        <button class="tab-btn active" onclick="switchTab('face')">😜 얼굴조물주</button>
+        <button class="tab-btn active" onclick="switchTab('face')">🎨 얼굴꾸미기</button>
         <button class="tab-btn" onclick="switchTab('paint')">💥 폭발물감</button>
         <button class="tab-btn" onclick="switchTab('theater')">🎭 그림자극장</button>
         <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
@@ -356,7 +362,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <!-- 얼굴 사이드 -->
       <div class="tab-content face-side active">
         <div class="side-info">
-          <div class="side-title">😜 얼굴 조물주</div>
+          <div class="side-title">🎨 얼굴 꾸미기</div>
           <div class="side-stat"><span>만든 얼굴</span><span class="side-val" id="face-count">0</span></div>
           <div class="side-stat"><span>파츠 사용</span><span class="side-val" id="face-parts-used">0</span></div>
         </div>
@@ -395,26 +401,35 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
     <!-- 중앙 패널 -->
     <div class="center-panel">
-      <!-- 얼굴 조물주 -->
+      <!-- 얼굴 꾸미기 -->
       <div class="game-view face-view active" id="face-view">
-        <!-- 마스코트 "붓이" -->
+        <!-- 마스코트 "붓이" (얼굴꾸미기) -->
         <div class="mascot" id="mascot-face" style="top:12px;right:220px">
-          <svg width="60" height="80" viewBox="0 0 60 80">
-            <rect x="18" y="0" width="24" height="18" rx="4" fill="#ec4899"/>
-            <rect x="22" y="12" width="16" height="6" rx="2" fill="#f472b6"/>
-            <ellipse cx="30" cy="44" rx="22" ry="24" fill="#f9a8d4"/>
-            <ellipse cx="30" cy="44" rx="18" ry="20" fill="#fce7f3"/>
-            <circle cx="22" cy="40" r="4" fill="#1e293b">
-              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="1s"/>
-            </circle>
-            <circle cx="38" cy="40" r="4" fill="#1e293b">
-              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="1s"/>
-            </circle>
-            <path id="mascot-face-mouth" d="M24,52 Q30,58 36,52" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="14" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
-            <circle cx="46" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
-            <rect x="26" y="68" width="8" height="12" rx="2" fill="#d4a574"/>
-            <rect x="22" y="74" width="16" height="6" rx="2" fill="#f9a8d4" opacity=".6"/>
+          <svg width="100" height="140" viewBox="0 0 100 140">
+            <defs><linearGradient id="brushBody1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f9a8d4"/></linearGradient></defs>
+            <!-- 붓 머리 (brush tip) -->
+            <rect x="35" y="0" width="30" height="22" rx="6" fill="#ec4899"/>
+            <rect x="39" y="14" width="22" height="8" rx="3" fill="#f472b6"/>
+            <!-- 몸통 -->
+            <ellipse cx="50" cy="58" rx="28" ry="30" fill="url(#brushBody1)"/>
+            <ellipse cx="50" cy="58" rx="22" ry="24" fill="#fce7f3"/>
+            <!-- 눈 (blink) -->
+            <circle cx="40" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="1s"/></circle>
+            <circle cx="60" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="1s"/></circle>
+            <!-- 입 -->
+            <path id="mascot-face-mouth" d="M42,66 Q50,74 58,66" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 볼 -->
+            <circle cx="30" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <circle cx="70" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <!-- 다리 (wobble) -->
+            <rect x="36" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="-5,41,86;5,41,86;-5,41,86" dur="2s" repeatCount="indefinite"/></rect>
+            <rect x="54" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="5,59,86;-5,59,86;5,59,86" dur="2s" repeatCount="indefinite" begin="0.5s"/></rect>
+            <!-- 발 -->
+            <ellipse cx="41" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="-5,41,105;5,41,105;-5,41,105" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="59" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="5,59,105;-5,59,105;5,59,105" dur="2s" repeatCount="indefinite" begin="0.5s"/></ellipse>
+            <!-- 팔레트 악세서리 -->
+            <ellipse cx="82" cy="50" rx="14" ry="10" fill="#fde68a" stroke="#d97706" stroke-width="1.5" transform="rotate(-15,82,50)"/>
+            <circle cx="76" cy="46" r="3" fill="#ef4444"/><circle cx="82" cy="44" r="2.5" fill="#3b82f6"/><circle cx="88" cy="47" r="2.5" fill="#22c55e"/><circle cx="84" cy="52" r="2" fill="#fbbf24"/>
           </svg>
           <div class="mascot-bubble" id="bubble-face">예쁘게 꾸며봐!</div>
         </div>
@@ -478,6 +493,30 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
       <!-- 폭발 물감 -->
       <div class="game-view paint-view" id="paint-view">
+        <!-- 마스코트 "붓이" (폭발물감) -->
+        <div class="mascot" id="mascot-paint" style="top:12px;right:20px">
+          <svg width="100" height="140" viewBox="0 0 100 140">
+            <defs><linearGradient id="brushBody2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f9a8d4"/></linearGradient></defs>
+            <rect x="35" y="0" width="30" height="22" rx="6" fill="#ec4899"/>
+            <rect x="39" y="14" width="22" height="8" rx="3" fill="#f472b6"/>
+            <ellipse cx="50" cy="58" rx="28" ry="30" fill="url(#brushBody2)"/>
+            <ellipse cx="50" cy="58" rx="22" ry="24" fill="#fce7f3"/>
+            <circle cx="40" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="0.5s"/></circle>
+            <circle cx="60" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="0.5s"/></circle>
+            <path id="mascot-paint-mouth" d="M42,66 Q50,74 58,66" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="30" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <circle cx="70" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <rect x="36" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="-5,41,86;5,41,86;-5,41,86" dur="2s" repeatCount="indefinite"/></rect>
+            <rect x="54" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="5,59,86;-5,59,86;5,59,86" dur="2s" repeatCount="indefinite" begin="0.5s"/></rect>
+            <ellipse cx="41" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="-5,41,105;5,41,105;-5,41,105" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="59" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="5,59,105;-5,59,105;5,59,105" dur="2s" repeatCount="indefinite" begin="0.5s"/></ellipse>
+            <!-- 물감통 악세서리 -->
+            <rect x="74" y="42" width="18" height="22" rx="3" fill="#3b82f6" stroke="#1e40af" stroke-width="1.5"/>
+            <rect x="72" y="40" width="22" height="6" rx="2" fill="#60a5fa"/>
+            <path d="M82,42 Q80,36 76,34" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="mascot-bubble" id="bubble-paint">물감 튀겨!</div>
+        </div>
         <div class="paint-area">
           <div class="paint-toolbar" id="paint-toolbar"></div>
           <div class="paint-canvas" id="paint-canvas">
@@ -488,6 +527,31 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
       <!-- 그림자 극장 -->
       <div class="game-view theater-view" id="theater-view">
+        <!-- 마스코트 "붓이" (그림자극장) -->
+        <div class="mascot" id="mascot-theater" style="top:12px;right:20px">
+          <svg width="100" height="140" viewBox="0 0 100 140">
+            <defs><linearGradient id="brushBody3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f9a8d4"/></linearGradient></defs>
+            <rect x="35" y="0" width="30" height="22" rx="6" fill="#ec4899"/>
+            <rect x="39" y="14" width="22" height="8" rx="3" fill="#f472b6"/>
+            <ellipse cx="50" cy="58" rx="28" ry="30" fill="url(#brushBody3)"/>
+            <ellipse cx="50" cy="58" rx="22" ry="24" fill="#fce7f3"/>
+            <circle cx="40" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="1.5s"/></circle>
+            <circle cx="60" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="1.5s"/></circle>
+            <path id="mascot-theater-mouth" d="M42,66 Q50,74 58,66" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="30" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <circle cx="70" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <rect x="36" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="-5,41,86;5,41,86;-5,41,86" dur="2s" repeatCount="indefinite"/></rect>
+            <rect x="54" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="5,59,86;-5,59,86;5,59,86" dur="2s" repeatCount="indefinite" begin="0.5s"/></rect>
+            <ellipse cx="41" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="-5,41,105;5,41,105;-5,41,105" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="59" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="5,59,105;-5,59,105;5,59,105" dur="2s" repeatCount="indefinite" begin="0.5s"/></ellipse>
+            <!-- 마스크 악세서리 -->
+            <circle cx="82" cy="48" r="12" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+            <circle cx="78" cy="45" r="2.5" fill="#1e293b"/><circle cx="86" cy="45" r="2.5" fill="#1e293b"/>
+            <path d="M77,52 Q82,57 87,52" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+            <rect x="80" y="36" width="4" height="8" rx="1" fill="#d97706"/>
+          </svg>
+          <div class="mascot-bubble" id="bubble-theater">공연하자!</div>
+        </div>
         <div class="theater-area">
           <div class="stage-wrap" id="stage-wrap">
             <div class="stage-bg"></div>
@@ -518,22 +582,28 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <div class="game-view record-view" id="record-view">
         <!-- 마스코트 "붓이" (기록뷰) -->
         <div class="mascot" id="mascot-record" style="bottom:20px;right:20px">
-          <svg width="55" height="75" viewBox="0 0 60 80">
-            <rect x="18" y="0" width="24" height="18" rx="4" fill="#ec4899"/>
-            <rect x="22" y="12" width="16" height="6" rx="2" fill="#f472b6"/>
-            <ellipse cx="30" cy="44" rx="22" ry="24" fill="#f9a8d4"/>
-            <ellipse cx="30" cy="44" rx="18" ry="20" fill="#fce7f3"/>
-            <circle cx="22" cy="40" r="4" fill="#1e293b">
-              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="2s"/>
-            </circle>
-            <circle cx="38" cy="40" r="4" fill="#1e293b">
-              <animate attributeName="ry" values="4;0.5;4" dur="4s" repeatCount="indefinite" begin="2s"/>
-            </circle>
-            <path d="M24,52 Q30,58 36,52" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="14" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
-            <circle cx="46" cy="46" r="5" fill="#fca5a5" opacity=".4"/>
-            <rect x="26" y="68" width="8" height="12" rx="2" fill="#d4a574"/>
-            <text x="30" y="78" text-anchor="middle" font-size="14">🏆</text>
+          <svg width="100" height="140" viewBox="0 0 100 140">
+            <defs><linearGradient id="brushBody4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f9a8d4"/></linearGradient></defs>
+            <rect x="35" y="0" width="30" height="22" rx="6" fill="#ec4899"/>
+            <rect x="39" y="14" width="22" height="8" rx="3" fill="#f472b6"/>
+            <ellipse cx="50" cy="58" rx="28" ry="30" fill="url(#brushBody4)"/>
+            <ellipse cx="50" cy="58" rx="22" ry="24" fill="#fce7f3"/>
+            <circle cx="40" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="2s"/></circle>
+            <circle cx="60" cy="52" r="5" fill="#1e293b"><animate attributeName="ry" values="5;0.5;5" dur="4s" repeatCount="indefinite" begin="2s"/></circle>
+            <path id="mascot-record-mouth" d="M42,66 Q50,74 58,66" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="30" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <circle cx="70" cy="60" r="6" fill="#fca5a5" opacity=".35"/>
+            <rect x="36" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="-5,41,86;5,41,86;-5,41,86" dur="2s" repeatCount="indefinite"/></rect>
+            <rect x="54" y="86" width="10" height="18" rx="4" fill="#f9a8d4"><animateTransform attributeName="transform" type="rotate" values="5,59,86;-5,59,86;5,59,86" dur="2s" repeatCount="indefinite" begin="0.5s"/></rect>
+            <ellipse cx="41" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="-5,41,105;5,41,105;-5,41,105" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="59" cy="105" rx="8" ry="4" fill="#ec4899"><animateTransform attributeName="transform" type="rotate" values="5,59,105;-5,59,105;5,59,105" dur="2s" repeatCount="indefinite" begin="0.5s"/></ellipse>
+            <!-- 트로피 악세서리 -->
+            <rect x="76" y="48" width="16" height="14" rx="2" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+            <rect x="80" y="62" width="8" height="6" rx="1" fill="#d97706"/>
+            <rect x="77" y="67" width="14" height="4" rx="1" fill="#fbbf24" stroke="#d97706" stroke-width="1"/>
+            <path d="M76,52 Q72,44 76,40" stroke="#fbbf24" stroke-width="2" fill="none"/>
+            <path d="M92,52 Q96,44 92,40" stroke="#fbbf24" stroke-width="2" fill="none"/>
+            <polygon points="84,42 82,48 86,48" fill="#fbbf24"/>
           </svg>
           <div class="mascot-bubble" id="bubble-record">내 작품들!</div>
         </div>
@@ -573,7 +643,6 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🗑</span>지우기</button>
     </div>
   </div>
-</div>
 
 <!-- 히어로 게임: 팔레트 디펜스 -->
 <div id="hero-game" class="hero-game hidden">
@@ -594,7 +663,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
     </div>
     <div class="hg-combo" id="hg-combo">🔥 3 COMBO!</div>
     <div class="hg-picture-area" id="hg-picture-area">
-      <svg viewBox="0 0 300 240" width="300" height="240" class="hg-picture-svg" id="hg-picture-svg">
+      <svg viewBox="0 0 300 240" width="500" height="400" class="hg-picture-svg" id="hg-picture-svg">
         <!-- 집 그림: 6 영역 -->
         <rect x="60" y="100" width="180" height="130" class="hg-section" id="hg-s0" data-color=""/>
         <polygon points="150,20 40,100 260,100" class="hg-section" id="hg-s1" data-color=""/>
@@ -621,6 +690,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
     </div>
   </div>
+</div>
 </div>
 
 <!-- 관리자 모달 -->
@@ -664,7 +734,7 @@ let profile = {
   totalActivity: parseInt(LS.getItem('artActivity')) || 0
 };
 
-// 얼굴 조물주 상태
+// 얼굴 꾸미기 상태
 let face = {
   placedParts: [],
   count: parseInt(LS.getItem('faceCount')) || 0,
@@ -712,7 +782,15 @@ let hg = {
     // 자동차
     {name:'자동차',sections:6,svg:`<rect x="50" y="110" width="200" height="70" rx="10" class="hg-section" id="hg-s0"/><rect x="80" y="70" width="140" height="50" rx="15" class="hg-section" id="hg-s1"/><circle cx="100" cy="190" r="22" class="hg-section" id="hg-s2"/><circle cx="200" cy="190" r="22" class="hg-section" id="hg-s3"/><rect x="90" y="80" width="50" height="30" rx="5" class="hg-section" id="hg-s4"/><rect x="160" y="80" width="50" height="30" rx="5" class="hg-section" id="hg-s5"/>`},
     // 별
-    {name:'별',sections:6,svg:`<polygon points="150,30 170,90 240,90 185,130 205,190 150,155 95,190 115,130 60,90 130,90" class="hg-section" id="hg-s0"/><circle cx="150" cy="115" r="20" class="hg-section" id="hg-s1"/><circle cx="80" cy="50" r="12" class="hg-section" id="hg-s2"/><circle cx="230" cy="60" r="10" class="hg-section" id="hg-s3"/><circle cx="60" cy="170" r="14" class="hg-section" id="hg-s4"/><circle cx="240" cy="180" r="11" class="hg-section" id="hg-s5"/>`}
+    {name:'별',sections:6,svg:`<polygon points="150,30 170,90 240,90 185,130 205,190 150,155 95,190 115,130 60,90 130,90" class="hg-section" id="hg-s0"/><circle cx="150" cy="115" r="20" class="hg-section" id="hg-s1"/><circle cx="80" cy="50" r="12" class="hg-section" id="hg-s2"/><circle cx="230" cy="60" r="10" class="hg-section" id="hg-s3"/><circle cx="60" cy="170" r="14" class="hg-section" id="hg-s4"/><circle cx="240" cy="180" r="11" class="hg-section" id="hg-s5"/>`},
+    // 나비
+    {name:'나비',sections:6,svg:`<path d="M150,120 Q100,60 60,80 Q30,100 80,130 Q110,145 150,120Z" class="hg-section" id="hg-s0"/><path d="M150,120 Q200,60 240,80 Q270,100 220,130 Q190,145 150,120Z" class="hg-section" id="hg-s1"/><path d="M150,120 Q110,160 80,180 Q60,200 100,185 Q130,170 150,120Z" class="hg-section" id="hg-s2"/><path d="M150,120 Q190,160 220,180 Q240,200 200,185 Q170,170 150,120Z" class="hg-section" id="hg-s3"/><ellipse cx="150" cy="130" rx="8" ry="25" class="hg-section" id="hg-s4"/><circle cx="150" cy="90" r="15" class="hg-section" id="hg-s5"/>`},
+    // 물고기
+    {name:'물고기',sections:6,svg:`<ellipse cx="150" cy="120" rx="90" ry="50" class="hg-section" id="hg-s0"/><polygon points="240,120 290,80 290,160" class="hg-section" id="hg-s1"/><circle cx="110" cy="108" r="15" class="hg-section" id="hg-s2"/><ellipse cx="170" cy="100" rx="25" ry="12" class="hg-section" id="hg-s3"/><ellipse cx="170" cy="140" rx="25" ry="12" class="hg-section" id="hg-s4"/><path d="M60,120 Q80,100 100,120 Q80,140 60,120Z" class="hg-section" id="hg-s5"/>`},
+    // 나무
+    {name:'나무',sections:6,svg:`<rect x="130" y="140" width="40" height="80" rx="5" class="hg-section" id="hg-s0"/><circle cx="150" cy="100" r="50" class="hg-section" id="hg-s1"/><circle cx="110" cy="120" r="35" class="hg-section" id="hg-s2"/><circle cx="190" cy="120" r="35" class="hg-section" id="hg-s3"/><circle cx="130" cy="70" r="30" class="hg-section" id="hg-s4"/><circle cx="170" cy="75" r="28" class="hg-section" id="hg-s5"/>`},
+    // 해
+    {name:'해',sections:6,svg:`<circle cx="150" cy="120" r="45" class="hg-section" id="hg-s0"/><polygon points="150,40 145,65 155,65" class="hg-section" id="hg-s1"/><polygon points="150,200 145,175 155,175" class="hg-section" id="hg-s2"/><polygon points="60,120 85,115 85,125" class="hg-section" id="hg-s3"/><polygon points="240,120 215,115 215,125" class="hg-section" id="hg-s4"/><polygon points="90,60 105,78 95,85" class="hg-section" id="hg-s5"/>`}
   ]
 };
 
@@ -765,19 +843,23 @@ function showLevelUp(lv) {
 
 // 유틸: 마스코트 감정
 function setMascotEmotion(viewId, emotion) {
-  const mouth = document.getElementById('mascot-face-mouth');
-  const bubble = document.getElementById('bubble-face');
-  if (!mouth) return;
-  if (emotion === 'happy') {
-    mouth.setAttribute('d', 'M22,50 Q30,60 38,50');
-    if (bubble) { bubble.textContent = ['멋져!','최고!','예쁘다!','와!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
-  } else if (emotion === 'worried') {
-    mouth.setAttribute('d', 'M24,56 Q30,50 36,56');
-    if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
-  } else {
-    mouth.setAttribute('d', 'M24,52 Q30,58 36,52');
-  }
-  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M24,52 Q30,58 36,52'); }, 2500);
+  const mouthIds = ['mascot-face-mouth','mascot-paint-mouth','mascot-theater-mouth','mascot-record-mouth'];
+  const bubbleIds = ['bubble-face','bubble-paint','bubble-theater','bubble-record'];
+  mouthIds.forEach((mid, i) => {
+    const mouth = document.getElementById(mid);
+    const bubble = document.getElementById(bubbleIds[i]);
+    if (!mouth) return;
+    if (emotion === 'happy') {
+      mouth.setAttribute('d', 'M40,64 Q50,76 60,64');
+      if (bubble) { bubble.textContent = ['멋져!','최고!','예쁘다!','와!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
+    } else if (emotion === 'worried') {
+      mouth.setAttribute('d', 'M42,70 Q50,64 58,70');
+      if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
+    } else {
+      mouth.setAttribute('d', 'M42,66 Q50,74 58,66');
+    }
+    setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M42,66 Q50,74 58,66'); }, 2500);
+  });
 }
 
 // ===== TTS =====
@@ -785,6 +867,9 @@ let audioQueue = [];
 let isSpeaking = false;
 function speak(text) {
   if (!soundEnabled) return;
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
   audioQueue.push(text);
   processQueue();
 }
@@ -792,7 +877,7 @@ function processQueue() {
   if (isSpeaking || !audioQueue.length) return;
   isSpeaking = true;
   const u = new SpeechSynthesisUtterance(audioQueue.shift());
-  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.lang = 'ko-KR'; u.rate = 1.0; u.pitch = 1.1;
   u.onend = () => { isSpeaking = false; processQueue(); };
   u.onerror = () => { isSpeaking = false; processQueue(); };
   speechSynthesis.speak(u);
@@ -909,27 +994,61 @@ function actionBtn(n) {
   }
 }
 
-// ===== 얼굴 조물주 =====
-const FACE_PARTS = {
-  eyes: ['👁️','👀','🥺','😍','🤩','😎','🧐','🥸','👁️‍🗨️'],
-  nose: ['👃','🐽','🔴','🔺','💎','⚡'],
-  mouth: ['👄','😊','😂','😜','🤪','😡','🥰','😋','🤮'],
-  hair: ['💇','🎀','👑','🎩','🧢','🎭','💆','🦱','🦳'],
-  deco: ['⭐','🌸','🦋','💖','🌈','✨','🎪','🔮','💫']
+// ===== 얼굴 꾸미기 =====
+const FACE_SVG = {
+  eyes: [
+    {id:'e1',name:'동글눈',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="15" cy="30" rx="10" ry="12" fill="#fff" stroke="#1e293b" stroke-width="2"/><ellipse cx="45" cy="30" rx="10" ry="12" fill="#fff" stroke="#1e293b" stroke-width="2"/><circle cx="17" cy="29" r="5" fill="#1e293b"/><circle cx="47" cy="29" r="5" fill="#1e293b"/><circle cx="19" cy="26" r="2" fill="#fff"/><circle cx="49" cy="26" r="2" fill="#fff"/></svg>'},
+    {id:'e2',name:'별눈',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><polygon points="15,18 17,26 25,26 19,31 21,39 15,34 9,39 11,31 5,26 13,26" fill="#fbbf24" stroke="#d97706" stroke-width="1"/><polygon points="45,18 47,26 55,26 49,31 51,39 45,34 39,39 41,31 35,26 43,26" fill="#fbbf24" stroke="#d97706" stroke-width="1"/><circle cx="15" cy="29" r="3" fill="#1e293b"/><circle cx="45" cy="29" r="3" fill="#1e293b"/></svg>'},
+    {id:'e3',name:'하트눈',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M10,28 C10,22 15,18 18,22 C21,18 26,22 26,28 C26,34 18,40 18,40 C18,40 10,34 10,28Z" fill="#ef4444"/><path d="M38,28 C38,22 43,18 46,22 C49,18 54,22 54,28 C54,34 46,40 46,40 C46,40 38,34 38,28Z" fill="#ef4444"/><circle cx="14" cy="26" r="2" fill="#fff" opacity=".5"/><circle cx="42" cy="26" r="2" fill="#fff" opacity=".5"/></svg>'},
+    {id:'e4',name:'졸린눈',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="15" cy="32" rx="10" ry="6" fill="#fff" stroke="#1e293b" stroke-width="2"/><ellipse cx="45" cy="32" rx="10" ry="6" fill="#fff" stroke="#1e293b" stroke-width="2"/><line x1="5" y1="28" x2="25" y2="28" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="28" x2="55" y2="28" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/><circle cx="15" cy="33" r="4" fill="#1e293b"/><circle cx="45" cy="33" r="4" fill="#1e293b"/></svg>'},
+    {id:'e5',name:'윙크',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="15" cy="30" rx="10" ry="12" fill="#fff" stroke="#1e293b" stroke-width="2"/><circle cx="17" cy="29" r="5" fill="#1e293b"/><circle cx="19" cy="26" r="2" fill="#fff"/><path d="M36,30 Q45,24 54,30" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="26" x2="54" y2="22" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/><line x1="50" y1="26" x2="56" y2="27" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/></svg>'},
+    {id:'e6',name:'큰눈',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="15" cy="30" rx="12" ry="15" fill="#fff" stroke="#1e293b" stroke-width="2"/><ellipse cx="45" cy="30" rx="12" ry="15" fill="#fff" stroke="#1e293b" stroke-width="2"/><circle cx="17" cy="30" r="7" fill="#6366f1"/><circle cx="47" cy="30" r="7" fill="#6366f1"/><circle cx="17" cy="30" r="4" fill="#1e293b"/><circle cx="47" cy="30" r="4" fill="#1e293b"/><circle cx="20" cy="25" r="3" fill="#fff"/><circle cx="50" cy="25" r="3" fill="#fff"/><circle cx="14" cy="28" r="1.5" fill="#fff" opacity=".6"/><circle cx="44" cy="28" r="1.5" fill="#fff" opacity=".6"/></svg>'}
+  ],
+  nose: [
+    {id:'n1',name:'동글코',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><circle cx="30" cy="32" r="8" fill="#f4a574" stroke="#d97706" stroke-width="1.5"/><circle cx="28" cy="30" r="2" fill="#fff" opacity=".4"/></svg>'},
+    {id:'n2',name:'세모코',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><polygon points="30,20 22,40 38,40" fill="#f4a574" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/></svg>'},
+    {id:'n3',name:'돼지코',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="30" cy="32" rx="14" ry="10" fill="#f9a8d4" stroke="#ec4899" stroke-width="1.5"/><circle cx="24" cy="33" r="4" fill="#ec4899"/><circle cx="36" cy="33" r="4" fill="#ec4899"/></svg>'},
+    {id:'n4',name:'하트코',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M25,30 C25,24 30,22 33,26 C36,22 41,24 41,30 C41,36 33,42 33,42 C33,42 25,36 25,30Z" fill="#fca5a5" stroke="#ef4444" stroke-width="1"/></svg>'},
+    {id:'n5',name:'납작코',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="30" cy="34" rx="16" ry="6" fill="#f4a574" stroke="#d97706" stroke-width="1.5"/><circle cx="24" cy="35" r="3" fill="#d97706" opacity=".4"/><circle cx="36" cy="35" r="3" fill="#d97706" opacity=".4"/></svg>'}
+  ],
+  mouth: [
+    {id:'m1',name:'웃는입',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M15,28 Q30,45 45,28" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/></svg>'},
+    {id:'m2',name:'큰웃음',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M12,26 Q30,50 48,26" fill="#fff" stroke="#ef4444" stroke-width="2.5"/><line x1="18" y1="26" x2="42" y2="26" stroke="#ef4444" stroke-width="2"/><rect x="20" y="24" width="5" height="6" rx="1" fill="#fff" stroke="#e5e7eb" stroke-width=".5"/><rect x="26" y="24" width="5" height="6" rx="1" fill="#fff" stroke="#e5e7eb" stroke-width=".5"/><rect x="32" y="24" width="5" height="6" rx="1" fill="#fff" stroke="#e5e7eb" stroke-width=".5"/></svg>'},
+    {id:'m3',name:'삐죽',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M18,32 Q24,28 30,34 Q36,28 42,32" fill="#f472b6" stroke="#ec4899" stroke-width="2" stroke-linecap="round"/></svg>'},
+    {id:'m4',name:'놀란입',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="30" cy="34" rx="10" ry="13" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/><ellipse cx="30" cy="32" rx="6" ry="6" fill="#ef4444" opacity=".3"/></svg>'},
+    {id:'m5',name:'혀',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M15,28 Q30,42 45,28" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/><ellipse cx="30" cy="38" rx="8" ry="10" fill="#f472b6"/><ellipse cx="30" cy="36" rx="6" ry="6" fill="#f9a8d4"/></svg>'},
+    {id:'m6',name:'입술',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M14,32 Q22,24 30,30 Q38,24 46,32 Q38,42 30,40 Q22,42 14,32Z" fill="#f472b6" stroke="#ec4899" stroke-width="1.5"/><path d="M18,32 Q24,28 30,30 Q36,28 42,32" fill="none" stroke="#ec4899" stroke-width="1" opacity=".5"/><ellipse cx="22" cy="30" rx="3" ry="2" fill="#fff" opacity=".3"/></svg>'}
+  ],
+  hair: [
+    {id:'h1',name:'왕관',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><polygon points="8,45 12,15 20,30 30,8 40,30 48,15 52,45" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><rect x="8" y="42" width="44" height="8" rx="2" fill="#fbbf24" stroke="#d97706" stroke-width="1"/><circle cx="20" cy="46" r="3" fill="#ef4444"/><circle cx="30" cy="46" r="3" fill="#3b82f6"/><circle cx="40" cy="46" r="3" fill="#22c55e"/></svg>'},
+    {id:'h2',name:'리본',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M30,30 Q15,10 5,25 Q15,35 30,30Z" fill="#f472b6" stroke="#ec4899" stroke-width="1.5"/><path d="M30,30 Q45,10 55,25 Q45,35 30,30Z" fill="#f472b6" stroke="#ec4899" stroke-width="1.5"/><circle cx="30" cy="30" r="5" fill="#ec4899"/><path d="M26,35 Q28,50 30,48 Q32,50 34,35" fill="#ec4899" stroke="#db2777" stroke-width="1"/></svg>'},
+    {id:'h3',name:'모자',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><polygon points="30,5 15,40 45,40" fill="#8b5cf6" stroke="#7c3aed" stroke-width="1.5"/><ellipse cx="30" cy="40" rx="22" ry="5" fill="#8b5cf6" stroke="#7c3aed" stroke-width="1.5"/><circle cx="30" cy="8" r="4" fill="#fbbf24"/><rect x="22" y="30" width="16" height="4" rx="1" fill="#fbbf24"/></svg>'},
+    {id:'h4',name:'곱슬',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><circle cx="12" cy="18" r="8" fill="#8B4513" opacity=".8"/><circle cx="25" cy="12" r="9" fill="#8B4513" opacity=".8"/><circle cx="38" cy="12" r="9" fill="#8B4513" opacity=".8"/><circle cx="48" cy="18" r="8" fill="#8B4513" opacity=".8"/><circle cx="8" cy="30" r="7" fill="#8B4513" opacity=".7"/><circle cx="52" cy="30" r="7" fill="#8B4513" opacity=".7"/><circle cx="10" cy="42" r="6" fill="#8B4513" opacity=".6"/><circle cx="50" cy="42" r="6" fill="#8B4513" opacity=".6"/></svg>'},
+    {id:'h5',name:'생머리',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M8,15 Q8,5 20,5 L40,5 Q52,5 52,15 L52,55 Q52,58 50,58 L48,58 Q46,58 46,55 L46,18 Q46,12 30,12 Q14,12 14,18 L14,55 Q14,58 12,58 L10,58 Q8,58 8,55Z" fill="#1e293b" opacity=".85"/><path d="M14,14 Q14,10 20,8" stroke="#374151" stroke-width="1" fill="none" opacity=".4"/><path d="M46,14 Q46,10 40,8" stroke="#374151" stroke-width="1" fill="none" opacity=".4"/></svg>'},
+    {id:'h6',name:'꽃관',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><ellipse cx="30" cy="38" rx="26" ry="4" fill="#22c55e" opacity=".5"/><circle cx="10" cy="30" r="7" fill="#f472b6"/><circle cx="10" cy="30" r="3" fill="#fbbf24"/><circle cx="22" cy="25" r="6" fill="#fbbf24"/><circle cx="22" cy="25" r="2.5" fill="#f97316"/><circle cx="34" cy="23" r="7" fill="#ef4444"/><circle cx="34" cy="23" r="3" fill="#fbbf24"/><circle cx="46" cy="26" r="6" fill="#a855f7"/><circle cx="46" cy="26" r="2.5" fill="#fbbf24"/><circle cx="54" cy="32" r="5" fill="#3b82f6"/><circle cx="54" cy="32" r="2" fill="#fbbf24"/></svg>'}
+  ],
+  deco: [
+    {id:'d1',name:'별',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><polygon points="30,5 35,22 53,22 39,33 44,50 30,40 16,50 21,33 7,22 25,22" fill="#fbbf24" stroke="#d97706" stroke-width="1"/><polygon points="30,14 33,24 43,24 35,30 38,40 30,34 22,40 25,30 17,24 27,24" fill="#fde68a"/></svg>'},
+    {id:'d2',name:'꽃',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><circle cx="30" cy="20" r="8" fill="#f472b6"/><circle cx="20" cy="28" r="8" fill="#f472b6"/><circle cx="40" cy="28" r="8" fill="#f472b6"/><circle cx="22" cy="38" r="8" fill="#f472b6"/><circle cx="38" cy="38" r="8" fill="#f472b6"/><circle cx="30" cy="30" r="6" fill="#fbbf24"/></svg>'},
+    {id:'d3',name:'나비',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M30,30 Q15,10 8,20 Q2,30 15,35 Q20,37 30,30Z" fill="#a855f7" opacity=".8"/><path d="M30,30 Q45,10 52,20 Q58,30 45,35 Q40,37 30,30Z" fill="#a855f7" opacity=".8"/><path d="M30,30 Q18,40 12,45 Q10,52 22,45 Q26,42 30,30Z" fill="#c084fc" opacity=".7"/><path d="M30,30 Q42,40 48,45 Q50,52 38,45 Q34,42 30,30Z" fill="#c084fc" opacity=".7"/><ellipse cx="30" cy="32" rx="2" ry="8" fill="#1e293b"/><line x1="28" y1="24" x2="22" y2="16" stroke="#1e293b" stroke-width="1.5"/><line x1="32" y1="24" x2="38" y2="16" stroke="#1e293b" stroke-width="1.5"/><circle cx="22" cy="15" r="2" fill="#1e293b"/><circle cx="38" cy="15" r="2" fill="#1e293b"/></svg>'},
+    {id:'d4',name:'하트',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M30,50 C10,35 5,20 15,15 C22,11 28,16 30,22 C32,16 38,11 45,15 C55,20 50,35 30,50Z" fill="#ef4444"/><path d="M22,20 C24,17 28,18 30,22" fill="none" stroke="#fff" stroke-width="2" opacity=".4" stroke-linecap="round"/></svg>'},
+    {id:'d5',name:'무지개',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M5,50 A25,25 0 0,1 55,50" fill="none" stroke="#ef4444" stroke-width="4"/><path d="M9,50 A21,21 0 0,1 51,50" fill="none" stroke="#f97316" stroke-width="4"/><path d="M13,50 A17,17 0 0,1 47,50" fill="none" stroke="#fbbf24" stroke-width="4"/><path d="M17,50 A13,13 0 0,1 43,50" fill="none" stroke="#22c55e" stroke-width="4"/><path d="M21,50 A9,9 0 0,1 39,50" fill="none" stroke="#3b82f6" stroke-width="4"/><path d="M25,50 A5,5 0 0,1 35,50" fill="none" stroke="#8b5cf6" stroke-width="4"/></svg>'},
+    {id:'d6',name:'반짝',svg:'<svg viewBox="0 0 60 60" width="100%" height="100%"><path d="M30,5 L33,22 L50,18 L36,28 L48,42 L32,34 L30,55 L28,34 L12,42 L24,28 L10,18 L27,22Z" fill="#fbbf24"/><circle cx="30" cy="30" r="5" fill="#fff" opacity=".6"/><circle cx="15" cy="12" r="2" fill="#fbbf24" opacity=".6"/><circle cx="48" cy="10" r="1.5" fill="#fbbf24" opacity=".5"/><circle cx="12" cy="48" r="1.5" fill="#fbbf24" opacity=".5"/><circle cx="50" cy="48" r="2" fill="#fbbf24" opacity=".6"/></svg>'}
+  ]
 };
 
 function initFaceParts() {
   const sections = [
-    {id:'eye-parts', parts: FACE_PARTS.eyes, cat:'eyes'},
-    {id:'nose-parts', parts: FACE_PARTS.nose, cat:'nose'},
-    {id:'mouth-parts', parts: FACE_PARTS.mouth, cat:'mouth'},
-    {id:'hair-parts', parts: FACE_PARTS.hair, cat:'hair'},
-    {id:'deco-parts', parts: FACE_PARTS.deco, cat:'deco'}
+    {id:'eye-parts', parts: FACE_SVG.eyes, cat:'eyes'},
+    {id:'nose-parts', parts: FACE_SVG.nose, cat:'nose'},
+    {id:'mouth-parts', parts: FACE_SVG.mouth, cat:'mouth'},
+    {id:'hair-parts', parts: FACE_SVG.hair, cat:'hair'},
+    {id:'deco-parts', parts: FACE_SVG.deco, cat:'deco'}
   ];
   sections.forEach(s => {
     const grid = document.getElementById(s.id);
     grid.innerHTML = s.parts.map(p =>
-      `<div class="face-part-item" data-emoji="${p}" data-cat="${s.cat}" onclick="selectFacePart(this)">${p}</div>`
+      `<div class="face-part-item" data-part-id="${p.id}" data-cat="${s.cat}" onclick="selectFacePart(this)"><div style="width:58px;height:58px">${p.svg}</div><div style="font-size:14px;font-weight:600;color:#9d174d;margin-top:2px;line-height:1">${p.name}</div></div>`
     ).join('');
   });
 }
@@ -937,7 +1056,12 @@ function initFaceParts() {
 function selectFacePart(el) {
   document.querySelectorAll('.face-part-item').forEach(e => e.classList.remove('selected'));
   el.classList.add('selected');
-  face.selectedPart = el.dataset.emoji;
+  face.selectedPart = el.dataset.partId;
+}
+
+function getFaceSvgById(id) {
+  const all = [...FACE_SVG.eyes,...FACE_SVG.nose,...FACE_SVG.mouth,...FACE_SVG.hair,...FACE_SVG.deco];
+  return all.find(p => p.id === id);
 }
 
 function initFaceDrag() {
@@ -953,8 +1077,12 @@ function initFaceDrag() {
 function faceCanvasDown(e) {
   const container = document.getElementById('face-svg-container');
   const rect = container.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+  const vx = e.clientX - rect.left;
+  const vy = e.clientY - rect.top;
+  const scaleX = 400 / rect.width;
+  const scaleY = 450 / rect.height;
+  const sx = vx * scaleX;
+  const sy = vy * scaleY;
 
   // 이미 놓인 파츠를 클릭했는지 확인
   const placed = container.querySelectorAll('.placed-part');
@@ -962,10 +1090,23 @@ function faceCanvasDown(e) {
     const p = placed[i];
     const px = parseFloat(p.style.left);
     const py = parseFloat(p.style.top);
-    if (x >= px - 20 && x <= px + 40 && y >= py - 20 && y <= py + 40) {
+    const pw = parseFloat(p.style.width) || 130;
+    if (sx >= px - 10 && sx <= px + pw + 10 && sy >= py - 10 && sy <= py + pw + 10) {
+      // 더블탭 → 삭제
+      const now = Date.now();
+      if (p._lastTap && now - p._lastTap < 500) {
+        p.style.transition = 'transform .25s, opacity .25s';
+        p.style.transform = 'scale(0) rotate(30deg)';
+        p.style.opacity = '0';
+        setTimeout(() => p.remove(), 250);
+        SFX.pop();
+        speak('삭제!');
+        return;
+      }
+      p._lastTap = now;
       face.dragging = p;
-      face.dragOffX = x - px;
-      face.dragOffY = y - py;
+      face.dragOffX = sx - px;
+      face.dragOffY = sy - py;
       p.style.zIndex = 10;
       return;
     }
@@ -973,21 +1114,22 @@ function faceCanvasDown(e) {
 
   // 선택된 파츠가 있으면 새로 배치
   if (face.selectedPart) {
-    const scaleX = 400 / rect.width;
-    const scaleY = 450 / rect.height;
+    const partData = getFaceSvgById(face.selectedPart);
+    if (!partData) return;
     const part = document.createElement('div');
     part.className = 'placed-part';
-    part.textContent = face.selectedPart;
-    part.style.left = (x * scaleX - 20) + 'px';
-    part.style.top = (y * scaleY - 20) + 'px';
-    part.dataset.emoji = face.selectedPart;
+    part.style.width = '130px';
+    part.style.height = '130px';
+    part.innerHTML = partData.svg;
+    part.style.left = (sx - 65) + 'px';
+    part.style.top = (sy - 65) + 'px';
+    part.dataset.partId = face.selectedPart;
     container.appendChild(part);
-    face.placedParts.push({emoji: face.selectedPart, x: x * scaleX - 20, y: y * scaleY - 20});
+    face.placedParts.push({partId: face.selectedPart, x: sx - 65, y: sy - 65});
     face.partsUsed++;
     document.getElementById('face-parts-used').textContent = face.partsUsed;
-    // 배치 이펙트
     SFX.pop();
-    faceSpawnEffect(x, y, rect);
+    faceSpawnEffect(vx, vy, rect);
   }
 }
 
@@ -995,12 +1137,12 @@ function faceCanvasMove(e) {
   if (!face.dragging) return;
   const container = document.getElementById('face-svg-container');
   const rect = container.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const scaleX = 400 / rect.width;
-  const scaleY = 450 / rect.height;
-  face.dragging.style.left = ((x - face.dragOffX) * scaleX) + 'px';
-  face.dragging.style.top = ((y - face.dragOffY) * scaleY) + 'px';
+  const vx = e.clientX - rect.left;
+  const vy = e.clientY - rect.top;
+  const sx = vx * (400 / rect.width);
+  const sy = vy * (450 / rect.height);
+  face.dragging.style.left = (sx - face.dragOffX) + 'px';
+  face.dragging.style.top = (sy - face.dragOffY) + 'px';
 }
 
 function faceCanvasUp(e) {
@@ -1019,7 +1161,7 @@ function faceSpawnEffect(x, y, containerRect) {
   const sparks = ['✨','💖','⭐','🌟'];
   for (let i = 0; i < 6; i++) {
     const p = document.createElement('div');
-    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;font-size:${14+Math.random()*10}px;pointer-events:none;z-index:20;animation:starPop .6s ease-out forwards;--tx:${(Math.random()-.5)*80}px;--ty:${(Math.random()-.5)*80}px`;
+    p.style.cssText = `position:absolute;left:${cx}px;top:${cy}px;font-size:${20+Math.random()*14}px;pointer-events:none;z-index:20;animation:starPop .6s ease-out forwards;--tx:${(Math.random()-.5)*80}px;--ty:${(Math.random()-.5)*80}px`;
     p.textContent = sparks[Math.floor(Math.random()*sparks.length)];
     container.appendChild(p);
     setTimeout(() => p.remove(), 600);
@@ -1062,23 +1204,26 @@ function faceClear() {
 function faceRandom() {
   faceClear();
   const container = document.getElementById('face-svg-container');
+  const rp = (arr) => arr[Math.floor(Math.random()*arr.length)];
   const randomParts = [
-    {emoji: FACE_PARTS.eyes[Math.floor(Math.random()*FACE_PARTS.eyes.length)], x: 100, y: 155},
-    {emoji: FACE_PARTS.eyes[Math.floor(Math.random()*FACE_PARTS.eyes.length)], x: 220, y: 155},
-    {emoji: FACE_PARTS.nose[Math.floor(Math.random()*FACE_PARTS.nose.length)], x: 175, y: 215},
-    {emoji: FACE_PARTS.mouth[Math.floor(Math.random()*FACE_PARTS.mouth.length)], x: 165, y: 275},
-    {emoji: FACE_PARTS.hair[Math.floor(Math.random()*FACE_PARTS.hair.length)], x: 160, y: 40},
-    {emoji: FACE_PARTS.deco[Math.floor(Math.random()*FACE_PARTS.deco.length)], x: 280, y: 120}
+    {part: rp(FACE_SVG.eyes), x: 80, y: 130},
+    {part: rp(FACE_SVG.eyes), x: 190, y: 130},
+    {part: rp(FACE_SVG.nose), x: 135, y: 185},
+    {part: rp(FACE_SVG.mouth), x: 135, y: 250},
+    {part: rp(FACE_SVG.hair), x: 135, y: -10},
+    {part: rp(FACE_SVG.deco), x: 255, y: 60}
   ];
   randomParts.forEach(p => {
     const el = document.createElement('div');
     el.className = 'placed-part';
-    el.textContent = p.emoji;
+    el.style.width = '130px';
+    el.style.height = '130px';
+    el.innerHTML = p.part.svg;
     el.style.left = p.x + 'px';
     el.style.top = p.y + 'px';
-    el.dataset.emoji = p.emoji;
+    el.dataset.partId = p.part.id;
     container.appendChild(el);
-    face.placedParts.push(p);
+    face.placedParts.push({partId: p.part.id, x: p.x, y: p.y});
     face.partsUsed++;
   });
   document.getElementById('face-parts-used').textContent = face.partsUsed;
@@ -1207,7 +1352,7 @@ function paintSplat(e) {
 
   // 효과음
   try {
-    const actx = new (window.AudioContext || window.webkitAudioContext)();
+    const actx = SFX._getCtx();
     const osc = actx.createOscillator();
     const gain = actx.createGain();
     osc.connect(gain); gain.connect(actx.destination);
@@ -1390,7 +1535,7 @@ function theaterPlay() {
       s.classList.add('playing');
       // 등장 효과음
       try {
-        const actx = new (window.AudioContext || window.webkitAudioContext)();
+        const actx = SFX._getCtx();
         const osc = actx.createOscillator();
         const gain = actx.createGain();
         osc.connect(gain); gain.connect(actx.destination);
@@ -1481,6 +1626,7 @@ function updateRecords() {
 
 // ===== 히어로: 팔레트 디펜스 =====
 function startHeroGame() {
+  try{document.documentElement.requestFullscreen?.()}catch(e){}
   const game = document.getElementById('hero-game');
   game.classList.remove('hidden');
   hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
@@ -1508,7 +1654,7 @@ function startHeroGame() {
   }
   hgSetNextTarget();
   updateHgUI();
-  addHgClouds();
+  addHgClouds(); addHgDecorations();
   SFX.gameStart();
   hgLoop();
 }
@@ -1565,11 +1711,11 @@ function hgSetNextTarget() {
 function hgCompletionEffect() {
   SFX.levelup();
   const arena = document.getElementById('hg-arena');
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 40; i++) {
     const p = document.createElement('div');
     p.className = 'hg-star-pop';
     p.textContent = ['🎨','🖌️','✨','🌟','🎉','⭐'][Math.floor(Math.random()*6)];
-    p.style.cssText = `left:${30+Math.random()*40}%;top:${20+Math.random()*40}%;font-size:${18+Math.random()*20}px;--tx:${(Math.random()-.5)*120}px;--ty:${(Math.random()-.5)*120}px`;
+    p.style.cssText = `left:${30+Math.random()*40}%;top:${20+Math.random()*40}%;font-size:${28+Math.random()*30}px;--tx:${(Math.random()-.5)*120}px;--ty:${(Math.random()-.5)*120}px`;
     arena.appendChild(p);
     setTimeout(() => p.remove(), 700);
   }
@@ -1585,8 +1731,75 @@ function addHgClouds() {
     c.textContent = clouds[Math.floor(Math.random()*clouds.length)];
     c.style.top = (Math.random() * 30 + 5) + '%';
     c.style.animationDelay = -(Math.random() * 25) + 's';
-    c.style.fontSize = (24 + Math.random() * 24) + 'px';
+    c.style.fontSize = (42 + Math.random() * 30) + 'px';
     arena.appendChild(c);
+  }
+}
+
+function addHgDecorations() {
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-deco,.hg-ground,.hg-bg-sparkle,.hg-drip').forEach(d => d.remove());
+
+  // === 바닥 장식 (페인트 얼룩 + 미술 도구) ===
+  const ground = document.createElement('div');
+  ground.className = 'hg-ground';
+  ground.innerHTML = `
+    <svg width="100%" height="140" viewBox="0 0 1920 140" preserveAspectRatio="none">
+      <ellipse cx="200" cy="130" rx="80" ry="20" fill="#ec4899" opacity=".08"/>
+      <ellipse cx="500" cy="125" rx="60" ry="15" fill="#3b82f6" opacity=".07"/>
+      <ellipse cx="900" cy="128" rx="90" ry="18" fill="#fbbf24" opacity=".08"/>
+      <ellipse cx="1300" cy="130" rx="70" ry="16" fill="#22c55e" opacity=".07"/>
+      <ellipse cx="1650" cy="126" rx="85" ry="19" fill="#8b5cf6" opacity=".08"/>
+      <rect x="120" y="60" width="12" height="80" rx="4" fill="#d4a574" opacity=".12"/>
+      <ellipse cx="126" cy="55" rx="16" ry="22" fill="#ec4899" opacity=".1"/>
+      <rect x="1700" y="50" width="10" height="90" rx="3" fill="#92400e" opacity=".1"/>
+      <polygon points="1705,45 1695,25 1715,25" fill="#3b82f6" opacity=".08"/>
+      <ellipse cx="800" cy="120" rx="25" ry="18" fill="#fde68a" opacity=".1" stroke="#d97706" stroke-width="1" opacity=".06"/>
+      <circle cx="793" cy="116" r="4" fill="#ef4444" opacity=".08"/><circle cx="800" cy="112" r="3" fill="#3b82f6" opacity=".07"/><circle cx="808" cy="116" r="3.5" fill="#22c55e" opacity=".08"/>
+      <rect x="1400" y="80" width="40" height="50" rx="5" fill="#3b82f6" opacity=".06"/>
+      <rect x="1395" y="75" width="50" height="10" rx="3" fill="#60a5fa" opacity=".06"/>
+    </svg>`;
+  arena.appendChild(ground);
+
+  // === 떠다니는 미술 도구 장식 (크고 애니메이션 있는) ===
+  const decos = [
+    {svg:'<svg viewBox="0 0 80 80" width="100" height="100"><ellipse cx="40" cy="40" rx="30" ry="22" fill="#fde68a" opacity=".15" stroke="#d97706" stroke-width="1.5" stroke-opacity=".1"/><circle cx="24" cy="34" r="5" fill="#ef4444" opacity=".15"/><circle cx="36" cy="30" r="4" fill="#3b82f6" opacity=".12"/><circle cx="48" cy="34" r="4.5" fill="#22c55e" opacity=".14"/><circle cx="40" cy="44" r="4" fill="#fbbf24" opacity=".12"/><circle cx="52" cy="42" r="3.5" fill="#8b5cf6" opacity=".12"/><ellipse cx="40" cy="22" rx="4" ry="2" fill="#d97706" opacity=".1"/></svg>', top:'12%',left:'4%',delay:'0s'},
+    {svg:'<svg viewBox="0 0 50 140" width="60" height="160"><rect x="20" y="0" width="10" height="100" rx="4" fill="#d4a574" opacity=".12"/><ellipse cx="25" cy="105" rx="16" ry="24" fill="#ec4899" opacity=".1"/><ellipse cx="25" cy="100" rx="10" ry="14" fill="#f472b6" opacity=".06"/></svg>', top:'55%',right:'2%',delay:'1s'},
+    {svg:'<svg viewBox="0 0 50 140" width="55" height="150"><rect x="21" y="0" width="8" height="95" rx="3" fill="#8B6914" opacity=".1"/><polygon points="25,95 10,130 40,130" fill="#3b82f6" opacity=".08"/><polygon points="25,98 15,125 35,125" fill="#60a5fa" opacity=".05"/></svg>', bottom:'18%',left:'6%',delay:'2s'},
+    {svg:'<svg viewBox="0 0 100 80" width="120" height="90"><rect x="8" y="12" width="84" height="60" rx="5" fill="none" stroke="#d4a574" stroke-width="3" opacity=".1"/><rect x="14" y="18" width="72" height="44" fill="#fef3c7" opacity=".06"/><circle cx="50" cy="40" r="15" fill="#fca5a5" opacity=".05"/><circle cx="40" cy="35" r="8" fill="#93c5fd" opacity=".04"/></svg>', top:'18%',right:'6%',delay:'0.5s'},
+    {svg:'<svg viewBox="0 0 80 80" width="90" height="90"><circle cx="40" cy="40" r="28" fill="#ec4899" opacity=".06"><animate attributeName="r" values="26;30;26" dur="4s" repeatCount="indefinite"/></circle><circle cx="40" cy="40" r="18" fill="#f472b6" opacity=".04"/><circle cx="40" cy="40" r="8" fill="#f9a8d4" opacity=".03"/></svg>', bottom:'30%',right:'12%',delay:'1.5s'},
+    {svg:'<svg viewBox="0 0 80 80" width="85" height="85"><circle cx="40" cy="40" r="25" fill="#3b82f6" opacity=".06"><animate attributeName="r" values="23;27;23" dur="3.5s" repeatCount="indefinite"/></circle><circle cx="40" cy="40" r="15" fill="#60a5fa" opacity=".04"/></svg>', top:'42%',left:'2%',delay:'2.5s'},
+    {svg:'<svg viewBox="0 0 80 80" width="80" height="80"><circle cx="40" cy="40" r="22" fill="#fbbf24" opacity=".06"><animate attributeName="r" values="20;24;20" dur="3s" repeatCount="indefinite"/></circle><circle cx="40" cy="40" r="12" fill="#fde68a" opacity=".04"/></svg>', top:'65%',right:'18%',delay:'3s'},
+    {svg:'<svg viewBox="0 0 60 60" width="70" height="70"><polygon points="30,5 35,22 53,22 39,33 44,50 30,40 16,50 21,33 7,22 25,22" fill="#fbbf24" opacity=".08"/></svg>', top:'8%',left:'25%',delay:'0.8s'},
+    {svg:'<svg viewBox="0 0 60 60" width="65" height="65"><polygon points="30,8 33,22 47,22 36,30 40,44 30,36 20,44 24,30 13,22 27,22" fill="#ec4899" opacity=".07"/></svg>', bottom:'12%',right:'30%',delay:'1.8s'},
+    {svg:'<svg viewBox="0 0 50 140" width="50" height="130"><rect x="20" y="0" width="10" height="90" rx="4" fill="#d4a574" opacity=".1"/><ellipse cx="25" cy="95" rx="14" ry="20" fill="#22c55e" opacity=".08"/></svg>', top:'30%',left:'92%',delay:'3.5s'},
+  ];
+  decos.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'hg-deco';
+    el.style.cssText = `position:absolute;pointer-events:none;z-index:2;${d.top?'top:'+d.top+';':''}${d.bottom?'bottom:'+d.bottom+';':''}${d.left?'left:'+d.left+';':''}${d.right?'right:'+d.right+';':''}animation-delay:${d.delay}`;
+    el.innerHTML = d.svg;
+    arena.appendChild(el);
+  });
+
+  // === 배경 반짝이 (scattered sparkles) ===
+  for (let i = 0; i < 12; i++) {
+    const sp = document.createElement('div');
+    sp.className = 'hg-bg-sparkle';
+    const size = 4 + Math.random() * 8;
+    const colors = ['#ec4899','#f472b6','#fbbf24','#3b82f6','#22c55e','#8b5cf6','#f97316'];
+    sp.style.cssText = `left:${5+Math.random()*90}%;top:${5+Math.random()*85}%;width:${size}px;height:${size}px;border-radius:50%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
+    arena.appendChild(sp);
+  }
+
+  // === 상단 물감 드립 이펙트 ===
+  for (let i = 0; i < 6; i++) {
+    const drip = document.createElement('div');
+    drip.className = 'hg-drip';
+    const colors = ['#ec4899','#3b82f6','#fbbf24','#22c55e','#8b5cf6','#f97316'];
+    const w = 6 + Math.random() * 10;
+    drip.style.cssText = `left:${8+Math.random()*84}%;width:${w}px;height:${30+Math.random()*40}px;border-radius:0 0 ${w/2}px ${w/2}px;background:${colors[i % colors.length]};opacity:.12;animation-delay:${Math.random()*4}s;animation-duration:${3+Math.random()*3}s`;
+    arena.appendChild(drip);
   }
 }
 
@@ -1614,7 +1827,7 @@ function hgSpawn() {
 
   const colorIdx = Math.floor(Math.random() * hg.colors.length);
   const color = hg.colors[colorIdx];
-  const size = 50 + Math.random() * 20;
+  const size = 110 + Math.random() * 40;
 
   const el = document.createElement('div');
   el.className = 'flying-ball';
@@ -1643,6 +1856,16 @@ function hgSpawn() {
   el.style.top = y + 'px';
   arena.appendChild(el);
 
+  // 스폰 스파클
+  for (let k = 0; k < 4; k++) {
+    const sp = document.createElement('div');
+    sp.className = 'hg-star-pop';
+    sp.textContent = '\u2728';
+    sp.style.cssText = `left:${x}px;top:${y}px;font-size:${14+Math.random()*10}px;--tx:${(Math.random()-.5)*50}px;--ty:${(Math.random()-.5)*50}px`;
+    arena.appendChild(sp);
+    setTimeout(() => sp.remove(), 700);
+  }
+
   const ball = {el, x, y, vx, vy, colorIdx, color, size, age: 0};
   hg.balls.push(ball);
 }
@@ -1656,8 +1879,8 @@ function hgSpawnPower() {
   const el = document.createElement('div');
   el.className = 'hg-powerup';
   el.textContent = t.e;
-  el.style.left = (60 + Math.random() * (w - 120)) + 'px';
-  el.style.top = (60 + Math.random() * (h - 120)) + 'px';
+  el.style.left = (80 + Math.random() * (w - 160)) + 'px';
+  el.style.top = (80 + Math.random() * (h - 160)) + 'px';
   el.onclick = () => hgPowerUp(t, el);
   arena.appendChild(el);
   // 자동 소멸
@@ -1785,9 +2008,9 @@ function hgPaintBurst(cx, cy, color) {
   for (let i = 0; i < 12; i++) {
     const p = document.createElement('div');
     p.className = 'hg-paint-burst';
-    const size = 8 + Math.random() * 16;
+    const size = 14 + Math.random() * 24;
     const angle = (Math.PI * 2 / 12) * i + (Math.random() - 0.5) * 0.5;
-    const dist = 40 + Math.random() * 80;
+    const dist = 60 + Math.random() * 120;
     const dur = 0.4 + Math.random() * 0.3;
     p.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;background:${color};--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;--dur:${dur}s;box-shadow:0 0 ${size*0.8}px ${color}`;
     arena.appendChild(p);
@@ -1820,9 +2043,23 @@ function hgUpdateBg() {
     'linear-gradient(180deg,#fdf2f8 0%,#fce7f3 25%,#fbcfe8 75%,#f9a8d4 100%)',
     'linear-gradient(180deg,#fef3c7 0%,#fde68a 25%,#fed7aa 75%,#fdba74 100%)',
     'linear-gradient(180deg,#dcfce7 0%,#bbf7d0 25%,#86efac 75%,#4ade80 100%)',
-    'linear-gradient(180deg,#dbeafe 0%,#bfdbfe 25%,#93c5fd 75%,#60a5fa 100%)'
+    'linear-gradient(180deg,#dbeafe 0%,#bfdbfe 25%,#93c5fd 75%,#60a5fa 100%)',
+    /* 미술실 */ 'linear-gradient(180deg,#fef3c7 0%,#d4a574 40%,#92400e 100%)',
+    /* 갤러리 */ 'linear-gradient(180deg,#f8fafc 0%,#f1f5f9 30%,#e2e8f0 80%,#cbd5e1 100%)',
+    /* 야외 */ 'linear-gradient(180deg,#7dd3fc 0%,#bae6fd 30%,#e0f2fe 60%,#dcfce7 100%)',
+    /* 수채화 */ 'linear-gradient(180deg,#fce7f3 0%,#dbeafe 25%,#fef9c3 50%,#dcfce7 75%,#fae8ff 100%)',
+    /* 크레파스 */ 'linear-gradient(180deg,#fca5a5 0%,#fdba74 14%,#fde68a 28%,#86efac 42%,#93c5fd 57%,#a5b4fc 71%,#d8b4fe 85%,#f9a8d4 100%)',
+    /* 동굴벽화 */ 'linear-gradient(180deg,#44403c 0%,#57534e 30%,#78716c 60%,#292524 100%)',
+    /* 별밤 */ 'linear-gradient(180deg,#1e1b4b 0%,#312e81 25%,#3730a3 50%,#1e3a5f 75%,#0f172a 100%)',
+    /* 팝아트 */ 'linear-gradient(180deg,#fbbf24 0%,#f472b6 25%,#60a5fa 50%,#34d399 75%,#fb923c 100%)'
   ];
-  document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
+  const game = document.getElementById('hero-game');
+  game.style.background = bgs[(hg.level - 1) % bgs.length];
+  // 어두운 배경에서 텍스트 밝게
+  const darkBgs = [9,10]; // 동굴벽화, 별밤
+  const isDark = darkBgs.includes((hg.level - 1) % bgs.length);
+  game.querySelectorAll('.hg-stat').forEach(s => s.style.color = isDark ? '#fce7f3' : '#831843');
+  addHgDecorations();
 }
 
 let _prevHgLives = 5, _prevHgLevel = 1;
@@ -1862,7 +2099,7 @@ function hgEnd() {
 function hgRestart() {
   document.getElementById('hg-over').classList.add('hidden');
   const arena = document.getElementById('hg-arena');
-  arena.querySelectorAll('.flying-ball,.hg-paint-burst,.hg-star-pop,.hg-stain,.hg-powerup').forEach(e => e.remove());
+  arena.querySelectorAll('.flying-ball,.hg-paint-burst,.hg-star-pop,.hg-stain,.hg-powerup,.hg-deco,.hg-ground,.hg-bg-sparkle,.hg-drip').forEach(e => e.remove());
   SFX.gameStart();
   startHeroGame();
 }
@@ -1881,6 +2118,7 @@ function hgExit() {
   document.getElementById('hg-over').classList.add('hidden');
   document.getElementById('hg-pause').classList.add('hidden');
   document.getElementById('hero-game').classList.add('hidden');
+  if(document.fullscreenElement)document.exitFullscreen?.();
 }
 
 // ===== 초기화 =====
@@ -1935,6 +2173,18 @@ document.addEventListener('touchend', function(e) {
   if (now - lastTouchEnd <= 300) e.preventDefault();
   lastTouchEnd = now;
 }, false);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
+window.matchMedia('(orientation: portrait)').addEventListener('change', e => {
+  if (e.matches) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
 </script>
 </body>
 </html>

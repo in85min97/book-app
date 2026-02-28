@@ -6,6 +6,7 @@
 <title>시계 놀이터 🕐</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+.hidden{display:none!important}
 body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#0891b2 0%,#06b6d4 50%,#0e7490 100%);margin:0;padding:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:manipulation}
 .rotate-notice{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0891b2,#06b6d4);z-index:9999;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;text-align:center;gap:20px}
 .rotate-notice .rotate-icon{font-size:80px;animation:rotateH 2s ease-in-out infinite}
@@ -35,25 +36,25 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .profile-info{flex:1;color:#fff}
 .profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
 .profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
-.profile-level{font-size:18px;font-weight:700;color:#e0f2fe;display:flex;align-items:center;gap:8px}
-.level-badge{background:linear-gradient(145deg,#67e8f9,#22d3ee);color:#164e63;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.profile-level{font-size:22px;font-weight:700;color:#e0f2fe;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#67e8f9,#22d3ee);color:#164e63;padding:4px 12px;border-radius:8px;font-size:22px;font-weight:800;border:1px solid #fff}
 .progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#67e8f9,#22d3ee,#67e8f9);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
 @keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 .tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
-.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:20px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:62px;white-space:nowrap;font-family:inherit}
 .tab-btn.active{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff;border-color:#06b6d4}
 .tab-btn:active{transform:scale(.97)}
 .tab-content{display:none;flex:1;overflow:hidden}
 .tab-content.active{display:flex;flex-direction:column}
 
-.side-info{background:linear-gradient(145deg,#ecfeff,#cffafe);border-radius:16px;padding:15px;border:2px solid #06b6d4;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
-.side-title{font-size:17px;font-weight:700;color:#164e63;text-align:center;flex-shrink:0}
-.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
-.side-val{font-size:20px;font-weight:800;color:#0891b2}
+.side-info{background:linear-gradient(145deg,#ecfeff,#cffafe);border-radius:16px;padding:18px;border:2px solid #06b6d4;display:flex;flex-direction:column;gap:10px;height:100%;overflow:hidden}
+.side-title{font-size:24px;font-weight:700;color:#164e63;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#fff;border-radius:8px;font-size:20px;font-weight:600;color:#1e293b}
+.side-val{font-size:32px;font-weight:800;color:#0891b2}
 
-.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#67e8f9,#22d3ee);color:#164e63;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(103,232,249,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#67e8f9,#22d3ee);color:#164e63;border:3px solid #fff;border-radius:16px;padding:20px;font-size:26px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(103,232,249,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
 @keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 .game-launch-btn:active{transform:scale(.97)}
 
@@ -64,16 +65,18 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* 시간 여행자 */
 .travel-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative;transition:background 1s}
 .travel-bg{position:absolute;inset:0;border-radius:16px;transition:background 1s;overflow:hidden}
-.travel-bg-dawn{background:linear-gradient(180deg,#1e1b4b 0%,#312e81 30%,#4338ca 60%,#6366f1 100%)}
-.travel-bg-morning{background:linear-gradient(180deg,#fef3c7 0%,#fde68a 30%,#fbbf24 60%,#f59e0b 100%)}
-.travel-bg-noon{background:linear-gradient(180deg,#e0f2fe 0%,#7dd3fc 30%,#38bdf8 60%,#0ea5e9 100%)}
-.travel-bg-evening{background:linear-gradient(180deg,#fed7aa 0%,#fb923c 30%,#ea580c 60%,#c2410c 100%)}
-.travel-bg-night{background:linear-gradient(180deg,#0f172a 0%,#1e293b 30%,#334155 60%,#1e1b4b 100%)}
+.travel-bg-dawn{background:linear-gradient(180deg,#1e1b4b 0%,#312e81 20%,#6366f1 50%,#a78bfa 70%,#fde68a 100%)}
+.travel-bg-morning{background:linear-gradient(180deg,#bfdbfe 0%,#93c5fd 20%,#60a5fa 50%,#93c5fd 80%,#86efac 100%)}
+.travel-bg-noon{background:linear-gradient(180deg,#e0f2fe 0%,#7dd3fc 25%,#38bdf8 50%,#0ea5e9 75%,#86efac 100%)}
+.travel-bg-evening{background:linear-gradient(180deg,#312e81 0%,#7c3aed 20%,#f97316 40%,#fb923c 60%,#fde68a 80%,#4ade80 100%)}
+.travel-bg-night{background:linear-gradient(180deg,#020617 0%,#0f172a 25%,#1e293b 50%,#1e3a5f 80%,#1e293b 100%)}
+.travel-scene-svg{position:absolute;inset:0;pointer-events:none;z-index:1}
+.travel-scene-svg svg{width:100%;height:100%}
 .travel-stars{position:absolute;inset:0;pointer-events:none}
-.travel-question{position:relative;z-index:5;font-size:28px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);background:rgba(0,0,0,.3);padding:12px 28px;border-radius:16px;backdrop-filter:blur(4px)}
+.travel-question{position:relative;z-index:5;font-size:36px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);background:rgba(0,0,0,.3);padding:16px 36px;border-radius:16px;backdrop-filter:blur(4px)}
 .travel-clock-wrap{position:relative;z-index:5}
-.travel-result{position:relative;z-index:5;font-size:22px;font-weight:700;min-height:40px;text-align:center;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.3)}
-.travel-confirm-btn{position:relative;z-index:5;background:linear-gradient(145deg,#22d3ee,#06b6d4);color:#fff;border:3px solid #a5f3fc;border-radius:16px;padding:12px 40px;font-size:22px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(6,182,212,.4)}
+.travel-result{position:relative;z-index:5;font-size:28px;font-weight:700;min-height:40px;text-align:center;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.travel-confirm-btn{position:relative;z-index:5;background:linear-gradient(145deg,#22d3ee,#06b6d4);color:#fff;border:3px solid #a5f3fc;border-radius:16px;padding:16px 52px;font-size:28px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(6,182,212,.4)}
 .travel-confirm-btn:active{transform:scale(.95)}
 
 /* SVG 아날로그 시계 공통 */
@@ -89,65 +92,64 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .clock-hand-minute{stroke:#0891b2;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 1px 2px rgba(0,0,0,.15));transition:transform .3s ease}
 .clock-hand-second{stroke:#ef4444;stroke-width:2;stroke-linecap:round}
 
-/* 요리 타이머 */
-.cook-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative}
-.cook-food-display{width:220px;height:220px;position:relative;display:flex;align-items:center;justify-content:center}
-.cook-food-svg{font-size:120px;transition:transform .3s}
-.cook-food-status{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);font-size:16px;font-weight:700;padding:4px 14px;border-radius:8px;white-space:nowrap;background:#fff;color:#1e293b;border:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.cook-timer-ring{position:relative;width:180px;height:180px}
-.cook-info{font-size:22px;font-weight:800;color:#1e293b;text-align:center;background:linear-gradient(145deg,#ecfeff,#cffafe);padding:10px 24px;border-radius:14px;border:2px solid #06b6d4}
-.cook-quiz-popup{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:20;border-radius:16px;backdrop-filter:blur(4px)}
-.cook-quiz-popup.hidden{display:none}
-.cook-quiz-box{background:#fff;border-radius:20px;padding:30px;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.2);min-width:340px}
-.cook-quiz-box h3{font-size:24px;font-weight:800;color:#1e293b;margin-bottom:16px}
-.cook-quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.cook-quiz-opt{padding:14px;border:3px solid #e2e8f0;border-radius:14px;font-size:20px;font-weight:700;cursor:pointer;background:#f8fafc;color:#1e293b;font-family:inherit;transition:.15s}
-.cook-quiz-opt:active{transform:scale(.95)}
-.cook-quiz-opt.correct{background:linear-gradient(145deg,#86efac,#4ade80);border-color:#22c55e;color:#fff}
-.cook-quiz-opt.wrong{background:linear-gradient(145deg,#fca5a5,#f87171);border-color:#ef4444;color:#fff}
-.cook-btns{display:flex;gap:12px}
-.cook-btn{padding:12px 28px;border:3px solid #a5f3fc;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s}
-.cook-btn:active{transform:scale(.95)}
-.cook-btn-open{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff;border-color:#fde68a}
-.cook-btn-wait{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff}
-.cook-result-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:25;border-radius:16px;pointer-events:none}
-.cook-result-overlay.hidden{display:none}
-.cook-result-msg{font-size:36px;font-weight:900;padding:20px 40px;border-radius:20px;animation:cookPop .8s ease-out forwards;text-shadow:0 2px 8px rgba(0,0,0,.2)}
-@keyframes cookPop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.2);opacity:1}100%{transform:scale(1);opacity:1}}
-.cook-steam{position:absolute;pointer-events:none;animation:steamUp var(--dur,2s) ease-out forwards}
-@keyframes steamUp{0%{transform:translateY(0) scale(1);opacity:.6}100%{transform:translateY(var(--ty,-80px)) scale(1.5);opacity:0}}
+/* 달력 놀이 */
+.cal-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;position:relative}
+.cal-calendar{background:#fff;border-radius:16px;border:3px solid #06b6d4;box-shadow:0 4px 16px rgba(6,182,212,.2);overflow:hidden;min-width:700px}
+.cal-header{display:flex;align-items:center;justify-content:center;gap:16px;background:linear-gradient(145deg,#06b6d4,#0891b2);padding:16px;color:#fff}
+.cal-header-title{font-size:32px;font-weight:800}
+.cal-header-btn{background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);border-radius:8px;padding:8px 16px;font-size:24px;color:#fff;cursor:pointer;font-family:inherit}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:16px}
+.cal-day-header{text-align:center;font-size:22px;font-weight:800;color:#0891b2;padding:10px}
+.cal-day-header.sun{color:#ef4444}
+.cal-day-header.sat{color:#3b82f6}
+.cal-cell{text-align:center;padding:16px 8px;font-size:26px;font-weight:600;color:#334155;border-radius:8px;cursor:pointer;transition:.15s;min-height:54px}
+.cal-cell:hover{background:#ecfeff}
+.cal-cell.today{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff;border-radius:50%;font-weight:800}
+.cal-cell.selected{background:#22d3ee;color:#fff;border-radius:50%}
+.cal-cell.correct-cell{background:#22c55e;color:#fff;border-radius:50%;animation:correctFlash .6s}
+.cal-cell.wrong-cell{background:#ef4444;color:#fff;border-radius:50%;animation:shake .4s}
+.cal-cell.empty{cursor:default}
+.cal-question{font-size:34px;font-weight:800;color:#1e293b;background:linear-gradient(145deg,#ecfeff,#cffafe);padding:18px 36px;border-radius:14px;border:3px solid #06b6d4;text-align:center}
+.cal-options{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:560px}
+.cal-opt{background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:3px solid #94a3b8;border-bottom:5px solid #64748b;border-radius:14px;padding:18px 36px;font-size:28px;font-weight:700;cursor:pointer;font-family:inherit;color:#334155;transition:.15s}
+.cal-opt:active{transform:translateY(2px);border-bottom-width:3px}
+.cal-opt.correct{background:linear-gradient(145deg,#22c55e,#16a34a)!important;color:#fff!important;border-color:#16a34a!important}
+.cal-opt.wrong{background:linear-gradient(145deg,#ef4444,#dc2626)!important;color:#fff!important;border-color:#dc2626!important}
+.cal-result{font-size:26px;font-weight:700;min-height:32px;text-align:center}
+.cal-mode{font-size:18px;font-weight:600;color:#64748b;background:#f1f5f9;padding:4px 12px;border-radius:8px}
 
 /* 쌍둥이 시계 */
 .twin-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.twin-question{font-size:24px;font-weight:800;color:#1e293b;background:linear-gradient(145deg,#ecfeff,#cffafe);padding:12px 24px;border-radius:14px;border:3px solid #06b6d4;text-align:center}
-.twin-clocks{display:flex;gap:40px;align-items:center}
-.twin-clock-box{display:flex;flex-direction:column;align-items:center;gap:10px}
-.twin-label{font-size:18px;font-weight:700;color:#475569;background:#f1f5f9;padding:6px 16px;border-radius:8px}
-.twin-digital{background:linear-gradient(145deg,#0f172a,#1e293b);border:4px solid #475569;border-radius:16px;padding:20px 36px;box-shadow:inset 0 4px 12px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.2);position:relative;overflow:hidden}
+.twin-question{font-size:32px;font-weight:800;color:#1e293b;background:linear-gradient(145deg,#ecfeff,#cffafe);padding:16px 32px;border-radius:14px;border:3px solid #06b6d4;text-align:center}
+.twin-clocks{display:flex;gap:32px;align-items:center}
+.twin-clock-box{display:flex;flex-direction:column;align-items:center;gap:10px;background:rgba(255,255,255,.5);padding:16px;border-radius:16px;border:2px solid rgba(6,182,212,.2);backdrop-filter:blur(4px)}
+.twin-label{font-size:24px;font-weight:700;color:#475569;background:#f1f5f9;padding:10px 20px;border-radius:8px}
+.twin-digital{background:linear-gradient(145deg,#0f172a,#1e293b);border:4px solid #475569;border-radius:16px;padding:28px 52px;box-shadow:inset 0 4px 12px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.2);position:relative;overflow:hidden}
 .twin-digital::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);pointer-events:none}
-.twin-digital-time{font-size:72px;font-weight:900;font-family:'Courier New',monospace;color:#22d3ee;text-shadow:0 0 20px rgba(34,211,238,.5);letter-spacing:4px}
-.twin-digital-ampm{font-size:20px;font-weight:700;color:#67e8f9;text-align:center;margin-top:4px}
+.twin-digital-time{font-size:92px;font-weight:900;font-family:'Courier New',monospace;color:#22d3ee;text-shadow:0 0 20px rgba(34,211,238,.6),0 0 40px rgba(34,211,238,.3),0 0 60px rgba(34,211,238,.15);letter-spacing:4px}
+.twin-digital-ampm{font-size:26px;font-weight:700;color:#67e8f9;text-align:center;margin-top:4px}
 .twin-input-area{display:flex;gap:8px;align-items:center}
-.twin-input{width:80px;height:60px;text-align:center;font-size:32px;font-weight:800;border:3px solid #06b6d4;border-radius:12px;background:#fff;color:#1e293b;font-family:inherit}
+.twin-input{width:100px;height:80px;text-align:center;font-size:44px;font-weight:800;border:3px solid #06b6d4;border-radius:12px;background:#fff;color:#1e293b;font-family:inherit}
 .twin-input:focus{outline:none;border-color:#22d3ee;box-shadow:0 0 12px rgba(34,211,238,.3)}
-.twin-colon{font-size:36px;font-weight:900;color:#475569}
-.twin-submit{background:linear-gradient(145deg,#22d3ee,#06b6d4);color:#fff;border:3px solid #a5f3fc;border-radius:14px;padding:12px 32px;font-size:20px;font-weight:800;cursor:pointer;font-family:inherit}
+.twin-colon{font-size:48px;font-weight:900;color:#475569}
+.twin-submit{background:linear-gradient(145deg,#22d3ee,#06b6d4);color:#fff;border:3px solid #a5f3fc;border-radius:14px;padding:16px 44px;font-size:28px;font-weight:800;cursor:pointer;font-family:inherit}
 .twin-submit:active{transform:scale(.95)}
-.twin-result{font-size:22px;font-weight:700;min-height:36px;text-align:center;color:#1e293b}
-.twin-vs{font-size:40px;font-weight:900;color:#06b6d4}
+.twin-result{font-size:28px;font-weight:700;min-height:36px;text-align:center;color:#1e293b}
+.twin-vs{font-size:52px;font-weight:900;color:#06b6d4;text-shadow:0 0 16px rgba(6,182,212,.4);animation:twinVsPulse 2s ease-in-out infinite}
+@keyframes twinVsPulse{0%,100%{transform:scale(1);text-shadow:0 0 16px rgba(6,182,212,.4)}50%{transform:scale(1.1);text-shadow:0 0 24px rgba(6,182,212,.6)}}
 
 /* 내 기록 */
-.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
-.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.records-area{flex:1;display:flex;flex-direction:column;gap:20px;padding:20px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:24px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.record-card h3{font-size:24px;font-weight:800;color:#1e293b;margin-bottom:10px}
 .record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#ecfeff,#cffafe);border-radius:12px;border:2px solid #a5f3fc}
-.record-num{font-size:32px;font-weight:900;color:#0891b2}
-.record-label{font-size:13px;font-weight:600;color:#164e63;margin-top:4px}
+.record-item{text-align:center;padding:16px;background:linear-gradient(145deg,#ecfeff,#cffafe);border-radius:12px;border:2px solid #a5f3fc}
+.record-num{font-size:44px;font-weight:900;color:#0891b2}
+.record-label{font-size:18px;font-weight:600;color:#164e63;margin-top:4px}
 
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
-.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:52px;opacity:.9;line-height:1}
+.action-btn{border:none;border-radius:20px;font-size:38px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:64px;opacity:.9;line-height:1}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
 .action-btn.btn-red{background:linear-gradient(145deg,#f87171,#ef4444);box-shadow:0 2px 8px rgba(248,113,113,.2)}
@@ -155,37 +157,48 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .action-btn.btn-teal{background:linear-gradient(145deg,#14b8a6,#0d9488);box-shadow:0 2px 8px rgba(20,184,166,.2)}
 .action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
 
-/* 히어로 */
-.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;overflow:hidden}
+/* 히어로: 시계 스피드런 */
+.hero-game{position:absolute;top:0;left:0;width:1920px;height:1080px;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#ecfeff 0%,#cffafe 50%,#a5f3fc 100%)}
 .hero-game.hidden{display:none}
-.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.4)}
-.hg-stat{font-size:22px;font-weight:800;color:#1e3a8a}
-.hg-hearts{font-size:24px;letter-spacing:3px}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-bottom:2px solid #06b6d4}
+.hg-stat{font-size:24px;font-weight:800;color:#0e7490;-webkit-text-stroke:.5px rgba(0,0,0,.1)}
+.hg-hearts{font-size:28px;letter-spacing:4px}
 .hg-ctrls{display:flex;gap:8px}
-.hg-ctrl-btn{background:rgba(255,255,255,.6);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569}
-.hg-ctrl-btn:active{transform:scale(.9)}
-.hg-arena{flex:1;position:relative;overflow:hidden;background:linear-gradient(180deg,#ecfeff 0%,#cffafe 30%,#a5f3fc 70%,#67e8f9 100%)}
-.hg-tap-zone{position:absolute;inset:0;z-index:50;cursor:pointer}
-.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+.hg-ctrl-btn{width:44px;height:44px;border-radius:12px;border:2px solid #06b6d4;background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.hg-ctrl-btn:hover{background:#ecfeff}
+.hg-timer-wrap{padding:8px 24px}
+.hg-timer-bar{height:12px;border-radius:6px;background:#e2e8f0;overflow:hidden}
+.hg-timer-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#22c55e,#84cc16);transition:width .1s linear}
+.hg-timer-fill.warn{background:linear-gradient(90deg,#f59e0b,#eab308)}
+.hg-timer-fill.danger{background:linear-gradient(90deg,#ef4444,#f97316)}
+.hg-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;overflow:hidden;position:relative}
+.hg-clock-area{position:relative}
+.hg-legend{display:flex;gap:24px;font-size:20px;font-weight:700}
+.hg-legend .hour-label{color:#dc2626}
+.hg-legend .min-label{color:#2563eb}
+.hg-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:480px;max-width:90%}
+.hg-opt{padding:12px 8px;font-size:26px;font-weight:800;border:3px solid #06b6d4;border-radius:16px;background:#fff;color:#0e7490;cursor:pointer;transition:.15s;border-bottom:5px solid #0891b2}
+.hg-opt:hover{background:#ecfeff;transform:translateY(-2px)}
+.hg-opt:active{transform:translateY(2px);border-bottom:2px solid #0891b2}
+.hg-opt.correct{background:#22c55e;color:#fff;border-color:#16a34a}
+.hg-opt.wrong{background:#ef4444;color:#fff;border-color:#dc2626;animation:shake .4s}
+.hg-combo{font-size:22px;font-weight:800;color:#f59e0b;text-shadow:0 2px 4px rgba(0,0,0,.1);min-height:30px}
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:10}
 .hg-overlay.hidden{display:none}
-.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
-.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
-.hg-overlay-box .score{font-size:28px;font-weight:700;color:#0891b2;margin-bottom:8px}
-.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
-.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
-.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff}
-.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
-.hg-quiz-popup{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:20px;padding:30px;text-align:center;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.3);min-width:300px}
-.hg-quiz-popup.hidden{display:none}
-.hg-quiz-popup h3{font-size:24px;font-weight:800;margin-bottom:16px;color:#1e293b}
-.hg-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.hg-quiz-opt{padding:14px;border:3px solid #e2e8f0;border-radius:14px;font-size:20px;font-weight:700;cursor:pointer;background:#f8fafc;font-family:inherit}
-.hg-quiz-opt:active{transform:scale(.95)}
-.hg-obstacle{position:absolute;z-index:15;pointer-events:none}
-.hg-powerup{position:absolute;z-index:14;pointer-events:none;animation:puFloat 1s ease-in-out infinite}
-@keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.hg-jump-effect{position:absolute;pointer-events:none;z-index:20;animation:jumpPop .4s ease-out forwards}
-@keyframes jumpPop{0%{transform:scale(1);opacity:1}100%{transform:scale(2);opacity:0}}
+.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2);min-width:320px}
+.hg-overlay-box h2{font-size:32px;margin-bottom:16px;color:#0e7490}
+.hg-overlay-box .score{font-size:28px;font-weight:800;color:#f59e0b;margin-bottom:8px}
+.hg-overlay-box .best{font-size:18px;color:#64748b;margin-bottom:16px}
+.hg-overlay-box .msg{font-size:20px;color:#475569;margin-bottom:24px}
+.hg-overlay-box button{padding:14px 32px;border-radius:14px;font-size:20px;font-weight:700;border:none;cursor:pointer;margin:0 8px;transition:.15s}
+.hg-overlay-box .btn-retry{background:#06b6d4;color:#fff}
+.hg-overlay-box .btn-retry:hover{background:#0891b2}
+.hg-overlay-box .btn-exit{background:#e2e8f0;color:#475569}
+.hg-overlay-box .btn-exit:hover{background:#cbd5e1}
+.hg-deco{position:absolute;pointer-events:none;z-index:1;opacity:0.08;animation:decoFloat var(--dur,6s) ease-in-out infinite}
+@keyframes decoFloat{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-15px) rotate(5deg)}50%{transform:translateY(-5px) rotate(-3deg)}75%{transform:translateY(-20px) rotate(4deg)}}
+.hg-bg-sparkle{position:absolute;pointer-events:none;z-index:2;animation:bgSparkle var(--dur,3s) ease-in-out infinite}
+@keyframes bgSparkle{0%,100%{transform:scale(.6);opacity:.3}50%{transform:scale(1.2);opacity:.8}}
 
 /* 모달 */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
@@ -213,31 +226,31 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .travel-star{animation:starTwinkle 2s ease-in-out infinite}
 @keyframes starTwinkle{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
 
-/* 요리 김/불꽃 SVG */
-.cook-steam-svg{position:absolute;pointer-events:none;z-index:3;animation:cookSteamRise 2s ease-out infinite}
-@keyframes cookSteamRise{0%{transform:translateY(0) scaleX(1);opacity:.5}50%{transform:translateY(-20px) scaleX(1.3);opacity:.3}100%{transform:translateY(-40px) scaleX(1);opacity:0}}
-.cook-flame-svg{position:absolute;bottom:20px;pointer-events:none;z-index:2;animation:cookFlameFlicker .3s ease-in-out infinite alternate}
-@keyframes cookFlameFlicker{0%{transform:scaleY(1) scaleX(1)}100%{transform:scaleY(1.1) scaleX(.95)}}
+/* 달력 놀이 배경 장식 — removed cook steam/flame */
 
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 @keyframes correctPop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes correctFlash{0%{box-shadow:inset 0 0 0 4px #22c55e}50%{box-shadow:inset 0 0 40px 4px rgba(34,197,94,.4)}100%{box-shadow:none}}
+@keyframes wrongFlash{0%{box-shadow:inset 0 0 0 4px #ef4444}50%{box-shadow:inset 0 0 40px 4px rgba(239,68,68,.4)}100%{box-shadow:none}}
+@keyframes particleBurst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
 
 /* ===== 비주얼 업그레이드 ===== */
 
-/* 배경 씬: 요리타이머 — 주방 */
-.cook-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
-  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='kb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23cffafe'/></linearGradient></defs><rect fill='url(%23kb)' width='1300' height='900'/><rect x='0' y='780' width='1300' height='120' fill='%23f1f5f9' stroke='%23e2e8f0' stroke-width='2'/><line x1='0' y1='800' x2='1300' y2='800' stroke='%2394a3b8' stroke-width='1' opacity='.2'/><rect x='50' y='40' width='60' height='90' rx='6' fill='%23a5f3fc' opacity='.15'/><rect x='55' y='45' width='50' height='5' rx='2' fill='%2306b6d4' opacity='.2'/><rect x='1190' y='60' width='50' height='70' rx='6' fill='%23a5f3fc' opacity='.15'/><rect x='1195' y='65' width='40' height='4' rx='2' fill='%2306b6d4' opacity='.2'/><circle cx='80' cy='830' r='18' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.12'/><circle cx='1220' cy='840' r='15' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.12'/></svg>") center/cover no-repeat;opacity:.5}
-.cook-view{position:relative}
+/* 배경 씬: 달력놀이 — 달력 패턴 */
+.cal-view::before{content:'';position:absolute;inset:0;border-radius:16px;opacity:.5;pointer-events:none;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect x='20' y='20' width='40' height='45' rx='4' fill='none' stroke='%2306b6d4' stroke-width='.5' opacity='.15'/><rect x='20' y='20' width='40' height='10' rx='2' fill='%2306b6d4' opacity='.08'/><circle cx='30' cy='16' r='2' fill='%2306b6d4' opacity='.1'/><circle cx='50' cy='16' r='2' fill='%2306b6d4' opacity='.1'/><rect x='140' y='120' width='40' height='45' rx='4' fill='none' stroke='%2306b6d4' stroke-width='.5' opacity='.12'/><rect x='140' y='120' width='40' height='10' rx='2' fill='%2306b6d4' opacity='.06'/></svg>") repeat}
+.cal-view{position:relative}
 
 /* 배경 씬: 쌍둥이시계 — 시계공방 */
-.twin-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
-  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='wb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23e0f2fe'/></linearGradient></defs><rect fill='url(%23wb)' width='1300' height='900'/><circle cx='80' cy='120' r='40' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.1'><animateTransform attributeName='transform' type='rotate' values='0 80 120;360 80 120' dur='20s' repeatCount='indefinite'/></circle><circle cx='80' cy='120' r='5' fill='%2306b6d4' opacity='.15'/><line x1='80' y1='120' x2='80' y2='85' stroke='%2306b6d4' stroke-width='2' opacity='.12'/><circle cx='1220' cy='100' r='35' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.1'><animateTransform attributeName='transform' type='rotate' values='360 1220 100;0 1220 100' dur='15s' repeatCount='indefinite'/></circle><rect x='50' y='750' width='1200' height='3' fill='%2306b6d4' opacity='.06'/></svg>") center/cover no-repeat;opacity:.5}
+.twin-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;border-radius:16px;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='wb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23e0f2fe'/></linearGradient></defs><rect fill='url(%23wb)' width='1300' height='900'/><g opacity='.08'><circle cx='100' cy='130' r='55' fill='none' stroke='%2306b6d4' stroke-width='3'><animateTransform attributeName='transform' type='rotate' values='0 100 130;360 100 130' dur='25s' repeatCount='indefinite'/></circle><g transform='translate(100,130)'><rect x='-4' y='-58' width='8' height='12' rx='2' fill='%2306b6d4'/><rect x='-4' y='46' width='8' height='12' rx='2' fill='%2306b6d4'/><rect x='-58' y='-4' width='12' height='8' rx='2' fill='%2306b6d4'/><rect x='46' y='-4' width='12' height='8' rx='2' fill='%2306b6d4'/><animateTransform attributeName='transform' type='rotate' values='0 100 130;360 100 130' dur='25s' repeatCount='indefinite'/></g><circle cx='100' cy='130' r='8' fill='%2306b6d4'/></g><g opacity='.08'><circle cx='1200' cy='120' r='45' fill='none' stroke='%2306b6d4' stroke-width='3'><animateTransform attributeName='transform' type='rotate' values='360 1200 120;0 1200 120' dur='20s' repeatCount='indefinite'/></circle><g transform='translate(1200,120)'><rect x='-3' y='-48' width='6' height='10' rx='2' fill='%2306b6d4'/><rect x='-3' y='38' width='6' height='10' rx='2' fill='%2306b6d4'/><rect x='-48' y='-3' width='10' height='6' rx='2' fill='%2306b6d4'/><rect x='38' y='-3' width='10' height='6' rx='2' fill='%2306b6d4'/><animateTransform attributeName='transform' type='rotate' values='360 1200 120;0 1200 120' dur='20s' repeatCount='indefinite'/></g><circle cx='1200' cy='120' r='6' fill='%2306b6d4'/></g><g opacity='.06'><circle cx='200' cy='800' r='30' fill='none' stroke='%2306b6d4' stroke-width='2'><animateTransform attributeName='transform' type='rotate' values='0 200 800;360 200 800' dur='18s' repeatCount='indefinite'/></circle><circle cx='1100' cy='780' r='25' fill='none' stroke='%2306b6d4' stroke-width='2'><animateTransform attributeName='transform' type='rotate' values='360 1100 780;0 1100 780' dur='15s' repeatCount='indefinite'/></circle></g><g opacity='.05'><circle cx='650' cy='50' r='20' fill='none' stroke='%2306b6d4' stroke-width='1.5'><animateTransform attributeName='transform' type='rotate' values='0 650 50;360 650 50' dur='12s' repeatCount='indefinite'/></circle></g></svg>") center/cover no-repeat;opacity:.6}
 .twin-view{position:relative}
 
-/* 배경 씬: 내기록 — 시계탑 */
-.record-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:
-  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='rb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23cffafe'/></linearGradient></defs><rect fill='url(%23rb)' width='1300' height='900'/><circle cx='100' cy='800' r='3' fill='%2306b6d4' opacity='.15'><animate attributeName='opacity' values='.1;.25;.1' dur='3s' repeatCount='indefinite'/></circle><circle cx='650' cy='820' r='2.5' fill='%2322d3ee' opacity='.12'><animate attributeName='opacity' values='.08;.2;.08' dur='2.5s' repeatCount='indefinite'/></circle><circle cx='1200' cy='810' r='3' fill='%2306b6d4' opacity='.15'><animate attributeName='opacity' values='.1;.22;.1' dur='2.8s' repeatCount='indefinite'/></circle><rect x='40' y='80' width='100' height='80' rx='8' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.08'/><rect x='1160' y='100' width='90' height='70' rx='8' fill='none' stroke='%2306b6d4' stroke-width='2' opacity='.08'/></svg>") center/cover no-repeat;opacity:.5}
+/* 배경 씬: 내기록 — 트로피룸 */
+.record-view::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;border-radius:16px;background:
+  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1300 900'><defs><linearGradient id='rb' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23ecfeff'/><stop offset='100%' stop-color='%23cffafe'/></linearGradient></defs><rect fill='url(%23rb)' width='1300' height='900'/><g opacity='.06'><polygon points='100,60 108,82 132,82 113,96 120,118 100,104 80,118 87,96 68,82 92,82' fill='%23fbbf24'/><polygon points='1200,80 1206,96 1222,96 1209,106 1214,122 1200,112 1186,122 1191,106 1178,96 1194,96' fill='%23fbbf24'/><polygon points='650,40 656,56 672,56 659,66 664,82 650,72 636,82 641,66 628,56 644,56' fill='%2306b6d4'><animate attributeName='opacity' values='.06;.12;.06' dur='3s' repeatCount='indefinite'/></polygon></g><g opacity='.05'><path d='M60,800 L60,750 Q60,740 70,740 L110,740 Q120,740 120,750 L120,800' fill='none' stroke='%23fbbf24' stroke-width='2'/><path d='M50,750 Q90,720 130,750' fill='none' stroke='%23fbbf24' stroke-width='2'/><rect x='82' y='800' width='16' height='20' fill='%23fbbf24'/><path d='M1180,810 L1180,760 Q1180,750 1190,750 L1220,750 Q1230,750 1230,760 L1230,810' fill='none' stroke='%23fbbf24' stroke-width='2'/><path d='M1170,760 Q1205,730 1240,760' fill='none' stroke='%23fbbf24' stroke-width='2'/></g></svg>") center/cover no-repeat;opacity:.6}
 .record-view{position:relative}
+.record-card{backdrop-filter:blur(4px);background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(248,250,252,.85))!important;border:2px solid #a5f3fc!important;box-shadow:0 4px 16px rgba(6,182,212,.1)!important}
+.record-num{text-shadow:0 0 12px rgba(8,145,178,.3)}
 
 /* 시간여행자 — 이미 동적 배경이 있으므로 position만 */
 .travel-view{position:relative}
@@ -257,10 +270,8 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 .travel-confirm-btn{border-bottom:5px solid #0e7490;transition:.15s}
 .travel-confirm-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px}
-.cook-btn{border-bottom:4px solid rgba(0,0,0,.2);transition:.15s}
-.cook-btn:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:1px}
-.cook-btn-open{border-bottom-color:#9a3412}
-.cook-btn-wait{border-bottom-color:#0e7490}
+.cal-opt{border-bottom:5px solid #64748b;transition:.15s}
+.cal-opt:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px}
 .twin-submit{border-bottom:5px solid #0e7490;transition:.15s}
 .twin-submit:active{transform:translateY(3px) scaleX(1.02) scaleY(.95)!important;border-bottom-width:2px}
 
@@ -278,23 +289,94 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .side-stat:hover{transform:translateX(3px)}
 
 /* 디자인 포뮬러 */
-.hg-stat,.game-launch-btn,.side-title,.travel-question{-webkit-text-stroke:.5px rgba(0,0,0,.1);paint-order:stroke fill}
-.score-popup{position:absolute;pointer-events:none;z-index:50;font-size:28px;font-weight:900;color:#06b6d4;text-shadow:0 2px 8px rgba(0,0,0,.2);animation:scorePop .9s ease-out forwards}
-@keyframes scorePop{0%{opacity:1;transform:translateY(0) scale(.5)}40%{transform:translateY(-30px) scale(1.2)}100%{opacity:0;transform:translateY(-70px) scale(.8)}}
+.game-launch-btn,.side-title,.travel-question{-webkit-text-stroke:.5px rgba(0,0,0,.1);paint-order:stroke fill}
+.score-popup{position:absolute;font-size:28px;font-weight:900;pointer-events:none;animation:scorePop .8s ease-out forwards;z-index:20}
+@keyframes scorePop{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.3)}}
 .game-view.active{animation:viewFadeIn .35s ease-out}
 @keyframes viewFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .levelup-overlay{position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;background:rgba(6,182,212,.15);pointer-events:none;animation:lvFlash .8s ease-out forwards}
 @keyframes lvFlash{0%{background:rgba(6,182,212,.25)}100%{background:transparent}}
 .levelup-box{font-size:52px;font-weight:900;color:#0891b2;text-shadow:0 4px 20px rgba(6,182,212,.5);animation:lvPop .8s cubic-bezier(.175,.885,.32,1.275) forwards}
 @keyframes lvPop{0%{opacity:0;transform:scale(0) rotate(-10deg)}50%{opacity:1;transform:scale(1.3) rotate(3deg)}100%{opacity:0;transform:scale(1) rotate(0)}}
-@keyframes heartLost{0%{transform:scale(1)}25%{transform:scale(1.4);filter:brightness(2)}50%{transform:scale(.8)}100%{transform:scale(1)}}
+@keyframes heartLost{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
 
-/* 마스코트 */
+/* 마스코트 — 풀바디 업그레이드 */
 .mascot{position:absolute;z-index:5;pointer-events:none;animation:mascotBob 3s ease-in-out infinite}
 @keyframes mascotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .mascot-bubble{position:absolute;background:#fff;border-radius:16px;padding:6px 14px;font-size:13px;font-weight:700;color:#164e63;box-shadow:0 3px 12px rgba(0,0,0,.12);white-space:nowrap;opacity:0;transition:opacity .3s;top:-40px;left:50%;transform:translateX(-50%)}
 .mascot-bubble::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fff}
 .mascot-bubble.show{opacity:1}
+.mascot-happy-anim{animation:mascotBounce .6s ease-out!important}
+@keyframes mascotBounce{0%{transform:translateY(0)}30%{transform:translateY(-12px) scale(1.08)}50%{transform:translateY(-3px)}100%{transform:translateY(0)}}
+.mascot-worried-anim{animation:mascotWobble .5s ease-out!important}
+@keyframes mascotWobble{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px) rotate(-3deg)}40%{transform:translateX(4px) rotate(3deg)}60%{transform:translateX(-3px) rotate(-2deg)}80%{transform:translateX(2px) rotate(1deg)}}
+.mascot-sparkle{position:absolute;font-size:14px;pointer-events:none;animation:sparkleFloat 1s ease-out forwards;z-index:10}
+@keyframes sparkleFloat{0%{opacity:1;transform:translateY(0) scale(0)}30%{opacity:1;transform:translateY(-10px) scale(1.2)}100%{opacity:0;transform:translateY(-30px) scale(.5)}}
+/* cook-btn-start removed — replaced by cal game */
+.hand-toggle{display:flex;gap:10px;position:relative;z-index:5}
+.hand-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:10px 20px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;color:#475569;transition:.2s}
+.hand-btn.active{background:linear-gradient(145deg,#06b6d4,#0891b2);color:#fff;border-color:#22d3ee;box-shadow:0 0 12px rgba(6,182,212,.4)}
+.hand-btn:active{transform:scale(.95)}
+.clock-hand-hour.dimmed,.clock-hand-minute.dimmed{opacity:.2!important;transition:opacity .3s}
+.travel-guide,.twin-guide{font-size:15px;font-weight:600;color:#fff;background:rgba(0,0,0,.25);padding:6px 14px;border-radius:10px;position:relative;z-index:5;text-align:center;backdrop-filter:blur(2px)}
+
+/* ===== 애니메이션급 비주얼 업그레이드 v2 ===== */
+
+/* 1. 시간여행 — 시계 주변 톱니바퀴 장식 */
+.travel-clock-wrap{position:relative}
+.travel-clock-wrap::before,.travel-clock-wrap::after{content:'';position:absolute;pointer-events:none;z-index:0;opacity:.12}
+.travel-clock-wrap::before{top:-20px;left:-30px;width:70px;height:70px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 70 70'><circle cx='35' cy='35' r='28' fill='none' stroke='%2306b6d4' stroke-width='2'/><g fill='%2306b6d4'><rect x='31' y='2' width='8' height='10' rx='2'/><rect x='31' y='58' width='8' height='10' rx='2'/><rect x='2' y='31' width='10' height='8' rx='2'/><rect x='58' y='31' width='10' height='8' rx='2'/></g><circle cx='35' cy='35' r='6' fill='%2306b6d4'/><animateTransform attributeName='transform' type='rotate' values='0 35 35;360 35 35' dur='20s' repeatCount='indefinite'/></svg>") center/contain no-repeat;animation:gearSpin 20s linear infinite}
+.travel-clock-wrap::after{bottom:-15px;right:-25px;width:55px;height:55px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 55 55'><circle cx='27.5' cy='27.5' r='20' fill='none' stroke='%2322d3ee' stroke-width='2'/><g fill='%2322d3ee'><rect x='24' y='2' width='7' height='8' rx='2'/><rect x='24' y='45' width='7' height='8' rx='2'/><rect x='2' y='24' width='8' height='7' rx='2'/><rect x='45' y='24' width='8' height='7' rx='2'/></g><circle cx='27.5' cy='27.5' r='4' fill='%2322d3ee'/><animateTransform attributeName='transform' type='rotate' values='360 27.5 27.5;0 27.5 27.5' dur='15s' repeatCount='indefinite'/></svg>") center/contain no-repeat;animation:gearSpinR 15s linear infinite}
+@keyframes gearSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes gearSpinR{from{transform:rotate(360deg)}to{transform:rotate(0)}}
+
+/* 2. 달력 — 헤더/요일/오늘 펄스/질문박스 말풍선 강화 */
+.cal-header{background:linear-gradient(145deg,#0891b2,#06b6d4);border-radius:16px 16px 0 0;padding:14px 16px}
+.cal-header-title{text-shadow:0 2px 6px rgba(0,0,0,.2)}
+.cal-header-btn{background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);border-radius:50%;width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;transition:.15s}
+.cal-header-btn:hover{background:rgba(255,255,255,.4);transform:scale(1.1)}
+.cal-day-header{padding:8px;font-weight:800;border-radius:6px;background:rgba(6,182,212,.05)}
+.cal-day-header.sun{background:rgba(239,68,68,.08)}
+.cal-day-header.sat{background:rgba(59,130,246,.08)}
+.cal-cell.today{animation:todayPulse 2s ease-in-out infinite}
+@keyframes todayPulse{0%,100%{box-shadow:0 0 0 0 rgba(6,182,212,.4)}50%{box-shadow:0 0 0 8px rgba(6,182,212,0)}}
+.cal-question{position:relative;background:linear-gradient(145deg,#ecfeff,#cffafe);border:3px solid #06b6d4;border-radius:16px;padding:18px 36px;font-size:34px;box-shadow:0 0 0 1px #22d3ee,0 4px 12px rgba(6,182,212,.15)}
+.cal-question::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid #cffafe}
+
+/* 3. 쌍둥이시계 — VS/배경/연결빔 */
+.twin-vs svg{animation:twinVsSpin 4s ease-in-out infinite}
+@keyframes twinVsSpin{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(5deg) scale(1.1)}75%{transform:rotate(-5deg) scale(1.1)}}
+.twin-clock-box{transition:transform .3s,box-shadow .3s}
+.twin-clock-box:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(6,182,212,.2)}
+.twin-correct-beam{position:absolute;top:50%;left:50%;width:200px;height:4px;margin-left:-100px;margin-top:-2px;background:linear-gradient(90deg,transparent,#22d3ee,#06b6d4,#22d3ee,transparent);border-radius:2px;animation:beamPulse 1s ease-out forwards;z-index:10;pointer-events:none}
+@keyframes beamPulse{0%{opacity:0;transform:scaleX(0)}50%{opacity:1;transform:scaleX(1.2)}100%{opacity:0;transform:scaleX(1)}}
+
+/* 4. 내기록 — 글래스모피즘 완전체 */
+.record-card{backdrop-filter:blur(6px)!important;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(248,250,252,.88))!important;border:2px solid rgba(6,182,212,.25)!important;box-shadow:0 4px 20px rgba(6,182,212,.1),inset 0 1px 0 rgba(255,255,255,.5)!important;transition:transform .3s,box-shadow .3s}
+.record-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(6,182,212,.18),inset 0 1px 0 rgba(255,255,255,.5)!important}
+.record-card h3{background:linear-gradient(135deg,#0891b2,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.record-num{text-shadow:0 0 16px rgba(8,145,178,.35),0 0 32px rgba(8,145,178,.15);font-size:44px!important}
+
+/* 5. 배경 씬 보강 — 달력 계절 떠다니기 */
+.cal-view::before{background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'><rect x='20' y='20' width='40' height='45' rx='4' fill='none' stroke='%2306b6d4' stroke-width='.5' opacity='.12'/><rect x='20' y='20' width='40' height='10' rx='2' fill='%2306b6d4' opacity='.06'/><circle cx='30' cy='16' r='2' fill='%2306b6d4' opacity='.08'/><circle cx='50' cy='16' r='2' fill='%2306b6d4' opacity='.08'/><rect x='200' y='180' width='40' height='45' rx='4' fill='none' stroke='%2306b6d4' stroke-width='.5' opacity='.1'/><rect x='200' y='180' width='40' height='10' rx='2' fill='%2306b6d4' opacity='.05'/><text x='40' y='230' font-size='18' opacity='.08'>🌸</text><text x='260' y='50' font-size='18' opacity='.08'>☀️</text><text x='150' y='280' font-size='18' opacity='.08'>🍂</text><text x='270' y='250' font-size='18' opacity='.08'>❄️</text></svg>") repeat!important;animation:calBgDrift 30s linear infinite}
+@keyframes calBgDrift{from{background-position:0 0}to{background-position:300px 300px}}
+
+/* 6. 쌍둥이시계 배경 보강 — 진자시계 + 톱니 opacity 올림 */
+.twin-view::before{opacity:.7!important}
+
+/* 7. 내기록 배경 — 별 깜빡 + opacity 올림 */
+.record-view::before{opacity:.8!important}
+
+/* 8. 전체 공통 — 사이드 패널 숫자 트랜지션 + 탭 호버 글로우 */
+.side-val{transition:all .3s ease;text-shadow:0 0 14px rgba(6,182,212,.4)}
+.tab-btn:hover:not(.active){box-shadow:0 0 12px rgba(6,182,212,.2);background:linear-gradient(145deg,#f0f9ff,#e0f2fe)}
+.tab-btn.active{box-shadow:0 2px 12px rgba(6,182,212,.3)}
+
+/* 9. 전체 배경 깊은 그라데이션 */
+body{background:linear-gradient(135deg,#0e7490 0%,#0891b2 25%,#06b6d4 50%,#0891b2 75%,#0e7490 100%)!important}
+
+/* 10. 마스코트 말풍선 위치 조정 (풀바디용) */
+.mascot-bubble{top:-45px}
 </style>
 </head>
 <body>
@@ -302,8 +384,6 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 <div class="container">
   <div class="subject-bar">
-    <a class="sb-tab" href="hangul.html">📝 한글</a>
-    <a class="sb-tab" href="math.html">🔢 숫자</a>
     <button class="sb-tab active">🕐 시계</button>
     <div class="sb-spacer"></div>
     <div class="sb-btns">
@@ -333,7 +413,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
       <div class="tab-headers">
         <button class="tab-btn active" onclick="switchTab('travel')">🕰 시간여행</button>
-        <button class="tab-btn" onclick="switchTab('cook')">🍳 요리타이머</button>
+        <button class="tab-btn" onclick="switchTab('cal')">📅 달력 놀이</button>
         <button class="tab-btn" onclick="switchTab('twin')">👯 쌍둥이시계</button>
         <button class="tab-btn" onclick="switchTab('record')">📊 내 기록</button>
       </div>
@@ -347,12 +427,12 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
         </div>
       </div>
 
-      <div class="tab-content cook-side">
+      <div class="tab-content cal-side">
         <div class="side-info">
-          <div class="side-title">🍳 요리 타이머</div>
-          <div class="side-stat"><span>요리</span><span class="side-val" id="cook-food-side">라면</span></div>
-          <div class="side-stat"><span>점수</span><span class="side-val" id="cook-score-side">0</span></div>
-          <div class="side-stat"><span>성공</span><span class="side-val" id="cook-success-side">0</span></div>
+          <div class="side-title">📅 달력 놀이</div>
+          <div class="side-stat"><span>문제 수</span><span class="side-val" id="cal-qnum-side">0</span></div>
+          <div class="side-stat"><span>점수</span><span class="side-val" id="cal-score-side">0</span></div>
+          <div class="side-stat"><span>연속 정답</span><span class="side-val" id="cal-streak-side">0</span></div>
         </div>
       </div>
 
@@ -373,33 +453,39 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
         </div>
       </div>
 
-      <div class="game-launch-btn" onclick="startHeroGame()">⚡ 틱톡 점프 시작!</div>
+      <div class="game-launch-btn" onclick="startHeroGame()">⚡ 시계 스피드런!</div>
     </div>
 
     <!-- 중앙 패널 -->
     <div class="center-panel">
       <!-- 시간 여행자 -->
       <div class="game-view travel-view active" id="travel-view">
-        <!-- 마스코트 "똑딱이" -->
+        <!-- 마스코트 "똑딱이" 풀바디 -->
         <div class="mascot" id="mascot-travel" style="top:8px;right:220px">
-          <svg width="55" height="70" viewBox="0 0 55 70">
-            <circle cx="27" cy="6" r="6" fill="#06b6d4"/>
-            <rect x="22" y="4" width="11" height="4" rx="2" fill="#0891b2"/>
-            <rect x="8" y="14" width="39" height="42" rx="10" fill="#22d3ee"/>
-            <rect x="12" y="18" width="31" height="34" rx="7" fill="#ecfeff"/>
-            <circle cx="27" cy="35" r="14" fill="none" stroke="#06b6d4" stroke-width="2"/>
-            <line x1="27" y1="35" x2="27" y2="25" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="27" y1="35" x2="35" y2="35" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="27" cy="35" r="2" fill="#0891b2"/>
-            <circle cx="19" cy="28" r="3.5" fill="#1e293b">
-              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="1s"/>
-            </circle>
-            <circle cx="35" cy="28" r="3.5" fill="#1e293b">
-              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="1s"/>
-            </circle>
-            <path id="mascot-travel-mouth" d="M21,44 Q27,50 33,44" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round"/>
-            <rect x="14" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
-            <rect x="31" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
+          <svg width="100" height="auto" viewBox="0 0 100 140">
+            <ellipse cx="50" cy="132" rx="22" ry="4" fill="rgba(0,0,0,.08)"/>
+            <ellipse cx="35" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="35;33;35;37;35" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="65" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="65;67;65;63;65" dur="2s" repeatCount="indefinite" begin=".5s"/></ellipse>
+            <defs><linearGradient id="trvBodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0891b2"/></linearGradient></defs>
+            <ellipse cx="50" cy="78" rx="36" ry="34" fill="url(#trvBodyG)"/>
+            <ellipse cx="50" cy="78" rx="32" ry="30" fill="#ecfeff" opacity=".15"/>
+            <ellipse cx="40" cy="62" rx="5" ry="3.5" fill="#fff" opacity=".2"/>
+            <text x="28" y="72" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">12</text>
+            <text x="66" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">3</text>
+            <text x="46" y="102" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">6</text>
+            <text x="22" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">9</text>
+            <ellipse cx="38" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="1s"/></ellipse>
+            <circle cx="40" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="1s"/></circle>
+            <circle cx="41.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="62" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="1s"/></ellipse>
+            <circle cx="64" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="1s"/></circle>
+            <circle cx="65.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="30" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="70" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <path id="mascot-travel-mouth" d="M40,88 Q50,96 60,88" fill="none" stroke="#0e7490" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="42" y1="42" x2="42" y2="55" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 50 52" to="360 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <line x1="58" y1="40" x2="58" y2="56" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="90 50 52" to="450 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <circle cx="50" cy="52" r="2" fill="#0e7490"/>
           </svg>
           <div class="mascot-bubble" id="bubble-travel">시간 여행 출발!</div>
         </div>
@@ -407,85 +493,132 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
           <div class="travel-bg travel-bg-noon" id="travel-bg"></div>
           <!-- 태양 SVG -->
           <div class="travel-decor travel-sun" id="travel-sun">
-            <svg width="80" height="80" viewBox="0 0 80 80">
-              <circle cx="40" cy="40" r="18" fill="#fbbf24"/>
-              <g stroke="#fbbf24" stroke-width="3" stroke-linecap="round">
-                <line x1="40" y1="8" x2="40" y2="16"/><line x1="40" y1="64" x2="40" y2="72"/>
-                <line x1="8" y1="40" x2="16" y2="40"/><line x1="64" y1="40" x2="72" y2="40"/>
-                <line x1="17" y1="17" x2="23" y2="23"/><line x1="57" y1="57" x2="63" y2="63"/>
-                <line x1="63" y1="17" x2="57" y2="23"/><line x1="23" y1="57" x2="17" y2="63"/>
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <defs>
+                <radialGradient id="sun-glow"><stop offset="0%" stop-color="#fbbf24"/><stop offset="60%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+              </defs>
+              <circle cx="50" cy="50" r="40" fill="url(#sun-glow)" opacity=".4"><animate attributeName="r" values="40;45;40" dur="3s" repeatCount="indefinite"/></circle>
+              <circle cx="50" cy="50" r="22" fill="#fbbf24"/>
+              <circle cx="50" cy="50" r="18" fill="#fde68a"/>
+              <circle cx="44" cy="44" r="6" fill="#fff" opacity=".4"/>
+              <g stroke="#fbbf24" stroke-width="3.5" stroke-linecap="round">
+                <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="30s" repeatCount="indefinite"/>
+                <line x1="50" y1="6" x2="50" y2="18"/><line x1="50" y1="82" x2="50" y2="94"/>
+                <line x1="6" y1="50" x2="18" y2="50"/><line x1="82" y1="50" x2="94" y2="50"/>
+                <line x1="19" y1="19" x2="27" y2="27"/><line x1="73" y1="73" x2="81" y2="81"/>
+                <line x1="81" y1="19" x2="73" y2="27"/><line x1="27" y1="73" x2="19" y2="81"/>
               </g>
             </svg>
           </div>
           <!-- 달 SVG -->
           <div class="travel-decor travel-moon" id="travel-moon" style="display:none">
-            <svg width="70" height="70" viewBox="0 0 70 70">
-              <circle cx="35" cy="35" r="22" fill="#fde68a"/>
-              <circle cx="45" cy="28" r="18" fill="#1e1b4b"/>
+            <svg width="90" height="90" viewBox="0 0 90 90">
+              <defs>
+                <radialGradient id="moon-glow"><stop offset="0%" stop-color="#fde68a" stop-opacity=".3"/><stop offset="100%" stop-color="#fde68a" stop-opacity="0"/></radialGradient>
+              </defs>
+              <circle cx="45" cy="45" r="38" fill="url(#moon-glow)"><animate attributeName="r" values="38;42;38" dur="4s" repeatCount="indefinite"/></circle>
+              <circle cx="45" cy="45" r="24" fill="#fde68a"/>
+              <circle cx="56" cy="38" r="20" fill="#312e81"/>
+              <circle cx="38" cy="42" r="3" fill="#e0e7ff" opacity=".3"/>
+              <circle cx="48" cy="52" r="2" fill="#e0e7ff" opacity=".25"/>
+              <circle cx="35" cy="35" r="1.5" fill="#e0e7ff" opacity=".2"/>
             </svg>
           </div>
           <!-- 별들 SVG -->
-          <div class="travel-decor travel-star" id="travel-stars-decor" style="display:none;top:20px;left:40px">
-            <svg width="200" height="100" viewBox="0 0 200 100">
-              <polygon points="20,5 23,15 33,15 25,22 28,32 20,26 12,32 15,22 7,15 17,15" fill="#fde68a" opacity=".8"/>
-              <polygon points="80,12 82,18 88,18 83,22 85,28 80,25 75,28 77,22 72,18 78,18" fill="#e0f2fe" opacity=".6"/>
-              <polygon points="140,8 142,14 148,14 143,18 145,24 140,21 135,24 137,18 132,14 138,14" fill="#fde68a" opacity=".7"/>
-              <polygon points="170,30 172,36 178,36 173,40 175,46 170,43 165,46 167,40 162,36 168,36" fill="#e0f2fe" opacity=".5"/>
-              <polygon points="50,40 52,46 58,46 53,50 55,56 50,53 45,56 47,50 42,46 48,46" fill="#fff" opacity=".4"/>
+          <div class="travel-decor travel-star" id="travel-stars-decor" style="display:none;top:10px;left:20px">
+            <svg width="280" height="140" viewBox="0 0 280 140">
+              <polygon points="20,5 23,15 33,15 25,22 28,32 20,26 12,32 15,22 7,15 17,15" fill="#fde68a" opacity=".8"><animate attributeName="opacity" values=".8;.3;.8" dur="2s" repeatCount="indefinite"/></polygon>
+              <polygon points="80,12 82,18 88,18 83,22 85,28 80,25 75,28 77,22 72,18 78,18" fill="#e0f2fe" opacity=".7"><animate attributeName="opacity" values=".7;.2;.7" dur="1.6s" repeatCount="indefinite" begin=".4s"/></polygon>
+              <polygon points="140,8 142,14 148,14 143,18 145,24 140,21 135,24 137,18 132,14 138,14" fill="#fde68a" opacity=".75"><animate attributeName="opacity" values=".75;.25;.75" dur="2.3s" repeatCount="indefinite" begin=".8s"/></polygon>
+              <polygon points="200,18 202,24 208,24 203,28 205,34 200,31 195,34 197,28 192,24 198,24" fill="#fff" opacity=".6"><animate attributeName="opacity" values=".6;.2;.6" dur="1.8s" repeatCount="indefinite" begin="1.2s"/></polygon>
+              <polygon points="250,10 252,16 258,16 253,20 255,26 250,23 245,26 247,20 242,16 248,16" fill="#e0f2fe" opacity=".65"><animate attributeName="opacity" values=".65;.15;.65" dur="2.1s" repeatCount="indefinite" begin=".6s"/></polygon>
+              <polygon points="50,50 52,56 58,56 53,60 55,66 50,63 45,66 47,60 42,56 48,56" fill="#fff" opacity=".5"><animate attributeName="opacity" values=".5;.15;.5" dur="2.5s" repeatCount="indefinite" begin="1s"/></polygon>
+              <polygon points="170,45 172,51 178,51 173,55 175,61 170,58 165,61 167,55 162,51 168,51" fill="#fde68a" opacity=".55"><animate attributeName="opacity" values=".55;.2;.55" dur="1.9s" repeatCount="indefinite" begin=".3s"/></polygon>
             </svg>
           </div>
           <div class="travel-question" id="travel-q">아침 7시로 가자!</div>
+          <div class="travel-guide">아래 버튼으로 바늘을 골라서 시계를 돌려봐!</div>
           <div class="travel-clock-wrap" id="travel-clock-wrap"></div>
+          <div class="hand-toggle" id="travel-hand-toggle">
+            <button class="hand-btn active" id="travel-hand-hour" onclick="selectHand('travel','hour')">🕐 짧은 바늘 (시)</button>
+            <button class="hand-btn" id="travel-hand-minute" onclick="selectHand('travel','minute')">🕑 긴 바늘 (분)</button>
+          </div>
           <div class="travel-result" id="travel-result"></div>
           <button class="travel-confirm-btn" onclick="travelConfirm()">🕐 도착!</button>
         </div>
       </div>
 
-      <!-- 요리 타이머 -->
-      <div class="game-view cook-view" id="cook-view">
-        <div class="cook-area" id="cook-area">
-          <!-- 김 SVG 이펙트 -->
-          <div class="cook-steam-svg" id="cook-steam1" style="top:18%;left:42%">
-            <svg width="40" height="50" viewBox="0 0 40 50"><path d="M20 45 C15 35, 25 30, 18 20 C12 10, 28 5, 20 0" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="3" stroke-linecap="round"/></svg>
-          </div>
-          <div class="cook-steam-svg" id="cook-steam2" style="top:16%;left:50%;animation-delay:.7s">
-            <svg width="40" height="50" viewBox="0 0 40 50"><path d="M20 45 C25 35, 15 28, 22 18 C28 8, 12 3, 20 0" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.5" stroke-linecap="round"/></svg>
-          </div>
-          <div class="cook-steam-svg" id="cook-steam3" style="top:20%;left:46%;animation-delay:1.4s">
-            <svg width="30" height="40" viewBox="0 0 30 40"><path d="M15 35 C10 28, 20 22, 13 14 C8 6, 22 2, 15 0" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <!-- 불꽃 SVG -->
-          <div class="cook-flame-svg" id="cook-flame" style="left:calc(50% - 50px)">
-            <svg width="100" height="40" viewBox="0 0 100 40">
-              <ellipse cx="50" cy="35" rx="45" ry="6" fill="rgba(251,146,60,.15)"/>
-              <path d="M15 38 C18 28, 12 22, 18 14 C20 10, 16 5, 20 2" fill="none" stroke="#f97316" stroke-width="2" opacity=".6"/>
-              <path d="M35 38 C38 26, 32 20, 38 12 C40 8, 36 3, 40 0" fill="none" stroke="#ef4444" stroke-width="2.5" opacity=".7"/>
-              <path d="M50 38 C53 24, 47 18, 53 10 C55 6, 49 2, 52 0" fill="none" stroke="#fbbf24" stroke-width="3" opacity=".8"/>
-              <path d="M65 38 C68 26, 62 20, 68 12 C70 8, 64 3, 67 0" fill="none" stroke="#ef4444" stroke-width="2.5" opacity=".7"/>
-              <path d="M85 38 C88 28, 82 22, 88 14 C90 10, 84 5, 87 2" fill="none" stroke="#f97316" stroke-width="2" opacity=".6"/>
-            </svg>
-          </div>
-          <div class="cook-info" id="cook-info">🍜 라면 — 3분 동안 끓여요!</div>
-          <div class="cook-food-display" id="cook-food-display">
-            <span class="cook-food-svg" id="cook-food-emoji">🍜</span>
-          </div>
-          <div class="cook-timer-ring" id="cook-timer-wrap"></div>
-          <div class="cook-btns">
-            <button class="cook-btn cook-btn-open" id="cook-open-btn" onclick="cookOpen()">🍽 열기!</button>
-            <button class="cook-btn cook-btn-wait" onclick="cookWait()">⏳ 기다리기</button>
-          </div>
-          <div class="cook-quiz-popup hidden" id="cook-quiz">
-            <div class="cook-quiz-box">
-              <h3 id="cook-quiz-q">지금 몇 분 지났을까?</h3>
-              <div class="cook-quiz-options" id="cook-quiz-opts"></div>
-            </div>
-          </div>
-          <div class="cook-result-overlay hidden" id="cook-result-overlay"></div>
+      <!-- 달력 놀이 -->
+      <div class="game-view cal-view" id="cal-view">
+        <!-- 마스코트 "똑딱이" 풀바디 (달력뷰) -->
+        <div class="mascot" id="mascot-cal" style="top:8px;right:20px">
+          <svg width="100" height="auto" viewBox="0 0 100 140">
+            <ellipse cx="50" cy="132" rx="22" ry="4" fill="rgba(0,0,0,.08)"/>
+            <ellipse cx="35" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="35;33;35;37;35" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="65" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="65;67;65;63;65" dur="2s" repeatCount="indefinite" begin=".5s"/></ellipse>
+            <defs><linearGradient id="calBodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0891b2"/></linearGradient></defs>
+            <ellipse cx="50" cy="78" rx="36" ry="34" fill="url(#calBodyG)"/>
+            <ellipse cx="50" cy="78" rx="32" ry="30" fill="#ecfeff" opacity=".15"/>
+            <ellipse cx="40" cy="62" rx="5" ry="3.5" fill="#fff" opacity=".2"/>
+            <text x="28" y="72" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">12</text>
+            <text x="66" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">3</text>
+            <text x="46" y="102" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">6</text>
+            <text x="22" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">9</text>
+            <ellipse cx="38" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="2s"/></ellipse>
+            <circle cx="40" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="2s"/></circle>
+            <circle cx="41.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="62" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="2s"/></ellipse>
+            <circle cx="64" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="2s"/></circle>
+            <circle cx="65.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="30" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="70" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <path id="mascot-cal-mouth" d="M40,88 Q50,96 60,88" fill="none" stroke="#0e7490" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="42" y1="42" x2="42" y2="55" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 50 52" to="360 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <line x1="58" y1="40" x2="58" y2="56" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="90 50 52" to="450 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <circle cx="50" cy="52" r="2" fill="#0e7490"/>
+          </svg>
+          <div class="mascot-bubble" id="bubble-cal">달력을 읽어볼까?</div>
+        </div>
+        <div class="cal-area" id="cal-area">
+          <div class="cal-mode" id="cal-mode">📅 요일 퀴즈</div>
+          <div class="cal-question" id="cal-question">문제가 나옵니다!</div>
+          <div id="cal-calendar-wrap"></div>
+          <div class="cal-options" id="cal-options"></div>
+          <div class="cal-result" id="cal-result"></div>
         </div>
       </div>
 
       <!-- 쌍둥이 시계 -->
       <div class="game-view twin-view" id="twin-view">
+        <!-- 마스코트 "똑딱이" 풀바디 (쌍둥이뷰) -->
+        <div class="mascot" id="mascot-twin" style="top:8px;right:20px">
+          <svg width="100" height="auto" viewBox="0 0 100 140">
+            <ellipse cx="50" cy="132" rx="22" ry="4" fill="rgba(0,0,0,.08)"/>
+            <ellipse cx="35" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="35;33;35;37;35" dur="2s" repeatCount="indefinite" begin=".4s"/></ellipse>
+            <ellipse cx="65" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="65;67;65;63;65" dur="2s" repeatCount="indefinite" begin="1s"/></ellipse>
+            <defs><linearGradient id="twnBodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0891b2"/></linearGradient></defs>
+            <ellipse cx="50" cy="78" rx="36" ry="34" fill="url(#twnBodyG)"/>
+            <ellipse cx="50" cy="78" rx="32" ry="30" fill="#ecfeff" opacity=".15"/>
+            <ellipse cx="40" cy="62" rx="5" ry="3.5" fill="#fff" opacity=".2"/>
+            <text x="28" y="72" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">12</text>
+            <text x="66" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">3</text>
+            <text x="46" y="102" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">6</text>
+            <text x="22" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">9</text>
+            <ellipse cx="38" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="1.5s"/></ellipse>
+            <circle cx="40" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="1.5s"/></circle>
+            <circle cx="41.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="62" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="1.5s"/></ellipse>
+            <circle cx="64" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="1.5s"/></circle>
+            <circle cx="65.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="30" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="70" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <path id="mascot-twin-mouth" d="M40,88 Q50,96 60,88" fill="none" stroke="#0e7490" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="42" y1="42" x2="42" y2="55" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="240 50 52" to="600 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <line x1="58" y1="40" x2="58" y2="56" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="300 50 52" to="660 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <circle cx="50" cy="52" r="2" fill="#0e7490"/>
+          </svg>
+          <div class="mascot-bubble" id="bubble-twin">쌍둥이를 찾아봐!</div>
+        </div>
         <div class="twin-area" id="twin-area">
           <div class="twin-question" id="twin-q">아날로그 시계를 보고 디지털 시간을 맞춰보세요!</div>
           <div class="twin-clocks" id="twin-clocks">
@@ -493,7 +626,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
               <div class="twin-label">아날로그</div>
               <div id="twin-analog-wrap"></div>
             </div>
-            <div class="twin-vs">⇄</div>
+            <div class="twin-vs"><svg width="48" height="48" viewBox="0 0 48 48"><path d="M4 16h32l-8-8" fill="none" stroke="#06b6d4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 32H12l8 8" fill="none" stroke="#22d3ee" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="twin-clock-box">
               <div class="twin-label">디지털</div>
               <div class="twin-digital" id="twin-digital">
@@ -508,29 +641,43 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
             <input class="twin-input" id="twin-min-input" type="number" min="0" max="59" placeholder="분">
             <button class="twin-submit" onclick="twinConfirm()">확인!</button>
           </div>
+          <div class="hand-toggle hidden" id="twin-hand-toggle">
+            <button class="hand-btn active" id="twin-hand-hour" onclick="selectHand('twin','hour')">🕐 짧은 바늘 (시)</button>
+            <button class="hand-btn" id="twin-hand-minute" onclick="selectHand('twin','minute')">🕑 긴 바늘 (분)</button>
+          </div>
+          <button class="twin-submit" id="twin-drag-confirm" style="display:none" onclick="twinConfirm()">🕐 이 시간이야!</button>
           <div class="twin-result" id="twin-result"></div>
         </div>
       </div>
 
       <!-- 내 기록 -->
       <div class="game-view record-view" id="record-view">
-        <!-- 마스코트 "똑딱이" (기록뷰) -->
+        <!-- 마스코트 "똑딱이" 풀바디 (기록뷰) -->
         <div class="mascot" id="mascot-record" style="bottom:20px;right:20px">
-          <svg width="50" height="65" viewBox="0 0 55 70">
-            <circle cx="27" cy="6" r="6" fill="#06b6d4"/>
-            <rect x="22" y="4" width="11" height="4" rx="2" fill="#0891b2"/>
-            <rect x="8" y="14" width="39" height="42" rx="10" fill="#22d3ee"/>
-            <rect x="12" y="18" width="31" height="34" rx="7" fill="#ecfeff"/>
-            <circle cx="19" cy="28" r="3.5" fill="#1e293b">
-              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="2s"/>
-            </circle>
-            <circle cx="35" cy="28" r="3.5" fill="#1e293b">
-              <animate attributeName="ry" values="3.5;0.4;3.5" dur="4s" repeatCount="indefinite" begin="2s"/>
-            </circle>
-            <path d="M21,44 Q27,50 33,44" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round"/>
-            <rect x="14" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
-            <rect x="31" y="56" width="10" height="10" rx="4" fill="#06b6d4"/>
-            <text x="27" y="64" text-anchor="middle" font-size="12">🏆</text>
+          <svg width="100" height="auto" viewBox="0 0 100 140">
+            <ellipse cx="50" cy="132" rx="22" ry="4" fill="rgba(0,0,0,.08)"/>
+            <ellipse cx="35" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="35;33;35;37;35" dur="2s" repeatCount="indefinite" begin=".3s"/></ellipse>
+            <ellipse cx="65" cy="122" rx="10" ry="6" fill="#0891b2"><animate attributeName="cx" values="65;67;65;63;65" dur="2s" repeatCount="indefinite" begin=".9s"/></ellipse>
+            <defs><linearGradient id="recBodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0891b2"/></linearGradient></defs>
+            <ellipse cx="50" cy="78" rx="36" ry="34" fill="url(#recBodyG)"/>
+            <ellipse cx="50" cy="78" rx="32" ry="30" fill="#ecfeff" opacity=".15"/>
+            <ellipse cx="40" cy="62" rx="5" ry="3.5" fill="#fff" opacity=".2"/>
+            <text x="28" y="72" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">12</text>
+            <text x="66" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">3</text>
+            <text x="46" y="102" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">6</text>
+            <text x="22" y="82" font-size="9" font-weight="700" fill="#fff" opacity=".5" font-family="sans-serif">9</text>
+            <ellipse cx="38" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="2s"/></ellipse>
+            <circle cx="40" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="2s"/></circle>
+            <circle cx="41.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="62" cy="68" rx="7" ry="8" fill="#fff"><animate attributeName="ry" values="8;1;8" dur="4s" repeatCount="indefinite" begin="2s"/></ellipse>
+            <circle cx="64" cy="69" r="4" fill="#1e293b"><animate attributeName="r" values="4;.5;4" dur="4s" repeatCount="indefinite" begin="2s"/></circle>
+            <circle cx="65.5" cy="67.5" r="1.5" fill="#fff"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <ellipse cx="30" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="70" cy="80" rx="5" ry="3.5" fill="#f9a8d4" opacity=".35"/>
+            <path id="mascot-record-mouth" d="M40,88 Q50,96 60,88" fill="none" stroke="#0e7490" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="42" y1="42" x2="42" y2="55" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="330 50 52" to="690 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <line x1="58" y1="40" x2="58" y2="56" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="45 50 52" to="405 50 52" dur="8s" repeatCount="indefinite"/></line>
+            <circle cx="50" cy="52" r="2" fill="#0e7490"/>
           </svg>
           <div class="mascot-bubble" id="bubble-record">내 기록!</div>
         </div>
@@ -552,11 +699,11 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
             </div>
           </div>
           <div class="record-card">
-            <h3>🍳 요리 타이머</h3>
+            <h3>📅 달력 놀이</h3>
             <div class="record-grid">
-              <div class="record-item"><div class="record-num" id="r-cook-success">0</div><div class="record-label">성공</div></div>
-              <div class="record-item"><div class="record-num" id="r-cook-quiz">0</div><div class="record-label">퀴즈 정답</div></div>
-              <div class="record-item"><div class="record-num" id="r-cook-score">0</div><div class="record-label">최고 점수</div></div>
+              <div class="record-item"><div class="record-num" id="r-cal-correct">0</div><div class="record-label">정답</div></div>
+              <div class="record-item"><div class="record-num" id="r-cal-streak">0</div><div class="record-label">최고 연속</div></div>
+              <div class="record-item"><div class="record-num" id="r-cal-score">0</div><div class="record-label">최고 점수</div></div>
             </div>
           </div>
           <div class="record-card">
@@ -565,6 +712,12 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
               <div class="record-item"><div class="record-num" id="r-twin-correct">0</div><div class="record-label">정답</div></div>
               <div class="record-item"><div class="record-num" id="r-twin-best">0</div><div class="record-label">최고 연속</div></div>
               <div class="record-item"><div class="record-num" id="r-twin-score">0</div><div class="record-label">최고 점수</div></div>
+            </div>
+          </div>
+          <div class="record-card">
+            <h3>⚡ 시계 스피드런</h3>
+            <div class="record-grid">
+              <div class="record-item"><div class="record-num" id="r-hero-score">0</div><div class="record-label">최고 점수</div></div>
             </div>
           </div>
         </div>
@@ -578,9 +731,8 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🔄</span>다시</button>
     </div>
   </div>
-</div>
 
-<!-- 히어로 게임 -->
+<!-- 히어로 게임: 시계 스피드런 (container 내부) -->
 <div id="hero-game" class="hero-game hidden">
   <div class="hg-header">
     <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
@@ -591,29 +743,31 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
     </div>
   </div>
-  <div class="hg-arena" id="hg-arena">
-    <div class="hg-tap-zone" id="hg-tap-zone"></div>
+  <div class="hg-timer-wrap"><div class="hg-timer-bar"><div class="hg-timer-fill" id="hg-timer-fill" style="width:100%"></div></div></div>
+  <div class="hg-body">
+    <div class="hg-clock-area" id="hg-clock-area"></div>
+    <div class="hg-legend"><span class="hour-label">● 짧은 바늘 = 시</span><span class="min-label">● 긴 바늘 = 분</span></div>
+    <div class="hg-options" id="hg-options"></div>
+    <div class="hg-combo" id="hg-combo"></div>
   </div>
   <div id="hg-over" class="hg-overlay hidden">
     <div class="hg-overlay-box">
       <h2>게임 끝!</h2>
       <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+      <div class="best">🏆 최고기록: <span id="hg-best-score">0</span>점</div>
       <div class="msg" id="hg-over-msg">잘했어요!</div>
       <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
       <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
     </div>
   </div>
-  <div id="hg-pause" class="hg-overlay hidden">
+  <div id="hg-pause-overlay" class="hg-overlay hidden">
     <div class="hg-overlay-box">
       <h2>⏸ 일시정지</h2>
       <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
       <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
     </div>
   </div>
-  <div id="hg-quiz" class="hg-quiz-popup hidden">
-    <h3 id="hg-quiz-q">지금 몇 시?</h3>
-    <div class="hg-quiz-opts" id="hg-quiz-opts"></div>
-  </div>
+</div>
 </div>
 
 <!-- 관리자 모달 -->
@@ -663,42 +817,40 @@ let travel = {
   score: 0, streak: 0, bestStreak: parseInt(LS.getItem('travelBest')) || 0,
   qNum: 1, correctCount: parseInt(LS.getItem('travelCorrect')) || 0,
   bestScore: parseInt(LS.getItem('travelBestScore')) || 0,
-  dragging: false, dragType: null
+  dragging: false, dragType: null, selectedHand: 'hour'
 };
 
-// 요리 타이머
-let cook = {
-  foods: [
-    {name:'라면', emoji:'🍜', time:3, unit:'분'},
-    {name:'계란', emoji:'🥚', time:5, unit:'분'},
-    {name:'피자', emoji:'🍕', time:20, unit:'분'},
-    {name:'케이크', emoji:'🎂', time:60, unit:'분'},
-    {name:'쿠키', emoji:'🍪', time:10, unit:'분'},
-    {name:'팝콘', emoji:'🍿', time:2, unit:'분'}
-  ],
-  currentFood: 0, elapsed: 0, totalTime: 3, running: false, timer: null,
-  score: 0, successCount: parseInt(LS.getItem('cookSuccess')) || 0,
-  quizCorrect: parseInt(LS.getItem('cookQuiz')) || 0,
-  bestScore: parseInt(LS.getItem('cookBestScore')) || 0,
-  quizShown: false, opened: false
+// 달력 놀이
+const DAYS = ['일','월','화','수','목','금','토'];
+const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const SEASONS = {봄:[3,4,5], 여름:[6,7,8], 가을:[9,10,11], 겨울:[12,1,2]};
+let cal = {
+  score: 0, streak: 0, bestStreak: parseInt(LS.getItem('calBest')) || 0,
+  qNum: 0, correctCount: parseInt(LS.getItem('calCorrect')) || 0,
+  bestScore: parseInt(LS.getItem('calBestScore')) || 0,
+  category: 'day', currentAnswer: null, answered: false,
+  calMonth: new Date().getMonth(), calYear: new Date().getFullYear()
 };
 
 // 쌍둥이 시계
 let twin = {
   mode: 'analog-to-digital', // or 'digital-to-analog'
   targetHour: 3, targetMin: 0,
+  currentHour: 12, currentMin: 0,
   score: 0, streak: 0, bestStreak: parseInt(LS.getItem('twinBest')) || 0,
   qNum: 1, correctCount: parseInt(LS.getItem('twinCorrect')) || 0,
-  bestScore: parseInt(LS.getItem('twinBestScore')) || 0
+  bestScore: parseInt(LS.getItem('twinBestScore')) || 0,
+  selectedHand: 'hour'
 };
 
-// 히어로
+// 히어로: 시계 스피드런
 let hg = {
   score: 0, lives: 5, level: 1, running: false, paused: false,
-  angle: 0, speed: 1, jumping: false, jumpY: 0, jumpVel: 0,
-  obstacles: [], powerups: [], animId: null, spawnTimer: null,
-  combo: 0, maxCombo: 0, quizActive: false, charEmoji: '🧒',
-  currentHour: 12
+  combo: 0, maxCombo: 0, correctCount: 0,
+  currentHour: 3, currentMin: 0,
+  timerMax: 10, timerLeft: 10, timerInterval: null, timerAnimId: null,
+  answering: false,
+  bestScore: parseInt(LS.getItem('clockHeroBest')) || 0
 };
 
 // ===== SVG 시계 생성 함수 =====
@@ -832,6 +984,8 @@ function showScorePopup(container, points, x, y) {
   setTimeout(() => el.remove(), 900);
 }
 
+/* getFoodSVG removed — cook game replaced by cal game */
+
 function showLevelUp(lv) {
   SFX.levelup();
   const ov = document.createElement('div');
@@ -842,19 +996,37 @@ function showLevelUp(lv) {
 }
 
 function setMascotEmotion(viewId, emotion) {
-  const mouth = document.getElementById('mascot-travel-mouth');
-  const bubble = document.getElementById('bubble-travel');
+  const mouth = document.getElementById('mascot-' + viewId + '-mouth');
+  const bubble = document.getElementById('bubble-' + viewId);
+  const mascotEl = document.getElementById('mascot-' + viewId);
   if (!mouth) return;
+  if (mascotEl) mascotEl.classList.remove('mascot-happy-anim', 'mascot-worried-anim');
+  void mascotEl?.offsetWidth; // force reflow for re-triggering animation
   if (emotion === 'happy') {
-    mouth.setAttribute('d', 'M19,42 Q27,52 35,42');
-    if (bubble) { bubble.textContent = ['맞았어!','최고!','잘했어!','와!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
+    mouth.setAttribute('d', 'M38,86 Q50,98 62,86');
+    if (mascotEl) { mascotEl.classList.add('mascot-happy-anim'); addMascotSparkles(mascotEl); }
+    if (bubble) { bubble.textContent = ['맞았어!','최고!','잘했어!','와!','대단해!'][Math.floor(Math.random()*5)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
   } else if (emotion === 'worried') {
-    mouth.setAttribute('d', 'M22,48 Q27,42 32,48');
-    if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
+    mouth.setAttribute('d', 'M42,94 Q50,87 58,94');
+    if (mascotEl) mascotEl.classList.add('mascot-worried-anim');
+    if (bubble) { bubble.textContent = ['앗!','다시!','힘내!'][Math.floor(Math.random()*3)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
   } else {
-    mouth.setAttribute('d', 'M21,44 Q27,50 33,44');
+    mouth.setAttribute('d', 'M40,88 Q50,96 60,88');
   }
-  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M21,44 Q27,50 33,44'); }, 2500);
+  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M40,88 Q50,96 60,88'); if (mascotEl) mascotEl.classList.remove('mascot-happy-anim', 'mascot-worried-anim'); }, 2500);
+}
+function addMascotSparkles(el) {
+  const sp = ['\u2728','\u2B50','\uD83D\uDCAB','\uD83C\uDF1F'];
+  for (let i = 0; i < 5; i++) {
+    const s = document.createElement('div');
+    s.className = 'mascot-sparkle';
+    s.textContent = sp[Math.floor(Math.random() * sp.length)];
+    s.style.left = (Math.random() * 80 + 10) + 'px';
+    s.style.top = (Math.random() * 60) + 'px';
+    s.style.animationDelay = (i * 0.1) + 's';
+    el.appendChild(s);
+    setTimeout(() => s.remove(), 1200);
+  }
 }
 
 // ===== TTS =====
@@ -862,6 +1034,9 @@ let audioQueue = [];
 let isSpeaking = false;
 function speak(text) {
   if (!soundEnabled) return;
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
   audioQueue.push(text);
   processQueue();
 }
@@ -869,7 +1044,7 @@ function processQueue() {
   if (isSpeaking || !audioQueue.length) return;
   isSpeaking = true;
   const u = new SpeechSynthesisUtterance(audioQueue.shift());
-  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.lang = 'ko-KR'; u.rate = 1.0; u.pitch = 1.1;
   u.onend = () => { isSpeaking = false; processQueue(); };
   u.onerror = () => { isSpeaking = false; processQueue(); };
   speechSynthesis.speak(u);
@@ -905,7 +1080,7 @@ function showCharModal() {
   g.innerHTML = chars.map(c => `<div class="char-item${c===profile.char?' selected':''}" onclick="pickChar('${c}')">${c}</div>`).join('');
 }
 function hideCharModal() { document.getElementById('char-modal').classList.add('hidden'); }
-function pickChar(c) { profile.char = c; LS.setItem('clockChar', c); updateProfileUI(); hideCharModal(); hg.charEmoji = c; }
+function pickChar(c) { profile.char = c; LS.setItem('clockChar', c); updateProfileUI(); hideCharModal(); }
 function showAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); document.getElementById('adm-name').value = profile.name; }
 function hideAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
 function saveProfile() {
@@ -915,7 +1090,7 @@ function saveProfile() {
 }
 function resetAll() {
   if (!confirm('모든 기록이 사라집니다. 정말 초기화할까요?')) return;
-  ['clockName','clockChar','clockCorrect','clockPlayed','travelBest','travelCorrect','travelBestScore','cookSuccess','cookQuiz','cookBestScore','twinBest','twinCorrect','twinBestScore'].forEach(k => LS.removeItem(k));
+  ['clockName','clockChar','clockCorrect','clockPlayed','travelBest','travelCorrect','travelBestScore','calCorrect','calBest','calBestScore','twinBest','twinCorrect','twinBestScore','clockHeroBest'].forEach(k => LS.removeItem(k));
   location.reload();
 }
 function saveStats() {
@@ -924,23 +1099,21 @@ function saveStats() {
   LS.setItem('travelBest', travel.bestStreak);
   LS.setItem('travelCorrect', travel.correctCount);
   LS.setItem('travelBestScore', travel.bestScore);
-  LS.setItem('cookSuccess', cook.successCount);
-  LS.setItem('cookQuiz', cook.quizCorrect);
-  LS.setItem('cookBestScore', cook.bestScore);
+  LS.setItem('calCorrect', cal.correctCount);
+  LS.setItem('calBest', cal.bestStreak);
+  LS.setItem('calBestScore', cal.bestScore);
   LS.setItem('twinBest', twin.bestStreak);
   LS.setItem('twinCorrect', twin.correctCount);
   LS.setItem('twinBestScore', twin.bestScore);
+  LS.setItem('clockHeroBest', hg.bestScore);
 }
 
 // ===== 탭 전환 =====
 function switchTab(tab) {
-  if (currentTab === 'cook') {
-    clearInterval(cook.timer); cook.timer = null; cook.running = false;
-  }
   speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
   currentTab = tab;
   document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['travel','cook','twin','record'][i] === tab);
+    b.classList.toggle('active', ['travel','cal','twin','record'][i] === tab);
   });
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelector('.' + tab + '-side').classList.add('active');
@@ -958,9 +1131,9 @@ function updateActionButtons() {
     a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
     a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
     a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
-  } else if (currentTab === 'cook') {
+  } else if (currentTab === 'cal') {
     a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
-    a2.innerHTML = '<span class="icon">⏭</span>다음 요리'; a2.className = 'action-btn btn-green'; a2.disabled = false;
+    a2.innerHTML = '<span class="icon">⏭</span>다음'; a2.className = 'action-btn btn-green'; a2.disabled = false;
     a3.innerHTML = '<span class="icon">🔄</span>다시'; a3.className = 'action-btn btn-red'; a3.disabled = false;
   } else if (currentTab === 'twin') {
     a1.innerHTML = '<span class="icon">💡</span>힌트'; a1.className = 'action-btn btn-cyan'; a1.disabled = false;
@@ -978,15 +1151,33 @@ function actionBtn(n) {
     if (n === 1) travelHint();
     else if (n === 2) newTravelQuestion();
     else travelReset();
-  } else if (currentTab === 'cook') {
-    if (n === 1) cookHint();
-    else if (n === 2) newCookRound();
-    else cookRetry();
+  } else if (currentTab === 'cal') {
+    if (n === 1) calHint();
+    else if (n === 2) newCalQuestion();
+    else calReset();
   } else if (currentTab === 'twin') {
     if (n === 1) twinHint();
     else if (n === 2) newTwinQuestion();
     else twinReset();
   }
+}
+
+// ===== 바늘 선택 토글 =====
+function selectHand(game, hand) {
+  const obj = game === 'travel' ? travel : twin;
+  obj.selectedHand = hand;
+  const prefix = game === 'travel' ? 'travel' : 'twin';
+  const hBtn = document.getElementById(prefix + '-hand-hour');
+  const mBtn = document.getElementById(prefix + '-hand-minute');
+  if (hBtn) { hBtn.classList.toggle('active', hand === 'hour'); }
+  if (mBtn) { mBtn.classList.toggle('active', hand === 'minute'); }
+  // 바늘 dimmed 토글
+  const svgId = game === 'travel' ? 'travel-clock' : 'twin-clock';
+  const hHand = document.getElementById(svgId + '-hour');
+  const mHand = document.getElementById(svgId + '-min');
+  if (hHand) hHand.classList.toggle('dimmed', hand !== 'hour');
+  if (mHand) mHand.classList.toggle('dimmed', hand !== 'minute');
+  SFX.tick();
 }
 
 // ===== 시간 여행자 =====
@@ -1018,11 +1209,18 @@ function newTravelQuestion() {
   // 배경 업데이트 — 기본은 noon
   updateTravelBg('noon');
 
-  // 시계 업데이트
+  // 시계 업데이트 + 드래그 상태 동기화
   setClockHands('travel-clock', travel.currentHour, travel.currentMin);
+  const tSvg = document.getElementById('travel-clock');
+  if (tSvg && tSvg._clockSync) tSvg._clockSync(12, 0);
 
   travel.qNum++;
   document.getElementById('travel-qnum').textContent = travel.qNum;
+
+  // 바늘 선택 초기화 (시침부터)
+  travel.selectedHand = 'hour';
+  selectHand('travel', 'hour');
+
   speak(scenario.text);
 }
 
@@ -1036,6 +1234,87 @@ function updateTravelBg(period) {
   if (sun) sun.style.display = (period === 'morning' || period === 'noon') ? 'block' : 'none';
   if (moon) moon.style.display = (period === 'night' || period === 'evening') ? 'block' : 'none';
   if (stars) stars.style.display = (period === 'night' || period === 'dawn') ? 'block' : 'none';
+
+  // 시간대별 풍경 SVG
+  let existing = bg.querySelector('.travel-scene-svg');
+  if (existing) existing.remove();
+  const scene = document.createElement('div');
+  scene.className = 'travel-scene-svg';
+  const sceneSvgs = {
+    dawn: `<svg viewBox="0 0 1000 700" preserveAspectRatio="none">
+      <path d="M0 600 Q100 520 200 560 Q350 480 500 540 Q650 460 750 520 Q900 470 1000 550 L1000 700 L0 700Z" fill="#312e81" opacity=".6"/>
+      <path d="M0 640 Q150 590 300 620 Q500 570 700 610 Q850 580 1000 630 L1000 700 L0 700Z" fill="#4338ca" opacity=".5"/>
+      <circle cx="500" cy="620" r="60" fill="#fde68a" opacity=".6"><animate attributeName="cy" values="620;580;620" dur="6s" repeatCount="indefinite"/></circle>
+      <line x1="500" y1="555" x2="500" y2="520" stroke="#fde68a" stroke-width="3" opacity=".3"><animate attributeName="opacity" values=".3;.6;.3" dur="3s" repeatCount="indefinite"/></line>
+      <line x1="540" y1="565" x2="565" y2="535" stroke="#fde68a" stroke-width="2" opacity=".3"><animate attributeName="opacity" values=".3;.5;.3" dur="2.5s" repeatCount="indefinite"/></line>
+      <line x1="460" y1="565" x2="435" y2="535" stroke="#fde68a" stroke-width="2" opacity=".3"><animate attributeName="opacity" values=".2;.5;.2" dur="2.8s" repeatCount="indefinite"/></line>
+      <path d="M50 520 Q60 500 70 520" fill="none" stroke="#a78bfa" stroke-width="1.5" opacity=".4"><animateTransform attributeName="transform" type="translate" values="0,0;800,-30" dur="12s" repeatCount="indefinite"/></path>
+      <path d="M55 515 Q65 495 75 515" fill="none" stroke="#a78bfa" stroke-width="1.5" opacity=".4"><animateTransform attributeName="transform" type="translate" values="0,0;800,-30" dur="12s" repeatCount="indefinite"/></path>
+      <g opacity=".5"><circle cx="100" cy="650" r="5" fill="#f9a8d4"/><circle cx="105" cy="645" r="4" fill="#f472b6"/><circle cx="95" cy="646" r="4" fill="#f9a8d4"/><path d="M100 655 L100 670" stroke="#22c55e" stroke-width="1.5"/></g>
+      <g opacity=".5"><circle cx="250" cy="640" r="4.5" fill="#fda4af"/><circle cx="254" cy="636" r="3.5" fill="#fb7185"/><circle cx="246" cy="637" r="3.5" fill="#fda4af"/><path d="M250 645 L250 658" stroke="#22c55e" stroke-width="1.5"/></g>
+      <g opacity=".5"><circle cx="800" cy="645" r="5" fill="#c4b5fd"/><circle cx="805" cy="640" r="4" fill="#a78bfa"/><circle cx="795" cy="641" r="4" fill="#c4b5fd"/><path d="M800 650 L800 665" stroke="#22c55e" stroke-width="1.5"/></g>
+      <g opacity=".5"><path d="M700 480 Q710 460 720 480" fill="none" stroke="#e0e7ff" stroke-width="1.5"/><path d="M705 475 Q715 455 725 475" fill="none" stroke="#e0e7ff" stroke-width="1.5"/><animateTransform attributeName="transform" type="translate" values="0,0;-600,20" dur="14s" repeatCount="indefinite"/></g>
+    </svg>`,
+    morning: `<svg viewBox="0 0 1000 700" preserveAspectRatio="none">
+      <ellipse cx="200" cy="180" rx="100" ry="35" fill="#fff" opacity=".6"><animateTransform attributeName="transform" type="translate" values="0,0;60,5;0,0" dur="15s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="700" cy="140" rx="80" ry="28" fill="#fff" opacity=".5"><animateTransform attributeName="transform" type="translate" values="0,0;-50,3;0,0" dur="12s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="450" cy="200" rx="60" ry="22" fill="#fff" opacity=".4"><animateTransform attributeName="transform" type="translate" values="0,0;40,0;0,0" dur="18s" repeatCount="indefinite"/></ellipse>
+      <g opacity=".2"><path d="M200 500 Q500 200 800 500" fill="none" stroke="#ef4444" stroke-width="6"/><path d="M210 500 Q500 210 790 500" fill="none" stroke="#f97316" stroke-width="6"/><path d="M220 500 Q500 220 780 500" fill="none" stroke="#eab308" stroke-width="6"/><path d="M230 500 Q500 230 770 500" fill="none" stroke="#22c55e" stroke-width="6"/><path d="M240 500 Q500 240 760 500" fill="none" stroke="#3b82f6" stroke-width="6"/><path d="M250 500 Q500 250 750 500" fill="none" stroke="#8b5cf6" stroke-width="6"/></g>
+      <path d="M0 620 Q100 580 200 600 L200 700 L0 700Z" fill="#22c55e" opacity=".5"/>
+      <path d="M800 600 Q900 570 1000 590 L1000 700 L800 700Z" fill="#22c55e" opacity=".5"/>
+      <circle cx="120" cy="610" r="5" fill="#fbbf24" opacity=".5"/><circle cx="140" cy="600" r="4" fill="#f87171" opacity=".5"/><circle cx="160" cy="615" r="5" fill="#c084fc" opacity=".5"/>
+      <circle cx="880" cy="590" r="4" fill="#fb923c" opacity=".5"/><circle cx="900" cy="600" r="5" fill="#fbbf24" opacity=".5"/>
+      <path d="M100 600 Q105 580 110 600" fill="none" stroke="#22c55e" stroke-width="2" opacity=".3"/>
+      <path d="M900 585 Q905 565 910 585" fill="none" stroke="#22c55e" stroke-width="2" opacity=".3"/>
+      <path d="M300 300 Q310 280 320 300" fill="none" stroke="#94a3b8" stroke-width="1" opacity=".3"><animateTransform attributeName="transform" type="translate" values="0,0;600,-20" dur="20s" repeatCount="indefinite"/></path>
+      <path d="M310 295 Q320 275 330 295" fill="none" stroke="#94a3b8" stroke-width="1" opacity=".3"><animateTransform attributeName="transform" type="translate" values="0,0;600,-20" dur="20s" repeatCount="indefinite"/></path>
+    </svg>`,
+    noon: `<svg viewBox="0 0 1000 700" preserveAspectRatio="none">
+      <ellipse cx="300" cy="160" rx="120" ry="40" fill="#fff" opacity=".5"><animateTransform attributeName="transform" type="translate" values="0,0;80,0;0,0" dur="20s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="700" cy="120" rx="90" ry="32" fill="#fff" opacity=".45"><animateTransform attributeName="transform" type="translate" values="0,0;-60,5;0,0" dur="16s" repeatCount="indefinite"/></ellipse>
+      <path d="M0 630 L80 610 L80 630 L140 600 L140 630 L0 640Z" fill="#16a34a" opacity=".35"/>
+      <rect x="90" y="600" width="30" height="30" rx="2" fill="#92400e" opacity=".25"/><polygon points="75,600 120,580 165,600" fill="#16a34a" opacity=".35"/>
+      <path d="M860 620 L940 600 L940 630 L1000 610 L1000 640 L860 640Z" fill="#16a34a" opacity=".35"/>
+      <rect x="920" y="590" width="25" height="35" rx="2" fill="#92400e" opacity=".25"/><polygon points="908,590 945,570 982,590" fill="#16a34a" opacity=".35"/>
+      <g opacity=".35"><ellipse cx="150" cy="350" rx="8" ry="5" fill="#f472b6" transform="rotate(-20,150,350)"/><ellipse cx="150" cy="350" rx="8" ry="5" fill="#fb7185" transform="rotate(20,150,350)"/><circle cx="150" cy="350" r="1.5" fill="#1e293b"/><animateTransform attributeName="transform" type="translate" values="0,0;300,-80;600,-30;300,40;0,0" dur="10s" repeatCount="indefinite"/></g>
+      <g opacity=".3"><ellipse cx="750" cy="300" rx="7" ry="4" fill="#a78bfa" transform="rotate(-25,750,300)"/><ellipse cx="750" cy="300" rx="7" ry="4" fill="#c4b5fd" transform="rotate(25,750,300)"/><circle cx="750" cy="300" r="1.5" fill="#1e293b"/><animateTransform attributeName="transform" type="translate" values="0,0;-200,-60;-400,20;-200,50;0,0" dur="12s" repeatCount="indefinite"/></g>
+      <path d="M420 400 C425 380 430 400 435 380 C440 400 445 380 450 400" fill="none" stroke="#60a5fa" stroke-width="1" opacity=".15"><animate attributeName="d" values="M420,400 C425,380 430,400 435,380 C440,400 445,380 450,400;M420,400 C425,385 430,395 435,385 C440,395 445,385 450,400;M420,400 C425,380 430,400 435,380 C440,400 445,380 450,400" dur="4s" repeatCount="indefinite"/></path>
+    </svg>`,
+    evening: `<svg viewBox="0 0 1000 700" preserveAspectRatio="none">
+      <ellipse cx="250" cy="200" rx="100" ry="30" fill="#fbbf24" opacity=".3"><animateTransform attributeName="transform" type="translate" values="0,0;40,0;0,0" dur="14s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="650" cy="170" rx="80" ry="25" fill="#f97316" opacity=".25"><animateTransform attributeName="transform" type="translate" values="0,0;-35,0;0,0" dur="11s" repeatCount="indefinite"/></ellipse>
+      <path d="M0 630 Q200 590 400 620 Q600 590 800 610 Q900 600 1000 620 L1000 700 L0 700Z" fill="#1e293b" opacity=".4"/>
+      <rect x="100" y="580" width="40" height="50" fill="#1e293b" opacity=".3"/><rect x="105" y="590" width="12" height="12" fill="#fde68a" opacity=".4"/><rect x="123" y="590" width="12" height="12" fill="#fbbf24" opacity=".3"/>
+      <rect x="850" y="575" width="50" height="55" fill="#1e293b" opacity=".3"/><rect x="855" y="585" width="14" height="14" fill="#fde68a" opacity=".4"/><rect x="875" y="585" width="14" height="14" fill="#fbbf24" opacity=".3"/>
+      <g opacity=".4"><rect x="495" y="540" width="4" height="90" rx="2" fill="#64748b"/><ellipse cx="497" cy="540" rx="16" ry="8" fill="#475569"/><circle cx="497" cy="538" r="10" fill="#fde68a" opacity=".6"><animate attributeName="opacity" values=".6;.8;.6" dur="3s" repeatCount="indefinite"/></circle><ellipse cx="497" cy="560" rx="20" ry="50" fill="#fde68a" opacity=".06"/></g>
+      <path d="M200 350 Q210 330 220 350" fill="none" stroke="#475569" stroke-width="1.5" opacity=".3"><animateTransform attributeName="transform" type="translate" values="0,0;500,-30" dur="15s" repeatCount="indefinite"/></path>
+      <path d="M210 345 Q220 325 230 345" fill="none" stroke="#475569" stroke-width="1.5" opacity=".3"><animateTransform attributeName="transform" type="translate" values="0,0;500,-30" dur="15s" repeatCount="indefinite"/></path>
+      <path d="M220 340 Q230 320 240 340" fill="none" stroke="#475569" stroke-width="1.5" opacity=".3"><animateTransform attributeName="transform" type="translate" values="0,0;500,-30" dur="15s" repeatCount="indefinite"/></path>
+    </svg>`,
+    night: `<svg viewBox="0 0 1000 700" preserveAspectRatio="none">
+      <circle cx="80" cy="100" r="2" fill="#fde68a" opacity=".6"><animate attributeName="opacity" values=".6;.2;.6" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="200" cy="60" r="1.5" fill="#fff" opacity=".5"><animate attributeName="opacity" values=".5;.15;.5" dur="1.8s" repeatCount="indefinite" begin=".3s"/></circle>
+      <circle cx="350" cy="90" r="2" fill="#e0f2fe" opacity=".55"><animate attributeName="opacity" values=".55;.15;.55" dur="2.5s" repeatCount="indefinite" begin=".7s"/></circle>
+      <circle cx="500" cy="50" r="1.8" fill="#fde68a" opacity=".5"><animate attributeName="opacity" values=".5;.1;.5" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="650" cy="80" r="2.2" fill="#fff" opacity=".6"><animate attributeName="opacity" values=".6;.2;.6" dur="2.2s" repeatCount="indefinite" begin=".5s"/></circle>
+      <circle cx="780" cy="55" r="1.5" fill="#e0f2fe" opacity=".45"><animate attributeName="opacity" values=".45;.1;.45" dur="1.6s" repeatCount="indefinite" begin="1s"/></circle>
+      <circle cx="900" cy="100" r="2" fill="#fde68a" opacity=".5"><animate attributeName="opacity" values=".5;.2;.5" dur="2.8s" repeatCount="indefinite" begin=".2s"/></circle>
+      <circle cx="150" cy="160" r="1.2" fill="#fff" opacity=".35"><animate attributeName="opacity" values=".35;.1;.35" dur="2s" repeatCount="indefinite" begin=".8s"/></circle>
+      <circle cx="450" cy="130" r="1.5" fill="#fde68a" opacity=".4"><animate attributeName="opacity" values=".4;.15;.4" dur="2.3s" repeatCount="indefinite" begin=".4s"/></circle>
+      <circle cx="850" cy="140" r="1.8" fill="#e0f2fe" opacity=".45"><animate attributeName="opacity" values=".45;.15;.45" dur="1.9s" repeatCount="indefinite" begin="1.2s"/></circle>
+      <line x1="300" y1="120" x2="250" y2="170" stroke="#fde68a" stroke-width="1.5" opacity="0"><animate attributeName="opacity" values="0;.7;0" dur="3s" begin="5s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0,0;-80,80" dur="3s" begin="5s" repeatCount="indefinite"/></line>
+      <g opacity=".7"><circle cx="350" cy="480" r="3" fill="#bef264"><animate attributeName="opacity" values=".7;.1;.7" dur="2.2s" repeatCount="indefinite"/><animate attributeName="cy" values="480;470;480" dur="4s" repeatCount="indefinite"/></circle><circle cx="550" cy="450" r="2.5" fill="#a3e635"><animate attributeName="opacity" values=".5;.1;.5" dur="1.8s" repeatCount="indefinite" begin=".5s"/><animate attributeName="cy" values="450;440;450" dur="3.5s" repeatCount="indefinite"/></circle><circle cx="700" cy="500" r="3" fill="#bef264"><animate attributeName="opacity" values=".6;.15;.6" dur="2.5s" repeatCount="indefinite" begin="1s"/><animate attributeName="cy" values="500;488;500" dur="4.2s" repeatCount="indefinite"/></circle><circle cx="180" cy="520" r="2.5" fill="#a3e635"><animate attributeName="opacity" values=".5;.1;.5" dur="2s" repeatCount="indefinite" begin="1.5s"/><animate attributeName="cy" values="520;510;520" dur="3.8s" repeatCount="indefinite"/></circle><circle cx="850" cy="470" r="2.8" fill="#bef264"><animate attributeName="opacity" values=".6;.1;.6" dur="1.9s" repeatCount="indefinite" begin=".8s"/><animate attributeName="cy" values="470;458;470" dur="3.2s" repeatCount="indefinite"/></circle></g>
+      <path d="M0 640 Q100 610 250 630 Q400 610 550 625 Q700 600 850 620 Q950 610 1000 625 L1000 700 L0 700Z" fill="#0f172a" opacity=".5"/>
+      <rect x="100" y="600" width="35" height="40" fill="#1e293b" opacity=".4"/><rect x="105" y="608" width="10" height="10" fill="#fde68a" opacity=".5"/><rect x="120" y="608" width="10" height="10" fill="#fbbf24" opacity=".3"/>
+      <rect x="200" y="590" width="50" height="50" fill="#1e293b" opacity=".4"/><rect x="205" y="598" width="12" height="12" fill="#fde68a" opacity=".4"/><rect x="225" y="598" width="12" height="12" fill="#fde68a" opacity=".5"/><rect x="205" y="615" width="12" height="12" fill="#fbbf24" opacity=".3"/><rect x="225" y="615" width="12" height="12" fill="#fde68a" opacity=".4"/>
+      <rect x="750" y="595" width="45" height="45" fill="#1e293b" opacity=".4"/><rect x="755" y="603" width="11" height="11" fill="#fde68a" opacity=".5"/><rect x="770" y="603" width="11" height="11" fill="#fbbf24" opacity=".3"/>
+      <rect x="870" y="605" width="30" height="35" fill="#1e293b" opacity=".4"/><rect x="875" y="612" width="8" height="8" fill="#fde68a" opacity=".4"/>
+    </svg>`
+  };
+  if (sceneSvgs[period]) {
+    scene.innerHTML = sceneSvgs[period];
+    bg.appendChild(scene);
+  }
 }
 
 function travelConfirm() {
@@ -1061,12 +1340,28 @@ function travelConfirm() {
     SFX.chime(); setMascotEmotion('travel', 'happy');
     speak(`정답! ${travel.targetHour}시 ${travel.targetMin > 0 ? travel.targetMin + '분' : ''}! ${getTimePeriodName(travel.targetHour)}이에요!`);
 
+    // 정답 파티클 이펙트
+    const area = document.getElementById('travel-area');
+    area.style.animation = 'correctFlash .6s ease-out';
+    setTimeout(() => area.style.animation = '', 600);
+    for (let i = 0; i < 12; i++) {
+      const p = document.createElement('div');
+      p.style.cssText = `position:absolute;z-index:50;pointer-events:none;font-size:${16+Math.random()*14}px;left:50%;top:50%;--tx:${(Math.random()-.5)*200}px;--ty:${(Math.random()-.5)*200}px;animation:particleBurst .8s ease-out forwards`;
+      p.textContent = ['✨','⭐','🌟','💫'][Math.floor(Math.random()*4)];
+      area.appendChild(p);
+      setTimeout(() => p.remove(), 800);
+    }
+
     setTimeout(() => newTravelQuestion(), 2000);
   } else {
     travel.streak = 0;
     document.getElementById('travel-result').innerHTML = `<span style="color:#ef4444">❌ 다시 해보세요! ${travel.targetHour}시 ${travel.targetMin > 0 ? travel.targetMin + '분' : '정각'}으로 맞춰보세요</span>`;
     SFX.buzz(); setMascotEmotion('travel', 'worried');
     speak('다시 해보세요!');
+    // 오답 shake + flash
+    const area = document.getElementById('travel-area');
+    area.style.animation = 'wrongFlash .5s ease-out, shake .4s ease-out';
+    setTimeout(() => area.style.animation = '', 500);
   }
   updateTravelSide();
   updateProfileUI();
@@ -1082,6 +1377,8 @@ function travelHint() {
 function travelReset() {
   travel.currentHour = 12; travel.currentMin = 0;
   setClockHands('travel-clock', 12, 0);
+  const tSvg = document.getElementById('travel-clock');
+  if (tSvg && tSvg._clockSync) tSvg._clockSync(12, 0);
   document.getElementById('travel-result').textContent = '';
   updateTravelBg('noon');
 }
@@ -1096,11 +1393,11 @@ function setupClockDrag(svgId, onChange) {
   const svg = document.getElementById(svgId);
   if (!svg) return;
   const r = svg.viewBox.baseVal.width / 2;
-  let isDragging = false;
+  let draggingHand = null; // 'hour' or 'minute' or null
+  let currentHour = 12, currentMin = 0;
 
   function getAngle(e) {
     const rect = svg.getBoundingClientRect();
-    const scaleX = svg.viewBox.baseVal.width / rect.width;
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -1110,26 +1407,57 @@ function setupClockDrag(svgId, onChange) {
     return angle;
   }
 
+  // 터치/클릭 시작: 시침 or 분침 중 가까운 쪽 선택
+  function getHandTip(handId) {
+    const hand = document.getElementById(handId);
+    if (!hand) return null;
+    const rect = svg.getBoundingClientRect();
+    const svgW = svg.viewBox.baseVal.width;
+    const scale = rect.width / svgW;
+    const transform = hand.style.transform;
+    const match = transform.match(/rotate\(([\d.]+)deg\)/);
+    const deg = match ? parseFloat(match[1]) : 0;
+    const rad = (deg - 90) * Math.PI / 180;
+    const len = handId.includes('hour') ? r * 0.5 : r * 0.72;
+    return {
+      x: rect.left + rect.width / 2 + Math.cos(rad) * len * scale,
+      y: rect.top + rect.height / 2 + Math.sin(rad) * len * scale
+    };
+  }
+
   function onStart(e) {
     e.preventDefault();
-    isDragging = true;
+    // 토글 버튼에서 선택된 바늘 사용
+    const game = svgId.includes('travel') ? travel : twin;
+    draggingHand = game.selectedHand || 'hour';
+    SFX.tick();
   }
+
   function onMove(e) {
-    if (!isDragging) return;
+    if (!draggingHand) return;
     e.preventDefault();
     const angle = getAngle(e);
-    // 분으로 변환 (5분 단위)
-    let min = Math.round(angle / 6);
-    if (min >= 60) min = 0;
-    min = Math.round(min / 5) * 5;
-    if (min === 60) min = 0;
-    // 시로 변환
-    let hour = Math.round(angle / 30);
-    if (hour >= 12) hour = 0;
-    if (hour === 0) hour = 12;
-    if (onChange) onChange(hour, min);
+    if (draggingHand === 'hour') {
+      let h = Math.round(angle / 30);
+      if (h >= 12) h = 0;
+      if (h === 0) h = 12;
+      currentHour = h;
+    } else {
+      let m = Math.round(angle / 6);
+      if (m >= 60) m = 0;
+      m = Math.round(m / 5) * 5;
+      if (m === 60) m = 0;
+      currentMin = m;
+    }
+    if (onChange) onChange(currentHour, currentMin);
   }
-  function onEnd() { isDragging = false; }
+
+  function onEnd() {
+    draggingHand = null;
+  }
+
+  // 외부에서 시/분 동기화할 수 있도록
+  svg._clockSync = function(h, m) { currentHour = h; currentMin = m; };
 
   svg.addEventListener('mousedown', onStart);
   svg.addEventListener('touchstart', onStart, {passive: false});
@@ -1139,239 +1467,324 @@ function setupClockDrag(svgId, onChange) {
   window.addEventListener('touchend', onEnd);
 }
 
-// ===== 요리 타이머 =====
-function initCookGame() {
-  newCookRound();
+// ===== 달력 놀이 =====
+function initCalGame() {
+  generateCalendarSVG();
+  newCalQuestion();
 }
 
-function newCookRound() {
-  clearInterval(cook.timer); cook.timer = null; cook.running = false;
-  cook.currentFood = Math.floor(Math.random() * cook.foods.length);
-  const food = cook.foods[cook.currentFood];
-  cook.totalTime = food.time;
-  cook.elapsed = 0;
-  cook.quizShown = false;
-  cook.opened = false;
+function generateCalendarSVG() {
+  const wrap = document.getElementById('cal-calendar-wrap');
+  const year = cal.calYear;
+  const month = cal.calMonth;
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = new Date();
+  const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+  const todayDate = today.getDate();
 
-  document.getElementById('cook-info').textContent = `${food.emoji} ${food.name} — ${food.time}${food.unit} 동안 끓여요!`;
-  document.getElementById('cook-food-emoji').textContent = food.emoji;
-  document.getElementById('cook-food-side').textContent = food.name;
-  document.getElementById('cook-food-display').querySelector('.cook-food-status')?.remove();
+  let html = '<div class="cal-calendar">';
+  html += '<div class="cal-header">';
+  html += '<button class="cal-header-btn" onclick="calChangeMonth(-1)">\u25C0</button>';
+  html += '<div class="cal-header-title">' + year + '\uB144 ' + (month+1) + '\uC6D4</div>';
+  html += '<button class="cal-header-btn" onclick="calChangeMonth(1)">\u25B6</button>';
+  html += '</div>';
+  html += '<div class="cal-grid">';
 
-  // 타이머 링 SVG 생성
-  updateCookTimerSVG();
-  document.getElementById('cook-open-btn').textContent = '🍽 열기!';
-  document.getElementById('cook-quiz').classList.add('hidden');
-  document.getElementById('cook-result-overlay').classList.add('hidden');
+  // Day headers
+  DAYS.forEach(function(d, i) {
+    var cls = i === 0 ? ' sun' : i === 6 ? ' sat' : '';
+    html += '<div class="cal-day-header' + cls + '">' + d + '</div>';
+  });
 
-  // 김/불꽃 보이기
-  document.querySelectorAll('.cook-steam-svg,.cook-flame-svg').forEach(e => e.style.display = 'block');
-
-  // 타이머 시작
-  cook.running = true;
-  cook.timer = setInterval(cookTick, 1000);
-  speak(`${food.name}을 ${food.time}${food.unit} 동안 끓여요! 때가 되면 열어주세요!`);
-}
-
-function updateCookTimerSVG() {
-  const wrap = document.getElementById('cook-timer-wrap');
-  const pct = Math.min(cook.elapsed / cook.totalTime, 1);
-  const r = 70;
-  const circ = 2 * Math.PI * r;
-  const offset = circ * (1 - pct);
-
-  let color = '#22d3ee';
-  if (pct > 0.8) color = '#22c55e';
-  if (pct > 1) color = '#ef4444';
-
-  const minLeft = Math.max(0, cook.totalTime - cook.elapsed);
-  const display = minLeft >= 60 ? Math.floor(minLeft / 60) + '분' : minLeft + (cook.totalTime >= 60 ? '분' : '분');
-
-  wrap.innerHTML = `<svg width="180" height="180" viewBox="0 0 180 180">
-    <circle cx="90" cy="90" r="${r}" fill="none" stroke="#e2e8f0" stroke-width="10"/>
-    <circle cx="90" cy="90" r="${r}" fill="none" stroke="${color}" stroke-width="10"
-      stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
-      stroke-linecap="round" transform="rotate(-90 90 90)"/>
-    <text x="90" y="85" text-anchor="middle" font-size="28" font-weight="800" fill="#1e293b">${display}</text>
-    <text x="90" y="110" text-anchor="middle" font-size="14" font-weight="600" fill="#64748b">남음</text>
-  </svg>`;
-}
-
-function cookTick() {
-  if (!cook.running) return;
-  cook.elapsed++;
-  updateCookTimerSVG();
-
-  // 중간 퀴즈 (절반 시점)
-  if (!cook.quizShown && cook.elapsed === Math.floor(cook.totalTime / 2)) {
-    cook.quizShown = true;
-    showCookQuiz();
+  // Empty cells before first day
+  for (var i = 0; i < firstDay; i++) {
+    html += '<div class="cal-cell empty"></div>';
   }
 
-  // 시간 초과 (1.5배 넘으면 탐)
-  if (cook.elapsed > cook.totalTime * 1.5 && !cook.opened) {
-    cook.running = false;
-    clearInterval(cook.timer);
-    showCookResult('burnt');
+  // Day cells
+  for (var d = 1; d <= daysInMonth; d++) {
+    var dayOfWeek = (firstDay + d - 1) % 7;
+    var isToday = isCurrentMonth && d === todayDate;
+    var cls = isToday ? ' today' : '';
+    var color = dayOfWeek === 0 ? 'color:#ef4444' : dayOfWeek === 6 ? 'color:#3b82f6' : '';
+    html += '<div class="cal-cell' + cls + '" id="cal-d-' + d + '" style="' + color + '" onclick="calCellClick(' + d + ')">' + d + '</div>';
   }
+
+  html += '</div></div>';
+  wrap.innerHTML = html;
 }
 
-function showCookQuiz() {
-  cook.running = false; // 타이머 잠시 멈춤
-  const popup = document.getElementById('cook-quiz');
-  popup.classList.remove('hidden');
-  const elapsed = cook.elapsed;
-  document.getElementById('cook-quiz-q').textContent = `지금 몇 분 지났을까?`;
-
-  const correct = elapsed;
-  let options = [correct];
-  while (options.length < 4) {
-    const v = Math.max(1, correct + (Math.floor(Math.random() * 5) - 2) * (Math.random() > 0.5 ? 1 : -1));
-    if (!options.includes(v) && v > 0) options.push(v);
-  }
-  options.sort(() => Math.random() - 0.5);
-
-  const optsEl = document.getElementById('cook-quiz-opts');
-  optsEl.innerHTML = options.map(o =>
-    `<button class="cook-quiz-opt" onclick="cookQuizAnswer(${o}, ${correct})">${o}분</button>`
-  ).join('');
-  speak(`지금 몇 분 지났을까요?`);
+function calChangeMonth(delta) {
+  cal.calMonth += delta;
+  if (cal.calMonth > 11) { cal.calMonth = 0; cal.calYear++; }
+  if (cal.calMonth < 0) { cal.calMonth = 11; cal.calYear--; }
+  generateCalendarSVG();
 }
 
-function cookQuizAnswer(selected, correct) {
-  const opts = document.querySelectorAll('.cook-quiz-opt');
-  opts.forEach(o => {
-    const v = parseInt(o.textContent);
-    if (v === correct) o.classList.add('correct');
-    else if (v === selected && v !== correct) o.classList.add('wrong');
+function newCalQuestion() {
+  cal.answered = false;
+  cal.qNum++;
+  document.getElementById('cal-result').textContent = '';
+
+  // Remove previous highlights
+  document.querySelectorAll('.cal-cell.selected,.cal-cell.correct-cell,.cal-cell.wrong-cell').forEach(function(c) {
+    c.classList.remove('selected','correct-cell','wrong-cell');
+  });
+
+  // Cycle categories
+  var categories = ['day', 'month', 'date'];
+  cal.category = categories[cal.qNum % 3];
+
+  var qEl = document.getElementById('cal-question');
+  var optEl = document.getElementById('cal-options');
+
+  if (cal.category === 'day') {
+    document.getElementById('cal-mode').textContent = '\uD83D\uDCC5 요일 퀴즈';
+    var dayQuestions = [
+      function() { var d = Math.floor(Math.random()*7); var off = [1,2,3][Math.floor(Math.random()*3)]; var labels = ['\uB0B4\uC77C','\uBAA8\uB808','\uAE00\uD53C']; return { q: '\uC624\uB298\uC774 ' + DAYS[d] + '\uC694\uC77C\uC774\uBA74 ' + labels[off-1] + '\uC740?', a: DAYS[(d+off)%7]+'\uC694\uC77C' }; },
+      function() { var d = Math.floor(Math.random()*7); var off = [1,2][Math.floor(Math.random()*2)]; var labels = ['\uC5B4\uC81C','\uADF8\uC800\uAED8']; return { q: '\uC624\uB298\uC774 ' + DAYS[d] + '\uC694\uC77C\uC774\uBA74 ' + labels[off-1] + '\uC740?', a: DAYS[(d-off+7)%7]+'\uC694\uC77C' }; },
+      function() { var d = Math.floor(Math.random()*7); return { q: DAYS[d] + '\uC694\uC77C\uC740 \uC8FC\uB9D0\uC77C\uAE4C \uD3C9\uC77C\uC77C\uAE4C?', a: (d===0||d===6) ? '\uC8FC\uB9D0' : '\uD3C9\uC77C' }; }
+    ];
+    var picked = dayQuestions[Math.floor(Math.random()*dayQuestions.length)]();
+    cal.currentAnswer = picked.a;
+    qEl.textContent = picked.q;
+
+    // Generate options
+    var opts = [picked.a];
+    if (picked.a === '\uC8FC\uB9D0' || picked.a === '\uD3C9\uC77C') {
+      opts = ['\uC8FC\uB9D0', '\uD3C9\uC77C', '\uACF5\uD734\uC77C', '\uBC29\uD559'];
+    } else {
+      while (opts.length < 4) {
+        var r = DAYS[Math.floor(Math.random()*7)] + '\uC694\uC77C';
+        if (opts.indexOf(r) === -1) opts.push(r);
+      }
+    }
+    opts.sort(function() { return Math.random() - 0.5; });
+    optEl.innerHTML = opts.map(function(o) { return '<button class="cal-opt" onclick="calAnswer(this,\'' + o + '\')">' + o + '</button>'; }).join('');
+    optEl.style.display = 'grid';
+    speak(picked.q);
+
+  } else if (cal.category === 'month') {
+    document.getElementById('cal-mode').textContent = '\uD83D\uDDD3 월/계절 퀴즈';
+    var monthQuestions = [
+      function() { var m = Math.floor(Math.random()*12); return { q: MONTHS[m] + ' \uB2E4\uC74C \uB2EC\uC740?', a: MONTHS[(m+1)%12] }; },
+      function() { var m = Math.floor(Math.random()*12); return { q: MONTHS[m] + ' \uC804 \uB2EC\uC740?', a: MONTHS[(m-1+12)%12] }; },
+      function() { var sNames = Object.keys(SEASONS); var s = sNames[Math.floor(Math.random()*4)]; var ms = SEASONS[s]; return { q: s + '\uC740 \uBA87 \uC6D4\uBD80\uD130 \uBA87 \uC6D4\uAE4C\uC9C0?', a: ms[0] + '~' + ms[2] + '\uC6D4' }; },
+      function() { var m = Math.floor(Math.random()*12)+1; var sName = Object.entries(SEASONS).find(function(e){ return e[1].indexOf(m) !== -1; }); return { q: m + '\uC6D4\uC740 \uBB34\uC2A8 \uACC4\uC808?', a: sName ? sName[0] : '\uACA8\uC6B8' }; }
+    ];
+    var picked = monthQuestions[Math.floor(Math.random()*monthQuestions.length)]();
+    cal.currentAnswer = picked.a;
+    qEl.textContent = picked.q;
+
+    var opts = [picked.a];
+    if (picked.a.indexOf('~') !== -1) {
+      opts = Object.values(SEASONS).map(function(ms) { return ms[0] + '~' + ms[2] + '\uC6D4'; });
+    } else if (['\uBD04','\uC5EC\uB984','\uAC00\uC744','\uACA8\uC6B8'].indexOf(picked.a) !== -1) {
+      opts = ['\uBD04','\uC5EC\uB984','\uAC00\uC744','\uACA8\uC6B8'];
+    } else {
+      while (opts.length < 4) {
+        var r = MONTHS[Math.floor(Math.random()*12)];
+        if (opts.indexOf(r) === -1) opts.push(r);
+      }
+    }
+    opts.sort(function() { return Math.random() - 0.5; });
+    optEl.innerHTML = opts.map(function(o) { return '<button class="cal-opt" onclick="calAnswer(this,\'' + o + '\')">' + o + '</button>'; }).join('');
+    optEl.style.display = 'grid';
+    speak(picked.q);
+
+  } else {
+    // Date finding on calendar
+    document.getElementById('cal-mode').textContent = '\uD83D\uDD0D 날짜 찾기';
+    var year = cal.calYear;
+    var month = cal.calMonth;
+    var firstDay = new Date(year, month, 1).getDay();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    var dateQuestions = [
+      function() {
+        var targetDay = Math.floor(Math.random() * 7);
+        var nth = Math.floor(Math.random() * 3) + 1;
+        var nthNames = ['\uCCAB \uBC88\uC9F8', '\uB450 \uBC88\uC9F8', '\uC138 \uBC88\uC9F8'];
+        var count = 0, answer = -1;
+        for (var d = 1; d <= daysInMonth; d++) {
+          if ((firstDay + d - 1) % 7 === targetDay) {
+            count++;
+            if (count === nth) { answer = d; break; }
+          }
+        }
+        if (answer === -1) {
+          for (var d2 = 1; d2 <= daysInMonth; d2++) {
+            if ((firstDay + d2 - 1) % 7 === targetDay) { answer = d2; break; }
+          }
+          return { q: '\uC774\uBC88 \uB2EC \uCCAB \uBC88\uC9F8 ' + DAYS[targetDay] + '\uC694\uC77C\uC740 \uBA70\uCE60? (\uB2EC\uB825\uC5D0\uC11C \uCC3E\uC544 \uD074\uB9AD!)', a: answer };
+        }
+        return { q: '\uC774\uBC88 \uB2EC ' + nthNames[nth-1] + ' ' + DAYS[targetDay] + '\uC694\uC77C\uC740 \uBA70\uCE60? (\uB2EC\uB825\uC5D0\uC11C \uCC3E\uC544 \uD074\uB9AD!)', a: answer };
+      },
+      function() {
+        return { q: '\uC774\uBC88 \uB2EC\uC758 \uB9C8\uC9C0\uB9C9 \uB0A0\uC740 \uBA70\uCE60? (\uB2EC\uB825\uC5D0\uC11C \uCC3E\uC544 \uD074\uB9AD!)', a: daysInMonth };
+      },
+      function() {
+        var targetDay = Math.floor(Math.random() * 7);
+        var count = 0;
+        for (var d = 1; d <= daysInMonth; d++) {
+          if ((firstDay + d - 1) % 7 === targetDay) count++;
+        }
+        return { q: '\uC774\uBC88 \uB2EC\uC5D0 ' + DAYS[targetDay] + '\uC694\uC77C\uC740 \uBAA8\uB450 \uBA87 \uBC88?', a: count + '\uBC88', useButtons: true };
+      }
+    ];
+
+    var picked = dateQuestions[Math.floor(Math.random() * dateQuestions.length)]();
+    cal.currentAnswer = picked.useButtons ? picked.a : picked.a;
+    qEl.textContent = picked.q;
+
+    if (picked.useButtons) {
+      var opts = [picked.a];
+      while (opts.length < 4) {
+        var r = (Math.floor(Math.random() * 3) + 3) + '\uBC88';
+        if (opts.indexOf(r) === -1) opts.push(r);
+      }
+      opts.sort(function() { return Math.random() - 0.5; });
+      optEl.innerHTML = opts.map(function(o) { return '<button class="cal-opt" onclick="calAnswer(this,\'' + o + '\')">' + o + '</button>'; }).join('');
+      optEl.style.display = 'grid';
+    } else {
+      optEl.innerHTML = '';
+      optEl.style.display = 'none';
+      cal.currentAnswer = picked.a; // number (date)
+    }
+    speak(picked.q);
+  }
+
+  updateCalSide();
+}
+
+function calCellClick(day) {
+  if (cal.answered) return;
+  if (cal.category !== 'date' || typeof cal.currentAnswer !== 'number') return;
+
+  cal.answered = true;
+  var cell = document.getElementById('cal-d-' + day);
+
+  if (day === cal.currentAnswer) {
+    cell.classList.add('correct-cell');
+    cal.score += 10 + cal.streak * 2;
+    cal.streak++;
+    cal.correctCount++;
+    if (cal.streak > cal.bestStreak) cal.bestStreak = cal.streak;
+    if (cal.score > cal.bestScore) cal.bestScore = cal.score;
+    profile.totalCorrect++;
+    profile.totalPlayed++;
+    document.getElementById('cal-result').innerHTML = '<span style="color:#22c55e">\u2B55 \uC815\uB2F5! \uC798\uD588\uC5B4!</span>';
+    SFX.chime();
+    setMascotEmotion('cal', 'happy');
+    speak('\uC815\uB2F5! ' + day + '\uC77C\uC774\uC5D0\uC694!');
+
+    var area = document.getElementById('cal-area');
+    area.style.animation = 'correctFlash .6s ease-out';
+    setTimeout(function() { area.style.animation = ''; }, 600);
+    for (var i = 0; i < 8; i++) {
+      var p = document.createElement('div');
+      p.style.cssText = 'position:absolute;z-index:50;pointer-events:none;font-size:' + (14+Math.random()*12) + 'px;left:50%;top:50%;--tx:' + ((Math.random()-.5)*200) + 'px;--ty:' + ((Math.random()-.5)*200) + 'px;animation:particleBurst .7s ease-out forwards';
+      p.textContent = ['\u2B50','\u2728','\uD83D\uDCC5','\uD83C\uDF1F'][Math.floor(Math.random()*4)];
+      area.appendChild(p);
+      setTimeout(function(el) { return function() { el.remove(); }; }(p), 700);
+    }
+    setTimeout(function() { newCalQuestion(); }, 2000);
+  } else {
+    cell.classList.add('wrong-cell');
+    cal.streak = 0;
+    profile.totalPlayed++;
+    var correctCell = document.getElementById('cal-d-' + cal.currentAnswer);
+    if (correctCell) correctCell.classList.add('correct-cell');
+    document.getElementById('cal-result').innerHTML = '<span style="color:#ef4444">\u274C ' + cal.currentAnswer + '\uC77C\uC774 \uC815\uB2F5\uC774\uC5D0\uC694!</span>';
+    SFX.buzz();
+    setMascotEmotion('cal', 'worried');
+    speak('\uC544\uC26C\uC6CC\uC694! \uC815\uB2F5\uC740 ' + cal.currentAnswer + '\uC77C\uC774\uC5D0\uC694');
+    setTimeout(function() { newCalQuestion(); }, 2500);
+  }
+  updateCalSide();
+  updateProfileUI();
+  saveStats();
+}
+
+function calAnswer(btn, selected) {
+  if (cal.answered) return;
+  cal.answered = true;
+
+  var correct = cal.currentAnswer;
+  var opts = document.querySelectorAll('.cal-opt');
+  opts.forEach(function(o) {
     o.style.pointerEvents = 'none';
+    if (o.textContent === correct) o.classList.add('correct');
+    else if (o === btn && selected !== correct) o.classList.add('wrong');
   });
 
   profile.totalPlayed++;
+
   if (selected === correct) {
-    cook.score += 5;
-    cook.quizCorrect++;
+    cal.score += 10 + cal.streak * 2;
+    cal.streak++;
+    cal.correctCount++;
+    if (cal.streak > cal.bestStreak) cal.bestStreak = cal.streak;
+    if (cal.score > cal.bestScore) cal.bestScore = cal.score;
     profile.totalCorrect++;
+    document.getElementById('cal-result').innerHTML = '<span style="color:#22c55e">\u2B55 \uC815\uB2F5! \uC798\uD588\uC5B4!</span>';
     SFX.chime();
-    speak('정답! 잘 알고 있네요!');
+    setMascotEmotion('cal', 'happy');
+    speak('\uC815\uB2F5!');
+
+    var area = document.getElementById('cal-area');
+    area.style.animation = 'correctFlash .6s ease-out';
+    setTimeout(function() { area.style.animation = ''; }, 600);
+    for (var i = 0; i < 8; i++) {
+      var p = document.createElement('div');
+      p.style.cssText = 'position:absolute;z-index:50;pointer-events:none;font-size:' + (14+Math.random()*12) + 'px;left:50%;top:50%;--tx:' + ((Math.random()-.5)*200) + 'px;--ty:' + ((Math.random()-.5)*200) + 'px;animation:particleBurst .7s ease-out forwards';
+      p.textContent = ['\u2B50','\u2728','\uD83D\uDCC5','\uD83C\uDF1F'][Math.floor(Math.random()*4)];
+      area.appendChild(p);
+      setTimeout(function(el) { return function() { el.remove(); }; }(p), 700);
+    }
+    setTimeout(function() { newCalQuestion(); }, 2000);
   } else {
+    cal.streak = 0;
+    document.getElementById('cal-result').innerHTML = '<span style="color:#ef4444">\u274C \uC815\uB2F5\uC740 ' + correct + '!</span>';
     SFX.buzz();
-    speak(`${correct}분이 지났어요!`);
+    setMascotEmotion('cal', 'worried');
+    speak('\uC544\uC26C\uC6CC\uC694! \uC815\uB2F5\uC740 ' + correct + '\uC774\uC5D0\uC694');
+
+    var area = document.getElementById('cal-area');
+    area.style.animation = 'wrongFlash .5s ease-out, shake .4s ease-out';
+    setTimeout(function() { area.style.animation = ''; }, 500);
+    setTimeout(function() { newCalQuestion(); }, 2500);
   }
-  updateCookSide();
-  updateProfileUI();
-  saveStats();
-
-  setTimeout(() => {
-    document.getElementById('cook-quiz').classList.add('hidden');
-    cook.running = true;
-  }, 1500);
-}
-
-function cookOpen() {
-  if (cook.opened) return;
-  cook.opened = true;
-  cook.running = false;
-  clearInterval(cook.timer);
-
-  const pct = cook.elapsed / cook.totalTime;
-  profile.totalPlayed++;
-
-  if (pct < 0.7) {
-    // 너무 일찍
-    showCookResult('raw');
-    SFX.buzz(); setMascotEmotion('travel', 'worried');
-    speak('아직 덜 익었어요! 조금만 더 기다려요!');
-  } else if (pct >= 0.7 && pct <= 1.2) {
-    // 적당!
-    showCookResult('perfect');
-    cook.score += 15;
-    cook.successCount++;
-    profile.totalCorrect++;
-    SFX.fanfare(); setMascotEmotion('travel', 'happy');
-    speak('완벽해요! 맛있게 익었어요!');
-  } else {
-    // 늦음
-    showCookResult('burnt');
-    SFX.buzz(); setMascotEmotion('travel', 'worried');
-    speak('앗, 너무 오래 끓였어요! 탔어요!');
-  }
-  updateCookSide();
+  updateCalSide();
   updateProfileUI();
   saveStats();
 }
 
-function showCookResult(result) {
-  // 김/불꽃 숨기기
-  document.querySelectorAll('.cook-steam-svg,.cook-flame-svg').forEach(e => e.style.display = 'none');
-  const overlay = document.getElementById('cook-result-overlay');
-  overlay.classList.remove('hidden');
-  let msg, bg;
-  if (result === 'raw') {
-    msg = '😰 아직 덜 익었어요!';
-    bg = 'background:rgba(59,130,246,.85);color:#fff';
-  } else if (result === 'perfect') {
-    msg = '🎉 완벽하게 익었어요!';
-    bg = 'background:rgba(34,197,94,.85);color:#fff';
+function calHint() {
+  if (cal.category === 'day') {
+    speak('\uC694\uC77C \uC21C\uC11C\uB97C \uC0DD\uAC01\uD574\uBD10! \uC77C \uC6D4 \uD654 \uC218 \uBAA9 \uAE08 \uD1A0!');
+    document.getElementById('cal-result').textContent = '\uD83D\uDCA1 \uC77C\u2192\uC6D4\u2192\uD654\u2192\uC218\u2192\uBAA9\u2192\uAE08\u2192\uD1A0\u2192\uC77C...';
+  } else if (cal.category === 'month') {
+    speak('\uACC4\uC808\uC744 \uC0DD\uAC01\uD574\uBD10! \uBD04 3 4 5, \uC5EC\uB984 6 7 8, \uAC00\uC744 9 10 11, \uACA8\uC6B8 12 1 2!');
+    document.getElementById('cal-result').textContent = '\uD83D\uDCA1 \uBD043-5, \uC5EC\uB9846-8, \uAC00\uC7449-11, \uACA8\uC6B812-2';
   } else {
-    msg = '😱 타버렸어요!';
-    bg = 'background:rgba(239,68,68,.85);color:#fff';
-  }
-  overlay.innerHTML = `<div class="cook-result-msg" style="${bg}">${msg}</div>`;
-  overlay.style.pointerEvents = 'auto';
-
-  // 스팀 이펙트 (완벽 시)
-  if (result === 'perfect') {
-    const area = document.getElementById('cook-area');
-    for (let i = 0; i < 8; i++) {
-      const st = document.createElement('div');
-      st.className = 'cook-steam';
-      st.textContent = '✨';
-      st.style.cssText = `left:${30+Math.random()*60}%;top:${30+Math.random()*30}%;font-size:${20+Math.random()*20}px;--ty:${-60-Math.random()*40}px;--dur:${1+Math.random()}s`;
-      area.appendChild(st);
-      setTimeout(() => st.remove(), 2000);
-    }
-  }
-
-  setTimeout(() => {
-    overlay.classList.add('hidden');
-    overlay.style.pointerEvents = '';
-    if (result !== 'raw') {
-      setTimeout(() => newCookRound(), 500);
-    } else {
-      // 다시 시작
-      cook.opened = false;
-      cook.running = true;
-      cook.timer = setInterval(cookTick, 1000);
-    }
-  }, 2500);
-}
-
-function cookWait() {
-  // 시간을 빠르게 진행 (1초에 1분씩)
-  if (!cook.running) return;
-  cook.elapsed += 1;
-  updateCookTimerSVG();
-  speak('조금만 더 기다려요!');
-}
-
-function cookHint() {
-  const food = cook.foods[cook.currentFood];
-  const remain = food.time - cook.elapsed;
-  if (remain > 0) {
-    speak(`아직 ${remain}분 남았어요!`);
-    document.getElementById('cook-info').textContent = `💡 아직 ${remain}분 남았어요!`;
-  } else {
-    speak('이제 열어도 돼요!');
-    document.getElementById('cook-info').textContent = '💡 이제 열어도 돼요!';
+    speak('\uB2EC\uB825\uC5D0\uC11C \uC694\uC77C\uC744 \uB530\uB77C \uB0B4\uB824\uAC00\uBA74\uC11C \uCC3E\uC544\uBD10!');
+    document.getElementById('cal-result').textContent = '\uD83D\uDCA1 \uB2EC\uB825\uC5D0\uC11C \uC138\uB85C\uB85C \uB530\uB77C\uAC00 \uBD10!';
   }
 }
 
-function cookRetry() { newCookRound(); }
+function calReset() {
+  document.getElementById('cal-result').textContent = '';
+  document.querySelectorAll('.cal-cell.selected,.cal-cell.correct-cell,.cal-cell.wrong-cell').forEach(function(c) {
+    c.classList.remove('selected','correct-cell','wrong-cell');
+  });
+}
 
-function updateCookSide() {
-  document.getElementById('cook-score-side').textContent = cook.score;
-  document.getElementById('cook-success-side').textContent = cook.successCount;
+function updateCalSide() {
+  document.getElementById('cal-qnum-side').textContent = cal.qNum;
+  document.getElementById('cal-score-side').textContent = cal.score;
+  document.getElementById('cal-streak-side').textContent = cal.streak;
 }
 
 // ===== 쌍둥이 시계 =====
@@ -1387,49 +1800,73 @@ function newTwinQuestion() {
   document.getElementById('twin-qnum').textContent = twin.qNum;
 
   if (twin.mode === 'analog-to-digital') {
-    // 아날로그 시계 보여주고 디지털 맞추기
-    document.getElementById('twin-q').textContent = '🕰 아날로그 시계를 보고 디지털 시간을 맞춰보세요!';
+    // 아날로그 시계 보여주고 디지털 시간 숫자 입력
+    document.getElementById('twin-q').textContent = '👀 시계를 잘 보고 몇 시인지 숫자로 써봐!';
     setClockHands('twin-clock', twin.targetHour, twin.targetMin);
     document.getElementById('twin-digi-display').textContent = '--:--';
     document.getElementById('twin-digi-ampm').textContent = '';
     document.getElementById('twin-input-area').style.display = 'flex';
     document.getElementById('twin-hour-input').value = '';
     document.getElementById('twin-min-input').value = '';
+    document.getElementById('twin-drag-confirm').style.display = 'none';
+    document.getElementById('twin-hand-toggle').classList.add('hidden');
 
-    // 아날로그 보이기, 디지털 입력 모드
+    // 아날로그 보이기 (고정), 디지털 흐리게 (입력 모드)
     document.getElementById('twin-analog-wrap').style.opacity = '1';
+    document.getElementById('twin-analog-wrap').style.pointerEvents = 'none';
     document.getElementById('twin-digital').style.opacity = '0.5';
+    speak('시계를 잘 보고 몇 시인지 숫자로 써봐!');
   } else {
-    // 디지털 보여주고 아날로그 맞추기는 입력으로
-    document.getElementById('twin-q').textContent = '🔢 디지털 시계를 보고 시간을 입력하세요!';
+    // 디지털 보여주고 아날로그 시계 드래그로 맞추기
+    document.getElementById('twin-q').textContent = '🔢 숫자를 보고 바늘을 돌려 맞춰봐!';
     const hStr = twin.targetHour.toString();
     const mStr = twin.targetMin.toString().padStart(2, '0');
     document.getElementById('twin-digi-display').textContent = `${hStr}:${mStr}`;
     document.getElementById('twin-digi-ampm').textContent = '';
-    setClockHands('twin-clock', 12, 0);
-    document.getElementById('twin-input-area').style.display = 'flex';
-    document.getElementById('twin-hour-input').value = '';
-    document.getElementById('twin-min-input').value = '';
 
-    document.getElementById('twin-analog-wrap').style.opacity = '0.5';
+    // 아날로그 시계를 12:00으로 리셋, 드래그 가능
+    twin.currentHour = 12; twin.currentMin = 0;
+    setClockHands('twin-clock', 12, 0);
+    const twinSvg = document.getElementById('twin-clock');
+    if (twinSvg && twinSvg._clockSync) twinSvg._clockSync(12, 0);
+
+    document.getElementById('twin-input-area').style.display = 'none';
+    document.getElementById('twin-drag-confirm').style.display = 'block';
+    document.getElementById('twin-hand-toggle').classList.remove('hidden');
+
+    // 바늘 선택 초기화
+    twin.selectedHand = 'hour';
+    selectHand('twin', 'hour');
+
+    // 아날로그 활성 (드래그 가능), 디지털 밝게 (보여주기)
+    document.getElementById('twin-analog-wrap').style.opacity = '1';
+    document.getElementById('twin-analog-wrap').style.pointerEvents = 'auto';
     document.getElementById('twin-digital').style.opacity = '1';
+    speak('숫자를 보고 바늘을 돌려 맞춰봐!');
   }
-  speak(twin.mode === 'analog-to-digital' ? '아날로그 시계를 보고 시간을 맞춰보세요!' : '디지털 시계를 보고 시간을 맞춰보세요!');
 }
 
 function twinConfirm() {
-  const hInput = parseInt(document.getElementById('twin-hour-input').value);
-  const mInput = parseInt(document.getElementById('twin-min-input').value) || 0;
+  let hInput, mInput;
 
-  if (isNaN(hInput) || hInput < 1 || hInput > 12) {
-    speak('시를 1부터 12 사이로 입력하세요!');
-    document.getElementById('twin-result').textContent = '⚠ 시를 1~12 사이로 입력하세요';
-    return;
+  if (twin.mode === 'analog-to-digital') {
+    // 숫자 입력에서 읽기
+    hInput = parseInt(document.getElementById('twin-hour-input').value);
+    mInput = parseInt(document.getElementById('twin-min-input').value) || 0;
+    if (isNaN(hInput) || hInput < 1 || hInput > 12) {
+      speak('시를 1부터 12 사이로 입력하세요!');
+      document.getElementById('twin-result').textContent = '⚠ 시를 1~12 사이로 입력하세요';
+      return;
+    }
+  } else {
+    // 드래그 결과에서 읽기
+    hInput = twin.currentHour;
+    mInput = twin.currentMin;
   }
 
   profile.totalPlayed++;
-  const hourMatch = hInput === twin.targetHour;
-  const minMatch = Math.abs(mInput - twin.targetMin) <= 2;
+  const hourMatch = (hInput % 12 || 12) === (twin.targetHour % 12 || 12);
+  const minMatch = Math.abs(mInput - twin.targetMin) <= 5;
 
   if (hourMatch && minMatch) {
     twin.score += 10 + twin.streak * 2;
@@ -1440,7 +1877,7 @@ function twinConfirm() {
     profile.totalCorrect++;
 
     document.getElementById('twin-result').innerHTML = '<span style="color:#22c55e">⭕ 정답! 잘했어요!</span>';
-    SFX.chime(); setMascotEmotion('travel', 'happy');
+    SFX.chime(); setMascotEmotion('twin', 'happy');
     // 양쪽 모두 보이기
     if (twin.mode === 'analog-to-digital') {
       const h = twin.targetHour.toString();
@@ -1452,13 +1889,30 @@ function twinConfirm() {
       document.getElementById('twin-analog-wrap').style.opacity = '1';
     }
     speak(`정답! ${twin.targetHour}시 ${twin.targetMin > 0 ? twin.targetMin + '분' : '정각'}이에요!`);
+    // 정답 이펙트: 양쪽 시계 글로우 + 파티클 + 연결 빔
+    const twinArea = document.getElementById('twin-area');
+    twinArea.style.animation = 'correctFlash .6s ease-out';
+    setTimeout(() => twinArea.style.animation = '', 600);
+    const twinClocks = document.getElementById('twin-clocks');
+    if (twinClocks) { const beam = document.createElement('div'); beam.className = 'twin-correct-beam'; twinClocks.style.position = 'relative'; twinClocks.appendChild(beam); setTimeout(() => beam.remove(), 1000); }
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('div');
+      p.style.cssText = `position:absolute;z-index:50;pointer-events:none;font-size:${14+Math.random()*12}px;left:50%;top:45%;--tx:${(Math.random()-.5)*250}px;--ty:${(Math.random()-.5)*180}px;animation:particleBurst .7s ease-out forwards`;
+      p.textContent = ['⭐','✨','🌟','💫'][Math.floor(Math.random()*4)];
+      twinArea.appendChild(p);
+      setTimeout(() => p.remove(), 700);
+    }
     setTimeout(() => newTwinQuestion(), 2000);
   } else {
     twin.streak = 0;
     const correct = `${twin.targetHour}시 ${twin.targetMin > 0 ? twin.targetMin + '분' : '정각'}`;
     document.getElementById('twin-result').innerHTML = `<span style="color:#ef4444">❌ 다시 해보세요!</span>`;
-    SFX.buzz(); setMascotEmotion('travel', 'worried');
+    SFX.buzz(); setMascotEmotion('twin', 'worried');
     speak('다시 해보세요!');
+    // 오답 이펙트
+    const twinArea = document.getElementById('twin-area');
+    twinArea.style.animation = 'wrongFlash .5s ease-out, shake .4s ease-out';
+    setTimeout(() => twinArea.style.animation = '', 500);
   }
   updateTwinSide();
   updateProfileUI();
@@ -1472,8 +1926,8 @@ function twinHint() {
     speak(`짧은 바늘이 ${h} 근처에 있고, 긴 바늘이 ${m === 0 ? '12' : m / 5}에 있어요`);
     document.getElementById('twin-result').textContent = `💡 짧은 바늘 → ${h}, 긴 바늘 → ${m === 0 ? '12' : m / 5}`;
   } else {
-    speak(`${h}시 ${m > 0 ? m + '분' : '정각'}을 찾아보세요`);
-    document.getElementById('twin-result').textContent = `💡 ${h}시 ${m > 0 ? m + '분' : '정각'}`;
+    speak(`짧은 바늘을 ${h}에, 긴 바늘을 ${m === 0 ? '12' : m / 5}에 놓으세요`);
+    document.getElementById('twin-result').textContent = `💡 짧은 바늘 → ${h}, 긴 바늘 → ${m === 0 ? '12(정각)' : m + '분'}`;
   }
 }
 
@@ -1481,6 +1935,12 @@ function twinReset() {
   document.getElementById('twin-hour-input').value = '';
   document.getElementById('twin-min-input').value = '';
   document.getElementById('twin-result').textContent = '';
+  if (twin.mode === 'digital-to-analog') {
+    twin.currentHour = 12; twin.currentMin = 0;
+    setClockHands('twin-clock', 12, 0);
+    const twinSvg = document.getElementById('twin-clock');
+    if (twinSvg && twinSvg._clockSync) twinSvg._clockSync(12, 0);
+  }
 }
 
 function updateTwinSide() {
@@ -1503,395 +1963,379 @@ function updateRecords() {
   document.getElementById('r-travel-best').textContent = travel.bestStreak;
   document.getElementById('r-travel-score').textContent = travel.bestScore;
 
-  document.getElementById('r-cook-success').textContent = cook.successCount;
-  document.getElementById('r-cook-quiz').textContent = cook.quizCorrect;
-  document.getElementById('r-cook-score').textContent = cook.bestScore;
+  document.getElementById('r-cal-correct').textContent = cal.correctCount;
+  document.getElementById('r-cal-streak').textContent = cal.bestStreak;
+  document.getElementById('r-cal-score').textContent = cal.bestScore;
 
   document.getElementById('r-twin-correct').textContent = twin.correctCount;
   document.getElementById('r-twin-best').textContent = twin.bestStreak;
   document.getElementById('r-twin-score').textContent = twin.bestScore;
+  document.getElementById('r-hero-score').textContent = hg.bestScore;
 }
 
-// ===== 히어로: 틱톡 점프 =====
+// ===== 히어로: 시계 스피드런 =====
 function startHeroGame() {
-  const game = document.getElementById('hero-game');
-  game.classList.remove('hidden');
-  game.style.background = 'linear-gradient(180deg,#ecfeff 0%,#cffafe 30%,#a5f3fc 70%,#67e8f9 100%)';
+  try{document.documentElement.requestFullscreen?.()}catch(e){}
   hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
-  hg.angle = 0; hg.speed = 1; hg.jumping = false; hg.jumpY = 0; hg.jumpVel = 0;
-  hg.obstacles = []; hg.powerups = []; hg.combo = 0; hg.maxCombo = 0;
-  hg.quizActive = false; hg.currentHour = 12; hg.charEmoji = profile.char;
+  hg.combo = 0; hg.maxCombo = 0; hg.correctCount = 0; hg.answering = false;
+  hg.timerMax = 10; hg.timerLeft = 10;
+  document.getElementById('hero-game').classList.remove('hidden');
   document.getElementById('hg-over').classList.add('hidden');
-  document.getElementById('hg-pause').classList.add('hidden');
-  document.getElementById('hg-quiz').classList.add('hidden');
+  document.getElementById('hg-pause-overlay').classList.add('hidden');
   updateHgUI();
-  drawHgScene();
   SFX.gameStart();
-  hgLoop();
-
-  // 탭으로 점프
-  const tapZone = document.getElementById('hg-tap-zone');
-  tapZone.onclick = hgJump;
-  tapZone.ontouchstart = function(e) { e.preventDefault(); hgJump(); };
-
-  // 장애물 스폰
-  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
-  hg.spawnTimer = setInterval(hgSpawnObstacle, 3000);
+  addHgDecorations();
+  // 3-2-1 카운트다운
+  var count = 3;
+  var clockArea = document.getElementById('hg-clock-area');
+  var optArea = document.getElementById('hg-options');
+  optArea.innerHTML = '';
+  function countdown() {
+    if (count > 0) {
+      clockArea.innerHTML = '<div style="font-size:120px;font-weight:900;color:#0e7490;text-shadow:0 4px 12px rgba(0,0,0,.15)">' + count + '</div>';
+      SFX.tick();
+      count--;
+      setTimeout(countdown, 800);
+    } else {
+      clockArea.innerHTML = '<div style="font-size:80px;font-weight:900;color:#22c55e;text-shadow:0 4px 12px rgba(0,0,0,.15)">시작!</div>';
+      SFX.chime();
+      setTimeout(function() { hgNewRound(); }, 600);
+    }
+  }
+  countdown();
 }
 
-let _prevHgLives = 5, _prevHgLevel = 1;
+function addHgDecorations() {
+  var body = document.getElementById('hg-body') || document.querySelector('.hg-body');
+  if (!body) return;
+  body.querySelectorAll('.hg-deco,.hg-bg-sparkle').forEach(function(c) { c.remove(); });
+  var clockSVGs = [
+    '<svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="none" stroke="#0891b2" stroke-width="3"/><circle cx="30" cy="30" r="8" fill="none" stroke="#0891b2" stroke-width="2"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(0 30 30)"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(45 30 30)"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(90 30 30)"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(135 30 30)"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(180 30 30)"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(225 30 30)"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(270 30 30)"/><rect x="28" y="8" width="4" height="10" rx="2" fill="#0891b2" transform="rotate(315 30 30)"/></svg>',
+    '<svg width="45" height="45" viewBox="0 0 45 45"><circle cx="22" cy="22" r="12" fill="none" stroke="#06b6d4" stroke-width="2.5"/><circle cx="22" cy="22" r="5" fill="none" stroke="#06b6d4" stroke-width="2"/><rect x="20" y="6" width="4" height="8" rx="2" fill="#06b6d4" transform="rotate(0 22 22)"/><rect x="20" y="6" width="4" height="8" rx="2" fill="#06b6d4" transform="rotate(60 22 22)"/><rect x="20" y="6" width="4" height="8" rx="2" fill="#06b6d4" transform="rotate(120 22 22)"/><rect x="20" y="6" width="4" height="8" rx="2" fill="#06b6d4" transform="rotate(180 22 22)"/><rect x="20" y="6" width="4" height="8" rx="2" fill="#06b6d4" transform="rotate(240 22 22)"/><rect x="20" y="6" width="4" height="8" rx="2" fill="#06b6d4" transform="rotate(300 22 22)"/></svg>',
+    '<svg width="40" height="55" viewBox="0 0 40 55"><rect x="5" y="2" width="30" height="4" rx="2" fill="#0e7490"/><rect x="5" y="49" width="30" height="4" rx="2" fill="#0e7490"/><polygon points="8,6 32,6 22,27 32,49 8,49 18,27" fill="none" stroke="#0e7490" stroke-width="2"/><polygon points="15,35 25,35 22,47 18,47" fill="#67e8f9" opacity=".6"/></svg>',
+    '<svg width="50" height="50" viewBox="0 0 50 50"><circle cx="25" cy="25" r="22" fill="none" stroke="#0891b2" stroke-width="2.5"/><circle cx="25" cy="25" r="2" fill="#0891b2"/><line x1="25" y1="25" x2="25" y2="12" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/><line x1="25" y1="25" x2="35" y2="20" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg>',
+    '<svg width="55" height="55" viewBox="0 0 55 55"><circle cx="28" cy="30" r="20" fill="none" stroke="#0e7490" stroke-width="2.5"/><circle cx="28" cy="30" r="2" fill="#0e7490"/><line x1="28" y1="30" x2="28" y2="18" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="30" x2="36" y2="26" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="14" r="6" fill="none" stroke="#0e7490" stroke-width="2"/><circle cx="44" cy="14" r="6" fill="none" stroke="#0e7490" stroke-width="2"/><line x1="16" y1="10" x2="24" y2="16" stroke="#0e7490" stroke-width="2"/><line x1="40" y1="10" x2="32" y2="16" stroke="#0e7490" stroke-width="2"/></svg>',
+    '<svg width="45" height="45" viewBox="0 0 45 45"><text x="22" y="32" text-anchor="middle" font-size="28" font-weight="900" fill="#0891b2">12</text></svg>',
+    '<svg width="40" height="40" viewBox="0 0 40 40"><text x="20" y="30" text-anchor="middle" font-size="28" font-weight="900" fill="#06b6d4">3</text></svg>',
+    '<svg width="40" height="40" viewBox="0 0 40 40"><text x="20" y="30" text-anchor="middle" font-size="28" font-weight="900" fill="#0e7490">6</text></svg>',
+    '<svg width="45" height="50" viewBox="0 0 45 50"><path d="M22 8 C22 8 10 18 10 32 L10 38 L35 38 L35 32 C35 18 22 8 22 8Z" fill="none" stroke="#eab308" stroke-width="2.5"/><circle cx="22" cy="42" r="4" fill="#eab308"/><line x1="22" y1="2" x2="22" y2="8" stroke="#eab308" stroke-width="2.5"/></svg>',
+    '<svg width="45" height="45" viewBox="0 0 45 45"><polygon points="22,2 28,16 44,18 32,28 35,44 22,36 9,44 12,28 0,18 16,16" fill="none" stroke="#fbbf24" stroke-width="2"/></svg>'
+  ];
+  for (var i = 0; i < 10; i++) {
+    var d = document.createElement('div');
+    d.className = 'hg-deco';
+    d.innerHTML = clockSVGs[i];
+    d.style.left = (i * 180 + Math.random() * 100) + 'px';
+    d.style.top = (60 + Math.random() * 500) + 'px';
+    d.style.setProperty('--dur', (5 + Math.random() * 4) + 's');
+    d.style.animationDelay = -(i * 0.6) + 's';
+    body.appendChild(d);
+  }
+  var sparkColors = ['#06b6d4','#22d3ee','#67e8f9','#0891b2','#0e7490','#164e63'];
+  for (var i = 0; i < 12; i++) {
+    var s = document.createElement('div');
+    s.className = 'hg-bg-sparkle';
+    var sz = 4 + Math.random() * 6;
+    s.style.cssText = 'width:'+sz+'px;height:'+sz+'px;border-radius:50%;background:'+sparkColors[i%sparkColors.length]+';left:'+(Math.random()*95)+'%;top:'+(Math.random()*80)+'%';
+    s.style.setProperty('--dur', (2 + Math.random() * 2) + 's');
+    s.style.animationDelay = -(Math.random() * 3) + 's';
+    body.appendChild(s);
+  }
+}
+
+function hgGenerateClock(hour, min) {
+  var sz = 420, r = sz / 2, cr = r - 16;
+  var svg = '<svg width="' + sz + '" height="' + sz + '" viewBox="0 0 ' + sz + ' ' + sz + '">';
+  // Shadow + face
+  svg += '<defs><filter id="hgcs"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,.2)"/></filter></defs>';
+  svg += '<circle cx="' + r + '" cy="' + r + '" r="' + (cr + 10) + '" fill="#94a3b8" filter="url(#hgcs)"/>';
+  svg += '<circle cx="' + r + '" cy="' + r + '" r="' + cr + '" fill="#fffbe8"/>';
+  // Ticks
+  for (var i = 0; i < 60; i++) {
+    var a = (i * 6 - 90) * Math.PI / 180;
+    var isMajor = i % 5 === 0;
+    var or2 = cr - 10;
+    var ir = isMajor ? cr - 32 : cr - 18;
+    svg += '<line x1="' + (r + or2 * Math.cos(a)) + '" y1="' + (r + or2 * Math.sin(a)) + '" x2="' + (r + ir * Math.cos(a)) + '" y2="' + (r + ir * Math.sin(a)) + '" stroke="' + (isMajor ? '#334155' : '#94a3b8') + '" stroke-width="' + (isMajor ? 3.5 : 1.5) + '" stroke-linecap="round"/>';
+  }
+  // Numbers
+  var numR = cr - 52;
+  for (var n = 1; n <= 12; n++) {
+    var na = (n * 30 - 90) * Math.PI / 180;
+    svg += '<text x="' + (r + numR * Math.cos(na)) + '" y="' + (r + numR * Math.sin(na)) + '" text-anchor="middle" dominant-baseline="central" font-size="38" font-weight="900" fill="#1e293b">' + n + '</text>';
+  }
+  // Hour hand — RED, THICK
+  var hAngle = ((hour % 12) * 30 + min * 0.5);
+  var hLen = cr * 0.45;
+  var hRad = (hAngle - 90) * Math.PI / 180;
+  svg += '<line x1="' + (r - 18 * Math.cos(hRad)) + '" y1="' + (r - 18 * Math.sin(hRad)) + '" x2="' + (r + hLen * Math.cos(hRad)) + '" y2="' + (r + hLen * Math.sin(hRad)) + '" stroke="#dc2626" stroke-width="14" stroke-linecap="round"/>';
+  // Minute hand — BLUE, thinner
+  var mAngle = min * 6;
+  var mLen = cr * 0.7;
+  var mRad = (mAngle - 90) * Math.PI / 180;
+  svg += '<line x1="' + (r - 14 * Math.cos(mRad)) + '" y1="' + (r - 14 * Math.sin(mRad)) + '" x2="' + (r + mLen * Math.cos(mRad)) + '" y2="' + (r + mLen * Math.sin(mRad)) + '" stroke="#2563eb" stroke-width="8" stroke-linecap="round"/>';
+  // Center
+  svg += '<circle cx="' + r + '" cy="' + r + '" r="12" fill="#1e293b"/>';
+  svg += '<circle cx="' + r + '" cy="' + r + '" r="6" fill="#fff"/>';
+  svg += '</svg>';
+  return svg;
+}
+
+function hgGenerateTime() {
+  var hour, min;
+  if (hg.level === 1) {
+    var hours = [1,2,3,4,5,7,8,9,10,11];
+    hour = hours[Math.floor(Math.random() * hours.length)];
+    min = 0;
+  } else if (hg.level === 2) {
+    hour = Math.floor(Math.random() * 12) + 1;
+    min = Math.random() < 0.5 ? 0 : 30;
+  } else if (hg.level === 3) {
+    hour = Math.floor(Math.random() * 12) + 1;
+    min = [0, 15, 30, 45][Math.floor(Math.random() * 4)];
+  } else if (hg.level === 4) {
+    hour = Math.floor(Math.random() * 12) + 1;
+    min = Math.floor(Math.random() * 12) * 5;
+  } else {
+    hour = Math.floor(Math.random() * 12) + 1;
+    min = Math.floor(Math.random() * 60);
+  }
+  return { hour: hour, min: min };
+}
+
+function hgFormatTime(hour, min) {
+  if (min === 0) return hour + '시';
+  return hour + '시 ' + min + '분';
+}
+
+function hgGenerateOptions(hour, min) {
+  var correct = hgFormatTime(hour, min);
+  var options = [correct];
+  var tries = 0;
+  while (options.length < 4 && tries < 200) {
+    tries++;
+    var fakeH = hour, fakeM = min;
+    var r = Math.random();
+    if (hg.level <= 2) {
+      fakeH = hour + (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+      if (fakeH > 12) fakeH -= 12;
+      if (fakeH < 1) fakeH += 12;
+      fakeM = min;
+    } else {
+      if (r < 0.5) {
+        fakeH = hour + (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+        if (fakeH > 12) fakeH -= 12;
+        if (fakeH < 1) fakeH += 12;
+      } else {
+        var step = hg.level === 3 ? 15 : (hg.level === 4 ? 5 : 1);
+        var shift = (Math.floor(Math.random() * 3) + 1) * step * (Math.random() < 0.5 ? 1 : -1);
+        fakeM = (min + shift + 60) % 60;
+      }
+    }
+    var fake = hgFormatTime(fakeH, fakeM);
+    if (!options.includes(fake)) options.push(fake);
+  }
+  while (options.length < 4) {
+    var safeH = (hour + options.length) % 12 + 1;
+    var safe = hgFormatTime(safeH, 0);
+    if (!options.includes(safe)) options.push(safe);
+    else options.push(hgFormatTime(safeH, 30));
+  }
+  for (var i = options.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = options[i]; options[i] = options[j]; options[j] = tmp;
+  }
+  return { options: options, correct: correct };
+}
+
+function hgNewRound() {
+  if (!hg.running || hg.paused) return;
+  hg.answering = false;
+  var time = hgGenerateTime();
+  hg.currentHour = time.hour;
+  hg.currentMin = time.min;
+
+  document.getElementById('hg-clock-area').innerHTML = hgGenerateClock(time.hour, time.min);
+
+  var result = hgGenerateOptions(time.hour, time.min);
+  var optsEl = document.getElementById('hg-options');
+  optsEl.innerHTML = result.options.map(function(opt) {
+    return '<button class="hg-opt" onclick="hgAnswer(\'' + opt + '\', \'' + result.correct + '\')">' + opt + '</button>';
+  }).join('');
+
+  hg.timerLeft = hg.timerMax;
+  if (hg.timerInterval) clearInterval(hg.timerInterval);
+  hg.timerInterval = setInterval(hgTimerTick, 100);
+  hgUpdateTimerBar();
+}
+
+function hgTimerTick() {
+  if (hg.paused || hg.answering) return;
+  hg.timerLeft -= 0.1;
+  hgUpdateTimerBar();
+  if (hg.timerLeft <= 0) {
+    clearInterval(hg.timerInterval);
+    hg.answering = true;
+    hg.combo = 0;
+    hg.lives--;
+    updateHgUI();
+    SFX.buzz();
+    var correct = hgFormatTime(hg.currentHour, hg.currentMin);
+    var opts = document.querySelectorAll('.hg-opt');
+    opts.forEach(function(btn) {
+      btn.disabled = true;
+      if (btn.textContent === correct) btn.classList.add('correct');
+    });
+    document.getElementById('hg-combo').textContent = '⏰ 시간 초과!';
+    speak('시간 초과! 정답은 ' + correct);
+    if (hg.lives <= 0) {
+      setTimeout(hgGameOver, 1500);
+    } else {
+      setTimeout(hgNewRound, 1500);
+    }
+  }
+}
+
+function hgUpdateTimerBar() {
+  var fill = document.getElementById('hg-timer-fill');
+  var pct = Math.max(0, (hg.timerLeft / hg.timerMax) * 100);
+  fill.style.width = pct + '%';
+  fill.className = 'hg-timer-fill';
+  if (pct < 30) fill.classList.add('danger');
+  else if (pct < 60) fill.classList.add('warn');
+}
+
+function hgAnswer(selected, correct) {
+  if (hg.answering || !hg.running || hg.paused) return;
+  hg.answering = true;
+  clearInterval(hg.timerInterval);
+
+  var opts = document.querySelectorAll('.hg-opt');
+  opts.forEach(function(btn) { btn.disabled = true; });
+
+  if (selected === correct) {
+    hg.combo++;
+    if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+    hg.correctCount++;
+    var bonus = hg.combo >= 5 ? 5 : (hg.combo >= 3 ? 3 : 0);
+    hg.score += 10 + bonus;
+    updateHgUI();
+    SFX.ding();
+    speak('정답!');
+
+    opts.forEach(function(btn) {
+      if (btn.textContent === correct) btn.classList.add('correct');
+    });
+
+    if (hg.combo >= 3) {
+      document.getElementById('hg-combo').textContent = '🔥 연속 ' + hg.combo + '정답! (+' + bonus + '보너스)';
+    } else {
+      document.getElementById('hg-combo').textContent = '✅ 정답!';
+    }
+
+    var popup = document.createElement('div');
+    popup.className = 'score-popup';
+    popup.textContent = '+' + (10 + bonus);
+    popup.style.cssText = 'left:50%;top:40%;color:#22c55e';
+    document.querySelector('.hg-body').appendChild(popup);
+    setTimeout(function() { popup.remove(); }, 800);
+
+    if (hg.correctCount % 5 === 0) hgLevelUp();
+
+    setTimeout(hgNewRound, 1000);
+  } else {
+    hg.combo = 0;
+    hg.lives--;
+    updateHgUI();
+    SFX.buzz();
+
+    opts.forEach(function(btn) {
+      if (btn.textContent === selected) btn.classList.add('wrong');
+      if (btn.textContent === correct) btn.classList.add('correct');
+    });
+
+    document.getElementById('hg-combo').textContent = '❌ 정답: ' + correct;
+    speak('정답은 ' + correct);
+
+    if (hg.lives <= 0) {
+      setTimeout(hgGameOver, 1500);
+    } else {
+      setTimeout(hgNewRound, 1500);
+    }
+  }
+}
+
+function hgLevelUp() {
+  hg.level++;
+  var timers = [10, 8, 7, 6, 5];
+  hg.timerMax = timers[Math.min(hg.level - 1, timers.length - 1)];
+  updateHgUI();
+  showLevelUp(hg.level);
+
+  var game = document.getElementById('hero-game');
+  var themes = [
+    'linear-gradient(180deg,#ecfeff 0%,#cffafe 50%,#a5f3fc 100%)',
+    'linear-gradient(180deg,#fef3c7 0%,#fde68a 30%,#fbbf24 60%,#86efac 100%)',
+    'linear-gradient(180deg,#fed7aa 0%,#fdba74 30%,#fb923c 60%,#fbbf24 100%)',
+    'linear-gradient(180deg,#e0f2fe 0%,#bfdbfe 30%,#93c5fd 60%,#e0e7ff 100%)'
+  ];
+  game.style.background = themes[(hg.level - 1) % themes.length];
+}
+
 function updateHgUI() {
   document.getElementById('hg-score').textContent = hg.score;
   document.getElementById('hg-level').textContent = hg.level;
-  const heartsEl = document.getElementById('hg-hearts');
-  let hearts = '';
-  for (let i = 0; i < 5; i++) hearts += i < hg.lives ? '❤️' : '🖤';
+  var heartsEl = document.getElementById('hg-hearts');
+  var hearts = '';
+  for (var i = 0; i < 5; i++) hearts += i < hg.lives ? '❤️' : '🖤';
   heartsEl.textContent = hearts;
-  if (hg.lives < _prevHgLives) { heartsEl.style.animation = 'none'; heartsEl.offsetHeight; heartsEl.style.animation = 'heartLost .5s ease-out'; }
-  _prevHgLives = hg.lives;
-  if (hg.level > _prevHgLevel) showLevelUp(hg.level);
-  _prevHgLevel = hg.level;
-}
-
-function drawHgScene() {
-  const arena = document.getElementById('hg-arena');
-  const w = arena.offsetWidth || 800;
-  const h = arena.offsetHeight || 500;
-  const cx = w / 2;
-  const cy = h / 2;
-  const clockR = Math.min(w, h) * 0.35;
-
-  // 기존 시계 SVG 제거
-  let oldSvg = arena.querySelector('.hg-clock-svg');
-  if (oldSvg) oldSvg.remove();
-
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.classList.add('hg-clock-svg');
-  svg.setAttribute('width', w);
-  svg.setAttribute('height', h);
-  svg.style.cssText = 'position:absolute;top:0;left:0;z-index:5;pointer-events:none';
-
-  // 시계 외곽
-  let svgContent = `
-    <defs>
-      <radialGradient id="hg-face-bg" cx="50%" cy="45%"><stop offset="0%" stop-color="rgba(255,255,255,.9)"/><stop offset="100%" stop-color="rgba(241,245,249,.8)"/></radialGradient>
-      <filter id="hg-clock-shadow"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,.2)"/></filter>
-    </defs>
-    <circle cx="${cx}" cy="${cy}" r="${clockR+8}" fill="#94a3b8" filter="url(#hg-clock-shadow)"/>
-    <circle cx="${cx}" cy="${cy}" r="${clockR}" fill="url(#hg-face-bg)"/>`;
-
-  // 눈금
-  for (let i = 0; i < 60; i++) {
-    const a = (i * 6 - 90) * Math.PI / 180;
-    const isMajor = i % 5 === 0;
-    const or = clockR - 8;
-    const ir = isMajor ? clockR - 22 : clockR - 14;
-    svgContent += `<line x1="${cx+or*Math.cos(a)}" y1="${cy+or*Math.sin(a)}" x2="${cx+ir*Math.cos(a)}" y2="${cy+ir*Math.sin(a)}" stroke="${isMajor?'#475569':'#cbd5e1'}" stroke-width="${isMajor?3:1.5}" stroke-linecap="round"/>`;
-  }
-
-  // 숫자
-  const numR = clockR - 36;
-  for (let i = 1; i <= 12; i++) {
-    const a = (i * 30 - 90) * Math.PI / 180;
-    svgContent += `<text x="${cx+numR*Math.cos(a)}" y="${cy+numR*Math.sin(a)}" text-anchor="middle" dominant-baseline="central" font-size="22" font-weight="800" fill="#1e293b">${i}</text>`;
-  }
-
-  // 시침 (현재 시간)
-  const hAngle = ((hg.currentHour % 12) * 30) * Math.PI / 180 - Math.PI / 2;
-  const hLen = clockR * 0.45;
-  svgContent += `<line x1="${cx}" y1="${cy}" x2="${cx+hLen*Math.cos(hAngle)}" y2="${cy+hLen*Math.sin(hAngle)}" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>`;
-
-  // 초침 (회전) — 캐릭터가 이 위에 서있음
-  const secAngle = (hg.angle - 90) * Math.PI / 180;
-  const secLen = clockR * 0.82;
-  svgContent += `<line id="hg-second-hand" x1="${cx}" y1="${cy}" x2="${cx+secLen*Math.cos(secAngle)}" y2="${cy+secLen*Math.sin(secAngle)}" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>`;
-
-  // 중심점
-  svgContent += `<circle cx="${cx}" cy="${cy}" r="6" fill="#0891b2"/><circle cx="${cx}" cy="${cy}" r="3" fill="#fff"/>`;
-
-  // 캐릭터 (초침 끝)
-  const charX = cx + (secLen - 10) * Math.cos(secAngle);
-  const charY = cy + (secLen - 10) * Math.sin(secAngle) - hg.jumpY;
-  svgContent += `<text id="hg-char" x="${charX}" y="${charY}" text-anchor="middle" dominant-baseline="central" font-size="36">${hg.charEmoji}</text>`;
-
-  svg.innerHTML = svgContent;
-  arena.appendChild(svg);
-}
-
-function hgLoop() {
-  if (!hg.running) return;
-  if (!hg.paused && !hg.quizActive) {
-    // 초침 회전
-    hg.angle += hg.speed * 0.8;
-    if (hg.angle >= 360) {
-      hg.angle -= 360;
-      hg.currentHour = (hg.currentHour % 12) + 1;
-    }
-
-    // 점프 물리
-    if (hg.jumping) {
-      hg.jumpY += hg.jumpVel;
-      hg.jumpVel -= 1.5;
-      if (hg.jumpY <= 0) {
-        hg.jumpY = 0;
-        hg.jumping = false;
-      }
-    }
-
-    // 장애물 충돌 체크
-    checkHgCollisions();
-
-    // 정시 퀴즈 체크 (12시, 3시, 6시, 9시 위치)
-    const quizAngles = [0, 90, 180, 270];
-    for (const qa of quizAngles) {
-      if (Math.abs(hg.angle - qa) < 2 && !hg.quizActive && Math.random() < 0.3) {
-        hgShowQuiz();
-        break;
-      }
-    }
-
-    // 레벨 업
-    const newLevel = Math.floor(hg.score / 50) + 1;
-    if (newLevel > hg.level) {
-      hg.level = newLevel;
-      hg.speed = 1 + hg.level * 0.2;
-      updateHgUI();
-    }
-
-    drawHgScene();
-    drawHgObstacles();
-  }
-  hg.animId = requestAnimationFrame(hgLoop);
-}
-
-function hgJump() {
-  if (hg.paused || hg.quizActive || !hg.running) return;
-  if (!hg.jumping) {
-    hg.jumping = true;
-    hg.jumpVel = 18;
-    SFX.tick();
-
-    // 점프 이펙트
-    const arena = document.getElementById('hg-arena');
-    const eff = document.createElement('div');
-    eff.className = 'hg-jump-effect';
-    eff.textContent = '💨';
-    eff.style.cssText = `left:${arena.offsetWidth/2}px;top:${arena.offsetHeight/2}px;font-size:24px`;
-    arena.appendChild(eff);
-    setTimeout(() => eff.remove(), 400);
-  }
-}
-
-function hgSpawnObstacle() {
-  if (!hg.running || hg.paused || hg.quizActive) return;
-  const arena = document.getElementById('hg-arena');
-  const w = arena.offsetWidth;
-  const h = arena.offsetHeight;
-  const cx = w / 2;
-  const cy = h / 2;
-  const clockR = Math.min(w, h) * 0.35;
-
-  // 장애물을 12시/3시/6시/9시 위치에 배치
-  const positions = [0, 90, 180, 270];
-  const pos = positions[Math.floor(Math.random() * positions.length)];
-  const a = (pos - 90) * Math.PI / 180;
-  const obstX = cx + clockR * 0.82 * Math.cos(a);
-  const obstY = cy + clockR * 0.82 * Math.sin(a);
-
-  const emojis = ['🧱','⚡','🔥','❄️','💎'];
-  const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-
-  const el = document.createElement('div');
-  el.className = 'hg-obstacle';
-  el.textContent = emoji;
-  el.style.cssText = `left:${obstX-18}px;top:${obstY-18}px;font-size:36px;opacity:0;transition:opacity .3s`;
-  arena.appendChild(el);
-  setTimeout(() => el.style.opacity = '1', 50);
-
-  hg.obstacles.push({el, angle: pos, life: 180}); // 3초 수명
-
-  // 파워업 (확률)
-  if (Math.random() < 0.15) {
-    const puPos = positions[Math.floor(Math.random() * positions.length)];
-    const pa = (puPos - 90) * Math.PI / 180;
-    const puX = cx + clockR * 0.6 * Math.cos(pa);
-    const puY = cy + clockR * 0.6 * Math.sin(pa);
-    const puTypes = [{emoji:'⏰', type:'alarm'}, {emoji:'⚙️', type:'slow'}, {emoji:'☀️', type:'sundial'}];
-    const pu = puTypes[Math.floor(Math.random() * puTypes.length)];
-    const puEl = document.createElement('div');
-    puEl.className = 'hg-powerup';
-    puEl.textContent = pu.emoji;
-    puEl.style.cssText = `left:${puX-14}px;top:${puY-14}px;font-size:28px`;
-    arena.appendChild(puEl);
-    hg.powerups.push({el: puEl, angle: puPos, type: pu.type, life: 300});
-  }
-}
-
-function drawHgObstacles() {
-  // 장애물 수명 감소
-  hg.obstacles = hg.obstacles.filter(o => {
-    o.life--;
-    if (o.life <= 0) { o.el.remove(); return false; }
-    if (o.life < 30) o.el.style.opacity = (o.life / 30).toString();
-    return true;
-  });
-  // 파워업 수명 감소
-  hg.powerups = hg.powerups.filter(p => {
-    p.life--;
-    if (p.life <= 0) { p.el.remove(); return false; }
-    return true;
-  });
-}
-
-function checkHgCollisions() {
-  const charAngle = hg.angle % 360;
-
-  // 장애물 충돌
-  hg.obstacles.forEach((o, i) => {
-    const diff = Math.abs(charAngle - o.angle);
-    const close = diff < 15 || diff > 345;
-    if (close && hg.jumpY < 20) {
-      // 충돌!
-      hg.lives--;
-      hg.combo = 0;
-      o.el.remove();
-      hg.obstacles.splice(i, 1);
-      updateHgUI();
-
-      // 화면 흔들림
-      const arena = document.getElementById('hg-arena');
-      arena.style.animation = 'none';
-      arena.offsetHeight;
-      arena.style.animation = 'shake .4s ease-out';
-      setTimeout(() => arena.style.animation = '', 400);
-
-      SFX.buzz();
-      speak('앗!');
-      if (hg.lives <= 0) hgGameOver();
-    } else if (close && hg.jumpY >= 20) {
-      // 점프로 회피 성공!
-      hg.score += 5;
-      hg.combo++;
-      if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
-      o.el.remove();
-      hg.obstacles.splice(i, 1);
-      if (hg.combo >= 3) SFX.combo(hg.combo); else SFX.ding();
-      updateHgUI();
-      if (hg.combo >= 3) {
-        speak('콤보!');
-      }
-    }
-  });
-
-  // 파워업 수집
-  hg.powerups.forEach((p, i) => {
-    const diff = Math.abs(charAngle - p.angle);
-    if (diff < 20 || diff > 340) {
-      p.el.remove();
-      hg.powerups.splice(i, 1);
-      if (p.type === 'alarm') {
-        // 장애물 미리 경고 — 모든 장애물 깜빡이기
-        hg.obstacles.forEach(o => {
-          o.el.style.animation = 'puFloat .3s ease-in-out 3';
-        });
-        speak('알람! 조심하세요!');
-      } else if (p.type === 'slow') {
-        hg.speed = Math.max(0.5, hg.speed * 0.5);
-        speak('슬로우!');
-        setTimeout(() => { hg.speed = 1 + hg.level * 0.2; }, 5000);
-      } else if (p.type === 'sundial') {
-        if (hg.lives < 5) { hg.lives++; updateHgUI(); }
-        speak('하트 회복!');
-      }
-      hg.score += 3;
-      updateHgUI();
-    }
-  });
-}
-
-function hgShowQuiz() {
-  hg.quizActive = true;
-  const popup = document.getElementById('hg-quiz');
-  popup.classList.remove('hidden');
-  const h = hg.currentHour;
-  document.getElementById('hg-quiz-q').textContent = `지금 몇 시?`;
-
-  let options = [h];
-  while (options.length < 4) {
-    const v = Math.floor(Math.random() * 12) + 1;
-    if (!options.includes(v)) options.push(v);
-  }
-  options.sort(() => Math.random() - 0.5);
-
-  document.getElementById('hg-quiz-opts').innerHTML = options.map(o =>
-    `<button class="hg-quiz-opt" onclick="hgQuizAnswer(${o},${h})">${o}시</button>`
-  ).join('');
-  speak('지금 몇 시?');
-}
-
-function hgQuizAnswer(selected, correct) {
-  const popup = document.getElementById('hg-quiz');
-  if (selected === correct) {
-    hg.score += 20;
-    hg.combo++;
-    SFX.fanfare();
-    speak('정답! 보너스!');
-  } else {
-    SFX.buzz();
-    speak(`${correct}시였어요!`);
-  }
-  updateHgUI();
-  popup.classList.add('hidden');
-  hg.quizActive = false;
 }
 
 function hgGameOver() {
   hg.running = false;
-  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
-  if (hg.animId) cancelAnimationFrame(hg.animId);
-  hg.obstacles.forEach(o => o.el.remove()); hg.obstacles = [];
-  hg.powerups.forEach(p => p.el.remove()); hg.powerups = [];
-
+  clearInterval(hg.timerInterval);
+  if (hg.score > hg.bestScore) {
+    hg.bestScore = hg.score;
+    LS.setItem('clockHeroBest', hg.bestScore);
+  }
   document.getElementById('hg-final-score').textContent = hg.score;
-  let msg = '잘했어요!';
-  if (hg.score >= 100) msg = '대단해요! 시계 마스터!';
-  else if (hg.score >= 50) msg = '멋져요! 시계 박사!';
-  document.getElementById('hg-over-msg').textContent = msg;
+  document.getElementById('hg-best-score').textContent = hg.bestScore;
+  var msgs = ['잘했어요! 💪', '대단해요! 🎉', '시계 박사! 🎓', '최고예요! ⭐'];
+  document.getElementById('hg-over-msg').textContent = hg.score >= 100 ? msgs[3] : hg.score >= 50 ? msgs[2] : hg.score >= 20 ? msgs[1] : msgs[0];
   document.getElementById('hg-over').classList.remove('hidden');
   SFX.gameOver();
-  speak(`게임 끝! ${hg.score}점! ${msg}`);
+  speak('게임 끝! ' + hg.score + '점!');
+  saveStats();
 }
 
 function hgRestart() {
   document.getElementById('hg-over').classList.add('hidden');
-  const arena = document.getElementById('hg-arena');
-  arena.querySelectorAll('.hg-obstacle,.hg-powerup,.hg-clock-svg,.hg-jump-effect').forEach(e => e.remove());
-  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
-  hg.angle = 0; hg.speed = 1; hg.jumping = false; hg.jumpY = 0;
-  hg.obstacles = []; hg.powerups = []; hg.combo = 0; hg.maxCombo = 0;
-  hg.quizActive = false; hg.currentHour = 12;
-  updateHgUI(); drawHgScene();
-  SFX.gameStart();
-  hgLoop();
-  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
-  hg.spawnTimer = setInterval(hgSpawnObstacle, 3000);
+  startHeroGame();
 }
 
 function hgPause() {
+  if (!hg.running) return;
   hg.paused = !hg.paused;
-  document.getElementById('hg-pause').classList.toggle('hidden', !hg.paused);
+  var pauseEl = document.getElementById('hg-pause-overlay');
+  if (hg.paused) {
+    pauseEl.classList.remove('hidden');
+    clearInterval(hg.timerInterval);
+  } else {
+    pauseEl.classList.add('hidden');
+    if (!hg.answering) {
+      hg.timerInterval = setInterval(hgTimerTick, 100);
+    }
+  }
 }
 
 function hgExit() {
   hg.running = false;
-  if (hg.spawnTimer) clearInterval(hg.spawnTimer);
-  if (hg.animId) cancelAnimationFrame(hg.animId);
-  hg.obstacles.forEach(o => o.el.remove()); hg.obstacles = [];
-  hg.powerups.forEach(p => p.el.remove()); hg.powerups = [];
-  document.getElementById('hg-over').classList.add('hidden');
-  document.getElementById('hg-pause').classList.add('hidden');
-  document.getElementById('hg-quiz').classList.add('hidden');
+  hg.paused = false;
+  clearInterval(hg.timerInterval);
   document.getElementById('hero-game').classList.add('hidden');
+  document.getElementById('hero-game').style.background = '';
+  speechSynthesis.cancel();
+  if(document.fullscreenElement)document.exitFullscreen?.();
 }
 
 // ===== 초기화 =====
@@ -1916,7 +2360,6 @@ document.addEventListener('DOMContentLoaded', function() {
   _prevMainLevel = Math.floor(profile.totalCorrect / 10) + 1;
   updateProfileUI();
   updateActionButtons();
-  hg.charEmoji = profile.char;
 
   // 시간여행자 시계 생성
   document.getElementById('travel-clock-wrap').innerHTML = createAnalogClock('travel-clock', 340, 12, 0, {showTimeBg: true});
@@ -1927,11 +2370,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   newTravelQuestion();
 
-  // 요리 타이머
-  initCookGame();
+  // 달력 놀이
+  initCalGame();
 
   // 쌍둥이 시계
-  document.getElementById('twin-analog-wrap').innerHTML = createAnalogClock('twin-clock', 260, 3, 0);
+  document.getElementById('twin-analog-wrap').innerHTML = createAnalogClock('twin-clock', 340, 3, 0);
+  setupClockDrag('twin-clock', function(h, m) {
+    twin.currentHour = h;
+    twin.currentMin = m;
+    setClockHands('twin-clock', h, m);
+  });
   initTwinGame();
 });
 
@@ -1942,6 +2390,18 @@ document.addEventListener('touchend', function(e) {
   if (now - lastTouchEnd <= 300) e.preventDefault();
   lastTouchEnd = now;
 }, false);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
+window.matchMedia('(orientation: portrait)').addEventListener('change', e => {
+  if (e.matches) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
 </script>
 </body>
 </html>

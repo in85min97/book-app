@@ -35,25 +35,25 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .profile-info{flex:1;color:#fff}
 .profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
 .profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
-.profile-level{font-size:18px;font-weight:700;color:#e9d5ff;display:flex;align-items:center;gap:8px}
-.level-badge{background:linear-gradient(145deg,#c4b5fd,#a78bfa);color:#4c1d95;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.profile-level{font-size:22px;font-weight:700;color:#e9d5ff;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#c4b5fd,#a78bfa);color:#4c1d95;padding:4px 12px;border-radius:8px;font-size:22px;font-weight:800;border:1px solid #fff}
 .progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#c4b5fd,#a78bfa,#c4b5fd);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
 @keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 .tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
-.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:20px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:62px;white-space:nowrap;font-family:inherit}
 .tab-btn.active{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;border-color:#8b5cf6}
 .tab-btn:active{transform:scale(.97)}
 .tab-content{display:none;flex:1;overflow:hidden}
 .tab-content.active{display:flex;flex-direction:column}
 
-.side-info{background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:16px;padding:15px;border:2px solid #8b5cf6;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
-.side-title{font-size:17px;font-weight:700;color:#5b21b6;text-align:center;flex-shrink:0}
-.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
-.side-val{font-size:20px;font-weight:800;color:#7c3aed}
+.side-info{background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:16px;padding:16px;border:2px solid #8b5cf6;display:flex;flex-direction:column;gap:10px;height:100%;overflow:hidden}
+.side-title{font-size:26px;font-weight:800;color:#5b21b6;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;border-radius:10px;font-size:22px;font-weight:600;color:#1e293b}
+.side-val{font-size:36px;font-weight:800;color:#7c3aed}
 
-.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#c4b5fd,#a78bfa);color:#4c1d95;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(167,139,250,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#c4b5fd,#a78bfa);color:#4c1d95;border:3px solid #fff;border-radius:16px;padding:20px;font-size:26px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(167,139,250,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
 @keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 .game-launch-btn:active{transform:scale(.97)}
 
@@ -62,8 +62,8 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .game-view.active{display:flex}
 
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
-.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:52px;opacity:.9;line-height:1}
+.action-btn{border:none;border-radius:20px;font-size:36px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:62px;opacity:.9;line-height:1}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-purple{background:linear-gradient(145deg,#8b5cf6,#7c3aed);box-shadow:0 2px 8px rgba(139,92,246,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -74,132 +74,172 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 /* 소리 그림 */
 .draw-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.draw-canvas-wrap{flex:1;position:relative;background:linear-gradient(180deg,#f5f3ff,#ede9fe);border-radius:16px;margin:10px;border:3px solid #c4b5fd;overflow:hidden;cursor:crosshair}
+.draw-canvas-wrap{flex:1;position:relative;background:linear-gradient(180deg,#f5f3ff,#ede9fe);border-radius:16px;margin:8px;border:3px solid #c4b5fd;overflow:hidden;cursor:crosshair}
 .draw-canvas-wrap svg{width:100%;height:100%;position:absolute;top:0;left:0}
 .draw-guide{position:absolute;left:0;top:0;bottom:0;width:70px;display:flex;flex-direction:column;justify-content:space-between;padding:12px 0;pointer-events:none;z-index:5}
-.draw-note{font-size:15px;font-weight:700;color:#7c3aed;text-align:center;opacity:.7;display:flex;align-items:center;justify-content:center;gap:4px}
-.draw-note svg{width:22px;height:22px;flex-shrink:0}
-.draw-info{text-align:center;padding:8px;font-size:16px;font-weight:700;color:#5b21b6;flex-shrink:0}
+.draw-note{font-size:22px;font-weight:700;color:#7c3aed;text-align:center;opacity:.7;display:flex;align-items:center;justify-content:center;gap:4px}
+.draw-note svg{width:32px;height:32px;flex-shrink:0}
+.draw-info{text-align:center;padding:10px;font-size:22px;font-weight:700;color:#5b21b6;flex-shrink:0}
 /* 소리그림 idle 떠다니는 음표 */
 .draw-idle-note{position:absolute;pointer-events:none;z-index:2;opacity:.35;animation:drawIdleFloat linear infinite}
 @keyframes drawIdleFloat{0%{transform:translateY(0) rotate(0deg);opacity:.35}25%{opacity:.5}50%{transform:translateY(-30px) rotate(15deg);opacity:.35}75%{opacity:.5}100%{transform:translateY(0) rotate(0deg);opacity:.35}}
 /* 음표 파티클 이펙트 */
 .draw-particle{position:absolute;pointer-events:none;z-index:10;animation:drawParticlePop .7s ease-out forwards}
 @keyframes drawParticlePop{0%{transform:scale(0) rotate(0deg);opacity:1}50%{transform:scale(1.2) rotate(180deg);opacity:.8}100%{transform:scale(0) rotate(360deg);opacity:0}}
+/* 소리그림 재생 커서 */
+.replay-cursor{filter:drop-shadow(0 0 4px #fbbf24) drop-shadow(0 0 8px #f59e0b);transition:cx .04s,cy .04s}
+.replay-glow{filter:drop-shadow(0 0 8px currentColor) drop-shadow(0 0 16px currentColor)}
 
 /* 몸으로 드럼 */
-.drum-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden}
-.drum-pattern-bar{background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:16px;padding:14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.drum-pattern-label{color:#c4b5fd;font-size:18px;font-weight:700;flex-shrink:0}
+.drum-area{flex:1;display:flex;flex-direction:column;gap:8px;padding:8px;overflow:hidden}
+.drum-pattern-bar{background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.drum-pattern-label{color:#c4b5fd;font-size:24px;font-weight:700;flex-shrink:0}
 .drum-beats{display:flex;gap:8px;flex:1;justify-content:center}
-.drum-beat{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);transition:.2s}
-.drum-beat svg{width:36px;height:36px}
+.drum-beat{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);transition:.2s}
+.drum-beat svg{width:40px;height:40px}
 .drum-beat.active{border-color:#fbbf24;box-shadow:0 0 20px rgba(251,191,36,.6);transform:scale(1.2);background:rgba(251,191,36,.2)}
 .drum-beat.hit-perfect{background:#22c55e!important;border-color:#22c55e!important}
 .drum-beat.hit-good{background:#f59e0b!important;border-color:#f59e0b!important}
 .drum-beat.hit-miss{background:#ef4444!important;border-color:#ef4444!important}
-.drum-score-bar{display:flex;justify-content:center;gap:20px;font-size:18px;font-weight:700;color:#1e293b;flex-shrink:0}
-.drum-score-bar span{padding:6px 14px;background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:10px}
+.drum-score-bar{display:flex;justify-content:center;gap:24px;font-size:24px;font-weight:700;color:#1e293b;flex-shrink:0}
+.drum-score-bar span{padding:8px 18px;background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:10px}
 .drum-pads{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:10px}
-.drum-pad{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;cursor:pointer;border:4px solid rgba(255,255,255,.3);transition:.15s;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.15)}
-.drum-pad svg{width:80%;height:55%;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.drum-pad{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;cursor:pointer;border:5px solid rgba(255,255,255,.4);transition:.15s;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.drum-pad svg{width:65%;height:50%;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.3))}
 .drum-pad:active{transform:scale(.92)}
 .drum-pad.pad-clap{background:linear-gradient(145deg,#ef4444,#dc2626);color:#fff}
 .drum-pad.pad-stomp{background:linear-gradient(145deg,#f97316,#ea580c);color:#fff}
 .drum-pad.pad-knee{background:linear-gradient(145deg,#22c55e,#16a34a);color:#fff}
 .drum-pad.pad-tongue{background:linear-gradient(145deg,#3b82f6,#2563eb);color:#fff}
-.drum-pad-label{font-size:18px;font-weight:700;margin-top:2px}
+.drum-pad-label{font-size:26px;font-weight:800;margin-top:2px;text-shadow:0 2px 4px rgba(0,0,0,.3)}
 .drum-pad.drum-bounce svg{animation:drumBounce .3s ease-out}
 .drum-pad.drum-glow{box-shadow:0 0 30px 8px rgba(255,255,255,.5)!important}
 @keyframes drumBounce{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
 .drum-pad-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);transform:scale(0);animation:padRipple .5s ease-out forwards;pointer-events:none}
 @keyframes padRipple{0%{transform:scale(0);opacity:1}100%{transform:scale(2.5);opacity:0}}
-.drum-result{position:absolute;font-size:28px;font-weight:900;pointer-events:none;z-index:10;animation:drumResPop .8s ease-out forwards}
+.drum-result{position:absolute;font-size:34px;font-weight:900;pointer-events:none;z-index:10;animation:drumResPop .8s ease-out forwards}
 @keyframes drumResPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-80%) scale(.7);opacity:0}}
 
 /* 냉장고 오케스트라 */
-.fridge-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;overflow:hidden}
+.fridge-area{flex:1;display:flex;flex-direction:column;gap:8px;padding:8px;overflow:hidden}
 .fridge-items{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1}
-.fridge-item{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.15s;position:relative;overflow:hidden;padding:8px}
-.fridge-item svg{width:80%;height:60%;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.12))}
+.fridge-item{background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(248,250,252,.95));border:3px solid #e2e8f0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.15s;position:relative;overflow:hidden;padding:8px;backdrop-filter:blur(4px)}
+.fridge-item svg{width:85%;height:65%;pointer-events:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.15))}
+.fridge-item:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,92,246,.15)}
 .fridge-item:active{transform:scale(.93);border-color:#8b5cf6}
-.fridge-item-name{font-size:14px;font-weight:700;color:#475569;margin-top:4px}
-.fridge-item.playing{border-color:#8b5cf6;box-shadow:0 0 25px rgba(139,92,246,.5);background:linear-gradient(145deg,#f5f3ff,#ede9fe)}
+.fridge-item-name{font-size:22px;font-weight:800;color:#475569;margin-top:4px}
+.fridge-item.playing{border-color:#8b5cf6;box-shadow:0 0 30px rgba(139,92,246,.5);background:linear-gradient(145deg,#f5f3ff,#ede9fe)}
 .fridge-item.playing svg{animation:fridgeSvgShake .3s ease-out}
 @keyframes fridgeSvgShake{0%{transform:rotate(0)}25%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}75%{transform:rotate(-6deg)}100%{transform:rotate(0)}}
 /* 소리파 이펙트 */
 .fridge-soundwave{position:absolute;top:50%;left:50%;width:40px;height:40px;border-radius:50%;border:3px solid #8b5cf6;pointer-events:none;transform:translate(-50%,-50%);animation:fridgeSoundwave .6s ease-out forwards;opacity:0}
 @keyframes fridgeSoundwave{0%{width:40px;height:40px;opacity:.8}100%{width:160px;height:160px;opacity:0}}
-.fridge-seq{display:flex;gap:10px;align-items:center;flex-shrink:0;padding:10px;background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:16px;position:relative;overflow:hidden}
+.fridge-seq{display:flex;gap:10px;align-items:center;flex-shrink:0;padding:12px 14px;background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:16px;position:relative;overflow:hidden}
 .fridge-seq::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'><path d='M0 30 Q25 10 50 30 T100 30 T150 30 T200 30' fill='none' stroke='rgba(167,139,250,0.15)' stroke-width='2'><animate attributeName='d' values='M0 30 Q25 10 50 30 T100 30 T150 30 T200 30;M0 30 Q25 50 50 30 T100 30 T150 30 T200 30;M0 30 Q25 10 50 30 T100 30 T150 30 T200 30' dur='3s' repeatCount='indefinite'/></path></svg>") repeat-x;pointer-events:none;opacity:.6}
-.fridge-seq-label{color:#c4b5fd;font-size:18px;font-weight:700;flex-shrink:0;padding:0 8px;z-index:1}
+.fridge-seq-label{color:#c4b5fd;font-size:24px;font-weight:700;flex-shrink:0;padding:0 10px;z-index:1}
 .fridge-seq-slots{display:flex;gap:10px;flex:1;justify-content:center;z-index:1}
-.fridge-slot{width:90px;height:90px;border:3px dashed rgba(255,255,255,.3);border-radius:18px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);cursor:pointer;transition:.2s;position:relative}
-.fridge-slot svg{width:55px;height:55px}
+.fridge-slot{width:100px;height:100px;border:3px dashed rgba(255,255,255,.3);border-radius:18px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);cursor:pointer;transition:.2s;position:relative}
+.fridge-slot svg{width:62px;height:62px}
 .fridge-slot.filled{border-style:solid;border-color:#a78bfa;background:rgba(167,139,250,.2)}
 .fridge-slot.active-slot{border-color:#fbbf24;box-shadow:0 0 20px rgba(251,191,36,.6)}
-.fridge-play-btn{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:20px;font-weight:800;cursor:pointer;font-family:inherit;flex-shrink:0;z-index:1}
+.fridge-play-btn{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;border:none;border-radius:14px;padding:16px 34px;font-size:26px;font-weight:800;cursor:pointer;font-family:inherit;flex-shrink:0;z-index:1}
 .fridge-play-btn:active{transform:scale(.95)}
 .fridge-item-ring{position:absolute;border-radius:50%;border:3px solid;pointer-events:none;animation:itemRing .6s ease-out forwards}
 @keyframes itemRing{0%{transform:scale(0);opacity:1}100%{transform:scale(2);opacity:0}}
 
-/* 내 기록 */
+/* 내 기록 — 글래스모피즘 */
 .records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
-.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-card{background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(248,250,252,.9));border:2px solid rgba(139,92,246,.15);border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.06);backdrop-filter:blur(8px);transition:.2s}
+.record-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(139,92,246,.12)}
+.record-card h3{font-size:26px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
 .record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#f5f3ff,#ede9fe);border-radius:12px;border:2px solid #c4b5fd}
-.record-num{font-size:32px;font-weight:900;color:#7c3aed}
-.record-label{font-size:13px;font-weight:600;color:#5b21b6;margin-top:4px}
+.record-item{text-align:center;padding:14px;background:linear-gradient(145deg,rgba(245,243,255,.8),rgba(237,233,254,.9));border-radius:14px;border:2px solid rgba(167,139,250,.2);backdrop-filter:blur(4px)}
+.record-num{font-size:48px;font-weight:900;color:#7c3aed;text-shadow:0 0 20px rgba(124,58,237,.2)}
+.record-label{font-size:18px;font-weight:700;color:#5b21b6;margin-top:4px}
 
-/* 히어로: 비트 캐처 */
-.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#1e1b4b 0%,#312e81 30%,#4c1d95 70%,#6d28d9 100%);overflow:hidden}
+/* 히어로: 비트 러시 (비트매니아 스타일) */
+.hero-game{position:absolute;top:0;left:0;width:1920px;height:1080px;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#0f0720 0%,#1a0a3e 40%,#2d1463 100%);overflow:hidden}
 .hero-game.hidden{display:none}
-.hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.15)}
-.hg-stat{font-size:22px;font-weight:800;color:#e9d5ff}
-.hg-hearts{font-size:24px;letter-spacing:3px}
-.hg-ctrls{display:flex;gap:8px}
-.hg-ctrl-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff}
-.hg-ctrl-btn:active{transform:scale(.9)}
+.hg-header{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(167,139,250,.3)}
+.hg-stat{font-size:24px;font-weight:800;color:#e9d5ff;text-shadow:0 2px 8px rgba(139,92,246,.4)}
+.hg-hearts{font-size:26px;letter-spacing:4px}
+.hg-ctrls{display:flex;gap:10px}
+.hg-ctrl-btn{background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:.15s}
+.hg-ctrl-btn:active{transform:scale(.85);background:rgba(255,255,255,.2)}
 .hg-arena{flex:1;position:relative;overflow:hidden}
-.hg-judge-ring{position:absolute;top:50%;left:50%;width:120px;height:120px;transform:translate(-50%,-50%);border:4px solid rgba(255,255,255,.4);border-radius:50%;z-index:5;box-shadow:0 0 30px rgba(167,139,250,.3),inset 0 0 20px rgba(167,139,250,.2)}
-.hg-judge-center{position:absolute;top:50%;left:50%;width:40px;height:40px;transform:translate(-50%,-50%);background:radial-gradient(circle,#c4b5fd,#7c3aed);border-radius:50%;z-index:6;box-shadow:0 0 20px rgba(167,139,250,.6)}
-.hg-lane{position:absolute;z-index:3;pointer-events:none}
-.hg-lane-up{top:0;left:50%;width:4px;height:50%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(167,139,250,.6),transparent)}
-.hg-lane-down{bottom:0;left:50%;width:4px;height:50%;transform:translateX(-50%);background:linear-gradient(0deg,rgba(167,139,250,.6),transparent)}
-.hg-lane-left{left:0;top:50%;height:4px;width:50%;transform:translateY(-50%);background:linear-gradient(90deg,rgba(167,139,250,.6),transparent)}
-.hg-lane-right{right:0;top:50%;height:4px;width:50%;transform:translateY(-50%);background:linear-gradient(270deg,rgba(167,139,250,.6),transparent)}
-.hg-tap-zone{position:absolute;z-index:20;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.hg-tap-up{top:30%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;background:rgba(239,68,68,.15);border:2px solid rgba(239,68,68,.3)}
-.hg-tap-down{bottom:30%;left:50%;transform:translate(-50%,50%);width:100px;height:100px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid rgba(34,197,94,.3)}
-.hg-tap-left{left:20%;top:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;background:rgba(59,130,246,.15);border:2px solid rgba(59,130,246,.3)}
-.hg-tap-right{right:20%;top:50%;transform:translate(50%,-50%);width:100px;height:100px;border-radius:50%;background:rgba(251,191,36,.15);border:2px solid rgba(251,191,36,.3)}
-.hg-tap-zone:active{transform:translate(-50%,-50%) scale(.9);background:rgba(255,255,255,.2)}
-.hg-tap-down:active{transform:translate(-50%,50%) scale(.9);background:rgba(255,255,255,.2)}
-.hg-tap-right:active{transform:translate(50%,-50%) scale(.9);background:rgba(255,255,255,.2)}
-.hg-note{position:absolute;z-index:8;pointer-events:none;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
-.hg-note svg{width:44px;height:44px}
-.hg-judge-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:900;z-index:30;pointer-events:none;animation:judgeText .8s ease-out forwards}
-@keyframes judgeText{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-80%) scale(.8);opacity:0}}
-.hg-combo-text{position:absolute;top:15%;left:50%;transform:translateX(-50%);font-size:48px;font-weight:900;color:#fbbf24;text-shadow:0 3px 10px rgba(0,0,0,.4);z-index:25;pointer-events:none;animation:comboPop 1s ease-out forwards}
-@keyframes comboPop{0%{transform:translateX(-50%) scale(0);opacity:0}30%{transform:translateX(-50%) scale(1.2);opacity:1}100%{transform:translateX(-50%) scale(.8);opacity:0}}
-.hg-flash-good{position:absolute;inset:0;pointer-events:none;z-index:28;animation:flashGood .3s ease-out forwards}
-@keyframes flashGood{0%{background:rgba(34,197,94,.25)}100%{background:transparent}}
-.hg-flash-miss{position:absolute;inset:0;pointer-events:none;z-index:28;animation:flashMiss .4s ease-out forwards}
-@keyframes flashMiss{0%{background:rgba(239,68,68,.25)}100%{background:transparent}}
-.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
+/* 레인 배경 */
+.hg-lane-bg{position:absolute;top:0;bottom:0;width:160px;z-index:1;border-left:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06)}
+.hg-lane-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.03) 80%,rgba(255,255,255,.08) 100%)}
+.hg-lane-bg[data-l="0"]{left:calc(50% - 332px);background:linear-gradient(180deg,transparent,rgba(239,68,68,.04))}
+.hg-lane-bg[data-l="1"]{left:calc(50% - 168px);background:linear-gradient(180deg,transparent,rgba(59,130,246,.04))}
+.hg-lane-bg[data-l="2"]{left:calc(50% + 8px);background:linear-gradient(180deg,transparent,rgba(34,197,94,.04))}
+.hg-lane-bg[data-l="3"]{left:calc(50% + 172px);background:linear-gradient(180deg,transparent,rgba(251,191,36,.04))}
+/* 판정 라인 */
+.hg-judge-line{position:absolute;left:calc(50% - 340px);width:680px;height:6px;bottom:160px;z-index:8;border-radius:3px;background:linear-gradient(90deg,transparent,#c084fc,#a78bfa,#c084fc,transparent);box-shadow:0 0 30px rgba(192,132,252,.5),0 0 60px rgba(167,139,250,.3);animation:judgePulse 1.5s ease-in-out infinite}
+@keyframes judgePulse{0%,100%{box-shadow:0 0 30px rgba(192,132,252,.5),0 0 60px rgba(167,139,250,.3)}50%{box-shadow:0 0 40px rgba(192,132,252,.7),0 0 80px rgba(167,139,250,.5)}}
+/* 버튼 행 */
+.hg-btn-row{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:20}
+.hg-btn{width:160px;height:110px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;cursor:pointer;transition:transform .08s;border:none;font-family:inherit;position:relative;overflow:hidden}
+.hg-btn::before{content:'';position:absolute;inset:0;border-radius:20px;border:3px solid;pointer-events:none}
+.hg-btn .note-icon{font-size:36px;line-height:1}
+.hg-btn .note-label{font-size:16px;margin-top:4px;opacity:.8}
+.hg-btn[data-l="0"]{background:linear-gradient(180deg,rgba(239,68,68,.2),rgba(239,68,68,.35));color:#fca5a5;border-bottom:5px solid #dc2626}.hg-btn[data-l="0"]::before{border-color:rgba(239,68,68,.4)}
+.hg-btn[data-l="1"]{background:linear-gradient(180deg,rgba(59,130,246,.2),rgba(59,130,246,.35));color:#93c5fd;border-bottom:5px solid #2563eb}.hg-btn[data-l="1"]::before{border-color:rgba(59,130,246,.4)}
+.hg-btn[data-l="2"]{background:linear-gradient(180deg,rgba(34,197,94,.2),rgba(34,197,94,.35));color:#86efac;border-bottom:5px solid #16a34a}.hg-btn[data-l="2"]::before{border-color:rgba(34,197,94,.4)}
+.hg-btn[data-l="3"]{background:linear-gradient(180deg,rgba(251,191,36,.2),rgba(251,191,36,.35));color:#fde68a;border-bottom:5px solid #d97706}.hg-btn[data-l="3"]::before{border-color:rgba(251,191,36,.4)}
+.hg-btn:active{transform:translateY(3px);border-bottom-width:2px}
+.hg-btn.flash{animation:btnFlash .2s}
+@keyframes btnFlash{0%{filter:brightness(2)}100%{filter:brightness(1)}}
+/* 노트 */
+.hg-note{position:absolute;z-index:5;pointer-events:none;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.hg-note[data-l="0"]{background:linear-gradient(180deg,#ef4444,#dc2626);box-shadow:0 0 15px rgba(239,68,68,.5),0 4px 8px rgba(0,0,0,.3)}
+.hg-note[data-l="1"]{background:linear-gradient(180deg,#3b82f6,#2563eb);box-shadow:0 0 15px rgba(59,130,246,.5),0 4px 8px rgba(0,0,0,.3)}
+.hg-note[data-l="2"]{background:linear-gradient(180deg,#22c55e,#16a34a);box-shadow:0 0 15px rgba(34,197,94,.5),0 4px 8px rgba(0,0,0,.3)}
+.hg-note[data-l="3"]{background:linear-gradient(180deg,#fbbf24,#d97706);box-shadow:0 0 15px rgba(251,191,36,.5),0 4px 8px rgba(0,0,0,.3)}
+.hg-note svg{width:32px;height:32px}
+/* 판정 텍스트 */
+.hg-judge-text{position:absolute;left:50%;bottom:200px;transform:translateX(-50%);font-size:42px;font-weight:900;z-index:30;pointer-events:none;text-shadow:0 3px 15px rgba(0,0,0,.5);animation:judgeText .8s ease-out forwards}
+@keyframes judgeText{0%{transform:translateX(-50%) scale(0) translateY(0);opacity:0}20%{transform:translateX(-50%) scale(1.4) translateY(0);opacity:1}100%{transform:translateX(-50%) scale(.9) translateY(-60px);opacity:0}}
+/* 콤보 */
+.hg-combo-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:60px;font-weight:900;color:#fbbf24;text-shadow:0 0 30px rgba(251,191,36,.6),0 4px 15px rgba(0,0,0,.4);z-index:25;pointer-events:none;animation:comboPop 1s ease-out forwards}
+@keyframes comboPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}25%{transform:translate(-50%,-50%) scale(1.3);opacity:1}100%{transform:translate(-50%,-50%) scale(.7);opacity:0}}
+/* 레인 히트 플래시 */
+.hg-lane-flash{position:absolute;top:0;bottom:0;width:160px;z-index:6;pointer-events:none;animation:laneFlash .25s ease-out forwards}
+@keyframes laneFlash{0%{opacity:.5}100%{opacity:0}}
+.hg-lane-flash[data-l="0"]{background:linear-gradient(180deg,transparent,rgba(239,68,68,.4))}
+.hg-lane-flash[data-l="1"]{background:linear-gradient(180deg,transparent,rgba(59,130,246,.4))}
+.hg-lane-flash[data-l="2"]{background:linear-gradient(180deg,transparent,rgba(34,197,94,.4))}
+.hg-lane-flash[data-l="3"]{background:linear-gradient(180deg,transparent,rgba(251,191,36,.4))}
+/* 스코어 팝업 */
+.hg-score-pop{position:absolute;z-index:28;font-size:24px;font-weight:900;color:#fbbf24;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.4);animation:scorePop .6s ease-out forwards}
+@keyframes scorePop{0%{transform:translateY(0) scale(.5);opacity:0}20%{transform:translateY(0) scale(1.1);opacity:1}100%{transform:translateY(-40px) scale(.8);opacity:0}}
+/* 미스 플래시 */
+.hg-flash-miss{position:absolute;inset:0;pointer-events:none;z-index:28;animation:flashMiss .35s ease-out forwards}
+@keyframes flashMiss{0%{background:rgba(239,68,68,.2)}100%{background:transparent}}
+/* BPM 표시 */
+.hg-bpm{position:absolute;top:80px;right:40px;font-size:20px;font-weight:700;color:rgba(167,139,250,.5);z-index:15;pointer-events:none}
+/* 이퀄라이저 장식 */
+.hg-eq-bar{position:absolute;bottom:160px;width:8px;border-radius:4px 4px 0 0;z-index:2;pointer-events:none;opacity:.15;animation:eqBounce var(--dur) ease-in-out infinite}
+@keyframes eqBounce{0%,100%{height:var(--h1)}50%{height:var(--h2)}}
+/* 오버레이 */
+.hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(8px)}
 .hg-overlay.hidden{display:none}
-.hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
-.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
-.hg-overlay-box .score{font-size:28px;font-weight:700;color:#7c3aed;margin-bottom:8px}
-.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
-.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
-.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff}
-.hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
-.hg-instrument{position:absolute;font-size:40px;pointer-events:none;z-index:2;opacity:.3;animation:instFloat 4s ease-in-out infinite}
-@keyframes instFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.hg-powerup{position:absolute;font-size:32px;z-index:12;cursor:pointer;animation:puFloat 1.5s ease-in-out infinite;filter:drop-shadow(0 2px 8px rgba(251,191,36,.5))}
-@keyframes puFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.hg-overlay-box{background:linear-gradient(145deg,#1e1b4b,#312e81);border:2px solid rgba(167,139,250,.3);border-radius:28px;padding:48px;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.5);min-width:380px}
+.hg-overlay-box h2{font-size:40px;font-weight:900;color:#e9d5ff;margin-bottom:16px}
+.hg-overlay-box .score{font-size:32px;font-weight:700;color:#c4b5fd;margin-bottom:6px}
+.hg-overlay-box .msg{font-size:20px;color:#a78bfa;margin-bottom:24px}
+.hg-overlay-box .stats{display:flex;gap:20px;justify-content:center;margin-bottom:20px}
+.hg-overlay-box .stat-item{text-align:center}
+.hg-overlay-box .stat-val{font-size:28px;font-weight:900;color:#fbbf24}
+.hg-overlay-box .stat-label{font-size:14px;color:#a78bfa;margin-top:2px}
+.hg-overlay-box button{display:block;width:100%;padding:16px;border:none;border-radius:16px;font-size:20px;font-weight:800;cursor:pointer;margin-bottom:10px;font-family:inherit;transition:.15s}
+.hg-overlay-box button:active{transform:scale(.96)}
+.hg-overlay-box .btn-retry{background:linear-gradient(145deg,#8b5cf6,#7c3aed);color:#fff;box-shadow:0 4px 15px rgba(139,92,246,.4)}
+.hg-overlay-box .btn-exit{background:rgba(255,255,255,.1);color:#c4b5fd;border:1px solid rgba(167,139,250,.3)}
+/* 카운트다운 */
+.hg-countdown{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:50;pointer-events:none}
+.hg-countdown-num{font-size:120px;font-weight:900;color:#e9d5ff;text-shadow:0 0 60px rgba(167,139,250,.6);animation:countPop .8s ease-out forwards}
+@keyframes countPop{0%{transform:scale(2);opacity:0}30%{transform:scale(1);opacity:1}80%{opacity:1}100%{transform:scale(.5);opacity:0}}
 
 /* 모달 */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:6000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
@@ -232,16 +272,20 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .drum-view .drum-score-bar{background:rgba(255,255,255,.1);backdrop-filter:blur(4px)}
 .drum-view .drum-score-bar span{background:rgba(255,255,255,.12);color:#e9d5ff}
 
-/* 냉장고 오케스트라: 주방 콘서트 */
-.fridge-view{background:linear-gradient(180deg,#fef3c7 0%,#fde68a 20%,#f5f3ff 60%,#ede9fe 100%);border-radius:16px;overflow:hidden;position:relative}
-.fridge-view::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 960'><rect x='0' y='840' width='1320' height='120' fill='%23f5f3ff' opacity='.4'/><rect x='0' y='838' width='1320' height='3' fill='%23c4b5fd' opacity='.15'/><text x='80' y='80' font-size='40' opacity='.08' fill='%237c3aed'>♪</text><text x='300' y='120' font-size='35' opacity='.06' fill='%238b5cf6'>♫</text><text x='1000' y='90' font-size='38' opacity='.07' fill='%237c3aed'>♩</text><text x='1200' y='130' font-size='32' opacity='.06' fill='%23a78bfa'>♬</text></svg>") no-repeat center/cover}
+/* 냉장고 오케스트라: 냉장고 내부 */
+.fridge-view{background:linear-gradient(180deg,#e0f2fe 0%,#bae6fd 20%,#f0f9ff 60%,#e0f2fe 100%);border-radius:16px;overflow:hidden;position:relative}
+.fridge-view::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 960'><rect x='0' y='0' width='1320' height='960' fill='none'/><rect x='40' y='0' width='3' height='960' fill='%2393c5fd' opacity='.06'/><rect x='1277' y='0' width='3' height='960' fill='%2393c5fd' opacity='.06'/><rect x='0' y='300' width='1320' height='2' fill='%2393c5fd' opacity='.08'/><rect x='0' y='620' width='1320' height='2' fill='%2393c5fd' opacity='.08'/><circle cx='80' cy='80' r='30' fill='%2338bdf8' opacity='.04'><animate attributeName='opacity' values='.04;.08;.04' dur='3s' repeatCount='indefinite'/></circle><circle cx='1240' cy='120' r='25' fill='%237dd3fc' opacity='.05'><animate attributeName='opacity' values='.05;.09;.05' dur='2.5s' repeatCount='indefinite'/></circle><text x='200' y='180' font-size='28' opacity='.06' fill='%230ea5e9'>❄</text><text x='900' y='150' font-size='24' opacity='.05' fill='%230284c7'>❄</text><text x='600' y='900' font-size='30' opacity='.06' fill='%230ea5e9'>❄</text></svg>") no-repeat center/cover}
 .fridge-view .fridge-area{position:relative;z-index:1}
 
-/* 내기록: 명예의 전당 */
-.record-view{background:linear-gradient(180deg,#fef3c7 0%,#fde68a 10%,#f5f3ff 50%,#ede9fe 100%);border-radius:16px;overflow:hidden;position:relative}
-.record-view::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 960'><circle cx='100' cy='100' r='45' fill='none' stroke='%237c3aed' stroke-width='2' opacity='.08'/><circle cx='100' cy='100' r='15' fill='%237c3aed' opacity='.05'/><circle cx='100' cy='100' r='5' fill='%237c3aed' opacity='.08'/><circle cx='1220' cy='100' r='45' fill='none' stroke='%237c3aed' stroke-width='2' opacity='.08'/><circle cx='1220' cy='100' r='15' fill='%237c3aed' opacity='.05'/><circle cx='1220' cy='100' r='5' fill='%237c3aed' opacity='.08'/><polygon points='660,25 668,45 690,45 672,58 679,78 660,65 641,78 648,58 630,45 652,45' fill='%23fbbf24' opacity='.1'><animate attributeName='opacity' values='.1;.04;.1' dur='3s' repeatCount='indefinite'/></polygon></svg>") no-repeat center/cover}
+/* 내기록: 명예의 전당 — 글래스모피즘 */
+.record-view{background:linear-gradient(180deg,#1e1b4b 0%,#312e81 30%,#4c1d95 70%,#6d28d9 100%);border-radius:16px;overflow:hidden;position:relative}
+.record-view::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1320 960'><circle cx='100' cy='100' r='50' fill='none' stroke='%23c4b5fd' stroke-width='2' opacity='.1'/><circle cx='100' cy='100' r='20' fill='%23c4b5fd' opacity='.06'/><circle cx='1220' cy='100' r='50' fill='none' stroke='%23c4b5fd' stroke-width='2' opacity='.1'/><circle cx='1220' cy='100' r='20' fill='%23c4b5fd' opacity='.06'/><polygon points='660,30 670,55 695,55 675,70 683,95 660,80 637,95 645,70 625,55 650,55' fill='%23fbbf24' opacity='.12'><animate attributeName='opacity' values='.12;.05;.12' dur='3s' repeatCount='indefinite'/></polygon><polygon points='200,800 206,818 225,818 210,828 215,846 200,836 185,846 190,828 175,818 194,818' fill='%23fbbf24' opacity='.08'><animate attributeName='opacity' values='.08;.03;.08' dur='4s' repeatCount='indefinite'/></polygon><polygon points='1100,750 1106,768 1125,768 1110,778 1115,796 1100,786 1085,796 1090,778 1075,768 1094,768' fill='%23fbbf24' opacity='.07'/><text x='400' y='480' font-size='60' opacity='.04' fill='%23c4b5fd'>🏆</text><text x='900' y='520' font-size='50' opacity='.04' fill='%23c4b5fd'>🎵</text></svg>") no-repeat center/cover}
 .record-view .records-area{position:relative;z-index:1}
-.record-view .record-card{background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(248,250,252,.9));backdrop-filter:blur(4px);border:2px solid rgba(139,92,246,.15)}
+.record-view .record-card{background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.05));backdrop-filter:blur(12px);border:1px solid rgba(196,181,253,.2);box-shadow:0 8px 32px rgba(0,0,0,.15)}
+.record-view .record-card h3{background:linear-gradient(135deg,#c4b5fd,#e9d5ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.record-view .record-item{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border:1px solid rgba(196,181,253,.15);backdrop-filter:blur(4px)}
+.record-view .record-num{color:#c4b5fd;text-shadow:0 0 20px rgba(196,181,253,.4)}
+.record-view .record-label{color:#a78bfa}
 
 /* ===== 3D 아케이드 버튼 ===== */
 .tab-btn{border-bottom:5px solid #64748b;transition:.15s}
@@ -264,12 +308,12 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* ===== 패널 강화 ===== */
 .right-panel{background:linear-gradient(180deg,rgba(139,92,246,.12),rgba(124,58,237,.18),rgba(109,40,217,.12));border:3px solid rgba(139,92,246,.25);border-radius:20px;padding:10px}
 .side-info{background:linear-gradient(145deg,#ede9fe,#ddd6fe,#e9d5ff)}
-.side-val{font-size:26px;-webkit-text-stroke:1px #5b21b6;paint-order:stroke fill}
-.side-title{font-size:18px;-webkit-text-stroke:.5px #5b21b6;paint-order:stroke fill}
+.side-val{font-size:32px;-webkit-text-stroke:1px #5b21b6;paint-order:stroke fill}
+.side-title{font-size:24px;-webkit-text-stroke:.5px #5b21b6;paint-order:stroke fill}
 
 /* ===== 디자인 공식 ===== */
 .record-num{-webkit-text-stroke:1px #5b21b6;paint-order:stroke fill}
-.game-launch-btn{-webkit-text-stroke:1px #4c1d95;paint-order:stroke fill;font-size:22px}
+.game-launch-btn{-webkit-text-stroke:1px #4c1d95;paint-order:stroke fill;font-size:26px}
 .hg-stat{font-size:26px;-webkit-text-stroke:1px #1e1b4b;paint-order:stroke fill}
 .drum-pad-label{-webkit-text-stroke:.5px rgba(0,0,0,.3);paint-order:stroke fill}
 .score-popup{position:absolute;pointer-events:none;z-index:30;font-size:36px;font-weight:900;-webkit-text-stroke:1.5px rgba(0,0,0,.3);paint-order:stroke fill;animation:scorePop .8s ease-out forwards}
@@ -295,8 +339,6 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 <div class="container">
   <div class="subject-bar">
-    <a class="sb-tab" href="hangul.html">📝 한글</a>
-    <a class="sb-tab" href="math.html">🔢 숫자</a>
     <button class="sb-tab active">🎵 음악</button>
     <div class="sb-spacer"></div>
     <div class="sb-btns">
@@ -360,7 +402,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
         </div>
       </div>
 
-      <div class="game-launch-btn" onclick="startHeroGame()">🎵 비트 캐처 시작!</div>
+      <div class="game-launch-btn" onclick="startHeroGame()">🎵 비트 러시 시작!</div>
     </div>
 
     <div class="center-panel">
@@ -368,19 +410,36 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <div class="game-view draw-view active" id="draw-view">
         <div class="mascot-wrap" id="mascot-draw" style="top:8px;right:16px">
           <div class="mascot-speech" id="mascot-draw-speech">그림으로 음악을 만들자!</div>
-          <svg class="mascot-svg" viewBox="0 0 90 120" width="70" height="93">
-            <ellipse cx="45" cy="78" rx="28" ry="24" fill="#8b5cf6"/>
-            <ellipse cx="45" cy="78" rx="24" ry="20" fill="#a78bfa"/>
-            <rect x="60" y="30" width="8" height="48" rx="3" fill="#8b5cf6"/>
-            <path d="M68 30c0 0 12-3 12 8s-12 8-12 8" fill="#a78bfa" stroke="#7c3aed" stroke-width="1"/>
-            <circle cx="34" cy="70" r="11" fill="#fff"/><circle cx="56" cy="70" r="11" fill="#fff"/>
-            <circle cx="36" cy="71" r="5.5" fill="#2e1065"><animate attributeName="ry" values="5.5;1;5.5" dur=".15s" begin="3s;bkM1.end+4s" id="bkM1" fill="freeze"/></circle>
-            <circle cx="54" cy="71" r="5.5" fill="#2e1065"><animate attributeName="ry" values="5.5;1;5.5" dur=".15s" begin="3s;bkM1.end+4s" fill="freeze"/></circle>
-            <circle cx="38" cy="68" r="2" fill="#fff" opacity=".8"/>
-            <circle cx="56" cy="68" r="2" fill="#fff" opacity=".8"/>
-            <path d="M35 84 Q45 90 55 84" fill="none" stroke="#4c1d95" stroke-width="2" stroke-linecap="round" id="mascot-draw-mouth"/>
-            <ellipse cx="24" cy="80" rx="4" ry="2.5" fill="#f9a8d4" opacity=".4"/>
-            <ellipse cx="66" cy="80" rx="4" ry="2.5" fill="#f9a8d4" opacity=".4"/>
+          <svg class="mascot-svg" viewBox="0 0 100 140" width="90" height="126">
+            <defs><linearGradient id="mGd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
+            <!-- 다리 -->
+            <ellipse cx="35" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="35;33;35" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="65" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="65;67;65" dur="2s" begin="0.5s" repeatCount="indefinite"/></ellipse>
+            <!-- 그림자 -->
+            <ellipse cx="50" cy="134" rx="30" ry="4" fill="#000" opacity=".08"/>
+            <!-- 몸통 (음표 머리) -->
+            <ellipse cx="50" cy="82" rx="32" ry="28" fill="url(#mGd1)"/>
+            <ellipse cx="50" cy="80" rx="28" ry="24" fill="#a78bfa"/>
+            <!-- 음표 기둥+깃발 -->
+            <rect x="70" y="28" width="7" height="54" rx="3" fill="#8b5cf6"/>
+            <path d="M77 28c0 0 14-4 14 10s-14 10-14 10" fill="#c4b5fd" stroke="#7c3aed" stroke-width="1.5"/>
+            <!-- 팔 (붓 들고 있음) -->
+            <ellipse cx="22" cy="86" rx="8" ry="6" fill="#8b5cf6"><animate attributeName="ry" values="6;7;6" dur="1.5s" repeatCount="indefinite"/></ellipse>
+            <rect x="12" y="72" width="4" height="18" rx="2" fill="#f59e0b" transform="rotate(-15 14 80)"/>
+            <path d="M11 72l2-6 2 6" fill="#ef4444"/>
+            <!-- 눈 -->
+            <circle cx="38" cy="74" r="8" fill="#fff"/><circle cx="62" cy="74" r="8" fill="#fff"/>
+            <circle cx="40" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="3s;bkD1.end+4s" id="bkD1" fill="freeze"/></circle>
+            <circle cx="60" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="3s;bkD1.end+4s" fill="freeze"/></circle>
+            <circle cx="42" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <circle cx="62" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <!-- 뺨 -->
+            <ellipse cx="28" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <ellipse cx="72" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <!-- 입 -->
+            <path d="M40 90 Q50 97 60 90" fill="none" stroke="#4c1d95" stroke-width="2" stroke-linecap="round" id="mascot-draw-mouth"/>
+            <!-- 머리 장식: 미니 음표 -->
+            <g transform="translate(42,48)"><animateTransform attributeName="transform" type="rotate" values="0 8 8;10 8 8;0 8 8;-10 8 8;0 8 8" dur="4s" repeatCount="indefinite" additive="sum"/><ellipse cx="4" cy="12" rx="4" ry="3" fill="#fbbf24"/><rect x="7" y="2" width="2" height="10" rx="1" fill="#fbbf24"/><path d="M9 2c2-1 4 0 4 2s-2 3-4 2" fill="#fde68a"/></g>
           </svg>
         </div>
         <div class="draw-area">
@@ -393,13 +452,49 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
               <div class="draw-note"><svg viewBox="0 0 24 24" fill="#7c3aed"><ellipse cx="9" cy="18" rx="5" ry="3.5"/><rect x="13" y="5" width="2.5" height="13" rx="1"/></svg>레</div>
               <div class="draw-note"><svg viewBox="0 0 24 24" fill="#8b5cf6"><ellipse cx="9" cy="18" rx="5" ry="3.5"/><rect x="13" y="4" width="2.5" height="14" rx="1"/><path d="M15.5 4c3-1 5.5 0 5.5 3s-2.5 4-5.5 3z"/></svg>도</div>
             </div>
-            <svg id="draw-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            <svg id="draw-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
           </div>
         </div>
       </div>
 
       <!-- 몸으로 드럼 -->
       <div class="game-view drum-view" id="drum-view">
+        <div class="mascot-wrap" id="mascot-drum" style="top:8px;right:16px">
+          <div class="mascot-speech" id="mascot-drum-speech">리듬을 맞춰봐!</div>
+          <svg class="mascot-svg" viewBox="0 0 100 140" width="90" height="126">
+            <defs><linearGradient id="mGd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
+            <!-- 다리 -->
+            <ellipse cx="35" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="35;33;35" dur="1.2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="65" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="65;67;65" dur="1.2s" begin="0.3s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="50" cy="134" rx="30" ry="4" fill="#000" opacity=".08"/>
+            <!-- 몸통 -->
+            <ellipse cx="50" cy="82" rx="32" ry="28" fill="url(#mGd2)"/>
+            <ellipse cx="50" cy="80" rx="28" ry="24" fill="#a78bfa"/>
+            <!-- 음표 기둥+깃발 -->
+            <rect x="70" y="28" width="7" height="54" rx="3" fill="#8b5cf6"/>
+            <path d="M77 28c0 0 14-4 14 10s-14 10-14 10" fill="#c4b5fd" stroke="#7c3aed" stroke-width="1.5"/>
+            <!-- 팔 (드럼스틱) -->
+            <ellipse cx="22" cy="82" rx="8" ry="6" fill="#8b5cf6"><animate attributeName="cy" values="82;78;82" dur="0.6s" repeatCount="indefinite"/></ellipse>
+            <rect x="8" y="70" width="3" height="22" rx="1.5" fill="#d4a06a" transform="rotate(-20 10 80)"/>
+            <circle cx="8" cy="70" r="3" fill="#f59e0b" transform="rotate(-20 10 80)"/>
+            <ellipse cx="78" cy="82" rx="8" ry="6" fill="#8b5cf6"><animate attributeName="cy" values="82;78;82" dur="0.6s" begin="0.3s" repeatCount="indefinite"/></ellipse>
+            <!-- 눈 -->
+            <circle cx="38" cy="74" r="8" fill="#fff"/><circle cx="62" cy="74" r="8" fill="#fff"/>
+            <circle cx="40" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="3.5s;bkDm1.end+5s" id="bkDm1" fill="freeze"/></circle>
+            <circle cx="60" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="3.5s;bkDm1.end+5s" fill="freeze"/></circle>
+            <circle cx="42" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <circle cx="62" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <!-- 뺨 -->
+            <ellipse cx="28" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <ellipse cx="72" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <!-- 입 -->
+            <path d="M40 90 Q50 97 60 90" fill="none" stroke="#4c1d95" stroke-width="2" stroke-linecap="round" id="mascot-drum-mouth"/>
+            <!-- 헤드폰 -->
+            <path d="M22 68c0-20 12-32 28-32s28 12 28 32" fill="none" stroke="#1e1b4b" stroke-width="5" stroke-linecap="round"/>
+            <rect x="16" y="62" width="10" height="14" rx="5" fill="#1e1b4b"/><rect x="74" y="62" width="10" height="14" rx="5" fill="#1e1b4b"/>
+            <rect x="18" y="64" width="6" height="10" rx="3" fill="#312e81"/><rect x="76" y="64" width="6" height="10" rx="3" fill="#312e81"/>
+          </svg>
+        </div>
         <div class="drum-area">
           <div class="drum-pattern-bar">
             <div class="drum-pattern-label">리듬:</div>
@@ -411,16 +506,123 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
             <span id="drum-status">준비!</span>
           </div>
           <div class="drum-pads" id="drum-pads">
-            <div class="drum-pad pad-clap" onclick="hitDrum(0)" data-drum="0"><svg viewBox="0 0 120 100"><g fill="#fff"><path d="M30 85c-8-5-14-15-14-28 0-10 4-18 10-22l4 6c-4 3-7 9-7 16 0 10 4 17 10 21z" opacity=".7"/><path d="M20 55c0-12 8-22 18-22 4 0 7 2 9 5l-3 5c-1-2-3-3-6-3-7 0-12 7-12 15 0 6 2 11 6 14z" opacity=".85"/><path d="M50 30c-3-5-2-12 3-16s12-2 15 3-2 12-3 16c-1 2-3 5-5 7l-2-2c2-2 4-5 5-7 2-4 3-9 0-12s-8-3-11 0-3 8-1 12l-5 7c-2-2-3-5-4-7z"/><path d="M70 30c3-5 2-12-3-16s-12-2-15 3 2 12 3 16c1 2 3 5 5 7l2-2c-2-2-4-5-5-7-2-4-3-9 0-12s8-3 11 0 3 8 1 12l5 7c2-2 3-5 4-7z"/><path d="M45 42c0 0 5 8 15 8s15-8 15-8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="52" cy="38" r="2"/><circle cx="68" cy="38" r="2"/><path d="M90 55c0-12-8-22-18-22-4 0-7 2-9 5l3 5c1-2 3-3 6-3 7 0 12 7 12 15 0 6-2 11-6 14z" opacity=".85"/><path d="M90 85c8-5 14-15 14-28 0-10-4-18-10-22l-4 6c4 3 7 9 7 16 0 10-4 17-10 21z" opacity=".7"/></g></svg><div class="drum-pad-label">박수</div></div>
-            <div class="drum-pad pad-stomp" onclick="hitDrum(1)" data-drum="1"><svg viewBox="0 0 120 100"><g fill="#fff"><path d="M35 10h50c8 0 15 6 15 14v20c0 4-2 8-5 10l-8 6v25c0 8-10 15-27 15s-27-7-27-15V60l-8-6c-3-2-5-6-5-10V24c0-8 7-14 15-14z" opacity=".15"/><path d="M40 90c0-5 10-9 20-9s20 4 20 9" stroke="#fff" stroke-width="3" fill="none"/><path d="M38 15h44c6 0 10 4 10 10v18c0 3-1 6-4 8l-10 7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/><path d="M82 15h-44c-6 0-10 4-10 10v18c0 3 1 6 4 8l10 7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/><ellipse cx="60" cy="50" rx="22" ry="6" fill="none" stroke="#fff" stroke-width="2.5" opacity=".5"/><line x1="45" y1="68" x2="45" y2="85" stroke="#fff" stroke-width="2" opacity=".5"/><line x1="60" y1="70" x2="60" y2="88" stroke="#fff" stroke-width="2" opacity=".5"/><line x1="75" y1="68" x2="75" y2="85" stroke="#fff" stroke-width="2" opacity=".5"/></g></svg><div class="drum-pad-label">발구르기</div></div>
-            <div class="drum-pad pad-knee" onclick="hitDrum(2)" data-drum="2"><svg viewBox="0 0 120 100"><g fill="#fff"><path d="M55 8c-12 0-20 8-20 20v15c0 8 3 15 8 20l12 12v17" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="55" cy="60" r="16" fill="none" stroke="#fff" stroke-width="3" opacity=".4"/><circle cx="55" cy="60" r="8" fill="#fff" opacity=".25"/><path d="M85 30c-4-3-8-4-12-3l-8 2" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/><path d="M90 25c0 0-6 8-15 12" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M82 45l-14 10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M78 22c2-1 5-1 8 1l6 5" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M95 35l-6 4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="72" cy="52" r="3" fill="#fff" opacity=".5"/><circle cx="80" cy="38" r="2.5" fill="#fff" opacity=".4"/></g></svg><div class="drum-pad-label">무릎치기</div></div>
-            <div class="drum-pad pad-tongue" onclick="hitDrum(3)" data-drum="3"><svg viewBox="0 0 120 100"><g fill="#fff"><ellipse cx="60" cy="45" rx="35" ry="25" fill="none" stroke="#fff" stroke-width="3"/><path d="M30 45c0 0 5 25 30 25s30-25 30-25" fill="#fff" opacity=".15"/><path d="M45 50c0 0 5 15 15 15s15-15 15-15" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="60" cy="62" rx="10" ry="14" fill="#fff" opacity=".3"/><path d="M60 55v18" stroke="#fff" stroke-width="1.5" opacity=".5"/><path d="M32 38h56" stroke="#fff" stroke-width="2" stroke-dasharray="4,3" opacity=".4"/><circle cx="45" cy="35" r="3" fill="#fff" opacity=".6"/><circle cx="75" cy="35" r="3" fill="#fff" opacity=".6"/><path d="M50 75l-5 8" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"/><path d="M60 78v8" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"/><path d="M70 75l5 8" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"/></g></svg><div class="drum-pad-label">혀차기</div></div>
+            <div class="drum-pad pad-clap" onclick="hitDrum(0)" data-drum="0">
+              <svg viewBox="0 0 120 100"><g fill="#fff">
+                <!-- 왼손 -->
+                <path d="M18 72c-2 0-5-2-5-6v-8l2-20c1-3 3-4 5-3s3 3 2 6l-1 10 1-14c1-3 3-5 5-4s3 3 2 6l-1 12 2-13c1-3 3-4 5-3s3 3 2 5l-2 13 2-10c1-3 3-4 5-3s2 3 1 6l-4 22c-1 4-4 7-8 7z"/>
+                <!-- 오른손 -->
+                <path d="M102 72c2 0 5-2 5-6v-8l-2-20c-1-3-3-4-5-3s-3 3-2 6l1 10-1-14c-1-3-3-5-5-4s-3 3-2 6l1 12-2-13c-1-3-3-4-5-3s-3 3-2 5l2 13-2-10c-1-3-3-4-5-3s-2 3-1 6l4 22c1 4 4 7 8 7z"/>
+                <!-- 충돌 이펙트 -->
+                <polygon points="60,28 62,36 70,36 64,41 66,50 60,44 54,50 56,41 50,36 58,36" fill="#fff" opacity=".9"><animate attributeName="opacity" values=".9;.4;.9" dur="1s" repeatCount="indefinite"/></polygon>
+                <line x1="60" y1="18" x2="60" y2="10" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+                <line x1="48" y1="24" x2="42" y2="18" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+                <line x1="72" y1="24" x2="78" y2="18" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+                <circle cx="45" cy="14" r="2" opacity=".5"/><circle cx="75" cy="14" r="2" opacity=".5"/>
+              </g></svg>
+              <div class="drum-pad-label">박수</div>
+            </div>
+            <div class="drum-pad pad-stomp" onclick="hitDrum(1)" data-drum="1">
+              <svg viewBox="0 0 120 100"><g fill="#fff">
+                <!-- 운동화 -->
+                <path d="M25 42h65c8 0 14 5 14 12v8c0 3-1 5-3 6H20c-4 0-7-3-7-7v-5c0-8 5-14 12-14z" opacity=".95"/>
+                <path d="M25 42c0-8 8-15 18-15h10c6 0 12 4 14 10" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+                <rect x="30" y="48" width="55" height="4" rx="2" fill="rgba(0,0,0,.15)"/>
+                <circle cx="40" cy="56" r="3" fill="rgba(0,0,0,.12)"/><circle cx="52" cy="56" r="3" fill="rgba(0,0,0,.12)"/><circle cx="64" cy="56" r="3" fill="rgba(0,0,0,.12)"/>
+                <!-- 바닥 충격파 -->
+                <rect x="15" y="70" width="90" height="4" rx="2" opacity=".6"/>
+                <path d="M30 80c10-3 20 0 30-3s20 0 30-3" fill="none" stroke="#fff" stroke-width="2" opacity=".5">
+                  <animate attributeName="d" values="M30 80c10-3 20 0 30-3s20 0 30-3;M30 82c10 3 20 0 30 3s20 0 30 3;M30 80c10-3 20 0 30-3s20 0 30-3" dur="0.8s" repeatCount="indefinite"/></path>
+                <path d="M35 88c8-2 16 0 25-2s16 0 25-2" fill="none" stroke="#fff" stroke-width="1.5" opacity=".3">
+                  <animate attributeName="d" values="M35 88c8-2 16 0 25-2s16 0 25-2;M35 90c8 2 16 0 25 2s16 0 25 2;M35 88c8-2 16 0 25-2s16 0 25-2" dur="1s" repeatCount="indefinite"/></path>
+                <!-- 화살표 (아래로) -->
+                <polygon points="60,4 50,16 55,16 55,30 65,30 65,16 70,16" opacity=".5"><animate attributeName="opacity" values=".5;.2;.5" dur="0.6s" repeatCount="indefinite"/></polygon>
+              </g></svg>
+              <div class="drum-pad-label">발구르기</div>
+            </div>
+            <div class="drum-pad pad-knee" onclick="hitDrum(2)" data-drum="2">
+              <svg viewBox="0 0 120 100"><g fill="#fff">
+                <!-- 다리 (무릎 구부린) -->
+                <path d="M20 10c0 0 4 25 8 40c2 8 12 14 22 14" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" opacity=".7"/>
+                <path d="M50 64c10 0 18 4 22 15l8 18" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" opacity=".7"/>
+                <!-- 무릎 원 -->
+                <circle cx="50" cy="60" r="14" fill="#fff" opacity=".3" stroke="#fff" stroke-width="2"/>
+                <!-- 손 (때리는) -->
+                <path d="M95 20c-2-1-4 0-5 2l-10 18-6 10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M82 32l-14 12" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <ellipse cx="68" cy="46" rx="10" ry="7" fill="#fff" opacity=".8" transform="rotate(-20 68 46)"/>
+                <!-- 충격 이펙트 -->
+                <line x1="52" y1="42" x2="55" y2="32" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+                <line x1="42" y1="46" x2="36" y2="38" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+                <line x1="60" y1="44" x2="66" y2="36" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+                <circle cx="50" cy="46" r="3" opacity=".6"><animate attributeName="r" values="3;5;3" dur="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;.2;.6" dur="0.8s" repeatCount="indefinite"/></circle>
+              </g></svg>
+              <div class="drum-pad-label">무릎치기</div>
+            </div>
+            <div class="drum-pad pad-tongue" onclick="hitDrum(3)" data-drum="3">
+              <svg viewBox="0 0 120 100"><g fill="#fff">
+                <!-- 얼굴 윤곽 -->
+                <circle cx="60" cy="42" r="30" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/>
+                <!-- 눈 -->
+                <circle cx="48" cy="34" r="4"/><circle cx="72" cy="34" r="4"/>
+                <circle cx="49" cy="33" r="1.5" fill="rgba(0,0,0,.3)"/><circle cx="73" cy="33" r="1.5" fill="rgba(0,0,0,.3)"/>
+                <!-- 입 (크게 벌린) -->
+                <ellipse cx="60" cy="54" rx="16" ry="10" fill="#fff" opacity=".3" stroke="#fff" stroke-width="2"/>
+                <!-- 혀 -->
+                <ellipse cx="60" cy="60" rx="8" ry="10" fill="#fff" opacity=".5">
+                  <animate attributeName="ry" values="10;12;10" dur="0.6s" repeatCount="indefinite"/></ellipse>
+                <!-- 소리파 -->
+                <path d="M92 42c4-6 4-14 0-20" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7">
+                  <animate attributeName="opacity" values=".7;.3;.7" dur="0.8s" repeatCount="indefinite"/></path>
+                <path d="M98 46c6-8 6-22 0-28" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5">
+                  <animate attributeName="opacity" values=".5;.2;.5" dur="1s" repeatCount="indefinite"/></path>
+                <path d="M104 50c8-12 8-28 0-36" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".3"/>
+                <!-- 딱! 텍스트 -->
+                <text x="60" y="90" text-anchor="middle" font-size="14" font-weight="900" fill="#fff" opacity=".6">딱!</text>
+              </g></svg>
+              <div class="drum-pad-label">혀차기</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- 냉장고 오케스트라 -->
       <div class="game-view fridge-view" id="fridge-view">
+        <div class="mascot-wrap" id="mascot-fridge" style="top:8px;right:16px">
+          <div class="mascot-speech" id="mascot-fridge-speech">주방 연주 시작!</div>
+          <svg class="mascot-svg" viewBox="0 0 100 140" width="90" height="126">
+            <defs><linearGradient id="mGd3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
+            <!-- 다리 -->
+            <ellipse cx="35" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="35;33;35" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="65" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="65;67;65" dur="2s" begin="0.5s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="50" cy="134" rx="30" ry="4" fill="#000" opacity=".08"/>
+            <!-- 몸통 -->
+            <ellipse cx="50" cy="82" rx="32" ry="28" fill="url(#mGd3)"/>
+            <ellipse cx="50" cy="80" rx="28" ry="24" fill="#a78bfa"/>
+            <!-- 음표 기둥+깃발 -->
+            <rect x="70" y="28" width="7" height="54" rx="3" fill="#8b5cf6"/>
+            <path d="M77 28c0 0 14-4 14 10s-14 10-14 10" fill="#c4b5fd" stroke="#7c3aed" stroke-width="1.5"/>
+            <!-- 팔 (요리사 주걱) -->
+            <ellipse cx="22" cy="86" rx="8" ry="6" fill="#8b5cf6"/>
+            <rect x="6" y="68" width="3.5" height="24" rx="1.5" fill="#a8a29e" transform="rotate(-12 8 80)"/>
+            <ellipse cx="7" cy="66" rx="5" ry="3.5" fill="#cbd5e1" transform="rotate(-12 8 66)"/>
+            <!-- 요리사 모자 -->
+            <ellipse cx="50" cy="50" rx="26" ry="6" fill="#fff" stroke="#e2e8f0" stroke-width="1"/>
+            <path d="M28 50c0-16 10-26 22-26s22 10 22 26" fill="#fff" stroke="#e2e8f0" stroke-width="1"/>
+            <ellipse cx="42" cy="32" rx="6" ry="8" fill="#f8fafc"/>
+            <ellipse cx="56" cy="30" rx="7" ry="9" fill="#f8fafc"/>
+            <!-- 눈 -->
+            <circle cx="38" cy="74" r="8" fill="#fff"/><circle cx="62" cy="74" r="8" fill="#fff"/>
+            <circle cx="40" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="4s;bkF1.end+5s" id="bkF1" fill="freeze"/></circle>
+            <circle cx="60" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="4s;bkF1.end+5s" fill="freeze"/></circle>
+            <circle cx="42" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <circle cx="62" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <!-- 뺨 -->
+            <ellipse cx="28" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <ellipse cx="72" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <!-- 입 -->
+            <path d="M40 90 Q50 97 60 90" fill="none" stroke="#4c1d95" stroke-width="2" stroke-linecap="round" id="mascot-fridge-mouth"/>
+          </svg>
+        </div>
         <div class="fridge-area">
           <div class="fridge-items" id="fridge-items"></div>
           <div class="fridge-seq">
@@ -440,20 +642,43 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <div class="game-view record-view" id="record-view">
         <div class="mascot-wrap" id="mascot-record" style="bottom:16px;right:16px">
           <div class="mascot-speech" id="mascot-record-speech">멋진 음악가!</div>
-          <svg class="mascot-svg" viewBox="0 0 90 130" width="65" height="94">
-            <ellipse cx="45" cy="82" rx="28" ry="24" fill="#8b5cf6"/>
-            <ellipse cx="45" cy="82" rx="24" ry="20" fill="#a78bfa"/>
-            <rect x="60" y="34" width="8" height="48" rx="3" fill="#8b5cf6"/>
-            <path d="M68 34c0 0 12-3 12 8s-12 8-12 8" fill="#a78bfa" stroke="#7c3aed" stroke-width="1"/>
-            <circle cx="34" cy="74" r="11" fill="#fff"/><circle cx="56" cy="74" r="11" fill="#fff"/>
-            <circle cx="36" cy="75" r="5.5" fill="#2e1065"><animate attributeName="ry" values="5.5;1;5.5" dur=".15s" begin="4s;bkM2.end+5s" id="bkM2" fill="freeze"/></circle>
-            <circle cx="54" cy="75" r="5.5" fill="#2e1065"><animate attributeName="ry" values="5.5;1;5.5" dur=".15s" begin="4s;bkM2.end+5s" fill="freeze"/></circle>
-            <circle cx="38" cy="72" r="2" fill="#fff" opacity=".8"/>
-            <circle cx="56" cy="72" r="2" fill="#fff" opacity=".8"/>
-            <path d="M35 88 Q45 94 55 88" fill="none" stroke="#4c1d95" stroke-width="2" stroke-linecap="round"/>
-            <ellipse cx="24" cy="84" rx="4" ry="2.5" fill="#f9a8d4" opacity=".4"/>
-            <ellipse cx="66" cy="84" rx="4" ry="2.5" fill="#f9a8d4" opacity=".4"/>
-            <text x="45" y="118" text-anchor="middle" font-size="22" fill="#fbbf24">🏆</text>
+          <svg class="mascot-svg" viewBox="0 0 100 140" width="90" height="126">
+            <defs><linearGradient id="mGd4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
+            <!-- 다리 -->
+            <ellipse cx="35" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="35;33;35" dur="2s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="65" cy="128" rx="10" ry="6" fill="#7c3aed"><animate attributeName="cx" values="65;67;65" dur="2s" begin="0.5s" repeatCount="indefinite"/></ellipse>
+            <ellipse cx="50" cy="134" rx="30" ry="4" fill="#000" opacity=".08"/>
+            <!-- 몸통 -->
+            <ellipse cx="50" cy="82" rx="32" ry="28" fill="url(#mGd4)"/>
+            <ellipse cx="50" cy="80" rx="28" ry="24" fill="#a78bfa"/>
+            <!-- 음표 기둥+깃발 -->
+            <rect x="70" y="28" width="7" height="54" rx="3" fill="#8b5cf6"/>
+            <path d="M77 28c0 0 14-4 14 10s-14 10-14 10" fill="#c4b5fd" stroke="#7c3aed" stroke-width="1.5"/>
+            <!-- 팔 (트로피 들고 있음) -->
+            <ellipse cx="22" cy="86" rx="8" ry="6" fill="#8b5cf6"/>
+            <g transform="translate(4,62)">
+              <rect x="4" y="8" width="12" height="10" rx="2" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+              <path d="M2 8h3v5c0 2-1 3-3 3z" fill="#fde68a"/><path d="M16 8h3c0 0 0 6-3 8v-8z" fill="#fde68a"/>
+              <rect x="7" y="18" width="6" height="3" rx="1" fill="#f59e0b"/>
+              <rect x="5" y="21" width="10" height="2" rx="1" fill="#d97706"/>
+              <text x="10" y="16" text-anchor="middle" font-size="7" fill="#92400e" font-weight="bold">1</text>
+            </g>
+            <!-- 왕관 -->
+            <g transform="translate(35,42)">
+              <polygon points="0,12 4,0 8,8 12,0 16,8 20,0 24,8 28,0 30,12" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+              <circle cx="4" cy="2" r="2" fill="#ef4444"/><circle cx="15" cy="0" r="2" fill="#3b82f6"/><circle cx="26" cy="2" r="2" fill="#22c55e"/>
+            </g>
+            <!-- 눈 -->
+            <circle cx="38" cy="74" r="8" fill="#fff"/><circle cx="62" cy="74" r="8" fill="#fff"/>
+            <circle cx="40" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="4s;bkR1.end+5s" id="bkR1" fill="freeze"/></circle>
+            <circle cx="60" cy="75" r="4" fill="#2e1065"><animate attributeName="ry" values="4;0.5;4" dur=".15s" begin="4s;bkR1.end+5s" fill="freeze"/></circle>
+            <circle cx="42" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <circle cx="62" cy="72" r="1.5" fill="#fff" opacity=".9"/>
+            <!-- 뺨 -->
+            <ellipse cx="28" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <ellipse cx="72" cy="84" rx="5" ry="3" fill="#f9a8d4" opacity=".4"/>
+            <!-- 입 -->
+            <path d="M40 90 Q50 97 60 90" fill="none" stroke="#4c1d95" stroke-width="2" stroke-linecap="round" id="mascot-record-mouth"/>
           </svg>
         </div>
         <div class="records-area">
@@ -499,46 +724,76 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">💾</span>저장</button>
     </div>
   </div>
-</div>
 
-<!-- 히어로: 비트 캐처 -->
-<div id="hero-game" class="hero-game hidden">
-  <div class="hg-header">
-    <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
-    <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
-    <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
-    <div class="hg-ctrls">
-      <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
-      <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+  <!-- 히어로: 비트 러시 (비트매니아 스타일) -->
+  <div id="hero-game" class="hero-game hidden">
+    <div class="hg-header">
+      <div class="hg-stat">
+        <svg viewBox="0 0 24 24" width="22" height="22" style="vertical-align:middle"><polygon points="12,2 15,9 22,9 16,14 18,22 12,17 6,22 8,14 2,9 9,9" fill="#fbbf24"/></svg>
+        <span id="hg-score">0</span>점
+      </div>
+      <div class="hg-stat">Lv.<span id="hg-level">1</span></div>
+      <div class="hg-hearts" id="hg-hearts">❤️❤️❤️❤️❤️</div>
+      <div class="hg-ctrls">
+        <button class="hg-ctrl-btn" onclick="hgPause()">⏸</button>
+        <button class="hg-ctrl-btn" onclick="hgExit()">✕</button>
+      </div>
     </div>
-  </div>
-  <div class="hg-arena" id="hg-arena">
-    <div class="hg-lane hg-lane-up"></div>
-    <div class="hg-lane hg-lane-down"></div>
-    <div class="hg-lane hg-lane-left"></div>
-    <div class="hg-lane hg-lane-right"></div>
-    <div class="hg-judge-ring"></div>
-    <div class="hg-judge-center"></div>
-    <div class="hg-tap-zone hg-tap-up" onclick="hgTap('up')"><svg viewBox="0 0 60 60" width="60" height="60"><defs><linearGradient id="gUp" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#ef4444" stop-opacity=".3"/><stop offset="100%" stop-color="#ef4444"/></linearGradient></defs><polygon points="30,8 52,42 38,42 38,52 22,52 22,42 8,42" fill="url(#gUp)" stroke="#ef4444" stroke-width="2"/></svg></div>
-    <div class="hg-tap-zone hg-tap-down" onclick="hgTap('down')"><svg viewBox="0 0 60 60" width="60" height="60"><defs><linearGradient id="gDn" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".3"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs><polygon points="30,52 8,18 22,18 22,8 38,8 38,18 52,18" fill="url(#gDn)" stroke="#22c55e" stroke-width="2"/></svg></div>
-    <div class="hg-tap-zone hg-tap-left" onclick="hgTap('left')"><svg viewBox="0 0 60 60" width="60" height="60"><defs><linearGradient id="gLt" x1="1" y1="0" x2="0" y2="0"><stop offset="0%" stop-color="#3b82f6" stop-opacity=".3"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient></defs><polygon points="8,30 42,8 42,22 52,22 52,38 42,38 42,52" fill="url(#gLt)" stroke="#3b82f6" stroke-width="2"/></svg></div>
-    <div class="hg-tap-zone hg-tap-right" onclick="hgTap('right')"><svg viewBox="0 0 60 60" width="60" height="60"><defs><linearGradient id="gRt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fbbf24" stop-opacity=".3"/><stop offset="100%" stop-color="#fbbf24"/></linearGradient></defs><polygon points="52,30 18,8 18,22 8,22 8,38 18,38 18,52" fill="url(#gRt)" stroke="#fbbf24" stroke-width="2"/></svg></div>
-  </div>
-  <div id="hg-over" class="hg-overlay hidden">
-    <div class="hg-overlay-box">
-      <h2>게임 끝!</h2>
-      <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
-      <div class="msg" id="hg-over-msg">잘했어요!</div>
-      <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
-      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    <div class="hg-arena" id="hg-arena">
+      <!-- 4레인 배경 -->
+      <div class="hg-lane-bg" data-l="0"></div>
+      <div class="hg-lane-bg" data-l="1"></div>
+      <div class="hg-lane-bg" data-l="2"></div>
+      <div class="hg-lane-bg" data-l="3"></div>
+      <!-- 판정 라인 -->
+      <div class="hg-judge-line"></div>
+      <!-- BPM 표시 -->
+      <div class="hg-bpm" id="hg-bpm">♩ 90 BPM</div>
+      <!-- 버튼 행 -->
+      <div class="hg-btn-row">
+        <div class="hg-btn" data-l="0" onclick="hgTap(0)" id="hg-btn-0">
+          <div class="note-icon"><svg viewBox="0 0 32 32" width="36" height="36"><ellipse cx="12" cy="24" rx="7" ry="5" fill="#fca5a5"/><rect x="18" y="6" width="3" height="18" rx="1.5" fill="#fca5a5"/><path d="M21 6c4-1.5 8 0 8 4s-4 6-8 5z" fill="#fca5a5" opacity=".8"/></svg></div>
+          <div class="note-label">D</div>
+        </div>
+        <div class="hg-btn" data-l="1" onclick="hgTap(1)" id="hg-btn-1">
+          <div class="note-icon"><svg viewBox="0 0 40 32" width="36" height="36"><ellipse cx="10" cy="25" rx="6" ry="4.5" fill="#93c5fd"/><rect x="15" y="5" width="3" height="20" rx="1.5" fill="#93c5fd"/><ellipse cx="28" cy="23" rx="6" ry="4.5" fill="#93c5fd"/><rect x="33" y="5" width="3" height="18" rx="1.5" fill="#93c5fd"/><rect x="18" y="5" width="18" height="3.5" rx="1.5" fill="#93c5fd"/></svg></div>
+          <div class="note-label">F</div>
+        </div>
+        <div class="hg-btn" data-l="2" onclick="hgTap(2)" id="hg-btn-2">
+          <div class="note-icon"><svg viewBox="0 0 32 32" width="36" height="36"><ellipse cx="12" cy="24" rx="7" ry="5" fill="#86efac"/><rect x="18" y="6" width="3" height="18" rx="1.5" fill="#86efac"/><path d="M21 6c4-1.5 8 0 8 4s-4 6-8 5z" fill="#86efac" opacity=".8"/></svg></div>
+          <div class="note-label">J</div>
+        </div>
+        <div class="hg-btn" data-l="3" onclick="hgTap(3)" id="hg-btn-3">
+          <div class="note-icon"><svg viewBox="0 0 40 32" width="36" height="36"><ellipse cx="10" cy="25" rx="6" ry="4.5" fill="#fde68a"/><rect x="15" y="5" width="3" height="20" rx="1.5" fill="#fde68a"/><ellipse cx="28" cy="23" rx="6" ry="4.5" fill="#fde68a"/><rect x="33" y="5" width="3" height="18" rx="1.5" fill="#fde68a"/><rect x="18" y="5" width="18" height="3.5" rx="1.5" fill="#fde68a"/></svg></div>
+          <div class="note-label">K</div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div id="hg-pause" class="hg-overlay hidden">
-    <div class="hg-overlay-box">
-      <h2>⏸ 일시정지</h2>
-      <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
-      <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+    <!-- 게임 오버 -->
+    <div id="hg-over" class="hg-overlay hidden">
+      <div class="hg-overlay-box">
+        <h2>🎵 게임 끝!</h2>
+        <div class="score">⭐ <span id="hg-final-score">0</span>점</div>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-val" id="hg-final-combo">0</div><div class="stat-label">최대 콤보</div></div>
+          <div class="stat-item"><div class="stat-val" id="hg-final-perfect">0</div><div class="stat-label">Perfect</div></div>
+          <div class="stat-item"><div class="stat-val" id="hg-final-level">1</div><div class="stat-label">레벨</div></div>
+        </div>
+        <div class="msg" id="hg-over-msg">잘했어요!</div>
+        <button class="btn-retry" onclick="hgRestart()">🔄 다시하기</button>
+        <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+      </div>
     </div>
+    <!-- 일시정지 -->
+    <div id="hg-pause" class="hg-overlay hidden">
+      <div class="hg-overlay-box">
+        <h2>⏸ 일시정지</h2>
+        <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
+        <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
+      </div>
+    </div>
+    <!-- 카운트다운 -->
+    <div class="hg-countdown" id="hg-countdown" style="display:none"></div>
   </div>
 </div>
 
@@ -622,7 +877,7 @@ let profile = {
 
 // 소리 그림 상태
 let draw = {
-  isDrawing: false, points: [], paths: [], noteCount: 0,
+  isDrawing: false, replaying: false, points: [], paths: [], noteCount: 0,
   totalDrawn: parseInt(LS.getItem('drawCount')) || 0,
   totalNotes: parseInt(LS.getItem('drawNotes')) || 0,
   bestLength: parseInt(LS.getItem('drawBest')) || 0,
@@ -650,45 +905,45 @@ let fridge = {
 let hg = {
   score: 0, lives: 5, level: 1, running: false, paused: false,
   notes: [], spawnTimer: null, animId: null, combo: 0, maxCombo: 0,
-  bpm: 90, instruments: 0
+  bpm: 100, perfects: 0
 };
 
-// 냉장고 물건 데이터 (SVG 일러스트)
+// 냉장고 물건 데이터 — 실제 냉장고 안에 있는 물건들
 const FRIDGE_SVG = [
-  // 프라이팬
-  `<svg viewBox="0 0 80 80"><circle cx="35" cy="40" r="22" fill="#64748b" stroke="#334155" stroke-width="2"/><circle cx="35" cy="40" r="17" fill="#94a3b8"/><circle cx="35" cy="40" r="12" fill="none" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/><rect x="55" y="36" width="22" height="8" rx="3" fill="#78716c"/><rect x="57" y="38" width="18" height="4" rx="2" fill="#a8a29e"/><circle cx="30" cy="35" r="2" fill="#fbbf24" opacity=".6"/><circle cx="38" cy="43" r="1.5" fill="#fbbf24" opacity=".4"/></svg>`,
-  // 숟가락
-  `<svg viewBox="0 0 80 80"><ellipse cx="40" cy="22" rx="12" ry="16" fill="#c0c0c0" stroke="#a0a0a0" stroke-width="1.5"/><ellipse cx="40" cy="22" rx="8" ry="11" fill="#d4d4d4"/><rect x="38" y="36" width="4" height="38" rx="2" fill="linear-gradient(180deg,#c0c0c0,#a0a0a0)"/><ellipse cx="40" cy="72" rx="4" ry="2" fill="#a0a0a0"/><path d="M36 22c2-4 6-4 8 0" stroke="#e8e8e8" stroke-width="1" fill="none" opacity=".6"/></svg>`,
-  // 유리병
-  `<svg viewBox="0 0 80 80"><rect x="30" y="8" width="20" height="8" rx="3" fill="#86efac" opacity=".8"/><rect x="26" y="16" width="28" height="56" rx="8" fill="#bbf7d0" opacity=".5" stroke="#86efac" stroke-width="2"/><rect x="30" y="20" width="20" height="48" rx="5" fill="#dcfce7" opacity=".4"/><path d="M34 28v36" stroke="#fff" stroke-width="2" opacity=".4" stroke-linecap="round"/><path d="M38 24v40" stroke="#fff" stroke-width="1" opacity=".3" stroke-linecap="round"/><ellipse cx="40" cy="68" rx="10" ry="3" fill="#86efac" opacity=".3"/></svg>`,
-  // 냄비뚜껑
-  `<svg viewBox="0 0 80 80"><ellipse cx="40" cy="52" rx="32" ry="10" fill="#78716c" stroke="#57534e" stroke-width="2"/><path d="M12 48c0-18 12-30 28-30s28 12 28 30" fill="#a8a29e" stroke="#78716c" stroke-width="2"/><path d="M18 46c0-14 10-24 22-24s22 10 22 24" fill="none" stroke="#d6d3d1" stroke-width="1" opacity=".5"/><ellipse cx="40" cy="14" rx="6" ry="4" fill="#57534e" stroke="#44403c" stroke-width="1.5"/><ellipse cx="40" cy="13" rx="4" ry="2.5" fill="#78716c"/><path d="M20 35c4-2 8-1 10 2" stroke="#d6d3d1" stroke-width="1" opacity=".4" fill="none"/></svg>`,
-  // 물병
-  `<svg viewBox="0 0 80 80"><rect x="30" y="6" width="20" height="10" rx="4" fill="#7dd3fc" stroke="#38bdf8" stroke-width="1.5"/><rect x="32" y="8" width="16" height="6" rx="3" fill="#bae6fd"/><path d="M30 16l-4 8v40c0 5 6 10 14 10s14-5 14-10V24l-4-8z" fill="#bae6fd" opacity=".5" stroke="#38bdf8" stroke-width="2"/><path d="M28 40h24" stroke="#7dd3fc" stroke-width="1.5" opacity=".4"/><path d="M30 50c4 2 12 2 20 0" stroke="#7dd3fc" stroke-width="1" opacity=".3" fill="none"/><path d="M34 24v44" stroke="#fff" stroke-width="2" opacity=".3" stroke-linecap="round"/></svg>`,
-  // 젓가락
-  `<svg viewBox="0 0 80 80"><rect x="28" y="6" width="5" height="68" rx="2.5" fill="#d4a574" stroke="#b8875a" stroke-width="1" transform="rotate(-5 30 40)"/><rect x="47" y="6" width="5" height="68" rx="2.5" fill="#c9956a" stroke="#a67850" stroke-width="1" transform="rotate(5 50 40)"/><line x1="30" y1="12" x2="30" y2="68" stroke="#e8c9a0" stroke-width="1" opacity=".4" transform="rotate(-5 30 40)"/><line x1="50" y1="12" x2="50" y2="68" stroke="#dbb890" stroke-width="1" opacity=".4" transform="rotate(5 50 40)"/></svg>`,
-  // 상자
-  `<svg viewBox="0 0 80 80"><rect x="12" y="28" width="56" height="44" rx="4" fill="#d4a06a" stroke="#b8864a" stroke-width="2"/><rect x="12" y="20" width="56" height="14" rx="3" fill="#c48e5a" stroke="#a87840" stroke-width="2"/><line x1="40" y1="20" x2="40" y2="72" stroke="#b8864a" stroke-width="1.5" opacity=".5"/><rect x="34" y="30" width="12" height="4" rx="2" fill="#a87840"/><path d="M16 34h48" stroke="#c49e6a" stroke-width="1" opacity=".3"/><path d="M16 50h48" stroke="#c49e6a" stroke-width="1" opacity=".2"/></svg>`,
-  // 종
-  `<svg viewBox="0 0 80 80"><path d="M40 10c-16 0-26 14-26 32v6h52v-6c0-18-10-32-26-32z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/><path d="M40 10c-10 0-18 8-20 20" stroke="#fde68a" stroke-width="2" fill="none" opacity=".5"/><rect x="36" y="4" width="8" height="10" rx="4" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/><ellipse cx="40" cy="6" rx="3" ry="2" fill="#fbbf24"/><ellipse cx="40" cy="48" rx="26" ry="5" fill="#f59e0b" opacity=".4"/><circle cx="40" cy="56" r="6" fill="#d97706"/><circle cx="40" cy="56" r="4" fill="#b45309"/><line x1="40" y1="48" x2="40" y2="52" stroke="#d97706" stroke-width="2"/></svg>`
+  // 주스병 (오렌지주스 유리병)
+  `<svg viewBox="0 0 80 80"><rect x="30" y="4" width="20" height="8" rx="4" fill="#f97316" stroke="#ea580c" stroke-width="1.5"/><path d="M30 12l-3 6v46c0 5 5 10 13 10s13-5 13-10V18l-3-6z" fill="#fdba74" opacity=".7" stroke="#f97316" stroke-width="2"/><rect x="30" y="18" width="20" height="44" rx="6" fill="#fed7aa" opacity=".4"/><path d="M34 24v34" stroke="#fff" stroke-width="2" opacity=".4" stroke-linecap="round"/><ellipse cx="40" cy="60" rx="10" ry="3" fill="#f97316" opacity=".25"/><text x="40" y="44" text-anchor="middle" font-size="10" fill="#ea580c" font-weight="700" opacity=".6">OJ</text><circle cx="40" cy="32" r="4" fill="#f97316" opacity=".3"/></svg>`,
+  // 우유팩
+  `<svg viewBox="0 0 80 80"><path d="M22 18l8-12h20l8 12z" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><rect x="22" y="18" width="36" height="52" rx="3" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/><rect x="26" y="22" width="28" height="18" rx="2" fill="#bfdbfe"/><text x="40" y="36" text-anchor="middle" font-size="9" fill="#1d4ed8" font-weight="800">우유</text><path d="M32 42c2-2 6-2 8 0s6 2 8 0" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity=".5"/><circle cx="36" cy="52" r="3" fill="#60a5fa" opacity=".2"/><circle cx="44" cy="56" r="2" fill="#60a5fa" opacity=".15"/></svg>`,
+  // 캔음료 (빨간 탄산캔)
+  `<svg viewBox="0 0 80 80"><ellipse cx="40" cy="14" rx="16" ry="5" fill="#b91c1c" stroke="#991b1b" stroke-width="1.5"/><rect x="24" y="14" width="32" height="52" rx="0" fill="#dc2626" stroke="#b91c1c" stroke-width="1.5"/><ellipse cx="40" cy="66" rx="16" ry="5" fill="#b91c1c" stroke="#991b1b" stroke-width="1.5"/><ellipse cx="40" cy="14" rx="10" ry="3" fill="#a3a3a3" stroke="#737373" stroke-width="1"/><ellipse cx="43" cy="13" rx="3" ry="1.5" fill="#d4d4d4"/><rect x="26" y="26" width="28" height="14" rx="2" fill="#fca5a5" opacity=".4"/><path d="M30 20v44" stroke="#ef4444" stroke-width="1" opacity=".3"/><path d="M50 20v44" stroke="#fca5a5" stroke-width="1.5" opacity=".3"/><text x="40" y="48" text-anchor="middle" font-size="11" fill="#fff" font-weight="800" opacity=".8">cola</text></svg>`,
+  // 요구르트 (작은 컵)
+  `<svg viewBox="0 0 80 80"><path d="M24 24h32l-3 44H27z" fill="#fbcfe8" stroke="#f472b6" stroke-width="2"/><rect x="22" y="18" width="36" height="8" rx="3" fill="#fce7f3" stroke="#f472b6" stroke-width="1.5"/><ellipse cx="40" cy="22" rx="18" ry="4" fill="#fdf2f8"/><path d="M30 36c3-2 6 0 8 2s6 2 10-1" fill="none" stroke="#f9a8d4" stroke-width="1.5" opacity=".5"/><circle cx="36" cy="48" r="5" fill="#f9a8d4" opacity=".25"/><circle cx="44" cy="44" r="3" fill="#f9a8d4" opacity=".2"/><text x="40" y="58" text-anchor="middle" font-size="8" fill="#db2777" font-weight="700" opacity=".6">요구르트</text></svg>`,
+  // 케첩 (소스통)
+  `<svg viewBox="0 0 80 80"><rect x="34" y="4" width="12" height="12" rx="3" fill="#991b1b" stroke="#7f1d1d" stroke-width="1"/><path d="M28 22c0-4 5-6 12-6s12 2 12 6v42c0 5-5 10-12 10s-12-5-12-10z" fill="#dc2626" stroke="#b91c1c" stroke-width="2"/><rect x="30" y="32" width="20" height="16" rx="2" fill="#fef2f2" opacity=".8"/><text x="40" y="44" text-anchor="middle" font-size="7" fill="#991b1b" font-weight="700">KETCHUP</text><path d="M36 16h8" stroke="#fca5a5" stroke-width="1" opacity=".5"/><path d="M34 24v40" stroke="#ef4444" stroke-width="1" opacity=".3"/><ellipse cx="40" cy="64" rx="8" ry="2" fill="#b91c1c" opacity=".2"/></svg>`,
+  // 달걀 (달걀 2개)
+  `<svg viewBox="0 0 80 80"><ellipse cx="30" cy="46" rx="14" ry="18" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5"/><ellipse cx="30" cy="44" rx="10" ry="14" fill="#fffbeb" opacity=".5"/><path d="M24 36c3-2 6-1 8 1" fill="none" stroke="#fde68a" stroke-width="1" opacity=".5"/><ellipse cx="52" cy="48" rx="13" ry="17" fill="#fef9c3" stroke="#facc15" stroke-width="1.5"/><ellipse cx="52" cy="46" rx="9" ry="13" fill="#fefce8" opacity=".5"/><circle cx="28" cy="40" r="2" fill="#fff" opacity=".6"/><circle cx="50" cy="42" r="2" fill="#fff" opacity=".6"/></svg>`,
+  // 반찬통 (밀폐용기, 파란 뚜껑)
+  `<svg viewBox="0 0 80 80"><rect x="14" y="30" width="52" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><rect x="12" y="22" width="56" height="12" rx="4" fill="#3b82f6" stroke="#2563eb" stroke-width="1.5"/><rect x="16" y="24" width="48" height="8" rx="3" fill="#60a5fa"/><rect x="20" y="40" width="40" height="3" rx="1.5" fill="#e2e8f0" opacity=".5"/><rect x="20" y="50" width="40" height="3" rx="1.5" fill="#e2e8f0" opacity=".3"/><circle cx="22" cy="26" r="2" fill="#93c5fd"/><circle cx="58" cy="26" r="2" fill="#93c5fd"/></svg>`,
+  // 얼음 (아이스트레이)
+  `<svg viewBox="0 0 80 80"><rect x="10" y="24" width="60" height="40" rx="4" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/><g fill="#bae6fd" stroke="#7dd3fc" stroke-width="1"><rect x="14" y="28" width="16" height="14" rx="3"/><rect x="32" y="28" width="16" height="14" rx="3"/><rect x="50" y="28" width="16" height="14" rx="3"/><rect x="14" y="44" width="16" height="14" rx="3"/><rect x="32" y="44" width="16" height="14" rx="3"/><rect x="50" y="44" width="16" height="14" rx="3"/></g><rect x="16" y="30" width="4" height="4" rx="2" fill="#fff" opacity=".5"/><rect x="34" y="30" width="4" height="4" rx="2" fill="#fff" opacity=".5"/><rect x="52" y="30" width="4" height="4" rx="2" fill="#fff" opacity=".5"/><rect x="16" y="46" width="4" height="4" rx="2" fill="#fff" opacity=".4"/><rect x="34" y="46" width="4" height="4" rx="2" fill="#fff" opacity=".4"/><rect x="52" y="46" width="4" height="4" rx="2" fill="#fff" opacity=".4"/></svg>`
 ];
 const FRIDGE_ITEMS = [
-  { emoji: '🍳', name: '프라이팬', type: 'metalHit', freq: 280 },
-  { emoji: '🥄', name: '숟가락', type: 'metalTing', freq: 1200 },
-  { emoji: '🫙', name: '유리병', type: 'glassTing', freq: 800 },
-  { emoji: '🥘', name: '냄비뚜껑', type: 'crash', freq: 350 },
-  { emoji: '🧴', name: '물병', type: 'waterDrop', freq: 600 },
-  { emoji: '🥢', name: '젓가락', type: 'woodTap', freq: 2000 },
-  { emoji: '📦', name: '상자', type: 'boxThud', freq: 120 },
-  { emoji: '🔔', name: '종', type: 'bell', freq: 900 }
+  { emoji: '🍊', name: '주스병', type: 'glassTing', freq: 800 },
+  { emoji: '🥛', name: '우유팩', type: 'boxThud', freq: 150 },
+  { emoji: '🥤', name: '캔음료', type: 'metalTing', freq: 1200 },
+  { emoji: '🍦', name: '요구르트', type: 'woodTap', freq: 1800 },
+  { emoji: '🍅', name: '케첩', type: 'waterDrop', freq: 500 },
+  { emoji: '🥚', name: '달걀', type: 'woodTap', freq: 2500 },
+  { emoji: '🍱', name: '반찬통', type: 'metalHit', freq: 300 },
+  { emoji: '🧊', name: '얼음', type: 'bell', freq: 1500 }
 ];
 
 // 드럼 소리 타입 (SVG 아이콘)
 const DRUM_SVG = [
-  `<svg viewBox="0 0 40 40"><g fill="#fff"><path d="M12 28c-3-2-5-6-5-11s2-7 4-9l2 2c-2 2-3 4-3 7s2 7 4 8z" opacity=".7"/><path d="M16 10c-1-2-1-5 1-6s5-1 6 1-1 5-1 6c-1 1-1 2-2 3l-1-1c1-1 2-2 2-3 1-1 1-3 0-5s-3-1-4 0-1 3 0 5l-2 3c-1-1-1-2-2-3z"/><path d="M24 10c1-2 1-5-1-6s-5-1-6 1 1 5 1 6c0 1 1 2 2 3l1-1c-1-1-1-2-2-3-1-1-1-3 0-5s3-1 4 0 1 3 0 5l2 3c0-1 1-2 2-3z"/><path d="M28 28c3-2 5-6 5-11s-2-7-4-9l-2 2c2 2 3 4 3 7s-2 7-4 8z" opacity=".7"/></g></svg>`,
-  `<svg viewBox="0 0 40 40"><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 5h16c3 0 5 2 5 5v8c0 2-1 3-2 4l-3 2v10c0 3-4 6-8 6s-8-3-8-6V24l-3-2c-1-1-2-2-2-4V10c0-3 2-5 5-5z" fill="#fff" fill-opacity=".12"/><ellipse cx="20" cy="20" rx="8" ry="2.5" opacity=".5"/><line x1="15" y1="27" x2="15" y2="35" opacity=".5"/><line x1="20" y1="28" x2="20" y2="37" opacity=".5"/><line x1="25" y1="27" x2="25" y2="35" opacity=".5"/></g></svg>`,
-  `<svg viewBox="0 0 40 40"><g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M18 4c-5 0-8 3-8 8v6c0 3 1 6 3 8l5 5v7"/><circle cx="18" cy="24" r="6" opacity=".35" fill="#fff"/><circle cx="18" cy="24" r="3" fill="#fff" opacity=".2"/><path d="M30 12c-2-1-3-2-5-1l-3 1" opacity=".8"/><path d="M32 10c0 0-2 3-5 5"/><path d="M29 18l-5 4"/></g></svg>`,
-  `<svg viewBox="0 0 40 40"><g fill="#fff"><ellipse cx="20" cy="17" rx="14" ry="10" fill="none" stroke="#fff" stroke-width="2"/><path d="M10 17c0 0 2 10 10 10s10-10 10-10" opacity=".12"/><path d="M15 20c0 0 2 6 5 6s5-6 5-6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><ellipse cx="20" cy="24" rx="4" ry="5" opacity=".25"/><line x1="20" y1="22" x2="20" y2="30" stroke="#fff" stroke-width="1" opacity=".4"/><circle cx="15" cy="14" r="1.5" opacity=".5"/><circle cx="25" cy="14" r="1.5" opacity=".5"/></g></svg>`
+  `<svg viewBox="0 0 40 40"><g fill="#fff"><path d="M8 28l1-10c0-1 1-2 2-1l-1 6 1-7c0-1 1-2 2-1l-1 6 1-6c0-1 1-2 2-1l-1 6 1-5c0-1 1-1 2-1l-1 8-2 6z" opacity=".9"/><path d="M32 28l-1-10c0-1-1-2-2-1l1 6-1-7c0-1-1-2-2-1l1 6-1-6c0-1-1-2-2-1l1 6-1-5c0-1-1-1-2-1l1 8 2 6z" opacity=".9"/><polygon points="20,12 21,16 25,16 22,18 23,22 20,20 17,22 18,18 15,16 19,16" opacity=".8"/></g></svg>`,
+  `<svg viewBox="0 0 40 40"><g fill="#fff"><path d="M10 18h18c3 0 5 2 5 4v3H8v-3c0-2 2-4 4-4z" opacity=".9"/><path d="M12 18c0-4 4-7 8-7 3 0 5 2 6 4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="7" y="26" width="26" height="2" rx="1" opacity=".6"/><path d="M14 30c4-1 8 0 12-1" fill="none" stroke="#fff" stroke-width="1.5" opacity=".4"/></g></svg>`,
+  `<svg viewBox="0 0 40 40"><g fill="#fff"><path d="M10 6c0 0 2 12 4 18c1 3 4 5 8 5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/><path d="M22 29c4 0 7 2 9 6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="22" cy="26" r="5" opacity=".3" stroke="#fff" stroke-width="1.5"/><ellipse cx="28" cy="20" rx="4" ry="3" opacity=".7" transform="rotate(-15 28 20)"/><line x1="24" y1="18" x2="26" y2="14" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></g></svg>`,
+  `<svg viewBox="0 0 40 40"><g fill="#fff"><circle cx="20" cy="18" r="12" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><circle cx="16" cy="14" r="2"/><circle cx="24" cy="14" r="2"/><ellipse cx="20" cy="22" rx="6" ry="4" opacity=".3" stroke="#fff" stroke-width="1.5"/><ellipse cx="20" cy="25" rx="3" ry="4" opacity=".4"/><path d="M34 16c2-3 2-7 0-9" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></g></svg>`
 ];
 const DRUM_TYPES = [
   { name: '박수', emoji: '👏' },
@@ -848,6 +1103,14 @@ let audioQueue = [];
 let isSpeaking = false;
 function speak(text) {
   if (!soundEnabled) return;
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
+  audioQueue.push(text);
+  processQueue();
+}
+function speakQueue(text) {
+  if (!soundEnabled) return;
   audioQueue.push(text);
   processQueue();
 }
@@ -855,7 +1118,7 @@ function processQueue() {
   if (isSpeaking || !audioQueue.length) return;
   isSpeaking = true;
   const u = new SpeechSynthesisUtterance(audioQueue.shift());
-  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.lang = 'ko-KR'; u.rate = 1.0; u.pitch = 1.1;
   u.onend = () => { isSpeaking = false; processQueue(); };
   u.onerror = () => { isSpeaking = false; processQueue(); };
   speechSynthesis.speak(u);
@@ -986,17 +1249,18 @@ function initDrawing() {
   const svgNS = 'http://www.w3.org/2000/svg';
   for (let i = 0; i < 5; i++) {
     const line = document.createElementNS(svgNS, 'line');
-    line.setAttribute('x1', '70'); line.setAttribute('x2', '100%');
-    line.setAttribute('y1', (i * 20 + 10) + '%');
-    line.setAttribute('y2', (i * 20 + 10) + '%');
-    line.setAttribute('stroke', '#c4b5fd'); line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('x1', '6'); line.setAttribute('x2', '100');
+    line.setAttribute('y1', String(i * 20 + 10));
+    line.setAttribute('y2', String(i * 20 + 10));
+    line.setAttribute('stroke', '#c4b5fd'); line.setAttribute('stroke-width', '1');
+    line.setAttribute('vector-effect', 'non-scaling-stroke');
     line.setAttribute('stroke-dasharray', '0'); line.setAttribute('opacity', '0.35');
     svg.appendChild(line);
   }
   // 높은음자리표 SVG 장식
   const treble = document.createElementNS(svgNS, 'text');
-  treble.setAttribute('x', '75'); treble.setAttribute('y', '55%');
-  treble.setAttribute('font-size', '80'); treble.setAttribute('fill', '#c4b5fd');
+  treble.setAttribute('x', '1'); treble.setAttribute('y', '60');
+  treble.setAttribute('font-size', '14'); treble.setAttribute('fill', '#c4b5fd');
   treble.setAttribute('opacity', '0.15'); treble.setAttribute('font-family', 'serif');
   treble.textContent = '\uD834\uDD1E'; // 음자리표 유니코드 — 폴백으로 일반 텍스트
   svg.appendChild(treble);
@@ -1071,6 +1335,7 @@ function initDrawing() {
     draw.isDrawing = false;
     stopCurrentNote();
     if (draw.points.length > 3) {
+      finalizeCurrentPath();
       draw.paths.push([...draw.points]);
       draw.noteCount += draw.points.length;
       draw.totalNotes += draw.points.length;
@@ -1148,15 +1413,16 @@ function renderCurrentPath() {
     existing.classList.add('current-draw-path');
     existing.setAttribute('fill', 'none');
     existing.setAttribute('stroke', '#7c3aed');
-    existing.setAttribute('stroke-width', '3');
+    existing.setAttribute('stroke-width', '4');
     existing.setAttribute('stroke-linecap', 'round');
     existing.setAttribute('stroke-linejoin', 'round');
+    existing.setAttribute('vector-effect', 'non-scaling-stroke');
     svg.appendChild(existing);
   }
   if (draw.points.length < 2) return;
-  let d = `M ${draw.points[0].x}% ${draw.points[0].y}%`;
+  let d = `M ${draw.points[0].x} ${draw.points[0].y}`;
   for (let i = 1; i < draw.points.length; i++) {
-    d += ` L ${draw.points[i].x}% ${draw.points[i].y}%`;
+    d += ` L ${draw.points[i].x} ${draw.points[i].y}`;
   }
   existing.setAttribute('d', d);
 }
@@ -1170,21 +1436,90 @@ function finalizeCurrentPath() {
     // 색상 다양하게
     const colors = ['#7c3aed','#8b5cf6','#a78bfa','#ec4899','#3b82f6','#06b6d4','#10b981'];
     current.setAttribute('stroke', colors[draw.paths.length % colors.length]);
-    current.setAttribute('stroke-width', '3');
+    current.setAttribute('stroke-width', '4');
+    current.setAttribute('vector-effect', 'non-scaling-stroke');
   }
 }
 
 function replayDrawing() {
   if (draw.paths.length === 0) { speak('먼저 그림을 그려보세요!'); return; }
+  if (draw.replaying) return;
+  draw.replaying = true;
   speak('그림을 재생합니다!');
+
+  const svg = document.getElementById('draw-svg');
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const colors = ['#7c3aed','#8b5cf6','#a78bfa','#ec4899','#3b82f6','#06b6d4','#10b981'];
+
+  // 기존 저장 경로 흐리게
+  svg.querySelectorAll('.saved-draw-path').forEach(p => { p.dataset.origOpacity = p.style.opacity || ''; p.style.opacity = '0.15'; });
+
+  // 재생 커서 (빛나는 점)
+  const cursor = document.createElementNS(svgNS, 'circle');
+  cursor.setAttribute('r', '1.8');
+  cursor.setAttribute('fill', '#fbbf24');
+  cursor.classList.add('replay-cursor');
+  svg.appendChild(cursor);
+
   let pathIdx = 0;
   function playPath() {
-    if (pathIdx >= draw.paths.length) return;
+    if (pathIdx >= draw.paths.length) {
+      // 재생 완료 — 원상복구
+      cursor.remove();
+      svg.querySelectorAll('.replay-path').forEach(p => p.remove());
+      svg.querySelectorAll('.saved-draw-path').forEach(p => { p.style.opacity = p.dataset.origOpacity || ''; });
+      draw.replaying = false;
+      stopCurrentNote();
+      setMascotEmotion('draw', 'happy');
+      return;
+    }
+
     const pts = draw.paths[pathIdx];
+    const color = colors[pathIdx % colors.length];
+
+    // 재생용 글로우 경로
+    const replayPath = document.createElementNS(svgNS, 'path');
+    replayPath.classList.add('replay-path', 'replay-glow');
+    replayPath.setAttribute('fill', 'none');
+    replayPath.setAttribute('stroke', color);
+    replayPath.setAttribute('stroke-width', '6');
+    replayPath.setAttribute('stroke-linecap', 'round');
+    replayPath.setAttribute('stroke-linejoin', 'round');
+    replayPath.setAttribute('vector-effect', 'non-scaling-stroke');
+    replayPath.style.color = color;
+    svg.appendChild(replayPath);
+
     let ptIdx = 0;
+    let d = '';
+
     const interval = setInterval(() => {
-      if (ptIdx >= pts.length) { clearInterval(interval); stopCurrentNote(); pathIdx++; setTimeout(playPath, 200); return; }
-      playNoteFromY(pts[ptIdx].y);
+      if (ptIdx >= pts.length) {
+        clearInterval(interval);
+        stopCurrentNote();
+        // 글로우 경로 페이드아웃
+        replayPath.style.transition = 'opacity .3s';
+        replayPath.style.opacity = '0';
+        setTimeout(() => replayPath.remove(), 300);
+        pathIdx++;
+        setTimeout(playPath, 250);
+        return;
+      }
+
+      const pt = pts[ptIdx];
+      if (ptIdx === 0) {
+        d = `M ${pt.x} ${pt.y}`;
+      } else {
+        d += ` L ${pt.x} ${pt.y}`;
+      }
+      replayPath.setAttribute('d', d);
+
+      // 커서 이동
+      cursor.setAttribute('cx', String(pt.x));
+      cursor.setAttribute('cy', String(pt.y));
+
+      // 소리 재생
+      playNoteFromY(pt.y);
+
       ptIdx += 3;
     }, 50);
   }
@@ -1483,33 +1818,82 @@ function updateRecords() {
   document.getElementById('r-fridge-loops').textContent = fridge.totalLoops;
 }
 
-// ===== 히어로: 비트 캐처 =====
-const NOTE_SVG_TEMPLATES = [
-  // 단일 음표
-  (c) => `<svg viewBox="0 0 32 32" width="44" height="44"><ellipse cx="12" cy="24" rx="7" ry="5" fill="${c}"/><rect x="18" y="6" width="3" height="18" rx="1.5" fill="${c}"/><path d="M21 6c4-1.5 8 0 8 4s-4 6-8 5z" fill="${c}" opacity=".8"/></svg>`,
-  // 이중 음표
-  (c) => `<svg viewBox="0 0 40 32" width="44" height="44"><ellipse cx="10" cy="25" rx="6" ry="4.5" fill="${c}"/><rect x="15" y="5" width="3" height="20" rx="1.5" fill="${c}"/><ellipse cx="28" cy="23" rx="6" ry="4.5" fill="${c}"/><rect x="33" y="5" width="3" height="18" rx="1.5" fill="${c}"/><rect x="18" y="5" width="18" height="3.5" rx="1.5" fill="${c}"/></svg>`,
-  // 쉼표 스타일
-  (c) => `<svg viewBox="0 0 28 36" width="44" height="44"><path d="M14 4l3 10-5-4 4 12-6-6 2 14" stroke="${c}" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  // 별 음표
-  (c) => `<svg viewBox="0 0 36 36" width="44" height="44"><polygon points="18,2 22,13 34,13 24,20 28,32 18,25 8,32 12,20 2,13 14,13" fill="${c}" opacity=".9"/><circle cx="18" cy="18" r="5" fill="#fff" opacity=".3"/></svg>`,
-  // 하트 음표
-  (c) => `<svg viewBox="0 0 36 36" width="44" height="44"><path d="M18 30C8 22 2 16 2 10c0-5 4-8 8-8 3 0 6 2 8 5 2-3 5-5 8-5 4 0 8 3 8 8 0 6-6 12-16 20z" fill="${c}" opacity=".9"/></svg>`
+// ===== 히어로: 비트 러시 (비트매니아 스타일) =====
+// 레인 설정: 4레인 (중앙 정렬, 각 160px 폭, 12px 갭)
+const LANE_W = 160, LANE_GAP = 12;
+const TOTAL_LANE_W = 4 * LANE_W + 3 * LANE_GAP; // 664
+const LANE_COLORS = ['#ef4444','#3b82f6','#22c55e','#fbbf24'];
+const LANE_KEYS = {d:0, f:1, j:2, k:3};
+const NOTE_W = 130, NOTE_H = 36;
+const NOTE_ICONS = [
+  `<svg viewBox="0 0 32 32" width="28" height="28"><ellipse cx="12" cy="24" rx="7" ry="5" fill="#fff" opacity=".8"/><rect x="18" y="6" width="3" height="18" rx="1.5" fill="#fff" opacity=".8"/><path d="M21 6c4-1.5 8 0 8 4s-4 6-8 5z" fill="#fff" opacity=".6"/></svg>`,
+  `<svg viewBox="0 0 40 32" width="28" height="28"><ellipse cx="10" cy="25" rx="6" ry="4.5" fill="#fff" opacity=".8"/><rect x="15" y="5" width="3" height="20" rx="1.5" fill="#fff" opacity=".8"/><ellipse cx="28" cy="23" rx="6" ry="4.5" fill="#fff" opacity=".8"/><rect x="33" y="5" width="3" height="18" rx="1.5" fill="#fff" opacity=".8"/><rect x="18" y="5" width="18" height="3.5" rx="1.5" fill="#fff" opacity=".8"/></svg>`,
+  `<svg viewBox="0 0 36 36" width="28" height="28"><polygon points="18,2 22,13 34,13 24,20 28,32 18,25 8,32 12,20 2,13 14,13" fill="#fff" opacity=".7"/></svg>`
 ];
-const DIRS = ['up','down','left','right'];
-const DIR_COLORS = { up:'#ef4444', down:'#22c55e', left:'#3b82f6', right:'#fbbf24' };
+
+function getLaneX(lane) {
+  // 아레나 중앙 기준
+  const arena = document.getElementById('hg-arena');
+  const cx = arena.offsetWidth / 2;
+  const startX = cx - TOTAL_LANE_W / 2;
+  return startX + lane * (LANE_W + LANE_GAP);
+}
+function getJudgeY() {
+  const arena = document.getElementById('hg-arena');
+  return arena.offsetHeight - 160;
+}
 
 function startHeroGame() {
+  try{document.documentElement.requestFullscreen?.()}catch(e){}
   document.getElementById('hero-game').classList.remove('hidden');
-  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
-  hg.notes = []; hg.combo = 0; hg.maxCombo = 0; hg.instruments = 0; hg.bpm = 90;
-  _prevHgLives = 5; _prevHgLevel = 1;
-  SFX.gameStart();
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = false; hg.paused = false;
+  hg.notes = []; hg.combo = 0; hg.maxCombo = 0; hg.perfects = 0; hg.bpm = 100;
+  _prevHgLives = 5;
+  // 이퀄라이저 장식 추가
+  addEqBars();
   updateHgUI();
-  addHgInstruments();
-  hgLoop();
-  // 배경 음악 느낌 — 지속 드론
-  startBgDrone();
+  // 카운트다운 후 시작
+  hgCountdown();
+}
+
+function addEqBars() {
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-eq-bar').forEach(e => e.remove());
+  const colors = ['#a78bfa','#c084fc','#8b5cf6','#7c3aed'];
+  for (let i = 0; i < 20; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'hg-eq-bar';
+    const side = i < 10 ? 'left' : 'right';
+    const idx = i < 10 ? i : i - 10;
+    const h1 = 20 + Math.random() * 60;
+    const h2 = 40 + Math.random() * 120;
+    bar.style.cssText = `${side}:${40 + idx * 50}px;background:${colors[i%4]};--h1:${h1}px;--h2:${h2}px;--dur:${0.6 + Math.random() * 1.2}s`;
+    arena.appendChild(bar);
+  }
+}
+
+function hgCountdown() {
+  const cd = document.getElementById('hg-countdown');
+  cd.style.display = 'flex';
+  const steps = ['3','2','1','🎵'];
+  let i = 0;
+  function showStep() {
+    if (i >= steps.length) {
+      cd.style.display = 'none';
+      hg.running = true;
+      SFX.gameStart();
+      startBgDrone();
+      startBgm();
+      hgLoop();
+      return;
+    }
+    cd.innerHTML = `<div class="hg-countdown-num">${steps[i]}</div>`;
+    if (i < 3) playNote(440 + i * 110, 0.15, 'sine');
+    else playNote(880, 0.2, 'sine');
+    i++;
+    setTimeout(showStep, 800);
+  }
+  showStep();
 }
 
 let bgDroneOsc = null, bgDroneGain = null;
@@ -1535,24 +1919,111 @@ function stopBgDrone() {
   } catch(e) { bgDroneOsc = null; bgDroneGain = null; }
 }
 
-function addHgInstruments() {
-  const arena = document.getElementById('hg-arena');
-  arena.querySelectorAll('.hg-instrument').forEach(e => e.remove());
-  const insts = ['🎸','🎹','🥁','🎺','🎻','🪇','🎷','🪘'];
-  for (let i = 0; i < 4; i++) {
-    const el = document.createElement('div');
-    el.className = 'hg-instrument';
-    el.textContent = insts[i];
-    el.style.left = (15 + i * 22) + '%';
-    el.style.top = (70 + Math.random() * 15) + '%';
-    el.style.animationDelay = (i * 0.5) + 's';
-    el.id = 'hg-inst-' + i;
-    arena.appendChild(el);
-  }
+// ===== BGM 비트 생성기 (킥/스네어/하이햇/베이스) =====
+let bgmTimer = null, bgmBeat = 0;
+const BASS_NOTES = [65, 73, 82, 87, 98, 82, 73, 65]; // 펜타토닉 베이스라인
+
+function startBgm() {
+  if (!soundEnabled) return;
+  bgmBeat = 0;
+  playBgmBeat();
+  updateBgmTimer();
+}
+
+function updateBgmTimer() {
+  if (bgmTimer) clearInterval(bgmTimer);
+  const beatMs = 60000 / hg.bpm;
+  bgmTimer = setInterval(() => {
+    if (!hg.running || hg.paused) return;
+    bgmBeat++;
+    playBgmBeat();
+  }, beatMs);
+}
+
+function stopBgm() {
+  if (bgmTimer) { clearInterval(bgmTimer); bgmTimer = null; }
+}
+
+function playBgmBeat() {
+  try {
+    const ctx = getAudioCtx();
+    const t = ctx.currentTime;
+    const beat = bgmBeat % 8;
+
+    // 킥 드럼: 0, 4 (매 마디 1박, 3박)
+    if (beat === 0 || beat === 4) {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(150, t);
+      osc.frequency.exponentialRampToValueAtTime(40, t + 0.12);
+      g.gain.setValueAtTime(0.35, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(t); osc.stop(t + 0.2);
+    }
+
+    // 스네어: 2, 6 (2박, 4박)
+    if (beat === 2 || beat === 6) {
+      const len = Math.floor(ctx.sampleRate * 0.08);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass'; bp.frequency.setValueAtTime(2000, t); bp.Q.setValueAtTime(1, t);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.12, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+      src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+      src.start(t); src.stop(t + 0.08);
+      // 스네어 톤 추가
+      const osc2 = ctx.createOscillator();
+      const g2 = ctx.createGain();
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(180, t);
+      g2.gain.setValueAtTime(0.1, t);
+      g2.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
+      osc2.connect(g2); g2.connect(ctx.destination);
+      osc2.start(t); osc2.stop(t + 0.06);
+    }
+
+    // 하이햇: 매 비트 (8분음표)
+    {
+      const len = Math.floor(ctx.sampleRate * 0.03);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const hp = ctx.createBiquadFilter();
+      hp.type = 'highpass'; hp.frequency.setValueAtTime(9000, t);
+      const g = ctx.createGain();
+      const vol = (beat % 2 === 0) ? 0.06 : 0.035; // 강/약 엑센트
+      g.gain.setValueAtTime(vol, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.025);
+      src.connect(hp); hp.connect(g); g.connect(ctx.destination);
+      src.start(t); src.stop(t + 0.03);
+    }
+
+    // 베이스: 0, 3, 4, 7 (리듬감 있는 패턴)
+    if (beat === 0 || beat === 3 || beat === 4 || beat === 7) {
+      const freq = BASS_NOTES[Math.floor(bgmBeat / 8) % BASS_NOTES.length];
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, t);
+      g.gain.setValueAtTime(0.1, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(t); osc.stop(t + 0.25);
+    }
+  } catch(e) {}
 }
 
 function hgLoop() {
-  const interval = Math.max(800, 60000 / hg.bpm);
+  const interval = Math.max(500, 60000 / hg.bpm);
   if (hg.spawnTimer) clearInterval(hg.spawnTimer);
   hg.spawnTimer = setInterval(() => {
     if (!hg.paused && hg.running) hgSpawn();
@@ -1566,214 +2037,172 @@ function hgLoop() {
 }
 
 function hgSpawn() {
-  // 5% 파워업
-  if (Math.random() < 0.05) { hgSpawnPower(); return; }
-
   const arena = document.getElementById('hg-arena');
-  const w = arena.offsetWidth;
-  const h = arena.offsetHeight;
-  const cx = w / 2;
-  const cy = h / 2;
-  const dir = DIRS[Math.floor(Math.random() * DIRS.length)];
-  const svgFn = NOTE_SVG_TEMPLATES[Math.floor(Math.random() * NOTE_SVG_TEMPLATES.length)];
+  const lane = Math.floor(Math.random() * 4);
+  const lx = getLaneX(lane);
 
   const el = document.createElement('div');
   el.className = 'hg-note';
-  el.innerHTML = svgFn(DIR_COLORS[dir]);
-
-  let startX, startY;
-  if (dir === 'up') { startX = cx - 18; startY = -40; }
-  else if (dir === 'down') { startX = cx - 18; startY = h + 10; }
-  else if (dir === 'left') { startX = -40; startY = cy - 18; }
-  else { startX = w + 10; startY = cy - 18; }
-
-  el.style.left = startX + 'px';
-  el.style.top = startY + 'px';
+  el.setAttribute('data-l', lane);
+  el.style.width = NOTE_W + 'px';
+  el.style.height = NOTE_H + 'px';
+  el.innerHTML = NOTE_ICONS[Math.floor(Math.random() * NOTE_ICONS.length)];
+  el.style.left = (lx + (LANE_W - NOTE_W) / 2) + 'px';
+  el.style.top = '-50px';
   arena.appendChild(el);
 
-  const speed = 0.8 + hg.level * 0.15;
-  hg.notes.push({ el, dir, x: startX, y: startY, speed, hit: false });
-}
-
-function hgSpawnPower() {
-  const types = [{e:'🎧',fx:'earphone'},{e:'📻',fx:'metronome'},{e:'🔊',fx:'amp'}];
-  const t = types[Math.floor(Math.random() * types.length)];
-  const arena = document.getElementById('hg-arena');
-  const w = arena.offsetWidth;
-  const h = arena.offsetHeight;
-  const el = document.createElement('div');
-  el.className = 'hg-powerup';
-  el.textContent = t.e;
-  el.style.left = (Math.random() * (w - 60) + 30) + 'px';
-  el.style.top = (Math.random() * (h - 60) + 30) + 'px';
-  el.onclick = () => hgPowerUp(t.fx, el);
-  arena.appendChild(el);
-  setTimeout(() => { if (el.parentNode) el.remove(); }, 5000);
-}
-
-function hgPowerUp(fx, el) {
-  if (fx === 'earphone') { hg.lives = Math.min(hg.lives + 1, 7); speak('생명 추가!'); }
-  else if (fx === 'metronome') { /* 슬로우 */ hg.notes.forEach(n => n.speed *= 0.5); setTimeout(() => hg.notes.forEach(n => n.speed *= 2), 4000); speak('슬로우!'); }
-  else if (fx === 'amp') { hg.score += 10; speak('보너스!'); }
-  el.remove();
-  updateHgUI();
+  // 낙하 속도: 레벨에 따라 증가
+  const speed = 2.5 + hg.level * 0.4;
+  hg.notes.push({ el, lane, y: -50, speed, hit: false });
 }
 
 function hgMoveNotes() {
-  const arena = document.getElementById('hg-arena');
-  const w = arena.offsetWidth;
-  const h = arena.offsetHeight;
-  const cx = w / 2;
-  const cy = h / 2;
+  const judgeY = getJudgeY();
+  const missY = judgeY + 80; // 판정선 아래 80px → 미스
 
   hg.notes = hg.notes.filter(note => {
     if (note.hit) return false;
-    // 중앙을 향해 이동
-    const dx = cx - note.x;
-    const dy = cy - note.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 2) {
-      // 판정선 통과 — Miss
-      note.el.remove();
+    note.y += note.speed;
+    note.el.style.top = note.y + 'px';
+
+    // 판정선 근처에서 글로우 강화
+    const dist = Math.abs(note.y - judgeY);
+    if (dist < 80) {
+      note.el.style.filter = `brightness(${1 + (80 - dist) / 80 * 0.5})`;
+    }
+
+    // 미스 판정
+    if (note.y > missY) {
+      note.el.style.transition = 'opacity .2s';
+      note.el.style.opacity = '0';
+      setTimeout(() => note.el.remove(), 200);
       hgMiss();
       return false;
     }
-    const nx = dx / dist * note.speed;
-    const ny = dy / dist * note.speed;
-    note.x += nx;
-    note.y += ny;
-    note.el.style.left = note.x + 'px';
-    note.el.style.top = note.y + 'px';
     return true;
   });
 }
 
-function hgTap(dir) {
+function hgTap(lane) {
   if (!hg.running || hg.paused) return;
+  const judgeY = getJudgeY();
   const arena = document.getElementById('hg-arena');
-  const w = arena.offsetWidth;
-  const h = arena.offsetHeight;
-  const cx = w / 2;
-  const cy = h / 2;
 
-  // 해당 방향 + 판정선 근처 노트 찾기
+  // 버튼 시각 피드백
+  const btn = document.getElementById('hg-btn-' + lane);
+  if (btn) { btn.classList.remove('flash'); void btn.offsetWidth; btn.classList.add('flash'); }
+
+  // 해당 레인에서 판정선에 가장 가까운 노트 찾기
   let best = null;
   let bestDist = Infinity;
   for (const note of hg.notes) {
-    if (note.dir !== dir || note.hit) continue;
-    const dx = note.x - cx;
-    const dy = note.y - cy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 120 && dist < bestDist) {
+    if (note.lane !== lane || note.hit) continue;
+    const dist = Math.abs(note.y + NOTE_H / 2 - judgeY);
+    if (dist < 100 && dist < bestDist) {
       bestDist = dist;
       best = note;
     }
   }
 
-  if (best) {
-    best.hit = true;
-    let grade, points;
-    if (bestDist < 30) { grade = 'Perfect!'; points = 10; }
-    else if (bestDist < 60) { grade = 'Good!'; points = 5; }
-    else { grade = 'OK'; points = 2; }
+  if (!best) return; // 빈 탭
 
-    hg.combo++;
-    if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
-    const totalPts = points + Math.min(hg.combo, 10);
-    hg.score += totalPts;
+  best.hit = true;
+  let grade, points;
+  if (bestDist < 20) { grade = 'Perfect!'; points = 10; hg.perfects++; }
+  else if (bestDist < 50) { grade = 'Good!'; points = 5; }
+  else { grade = 'OK'; points = 2; }
 
-    if (grade === 'Perfect!') SFX.perfect(); else SFX.chord();
-    showScorePopup(arena, totalPts, best.x+'px', best.y+'px');
-    if (hg.combo >= 3) SFX.combo(hg.combo);
+  hg.combo++;
+  if (hg.combo > hg.maxCombo) hg.maxCombo = hg.combo;
+  const comboBonus = Math.min(hg.combo, 15);
+  const totalPts = points + comboBonus;
+  hg.score += totalPts;
 
-    // 히트 소리
-    playNote(PENTA[Math.floor(Math.random() * 5)], 0.2, 'sine');
+  // 효과음
+  if (grade === 'Perfect!') SFX.perfect(); else SFX.chord();
+  playNote(PENTA[lane % PENTA.length], 0.2, 'sine');
+  if (hg.combo >= 5) SFX.combo(hg.combo);
 
-    // 판정 텍스트
-    const jt = document.createElement('div');
-    jt.className = 'hg-judge-text';
-    jt.textContent = grade;
-    jt.style.color = grade === 'Perfect!' ? '#22c55e' : grade === 'Good!' ? '#f59e0b' : '#60a5fa';
-    arena.appendChild(jt);
-    setTimeout(() => jt.remove(), 800);
+  // 레인 플래시
+  const laneFlash = document.createElement('div');
+  laneFlash.className = 'hg-lane-flash';
+  laneFlash.setAttribute('data-l', lane);
+  laneFlash.style.left = getLaneX(lane) + 'px';
+  arena.appendChild(laneFlash);
+  setTimeout(() => laneFlash.remove(), 250);
 
-    // 콤보 표시
-    if (hg.combo >= 3) {
-      const ct = document.createElement('div');
-      ct.className = 'hg-combo-text';
-      ct.textContent = `${hg.combo} COMBO!`;
-      arena.appendChild(ct);
-      setTimeout(() => ct.remove(), 1000);
-    }
+  // 점수 팝업
+  const sp = document.createElement('div');
+  sp.className = 'hg-score-pop';
+  sp.textContent = '+' + totalPts;
+  sp.style.left = (getLaneX(lane) + LANE_W / 2 - 20) + 'px';
+  sp.style.bottom = '180px';
+  arena.appendChild(sp);
+  setTimeout(() => sp.remove(), 600);
 
-    // 악기 추가 (콤보 5마다)
-    if (hg.combo % 5 === 0 && hg.instruments < 4) {
-      const inst = document.getElementById('hg-inst-' + hg.instruments);
-      if (inst) { inst.style.opacity = '1'; inst.style.fontSize = '50px'; }
-      hg.instruments++;
-    }
+  // 판정 텍스트
+  const jt = document.createElement('div');
+  jt.className = 'hg-judge-text';
+  jt.textContent = grade;
+  jt.style.color = grade === 'Perfect!' ? '#22c55e' : grade === 'Good!' ? '#fbbf24' : '#60a5fa';
+  arena.appendChild(jt);
+  setTimeout(() => jt.remove(), 800);
 
-    // 플래시
-    const flash = document.createElement('div');
-    flash.className = 'hg-flash-good';
-    arena.appendChild(flash);
-    setTimeout(() => flash.remove(), 300);
-
-    // 노트 제거 애니메이션
-    best.el.style.transition = 'all .2s';
-    best.el.style.transform = 'scale(2)';
-    best.el.style.opacity = '0';
-    setTimeout(() => best.el.remove(), 200);
-
-    // 레벨 업
-    const nl = Math.floor(hg.score / 20) + 1;
-    if (nl > hg.level) {
-      hg.level = nl;
-      hg.bpm = 90 + (hg.level - 1) * 15;
-      hgLoop(); // 속도 갱신
-      hgUpdateBg();
-      showLevelUp(nl);
-    }
-    updateHgUI();
+  // 콤보 표시
+  if (hg.combo >= 3) {
+    arena.querySelectorAll('.hg-combo-text').forEach(e => e.remove());
+    const ct = document.createElement('div');
+    ct.className = 'hg-combo-text';
+    ct.textContent = `${hg.combo} COMBO!`;
+    arena.appendChild(ct);
+    setTimeout(() => ct.remove(), 1000);
   }
+
+  // 노트 제거 애니메이션
+  best.el.style.transition = 'all .15s';
+  best.el.style.transform = 'scaleY(2) scaleX(1.3)';
+  best.el.style.opacity = '0';
+  setTimeout(() => best.el.remove(), 150);
+
+  // 레벨 업 (25점마다)
+  const nl = Math.floor(hg.score / 25) + 1;
+  if (nl > hg.level) {
+    hg.level = nl;
+    hg.bpm = 100 + (hg.level - 1) * 12;
+    hgLoop(); // BPM 갱신
+    updateBgmTimer(); // BGM 템포 동기화
+    hgUpdateBg();
+    showLevelUp(nl);
+    document.getElementById('hg-bpm').textContent = '♩ ' + hg.bpm + ' BPM';
+  }
+  updateHgUI();
 }
 
 function hgMiss() {
   hg.lives--;
   hg.combo = 0;
   SFX.dissonance();
-  // 악기 제거
-  if (hg.instruments > 0) {
-    hg.instruments--;
-    const inst = document.getElementById('hg-inst-' + hg.instruments);
-    if (inst) { inst.style.opacity = '.3'; inst.style.fontSize = '40px'; }
-  }
-  // Miss 이펙트
   const arena = document.getElementById('hg-arena');
   const flash = document.createElement('div');
   flash.className = 'hg-flash-miss';
   arena.appendChild(flash);
-  setTimeout(() => flash.remove(), 400);
-
-  // Miss 소리
-  playNote(100, 0.2, 'sawtooth');
-
+  setTimeout(() => flash.remove(), 350);
+  playNote(100, 0.15, 'sawtooth');
   updateHgUI();
   if (hg.lives <= 0) hgEnd();
 }
 
 function hgUpdateBg() {
   const bgs = [
-    'linear-gradient(180deg,#1e1b4b 0%,#312e81 30%,#4c1d95 70%,#6d28d9 100%)',
-    'linear-gradient(180deg,#0f172a 0%,#1e1b4b 30%,#312e81 70%,#4c1d95 100%)',
-    'linear-gradient(180deg,#0c0a09 0%,#1c1917 30%,#292524 70%,#44403c 100%)',
-    'linear-gradient(180deg,#020617 0%,#0f172a 30%,#1e293b 70%,#334155 100%)'
+    'linear-gradient(180deg,#0f0720 0%,#1a0a3e 40%,#2d1463 100%)',
+    'linear-gradient(180deg,#0a0520 0%,#150835 30%,#1e1b4b 60%,#312e81 100%)',
+    'linear-gradient(180deg,#050210 0%,#0f0720 30%,#1a0a3e 60%,#2d1463 100%)',
+    'linear-gradient(180deg,#000 0%,#0a0520 30%,#150835 60%,#1e1b4b 100%)'
   ];
   document.getElementById('hero-game').style.background = bgs[(hg.level - 1) % bgs.length];
 }
 
 let _prevHgLives = 5;
-let _prevHgLevel = 1;
 function updateHgUI() {
   document.getElementById('hg-score').textContent = hg.score;
   document.getElementById('hg-level').textContent = hg.level;
@@ -1782,7 +2211,7 @@ function updateHgUI() {
     let html = '';
     for (let i = 0; i < 5; i++) {
       if (i < hg.lives) html += '❤️';
-      else if (i === hg.lives) html += '<span class="hg-heart-lost">❤️</span>';
+      else if (i === hg.lives) html += '<span style="animation:flashMiss .3s">💔</span>';
       else html += '🖤';
     }
     heartsEl.innerHTML = html;
@@ -1796,15 +2225,19 @@ function hgEnd() {
   hg.running = false;
   SFX.gameOver();
   stopBgDrone();
+  stopBgm();
   if (hg.spawnTimer) clearInterval(hg.spawnTimer);
   if (hg.animId) cancelAnimationFrame(hg.animId);
   hg.notes.forEach(n => n.el.remove());
   hg.notes = [];
   document.getElementById('hg-final-score').textContent = hg.score;
+  document.getElementById('hg-final-combo').textContent = hg.maxCombo;
+  document.getElementById('hg-final-perfect').textContent = hg.perfects;
+  document.getElementById('hg-final-level').textContent = hg.level;
   let msg = '잘했어요!';
-  if (hg.score >= 80) msg = '대단해요! 비트의 달인!';
-  else if (hg.score >= 50) msg = '와! 리듬감이 좋아요!';
-  else if (hg.score >= 20) msg = '멋져요! 계속 연습!';
+  if (hg.score >= 100) msg = '전설의 DJ! 비트의 달인!';
+  else if (hg.score >= 60) msg = '와! 리듬감이 좋아요!';
+  else if (hg.score >= 30) msg = '멋져요! 계속 연습!';
   document.getElementById('hg-over-msg').textContent = msg;
   document.getElementById('hg-over').classList.remove('hidden');
   addXP(Math.min(Math.floor(hg.score / 5), 10));
@@ -1813,13 +2246,14 @@ function hgEnd() {
 
 function hgRestart() {
   document.getElementById('hg-over').classList.add('hidden');
-  document.getElementById('hg-arena').querySelectorAll('.hg-note,.hg-judge-text,.hg-combo-text,.hg-flash-good,.hg-flash-miss,.hg-powerup').forEach(e => e.remove());
-  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = true; hg.paused = false;
-  hg.notes = []; hg.combo = 0; hg.maxCombo = 0; hg.instruments = 0; hg.bpm = 90;
-  _prevHgLives = 5; _prevHgLevel = 1;
-  SFX.gameStart();
-  updateHgUI(); hgUpdateBg(); addHgInstruments(); hgLoop();
-  startBgDrone();
+  const arena = document.getElementById('hg-arena');
+  arena.querySelectorAll('.hg-note,.hg-judge-text,.hg-combo-text,.hg-lane-flash,.hg-flash-miss,.hg-score-pop').forEach(e => e.remove());
+  hg.score = 0; hg.lives = 5; hg.level = 1; hg.running = false; hg.paused = false;
+  hg.notes = []; hg.combo = 0; hg.maxCombo = 0; hg.perfects = 0; hg.bpm = 100;
+  _prevHgLives = 5;
+  updateHgUI(); hgUpdateBg();
+  document.getElementById('hg-bpm').textContent = '♩ 100 BPM';
+  hgCountdown();
 }
 
 function hgPause() {
@@ -1830,14 +2264,24 @@ function hgPause() {
 function hgExit() {
   hg.running = false;
   stopBgDrone();
+  stopBgm();
   if (hg.spawnTimer) clearInterval(hg.spawnTimer);
   if (hg.animId) cancelAnimationFrame(hg.animId);
   hg.notes.forEach(n => n.el.remove());
   hg.notes = [];
   document.getElementById('hg-over').classList.add('hidden');
   document.getElementById('hg-pause').classList.add('hidden');
+  document.getElementById('hg-countdown').style.display = 'none';
   document.getElementById('hero-game').classList.add('hidden');
+  if(document.fullscreenElement)document.exitFullscreen?.();
 }
+
+// 키보드 입력 (D, F, J, K)
+document.addEventListener('keydown', function(e) {
+  if (!hg.running || hg.paused) return;
+  const lane = LANE_KEYS[e.key.toLowerCase()];
+  if (lane !== undefined) { e.preventDefault(); hgTap(lane); }
+});
 
 // ===== 초기화 =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -1896,13 +2340,13 @@ function setMascotEmotion(viewId, emotion) {
   const speechEl = document.getElementById(`mascot-${viewId}-speech`);
   if (!mouthEl && !speechEl) return;
   if (emotion === 'happy') {
-    if (mouthEl) mouthEl.setAttribute('d', 'M35 82 Q45 92 55 82');
+    if (mouthEl) mouthEl.setAttribute('d', 'M40 88 Q50 98 60 88');
     if (speechEl) { speechEl.textContent = ['멋져!','최고!','짱!','브라보!'][Math.floor(Math.random()*4)]; speechEl.style.display='block'; }
   } else if (emotion === 'worried') {
-    if (mouthEl) mouthEl.setAttribute('d', 'M37 88 Q45 82 53 88');
+    if (mouthEl) mouthEl.setAttribute('d', 'M42 94 Q50 88 58 94');
     if (speechEl) { speechEl.textContent = ['다시!','힘내!','괜찮아!'][Math.floor(Math.random()*3)]; speechEl.style.display='block'; }
   } else {
-    if (mouthEl) mouthEl.setAttribute('d', 'M35 84 Q45 90 55 84');
+    if (mouthEl) mouthEl.setAttribute('d', 'M40 90 Q50 97 60 90');
     if (speechEl) speechEl.style.display='block';
   }
   setTimeout(() => setMascotEmotion(viewId, 'idle'), 2500);
@@ -1915,6 +2359,18 @@ document.addEventListener('touchend', function(e) {
   if (now - lastTouchEnd <= 300) e.preventDefault();
   lastTouchEnd = now;
 }, false);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
+window.matchMedia('(orientation: portrait)').addEventListener('change', e => {
+  if (e.matches) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
 </script>
 </body>
 </html>

@@ -38,28 +38,28 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .profile-info{flex:1;color:#fff}
 .profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
 .profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
-.profile-level{font-size:18px;font-weight:700;color:#bae6fd;display:flex;align-items:center;gap:8px}
-.level-badge{background:linear-gradient(145deg,#7dd3fc,#38bdf8);color:#0c4a6e;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.profile-level{font-size:22px;font-weight:700;color:#bae6fd;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#7dd3fc,#38bdf8);color:#0c4a6e;padding:4px 12px;border-radius:8px;font-size:22px;font-weight:800;border:1px solid #fff}
 .progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#7dd3fc,#38bdf8,#7dd3fc);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
 @keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 /* 탭 */
 .tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
-.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:20px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:62px;white-space:nowrap;font-family:inherit}
 .tab-btn.active{background:linear-gradient(145deg,#0ea5e9,#0284c7);color:#fff;border-color:#0ea5e9}
 .tab-btn:active{transform:scale(.97)}
 .tab-content{display:none;flex:1;overflow:hidden}
 .tab-content.active{display:flex;flex-direction:column}
 
 /* 사이드 정보 */
-.side-info{background:linear-gradient(145deg,#f0f9ff,#e0f2fe);border-radius:16px;padding:15px;border:2px solid #0ea5e9;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
-.side-title{font-size:17px;font-weight:700;color:#0c4a6e;text-align:center;flex-shrink:0}
-.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
-.side-val{font-size:20px;font-weight:800;color:#0284c7}
+.side-info{background:linear-gradient(145deg,#f0f9ff,#e0f2fe);border-radius:16px;padding:18px;border:2px solid #0ea5e9;display:flex;flex-direction:column;gap:12px;height:100%;overflow:hidden}
+.side-title{font-size:24px;font-weight:700;color:#0c4a6e;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:20px;font-weight:600;color:#1e293b}
+.side-val{font-size:32px;font-weight:800;color:#0284c7}
 
 /* 게임 런치 */
-.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff;border:3px solid #bae6fd;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(14,165,233,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff;border:3px solid #bae6fd;border-radius:16px;padding:14px;font-size:26px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(14,165,233,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
 @keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 .game-launch-btn:active{transform:scale(.97)}
 
@@ -70,21 +70,21 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 /* ===== 비행기 조종사 ===== */
 .pilot-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#0c4a6e 0%,#0284c7 40%,#38bdf8 100%);border-radius:16px}
-.globe-container{position:relative;width:500px;height:500px}
+.globe-container{position:relative;width:600px;height:600px}
 .globe-svg{width:100%;height:100%;animation:globeRotateBg 30s linear infinite}
 @keyframes globeRotateBg{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
 .country-dot{cursor:pointer;transition:transform .2s}
 .country-dot:hover{transform:scale(1.3)}
-.plane-svg{position:absolute;width:60px;height:60px;transition:all 1.5s cubic-bezier(.34,1.56,.64,1);z-index:10;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
-.country-info-card{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);border-radius:20px;padding:20px 30px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:20;min-width:300px;backdrop-filter:blur(10px);animation:cardSlideUp .5s ease-out}
+.plane-svg{position:absolute;width:72px;height:72px;transition:all 1.5s cubic-bezier(.34,1.56,.64,1);z-index:10;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+.country-info-card{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);border-radius:20px;padding:24px 36px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:20;min-width:360px;backdrop-filter:blur(10px);animation:cardSlideUp .5s ease-out}
 @keyframes cardSlideUp{0%{transform:translateX(-50%) translateY(30px);opacity:0}100%{transform:translateX(-50%) translateY(0);opacity:1}}
-.country-flag{font-size:64px;margin-bottom:8px}
-.country-name{font-size:28px;font-weight:900;color:#1e293b;margin-bottom:4px}
-.country-capital{font-size:18px;color:#64748b;font-weight:600}
-.country-greeting{font-size:16px;color:#0284c7;font-weight:700;margin-top:8px;padding:8px 16px;background:#e0f2fe;border-radius:10px}
+.country-flag{font-size:78px;margin-bottom:8px}
+.country-name{font-size:34px;font-weight:900;color:#1e293b;margin-bottom:4px}
+.country-capital{font-size:22px;color:#64748b;font-weight:600}
+.country-greeting{font-size:20px;color:#0284c7;font-weight:700;margin-top:8px;padding:10px 20px;background:#e0f2fe;border-radius:10px}
 .pilot-start-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-.pilot-start-title{font-size:48px;font-weight:900;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,.3)}
-.pilot-start-btn{background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff;border:4px solid #bae6fd;border-radius:24px;padding:24px 60px;font-size:36px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(14,165,233,.4);animation:gPulse 2s ease-in-out infinite}
+.pilot-start-title{font-size:58px;font-weight:900;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,.3)}
+.pilot-start-btn{background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff;border:4px solid #bae6fd;border-radius:24px;padding:28px 72px;font-size:44px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 24px rgba(14,165,233,.4);animation:gPulse 2s ease-in-out infinite}
 .pilot-start-btn:active{transform:scale(.95)}
 .cloud-bg{position:absolute;opacity:.2;pointer-events:none;animation:cloudDrift 25s linear infinite}
 @keyframes cloudDrift{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100% + 200px))}}
@@ -92,18 +92,18 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* ===== 옷 입히기 ===== */
 .dress-area{flex:1;display:flex;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#fef3c7,#fde68a 50%,#fbbf24)}
 .dress-character{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
-.dress-char-svg{width:300px;height:400px}
-.dress-palette{width:280px;display:flex;flex-direction:column;gap:8px;padding:12px;overflow-y:auto;background:rgba(255,255,255,.5);backdrop-filter:blur(5px)}
-.dress-item{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:16px;padding:12px;text-align:center;cursor:pointer;transition:.2s;font-size:14px;font-weight:700;color:#1e293b}
+.dress-char-svg{width:360px;height:480px}
+.dress-palette{width:320px;display:flex;flex-direction:column;gap:10px;padding:14px;overflow-y:auto;background:rgba(255,255,255,.5);backdrop-filter:blur(5px)}
+.dress-item{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:16px;padding:14px;text-align:center;cursor:pointer;transition:.2s;font-size:17px;font-weight:700;color:#1e293b}
 .dress-item:active{transform:scale(.95)}
 .dress-item.selected{border-color:#0ea5e9;background:linear-gradient(145deg,#e0f2fe,#bae6fd);box-shadow:0 0 12px rgba(14,165,233,.3)}
-.dress-item-emoji{font-size:64px;margin-bottom:4px;display:block;line-height:1}
+.dress-item-emoji{font-size:78px;margin-bottom:4px;display:block;line-height:1}
 .dress-result{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);border-radius:16px;padding:16px 24px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:10;animation:cardSlideUp .5s ease-out}
 .dress-quiz-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:20;backdrop-filter:blur(5px)}
-.dress-quiz-box{background:#fff;border-radius:24px;padding:30px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3);min-width:400px}
-.dress-quiz-q{font-size:28px;font-weight:900;color:#1e293b;margin-bottom:20px}
+.dress-quiz-box{background:#fff;border-radius:24px;padding:36px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3);min-width:480px}
+.dress-quiz-q{font-size:34px;font-weight:900;color:#1e293b;margin-bottom:20px}
 .dress-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.dress-quiz-opt{padding:16px;border:3px solid #e2e8f0;border-radius:14px;font-size:20px;font-weight:700;cursor:pointer;background:#fff;transition:.2s;font-family:inherit}
+.dress-quiz-opt{padding:20px;border:3px solid #e2e8f0;border-radius:14px;font-size:24px;font-weight:700;cursor:pointer;background:#fff;transition:.2s;font-family:inherit}
 .dress-quiz-opt:active{transform:scale(.95)}
 .dress-quiz-opt.correct{background:linear-gradient(145deg,#86efac,#4ade80);border-color:#22c55e;color:#fff}
 .dress-quiz-opt.wrong{background:linear-gradient(145deg,#fca5a5,#f87171);border-color:#ef4444;color:#fff}
@@ -111,28 +111,28 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 /* ===== 소리 지도 ===== */
 .sound-area{flex:1;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#ecfdf5,#d1fae5 50%,#a7f3d0)}
 .sound-map{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:20px}
-.sound-map-svg{width:100%;height:100%;max-width:900px;max-height:500px}
+.sound-map-svg{width:100%;height:100%;max-width:1080px;max-height:600px}
 .sound-speaker{cursor:pointer;transition:transform .2s}
 .sound-speaker:hover{transform:scale(1.2)}
 .sound-speaker.playing{animation:speakerPulse .5s ease-in-out infinite}
 @keyframes speakerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
-.sound-info{text-align:center;padding:14px;background:rgba(255,255,255,.8);backdrop-filter:blur(5px);font-size:20px;font-weight:700;color:#065f46;flex-shrink:0;border-top:2px solid #a7f3d0}
+.sound-info{text-align:center;padding:18px;background:rgba(255,255,255,.8);backdrop-filter:blur(5px);font-size:24px;font-weight:700;color:#065f46;flex-shrink:0;border-top:2px solid #a7f3d0}
 .sound-wave{position:absolute;border-radius:50%;border:3px solid rgba(14,165,233,.4);pointer-events:none;animation:soundWave 1s ease-out forwards}
 @keyframes soundWave{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}
 
 /* ===== 내 기록 ===== */
-.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:20px;overflow-y:auto}
 .record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.record-card h3{font-size:24px;font-weight:800;color:#1e293b;margin-bottom:10px}
 .record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#f0f9ff,#e0f2fe);border-radius:12px;border:2px solid #bae6fd}
-.record-num{font-size:32px;font-weight:900;color:#0284c7}
-.record-label{font-size:13px;font-weight:600;color:#0c4a6e;margin-top:4px}
+.record-item{text-align:center;padding:16px;background:linear-gradient(145deg,#f0f9ff,#e0f2fe);border-radius:12px;border:2px solid #bae6fd}
+.record-num{font-size:42px;font-weight:900;color:#0284c7}
+.record-label{font-size:17px;font-weight:600;color:#0c4a6e;margin-top:4px}
 
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
-.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:52px;opacity:.9;line-height:1}
+.action-btn{border:none;border-radius:20px;font-size:36px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:62px;opacity:.9;line-height:1}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-sky{background:linear-gradient(145deg,#0ea5e9,#0284c7);box-shadow:0 2px 8px rgba(14,165,233,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -142,7 +142,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
 
 /* ===== 히어로: 깃발 레이스 ===== */
-.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#0c4a6e 0%,#0284c7 30%,#38bdf8 60%,#7dd3fc 100%);overflow:hidden}
+.hero-game{position:absolute;top:0;left:0;width:1920px;height:1080px;z-index:5000;display:flex;flex-direction:column;background:linear-gradient(180deg,#0c4a6e 0%,#0284c7 30%,#38bdf8 60%,#7dd3fc 100%);overflow:hidden}
 .hero-game.hidden{display:none}
 .hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.2);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.3)}
 .hg-stat{font-size:22px;font-weight:800;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.3)}
@@ -159,7 +159,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .ff-highlight{animation:flagHighlight .5s ease-in-out infinite}
 @keyframes flagHighlight{0%,100%{filter:drop-shadow(0 0 8px #fbbf24)}50%{filter:drop-shadow(0 0 20px #fbbf24)}}
 .hg-cloud{position:absolute;opacity:.25;pointer-events:none;animation:hgCloudFloat 20s linear infinite;z-index:1}
-@keyframes hgCloudFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
+@keyframes hgCloudFloat{0%{transform:translateX(-100px)}100%{transform:translateX(2020px)}}
 .hg-powerup{position:absolute;z-index:6;pointer-events:none;animation:puFloat 1s ease-in-out infinite}
 @keyframes puFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .hg-pu-emoji{font-size:40px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
@@ -303,8 +303,6 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 <div class="container">
   <div class="subject-bar">
-    <a class="sb-tab" href="hangul.html">📝 한글</a>
-    <a class="sb-tab" href="math.html">🔢 숫자</a>
     <button class="sb-tab active">🌍 세계</button>
     <div class="sb-spacer"></div>
     <div class="sb-btns">
@@ -1426,6 +1424,7 @@ function updateRecords() {
 
 // ===== 히어로: 깃발 레이스 =====
 function startHeroGame() {
+  try{document.documentElement.requestFullscreen?.()}catch(e){}
   SFX.gameStart();
   hg.score = 0; hg.lives = 5; hg.level = 1; hg.combo = 0; hg.maxCombo = 0;
   hg.flags = []; hg.running = true; hg.paused = false; hg.planeX = 50;
@@ -1738,6 +1737,7 @@ function hgExit() {
   hg.flags.forEach(f => f.remove());
   hg.flags = [];
   document.getElementById('hero-game').classList.add('hidden');
+  if(document.fullscreenElement)document.exitFullscreen?.();
 }
 
 // 키보드 조작
@@ -1787,6 +1787,18 @@ document.addEventListener('touchend', function(e) {
   if (now - lastTouchEnd <= 300) e.preventDefault();
   lastTouchEnd = now;
 }, { passive: false });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
+window.matchMedia('(orientation: portrait)').addEventListener('change', e => {
+  if (e.matches) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
 </script>
 </body>
 </html>

@@ -38,28 +38,28 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .profile-info{flex:1;color:#fff}
 .profile-name{font-size:28px;font-weight:800;text-shadow:2px 2px 4px rgba(0,0,0,.3);margin-bottom:8px;cursor:pointer}
 .profile-level-container{background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
-.profile-level{font-size:18px;font-weight:700;color:#d9f99d;display:flex;align-items:center;gap:8px}
-.level-badge{background:linear-gradient(145deg,#bef264,#a3e635);color:#365314;padding:4px 12px;border-radius:8px;font-size:18px;font-weight:800;border:1px solid #fff}
+.profile-level{font-size:22px;font-weight:700;color:#d9f99d;display:flex;align-items:center;gap:8px}
+.level-badge{background:linear-gradient(145deg,#bef264,#a3e635);color:#365314;padding:4px 12px;border-radius:8px;font-size:22px;font-weight:800;border:1px solid #fff}
 .progress-bar{width:100%;height:6px;background:rgba(255,255,255,.3);border-radius:3px;margin-top:5px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#bef264,#a3e635,#bef264);background-size:200% 100%;border-radius:3px;transition:width .5s;animation:pShine 2s linear infinite}
 @keyframes pShine{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 /* 탭 */
 .tab-headers{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
-.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:48px;white-space:nowrap;font-family:inherit}
+.tab-btn{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);border:2px solid #94a3b8;border-radius:12px;padding:8px;font-size:20px;font-weight:700;cursor:pointer;transition:.2s;color:#475569;display:flex;align-items:center;justify-content:center;height:62px;white-space:nowrap;font-family:inherit}
 .tab-btn.active{background:linear-gradient(145deg,#65a30d,#4d7c0f);color:#fff;border-color:#65a30d}
 .tab-btn:active{transform:scale(.97)}
 .tab-content{display:none;flex:1;overflow:hidden}
 .tab-content.active{display:flex;flex-direction:column}
 
 /* 사이드 정보 */
-.side-info{background:linear-gradient(145deg,#f7fee7,#ecfccb);border-radius:16px;padding:15px;border:2px solid #84cc16;display:flex;flex-direction:column;gap:8px;height:100%;overflow:hidden}
-.side-title{font-size:17px;font-weight:700;color:#365314;text-align:center;flex-shrink:0}
-.side-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#fff;border-radius:8px;font-size:15px;font-weight:600;color:#1e293b}
-.side-val{font-size:20px;font-weight:800;color:#65a30d}
+.side-info{background:linear-gradient(145deg,#f7fee7,#ecfccb);border-radius:16px;padding:18px;border:2px solid #84cc16;display:flex;flex-direction:column;gap:12px;height:100%;overflow:hidden}
+.side-title{font-size:28px;font-weight:700;color:#365314;text-align:center;flex-shrink:0}
+.side-stat{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#fff;border-radius:8px;font-size:22px;font-weight:600;color:#1e293b}
+.side-val{font-size:36px;font-weight:800;color:#65a30d}
 
 /* 게임 런치 */
-.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#bef264,#a3e635);color:#365314;border:3px solid #fff;border-radius:16px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(190,242,100,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite}
+.game-launch-btn{flex-shrink:0;background:linear-gradient(145deg,#bef264,#a3e635);color:#365314;border:3px solid #fff;border-radius:16px;padding:14px;font-size:24px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(190,242,100,.4);font-family:inherit;animation:gPulse 2s ease-in-out infinite;white-space:nowrap}
 @keyframes gPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 .game-launch-btn:active{transform:scale(.97)}
 
@@ -69,46 +69,46 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .game-view.active{display:flex}
 
 /* ===== 수의사 놀이 ===== */
-.vet-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:8px;padding:10px;overflow:hidden}
+.vet-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:16px;padding:10px 20px;overflow:hidden}
 .vet-bg-deco{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.12}
-.vet-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
+.vet-info{font-size:32px;font-weight:800;color:#365314;text-align:center;padding:12px 24px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
 .vet-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;width:100%;z-index:1}
-.vet-animal-container{position:relative;width:320px;height:320px;display:flex;align-items:center;justify-content:center}
-.vet-animal-svg{width:280px;height:280px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.15))}
-.vet-sick-indicator{position:absolute;top:10px;right:10px;font-size:40px;animation:sickPulse 1s ease-in-out infinite}
+.vet-animal-container{position:relative;width:100%;max-width:600px;height:100%;max-height:550px;display:flex;align-items:center;justify-content:center}
+.vet-animal-svg{width:100%;height:100%;max-width:500px;max-height:500px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.15))}
+.vet-sick-indicator{position:absolute;top:20px;right:20px;font-size:70px;animation:sickPulse 1s ease-in-out infinite}
 @keyframes sickPulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.3);opacity:1}}
 .vet-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .vet-heart{position:absolute;font-size:30px;animation:heartFloat 1.5s ease-out forwards;pointer-events:none}
 @keyframes heartFloat{0%{transform:translate(0,0) scale(0);opacity:0}30%{transform:translate(var(--tx),var(--ty)) scale(1.2);opacity:1}100%{transform:translate(var(--tx),calc(var(--ty) - 80px)) scale(.6);opacity:0}}
-.vet-tool-palette{display:flex;gap:16px;padding:12px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:16px;border:2px solid #86efac;z-index:1;position:relative}
-.vet-tool{width:90px;height:90px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:72px;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);position:relative}
+.vet-tool-palette{display:flex;gap:30px;padding:20px 40px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:20px;border:2px solid #86efac;z-index:1;position:relative}
+.vet-tool{width:170px;height:170px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:24px;display:flex;align-items:center;justify-content:center;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);position:relative}
 .vet-tool:active{transform:scale(.9);cursor:grabbing}
 .vet-tool.used{opacity:.3;pointer-events:none;border-color:#d1d5db}
-.vet-tool-label{position:absolute;bottom:-4px;font-size:11px;font-weight:700;color:#365314;background:#ecfccb;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.vet-tool-label{position:absolute;bottom:-8px;font-size:18px;font-weight:700;color:#365314;background:#ecfccb;padding:4px 12px;border-radius:8px;white-space:nowrap}
 .vet-dropzone{position:absolute;inset:0;border-radius:50%;z-index:5}
 .vet-success-overlay{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:10}
 .vet-sparkle{position:absolute;pointer-events:none;animation:vetSparkle var(--dur,.8s) ease-out forwards}
 @keyframes vetSparkle{0%{transform:translate(0,0) scale(0) rotate(0deg);opacity:0}30%{transform:translate(calc(var(--tx)*.3),calc(var(--ty)*.3)) scale(1.2) rotate(180deg);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0) rotate(360deg);opacity:0}}
 
 /* ===== 밥 줘! ===== */
-.feed-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:12px;padding:10px}
-.feed-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
+.feed-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:20px;padding:10px 20px}
+.feed-info{font-size:32px;font-weight:800;color:#365314;text-align:center;padding:12px 24px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
 .feed-stage{display:flex;align-items:center;justify-content:center;gap:30px;position:relative}
-.feed-animal{width:200px;height:200px;display:flex;align-items:center;justify-content:center;font-size:120px;position:relative;filter:drop-shadow(0 6px 16px rgba(0,0,0,.12))}
-.feed-animal-speech{position:absolute;top:-35px;left:50%;transform:translateX(-50%);background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:6px 14px;font-size:16px;font-weight:700;color:#1e293b;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.1);z-index:5}
+.feed-animal{width:350px;height:350px;display:flex;align-items:center;justify-content:center;position:relative;filter:drop-shadow(0 6px 16px rgba(0,0,0,.12))}
+.feed-animal-speech{position:absolute;top:-45px;left:50%;transform:translateX(-50%);background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:8px 18px;font-size:24px;font-weight:700;color:#1e293b;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.1);z-index:5}
 .feed-animal-speech::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid #fff}
-.feed-type-badge{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:800;padding:4px 10px;border-radius:8px;white-space:nowrap}
+.feed-type-badge{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:20px;font-weight:800;padding:6px 14px;border-radius:10px;white-space:nowrap}
 .feed-type-herb{background:#dcfce7;color:#166534;border:1px solid #86efac}
 .feed-type-carn{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
 .feed-type-omni{background:#fef3c7;color:#92400e;border:1px solid #fcd34d}
-.food-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:420px}
-.food-choice{font-size:90px;background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;height:120px;width:140px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.food-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:900px}
+.food-choice{background:linear-gradient(145deg,#fff,#f8fafc);border:3px solid #e2e8f0;border-radius:20px;height:200px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08)}
 .food-choice:active{transform:scale(.9)}
 .food-choice.correct{background:linear-gradient(145deg,#dcfce7,#bbf7d0)!important;border-color:#22c55e!important;animation:correctBounce .5s ease}
 .food-choice.wrong{background:linear-gradient(145deg,#fee2e2,#fecaca)!important;border-color:#ef4444!important;animation:shake .5s}
 @keyframes correctBounce{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.feed-result{font-size:20px;font-weight:700;text-align:center;min-height:36px;padding:8px}
+.feed-result{font-size:26px;font-weight:700;text-align:center;min-height:36px;padding:8px}
 .feed-spit{position:absolute;pointer-events:none;z-index:15;animation:spitAnim .8s ease-out forwards}
 @keyframes spitAnim{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx,80px),var(--ty,-60px)) scale(.3) rotate(360deg);opacity:0}}
 .feed-yum{position:absolute;pointer-events:none;z-index:15;font-size:28px;font-weight:900;animation:feedYum .8s ease-out forwards}
@@ -117,20 +117,20 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes feedConf{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--tx,0),var(--ty,200px)) rotate(720deg);opacity:0}}
 
 /* ===== 변신 앨범 ===== */
-.transform-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:10px;position:relative}
-.transform-info{font-size:22px;font-weight:800;color:#365314;text-align:center;padding:10px 20px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
-.transform-set-name{font-size:20px;font-weight:800;color:#1e293b;margin-bottom:4px}
-.slot-row{display:flex;gap:16px;align-items:center}
-.slot-box{width:150px;height:150px;background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:3px dashed #94a3b8;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:120px;position:relative;transition:.2s}
+.transform-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:10px 20px;position:relative}
+.transform-info{font-size:32px;font-weight:800;color:#365314;text-align:center;padding:12px 24px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:14px;border:2px solid #86efac}
+.transform-set-name{font-size:30px;font-weight:800;color:#1e293b;margin-bottom:4px}
+.slot-row{display:flex;gap:14px;align-items:center}
+.slot-box{width:230px;height:230px;background:linear-gradient(145deg,#f8fafc,#e2e8f0);border:3px dashed #94a3b8;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:150px;position:relative;transition:.2s}
 .slot-box.filled{border-style:solid;border-color:#22c55e;background:linear-gradient(145deg,#dcfce7,#bbf7d0)}
 .slot-box.wrong-slot{border-color:#ef4444;background:linear-gradient(145deg,#fee2e2,#fecaca);animation:shake .5s}
-.slot-arrow{font-size:36px;color:#94a3b8;font-weight:900}
-.slot-num{position:absolute;top:6px;left:10px;font-size:14px;font-weight:800;color:#64748b;background:#f1f5f9;padding:2px 8px;border-radius:6px}
-.card-pool{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:700px}
-.stage-card{width:130px;height:130px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);gap:2px}
+.slot-arrow{font-size:50px;color:#94a3b8;font-weight:900}
+.slot-num{position:absolute;top:6px;left:10px;font-size:18px;font-weight:800;color:#64748b;background:#f1f5f9;padding:3px 10px;border-radius:6px}
+.card-pool{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;max-width:1000px}
+.stage-card{width:200px;height:200px;background:linear-gradient(145deg,#fff,#f0fdf4);border:3px solid #86efac;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;transition:.15s;box-shadow:0 4px 12px rgba(0,0,0,.08);gap:4px}
 .stage-card:active{transform:scale(.9);cursor:grabbing}
-.stage-card .card-emoji{font-size:70px}
-.stage-card .card-label{font-size:13px;font-weight:700;color:#365314}
+.stage-card .card-emoji{font-size:110px}
+.stage-card .card-label{font-size:22px;font-weight:700;color:#365314}
 .stage-card.placed{opacity:.3;pointer-events:none}
 .transform-anim-overlay{position:absolute;inset:0;pointer-events:none;z-index:20;display:flex;align-items:center;justify-content:center}
 .transform-morph{font-size:120px;animation:morphPop 2s ease-in-out forwards}
@@ -141,18 +141,19 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes wrongPop{0%{transform:translate(-50%,-50%) scale(0) rotate(-20deg);opacity:0}20%{transform:translate(-50%,-50%) scale(1.2) rotate(10deg);opacity:1}100%{transform:translate(-50%,-50%) scale(.6) rotate(0) translateY(-40px);opacity:0}}
 
 /* ===== 내 기록 ===== */
-.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:16px;overflow-y:auto}
-.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.record-card h3{font-size:18px;font-weight:800;color:#1e293b;margin-bottom:10px}
+.records-area{flex:1;display:flex;flex-direction:column;gap:16px;padding:20px;overflow-y:auto}
+.record-card{background:linear-gradient(145deg,#fff,#f8fafc);border:2px solid #e2e8f0;border-radius:16px;padding:22px;box-shadow:0 4px 12px rgba(0,0,0,.06);flex:1}
+.record-card:last-child{flex:1}
+.record-card h3{font-size:28px;font-weight:800;color:#1e293b;margin-bottom:10px}
 .record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.record-item{text-align:center;padding:12px;background:linear-gradient(145deg,#f7fee7,#ecfccb);border-radius:12px;border:2px solid #d9f99d}
-.record-num{font-size:32px;font-weight:900;color:#65a30d}
-.record-label{font-size:13px;font-weight:600;color:#365314;margin-top:4px}
+.record-item{text-align:center;padding:16px;background:linear-gradient(145deg,#f7fee7,#ecfccb);border-radius:12px;border:2px solid #d9f99d}
+.record-num{font-size:46px;font-weight:900;color:#65a30d}
+.record-label{font-size:20px;font-weight:600;color:#365314;margin-top:4px}
 
 /* 오른쪽 */
 .right-panel{display:flex;flex-direction:column;gap:12px;overflow:hidden}
-.action-btn{border:none;border-radius:20px;font-size:32px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
-.action-btn .icon{font-size:52px;opacity:.9}
+.action-btn{border:none;border-radius:20px;font-size:36px;font-weight:800;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-height:60px;font-family:inherit;color:#fff}
+.action-btn .icon{font-size:62px;opacity:.9}
 .action-btn:active{transform:scale(.95)}
 .action-btn.btn-lime{background:linear-gradient(145deg,#84cc16,#65a30d);box-shadow:0 2px 8px rgba(132,204,22,.3)}
 .action-btn.btn-cyan{background:linear-gradient(145deg,#06b6d4,#0891b2);box-shadow:0 2px 8px rgba(6,182,212,.2)}
@@ -162,12 +163,12 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .action-btn:disabled{background:linear-gradient(145deg,#e5e7eb,#d1d5db)!important;color:#9ca3af;cursor:not-allowed;box-shadow:none}
 
 /* ===== 히어로: 서식지 분류왕 ===== */
-.hero-game{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:5000;display:flex;flex-direction:column;overflow:hidden}
+.hero-game{position:absolute;top:0;left:0;width:1920px;height:1080px;z-index:5000;display:flex;flex-direction:column;overflow:hidden}
 .hero-game.hidden{display:none}
 .hg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);flex-shrink:0;z-index:10;border-bottom:2px solid rgba(255,255,255,.4)}
-.hg-stat{font-size:22px;font-weight:800;color:#1e3a8a}
-.hg-hearts{font-size:24px;letter-spacing:3px}
-.hg-combo{font-size:20px;font-weight:800;color:#f59e0b}
+.hg-stat{font-size:28px;font-weight:800;color:#1e3a8a}
+.hg-hearts{font-size:30px;letter-spacing:3px}
+.hg-combo{font-size:26px;font-weight:800;color:#f59e0b}
 .hg-ctrls{display:flex;gap:8px}
 .hg-ctrl-btn{background:rgba(255,255,255,.6);border:2px solid rgba(255,255,255,.8);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#475569}
 .hg-ctrl-btn:active{transform:scale(.9)}
@@ -175,9 +176,9 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-biome{position:absolute;bottom:0;width:50%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:20px;transition:all .5s}
 .hg-biome.left{left:0}
 .hg-biome.right{right:0}
-.hg-biome-label{font-size:28px;font-weight:900;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,.4);padding:8px 24px;border-radius:16px;background:rgba(0,0,0,.25);backdrop-filter:blur(4px);margin-bottom:10px;z-index:5}
-.hg-biome-ground{position:absolute;bottom:0;left:0;right:0;height:15%;border-radius:50% 50% 0 0/20px 20px 0 0;z-index:1}
-.hg-biome-icon{font-size:60px;z-index:2;margin-bottom:10px}
+.hg-biome-label{font-size:44px;font-weight:900;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,.4);padding:12px 36px;border-radius:20px;background:rgba(0,0,0,.25);backdrop-filter:blur(4px);margin-bottom:10px;z-index:5}
+.hg-biome-ground{position:absolute;bottom:0;left:0;right:0;height:25%;border-radius:50% 50% 0 0/30px 30px 0 0;z-index:1}
+.hg-biome-icon{font-size:120px;z-index:2;margin-bottom:10px}
 .hg-divider{position:absolute;left:50%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5}
 /* 3/4 biome mode */
 .hg-biome.third{width:33.33%}
@@ -193,7 +194,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 .hg-divider3{position:absolute;left:66.66%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
 .hg-divider4{position:absolute;left:25%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
 .hg-divider5{position:absolute;left:75%;top:0;bottom:0;width:4px;background:rgba(255,255,255,.4);transform:translateX(-50%);z-index:5;display:none}
-.falling-animal{position:absolute;z-index:15;font-size:100px;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2));transition:none;touch-action:none}
+.falling-animal{position:absolute;z-index:15;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 4px 12px rgba(0,0,0,.2));transition:none;touch-action:none}
 .falling-animal.dragging{z-index:50;transform:scale(1.2);filter:drop-shadow(0 8px 20px rgba(0,0,0,.3))}
 .falling-animal.placed{pointer-events:none}
 .hg-flash-green{position:absolute;inset:0;pointer-events:none;z-index:30;animation:screenFlashG .3s ease-out forwards}
@@ -204,21 +205,21 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 @keyframes arenaShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 .hg-animal-confused{animation:confused .5s ease-in-out 2}
 @keyframes confused{0%,100%{transform:rotate(0)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
-.hg-score-pop{position:absolute;font-size:32px;font-weight:900;color:#22c55e;text-shadow:0 2px 6px rgba(0,0,0,.2);pointer-events:none;z-index:40;animation:scorePop .8s ease-out forwards}
+.hg-score-pop{position:absolute;font-size:40px;font-weight:900;color:#22c55e;text-shadow:0 2px 6px rgba(0,0,0,.2);pointer-events:none;z-index:40;animation:scorePop .8s ease-out forwards}
 @keyframes scorePop{0%{transform:translate(-50%,0) scale(0);opacity:0}30%{transform:translate(-50%,-15px) scale(1.2);opacity:1}100%{transform:translate(-50%,-50px) scale(.7);opacity:0}}
-.hg-combo-text{position:absolute;top:50%;left:50%;font-size:60px;font-weight:900;color:#f59e0b;text-shadow:0 4px 8px rgba(0,0,0,.3);pointer-events:none;z-index:50;animation:comboPop 1s ease-out forwards}
+.hg-combo-text{position:absolute;top:50%;left:50%;font-size:72px;font-weight:900;color:#f59e0b;text-shadow:0 4px 8px rgba(0,0,0,.3);pointer-events:none;z-index:50;animation:comboPop 1s ease-out forwards}
 @keyframes comboPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-50%) scale(.8);opacity:0}}
-.hg-powerup{position:absolute;font-size:50px;z-index:15;pointer-events:auto;cursor:pointer;animation:powerFloat 2s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(251,191,36,.4))}
+.hg-powerup{position:absolute;font-size:64px;z-index:15;pointer-events:auto;cursor:pointer;animation:powerFloat 2s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(251,191,36,.4))}
 @keyframes powerFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .hg-cloud{position:absolute;font-size:36px;opacity:.2;pointer-events:none;animation:cFloat 25s linear infinite;z-index:1}
 @keyframes cFloat{0%{transform:translateX(-100px)}100%{transform:translateX(calc(100vw + 100px))}}
 .hg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(5px)}
 .hg-overlay.hidden{display:none}
 .hg-overlay-box{background:#fff;border-radius:24px;padding:40px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,.3);min-width:320px}
-.hg-overlay-box h2{font-size:36px;font-weight:900;color:#1e293b;margin-bottom:12px}
-.hg-overlay-box .score{font-size:28px;font-weight:700;color:#65a30d;margin-bottom:8px}
-.hg-overlay-box .msg{font-size:18px;color:#64748b;margin-bottom:20px}
-.hg-overlay-box button{display:block;width:100%;padding:14px;border:none;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
+.hg-overlay-box h2{font-size:42px;font-weight:900;color:#1e293b;margin-bottom:12px}
+.hg-overlay-box .score{font-size:34px;font-weight:700;color:#65a30d;margin-bottom:8px}
+.hg-overlay-box .msg{font-size:24px;color:#64748b;margin-bottom:20px}
+.hg-overlay-box button{display:block;width:100%;padding:16px;border:none;border-radius:14px;font-size:24px;font-weight:800;cursor:pointer;margin-bottom:8px;font-family:inherit}
 .hg-overlay-box .btn-retry{background:linear-gradient(145deg,#84cc16,#65a30d);color:#fff}
 .hg-overlay-box .btn-exit{background:linear-gradient(145deg,#e2e8f0,#cbd5e1);color:#475569}
 .hg-start-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:60;background:rgba(0,0,0,.5);backdrop-filter:blur(8px)}
@@ -325,8 +326,6 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
 <div class="container">
   <div class="subject-bar">
-    <a class="sb-tab" href="hangul.html">📝 한글</a>
-    <a class="sb-tab" href="math.html">🔢 숫자</a>
     <button class="sb-tab active">🐾 동물</button>
     <div class="sb-spacer"></div>
     <div class="sb-btns">
@@ -408,21 +407,55 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
     <div class="center-panel">
       <!-- 수의사 놀이 -->
       <div class="game-view vet-view active" id="vet-view">
-        <!-- 마스코트 "파우" (발바닥 캐릭터) -->
-        <div class="mascot-wrap" style="bottom:16px;right:16px">
+        <!-- 마스코트 "파우" 풀바디 (발바닥 캐릭터) -->
+        <div class="mascot-wrap" style="bottom:8px;right:8px">
           <div class="mascot-bubble" id="bubble-vet">치료!</div>
-          <svg width="60" height="60" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="27" cy="30" r="22" fill="#a3e635" stroke="#4d7c0f" stroke-width="2"/>
-            <circle cx="20" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <circle cx="34" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <circle cx="12" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <circle cx="42" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <ellipse cx="27" cy="32" rx="10" ry="8" fill="#bef264"/>
-            <circle cx="22" cy="28" r="3" fill="#fff"/>
-            <circle cx="32" cy="28" r="3" fill="#fff"/>
-            <circle cx="22.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
-            <circle cx="32.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
-            <path id="mascot-vet-mouth" d="M24,36 Q27,42 30,36" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
+          <svg width="90" height="126" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+            <!-- 그림자 -->
+            <ellipse cx="50" cy="136" rx="28" ry="4" fill="#000" opacity=".1"/>
+            <!-- 다리 -->
+            <ellipse cx="36" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="64" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+            </ellipse>
+            <!-- 몸통 (발바닥 모양) -->
+            <ellipse cx="50" cy="72" rx="36" ry="44" fill="url(#pawGrad)" stroke="#4d7c0f" stroke-width="2"/>
+            <!-- 발가락 (위쪽 패드) -->
+            <circle cx="28" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="50" cy="24" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="72" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <!-- 배 -->
+            <ellipse cx="50" cy="80" rx="20" ry="16" fill="#bef264" opacity=".7"/>
+            <!-- 눈 -->
+            <ellipse cx="38" cy="62" rx="7" ry="8" fill="#fff"/>
+            <ellipse cx="62" cy="62" rx="7" ry="8" fill="#fff"/>
+            <circle cx="39" cy="63" r="4.5" fill="#365314">
+              <animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="63" cy="63" r="4.5" fill="#365314">
+              <animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="41" cy="60" r="1.5" fill="#fff"/>
+            <circle cx="65" cy="60" r="1.5" fill="#fff"/>
+            <!-- 뺨 -->
+            <ellipse cx="28" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="72" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <!-- 코 -->
+            <ellipse cx="50" cy="72" rx="5" ry="3.5" fill="#4d7c0f"/>
+            <!-- 입 -->
+            <path id="mascot-vet-mouth" d="M44,80 Q50,88 56,80" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
+            <!-- 청진기 장식 -->
+            <path d="M35,50 Q35,58 40,62" fill="none" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="40" cy="64" r="4" fill="#06b6d4"/>
+            <circle cx="40" cy="64" r="2" fill="#fff"/>
+            <defs>
+              <linearGradient id="pawGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#a3e635"/>
+                <stop offset="100%" stop-color="#84cc16"/>
+              </linearGradient>
+            </defs>
           </svg>
         </div>
         <div class="vet-area" id="vet-area">
@@ -461,7 +494,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
           <div class="vet-info" id="vet-info" style="position:relative;z-index:1">🩺 아픈 동물을 치료해 주세요!</div>
           <div class="vet-stage" id="vet-stage">
             <div class="vet-animal-container" id="vet-animal-container">
-              <div id="vet-animal-display" style="font-size:160px;position:relative">
+              <div id="vet-animal-display" style="position:relative;display:flex;align-items:center;justify-content:center">
                 🐶
                 <div class="vet-sick-indicator" id="vet-sick-indicator">💧</div>
               </div>
@@ -475,6 +508,40 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
       <!-- 밥 줘! -->
       <div class="game-view feed-view" id="feed-view">
+        <!-- 마스코트 "파우" 밥줘 버전 -->
+        <div class="mascot-wrap" style="bottom:8px;right:8px">
+          <div class="mascot-bubble" id="bubble-feed">냠냠!</div>
+          <svg width="90" height="126" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="136" rx="28" ry="4" fill="#000" opacity=".1"/>
+            <ellipse cx="36" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="64" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="50" cy="72" rx="36" ry="44" fill="url(#pawGrad2)" stroke="#4d7c0f" stroke-width="2"/>
+            <circle cx="28" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="50" cy="24" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="72" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <ellipse cx="50" cy="80" rx="20" ry="16" fill="#bef264" opacity=".7"/>
+            <ellipse cx="38" cy="62" rx="7" ry="8" fill="#fff"/>
+            <ellipse cx="62" cy="62" rx="7" ry="8" fill="#fff"/>
+            <circle cx="39" cy="63" r="4.5" fill="#365314"><animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="63" cy="63" r="4.5" fill="#365314"><animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="41" cy="60" r="1.5" fill="#fff"/>
+            <circle cx="65" cy="60" r="1.5" fill="#fff"/>
+            <ellipse cx="28" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="72" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="50" cy="72" rx="5" ry="3.5" fill="#4d7c0f"/>
+            <path id="mascot-feed-mouth" d="M44,80 Q50,88 56,80" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
+            <!-- 포크&나이프 장식 -->
+            <line x1="70" y1="46" x2="70" y2="56" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="66" y1="46" x2="66" y2="50" stroke="#94a3b8" stroke-width="1" stroke-linecap="round"/>
+            <line x1="68" y1="46" x2="68" y2="50" stroke="#94a3b8" stroke-width="1" stroke-linecap="round"/>
+            <line x1="70" y1="46" x2="70" y2="50" stroke="#94a3b8" stroke-width="1" stroke-linecap="round"/>
+            <defs><linearGradient id="pawGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#84cc16"/></linearGradient></defs>
+          </svg>
+        </div>
         <div class="feed-area" id="feed-area">
           <div class="feed-info" id="feed-info">🍽 알맞은 먹이를 골라주세요!</div>
           <div class="feed-stage">
@@ -491,6 +558,44 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
 
       <!-- 변신 앨범 -->
       <div class="game-view transform-view" id="transform-view">
+        <!-- 마스코트 "파우" 변신 버전 -->
+        <div class="mascot-wrap" style="bottom:8px;right:8px">
+          <div class="mascot-bubble" id="bubble-tf">변신!</div>
+          <svg width="90" height="126" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="136" rx="28" ry="4" fill="#000" opacity=".1"/>
+            <ellipse cx="36" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="64" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="50" cy="72" rx="36" ry="44" fill="url(#pawGrad3)" stroke="#4d7c0f" stroke-width="2"/>
+            <circle cx="28" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="50" cy="24" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="72" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <ellipse cx="50" cy="80" rx="20" ry="16" fill="#bef264" opacity=".7"/>
+            <ellipse cx="38" cy="62" rx="7" ry="8" fill="#fff"/>
+            <ellipse cx="62" cy="62" rx="7" ry="8" fill="#fff"/>
+            <circle cx="39" cy="63" r="4.5" fill="#365314"><animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="63" cy="63" r="4.5" fill="#365314"><animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="41" cy="60" r="1.5" fill="#fff"/>
+            <circle cx="65" cy="60" r="1.5" fill="#fff"/>
+            <ellipse cx="28" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="72" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="50" cy="72" rx="5" ry="3.5" fill="#4d7c0f"/>
+            <path id="mascot-tf-mouth" d="M44,80 Q50,88 56,80" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
+            <!-- 나비 날개 장식 -->
+            <g transform="translate(74,30)">
+              <ellipse cx="0" cy="-6" rx="8" ry="6" fill="#c084fc" opacity=".6">
+                <animate attributeName="rx" values="8;10;8" dur="1.5s" repeatCount="indefinite"/>
+              </ellipse>
+              <ellipse cx="0" cy="6" rx="6" ry="5" fill="#a78bfa" opacity=".5">
+                <animate attributeName="rx" values="6;8;6" dur="1.5s" repeatCount="indefinite"/>
+              </ellipse>
+            </g>
+            <defs><linearGradient id="pawGrad3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#84cc16"/></linearGradient></defs>
+          </svg>
+        </div>
         <div class="transform-area" id="transform-area">
           <div class="transform-info" id="transform-info">🦋 올바른 순서로 변신 카드를 놓아보세요!</div>
           <div class="transform-set-name" id="transform-set-name">올챙이의 변신</div>
@@ -535,22 +640,39 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
             </div>
           </div>
         </div>
-        <!-- 기록 마스코트 "파우" -->
-        <div class="mascot-wrap" style="bottom:16px;right:16px">
+        <!-- 기록 마스코트 "파우" 풀바디 -->
+        <div class="mascot-wrap" style="bottom:8px;right:8px">
           <div class="mascot-bubble" id="bubble-rec">기록!</div>
-          <svg width="60" height="60" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="27" cy="30" r="22" fill="#a3e635" stroke="#4d7c0f" stroke-width="2"/>
-            <circle cx="20" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <circle cx="34" cy="14" r="7" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <circle cx="12" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <circle cx="42" cy="22" r="5" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
-            <ellipse cx="27" cy="32" rx="10" ry="8" fill="#bef264"/>
-            <circle cx="22" cy="28" r="3" fill="#fff"/>
-            <circle cx="32" cy="28" r="3" fill="#fff"/>
-            <circle cx="22.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
-            <circle cx="32.5" cy="28.5" r="1.8" fill="#365314"><animate attributeName="r" values="1.8;1.2;1.8" dur="3s" repeatCount="indefinite"/></circle>
-            <path id="mascot-rec-mouth" d="M24,36 Q27,42 30,36" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
-            <text x="27" y="12" text-anchor="middle" font-size="10" fill="#fbbf24">🏆</text>
+          <svg width="90" height="126" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="136" rx="28" ry="4" fill="#000" opacity=".1"/>
+            <ellipse cx="36" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="64" cy="124" rx="12" ry="10" fill="#84cc16" stroke="#4d7c0f" stroke-width="1.5">
+              <animate attributeName="ry" values="10;11;10" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="50" cy="72" rx="36" ry="44" fill="url(#pawGrad4)" stroke="#4d7c0f" stroke-width="2"/>
+            <circle cx="28" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="50" cy="24" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <circle cx="72" cy="32" r="12" fill="#a3e635" stroke="#4d7c0f" stroke-width="1.5"/>
+            <ellipse cx="50" cy="80" rx="20" ry="16" fill="#bef264" opacity=".7"/>
+            <ellipse cx="38" cy="62" rx="7" ry="8" fill="#fff"/>
+            <ellipse cx="62" cy="62" rx="7" ry="8" fill="#fff"/>
+            <circle cx="39" cy="63" r="4.5" fill="#365314"><animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="63" cy="63" r="4.5" fill="#365314"><animate attributeName="r" values="4.5;4;4.5" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="41" cy="60" r="1.5" fill="#fff"/>
+            <circle cx="65" cy="60" r="1.5" fill="#fff"/>
+            <ellipse cx="28" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="72" cy="74" rx="8" ry="5" fill="#f9a8d4" opacity=".35"/>
+            <ellipse cx="50" cy="72" rx="5" ry="3.5" fill="#4d7c0f"/>
+            <path id="mascot-rec-mouth" d="M44,80 Q50,88 56,80" fill="none" stroke="#365314" stroke-width="2" stroke-linecap="round"/>
+            <!-- 트로피 장식 -->
+            <g transform="translate(72,30)">
+              <rect x="-4" y="0" width="8" height="6" rx="1" fill="#fbbf24"/>
+              <rect x="-6" y="-8" width="12" height="10" rx="3" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+              <rect x="-2" y="-5" width="4" height="4" rx="1" fill="#fde68a"/>
+            </g>
+            <defs><linearGradient id="pawGrad4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#84cc16"/></linearGradient></defs>
           </svg>
         </div>
       </div>
@@ -563,10 +685,9 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <button class="action-btn btn-red" id="act3" onclick="actionBtn(3)"><span class="icon">🔄</span>다시</button>
     </div>
   </div>
-</div>
 
-<!-- 히어로 게임: 서식지 분류왕 -->
-<div id="hero-game" class="hero-game hidden" style="background:linear-gradient(180deg,#7dd3fc 0%,#bae6fd 30%,#bbf7d0 70%,#86efac 100%)">
+  <!-- 히어로 게임: 서식지 분류왕 -->
+  <div id="hero-game" class="hero-game hidden" style="background:linear-gradient(180deg,#7dd3fc 0%,#bae6fd 30%,#bbf7d0 70%,#86efac 100%)">
   <div class="hg-header">
     <div class="hg-stat">⭐ <span id="hg-score">0</span>점</div>
     <div class="hg-stat">레벨 <span id="hg-level">1</span></div>
@@ -604,6 +725,7 @@ body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans
       <button class="btn-retry" onclick="hgPause()">▶ 계속하기</button>
       <button class="btn-exit" onclick="hgExit()">🏠 돌아가기</button>
     </div>
+  </div>
   </div>
 </div>
 
@@ -686,7 +808,7 @@ let hg = {
 const VET_ANIMALS = [
   { emoji: '🐶', name: '강아지', sick: '감기 걸림', sickEmoji: '🤧', tools: ['🌡️','💊','🩹'], toolNames: ['체온계','약','붕대'] },
   { emoji: '🐱', name: '고양이', sick: '다리 다침', sickEmoji: '💧', tools: ['🩹','💊','🧊'], toolNames: ['붕대','약','얼음'] },
-  { emoji: '🐰', name: '토끼', sick: '배 아픔', sickEmoji: '😢', tools: ['💊','🥕','❤️‍🩹'], toolNames: ['약','당근','치료'] },
+  { emoji: '🐰', name: '토끼', sick: '배 아픔', sickEmoji: '😢', tools: ['💊','🍵','❤️‍🩹'], toolNames: ['약','따뜻한 차','치료'] },
   { emoji: '🐻', name: '곰', sick: '열이 남', sickEmoji: '🔥', tools: ['🌡️','🧊','💊'], toolNames: ['체온계','얼음','약'] },
   { emoji: '🐸', name: '개구리', sick: '목이 아픔', sickEmoji: '😖', tools: ['💊','🍯','🩹'], toolNames: ['약','꿀','붕대'] },
   { emoji: '🐧', name: '펭귄', sick: '감기 걸림', sickEmoji: '🤒', tools: ['🌡️','💊','🧣'], toolNames: ['체온계','약','목도리'] },
@@ -732,14 +854,70 @@ const BIOME_DATA = {
   forest: { name: '숲', emoji: '🌲', bg: 'linear-gradient(180deg,#166534,#22c55e)', ground: '#15803d', animals: ['🐿️','🦊','🐻','🦌','🐗','🦉','🐺'] },
   ocean:  { name: '바다', emoji: '🌊', bg: 'linear-gradient(180deg,#1e40af,#3b82f6)', ground: '#1d4ed8', animals: ['🐳','🐬','🐙','🦈','🐠','🦀','🐚'] },
   desert: { name: '사막', emoji: '🏜️', bg: 'linear-gradient(180deg,#b45309,#f59e0b)', ground: '#a16207', animals: ['🐪','🦂','🦎','🐍','🦅'] },
-  arctic: { name: '북극', emoji: '❄️', bg: 'linear-gradient(180deg,#e0f2fe,#bae6fd)', ground: '#7dd3fc', animals: ['🐧','🦭','🐻‍❄️','🦌'] }
+  arctic: { name: '극지', emoji: '❄️', bg: 'linear-gradient(180deg,#e0f2fe,#bae6fd)', ground: '#7dd3fc', animals: ['🐧','🦭','🐻‍❄️','🦅'] }
 };
+
+// ===== SVG 동물/도구/먹이 딕셔너리 =====
+const ANIMAL_SVG = {
+  '🐶': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="58" rx="32" ry="28" fill="#D2691E"/><ellipse cx="50" cy="58" rx="22" ry="18" fill="#FDEBD0"/><circle cx="38" cy="50" r="5" fill="#fff"/><circle cx="62" cy="50" r="5" fill="#fff"/><circle cx="39" cy="51" r="3" fill="#1e293b"/><circle cx="63" cy="51" r="3" fill="#1e293b"/><circle cx="40" cy="49" r="1" fill="#fff"/><circle cx="64" cy="49" r="1" fill="#fff"/><ellipse cx="50" cy="60" rx="6" ry="4" fill="#1e293b"/><path d="M47,64 Q50,68 53,64" fill="none" stroke="#c0392b" stroke-width="1.5"/><ellipse cx="28" cy="30" rx="14" ry="18" fill="#A0522D" transform="rotate(-15 28 30)"/><ellipse cx="72" cy="30" rx="14" ry="18" fill="#A0522D" transform="rotate(15 72 30)"/><ellipse cx="50" cy="90" rx="10" ry="4" fill="#A0522D" opacity=".5"/></svg>`,
+  '🐱': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="30" ry="26" fill="#f97316"/><polygon points="22,38 18,10 38,32" fill="#f97316" stroke="#ea580c" stroke-width="1"/><polygon points="78,38 82,10 62,32" fill="#f97316" stroke="#ea580c" stroke-width="1"/><polygon points="22,38 20,14 34,32" fill="#fde68a"/><polygon points="78,38 80,14 66,32" fill="#fde68a"/><ellipse cx="50" cy="62" rx="16" ry="12" fill="#fef3c7"/><circle cx="38" cy="52" r="6" fill="#bef264"/><circle cx="62" cy="52" r="6" fill="#bef264"/><ellipse cx="38" cy="52" rx="2" ry="5" fill="#1e293b"/><ellipse cx="62" cy="52" rx="2" ry="5" fill="#1e293b"/><ellipse cx="50" cy="62" rx="4" ry="3" fill="#f472b6"/><line x1="14" y1="56" x2="32" y2="58" stroke="#94a3b8" stroke-width="1"/><line x1="14" y1="62" x2="32" y2="62" stroke="#94a3b8" stroke-width="1"/><line x1="68" y1="58" x2="86" y2="56" stroke="#94a3b8" stroke-width="1"/><line x1="68" y1="62" x2="86" y2="62" stroke="#94a3b8" stroke-width="1"/><path d="M46,66 Q50,70 54,66" fill="none" stroke="#94a3b8" stroke-width="1"/></svg>`,
+  '🐰': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="65" rx="28" ry="24" fill="#fef3c7"/><ellipse cx="36" cy="18" rx="10" ry="26" fill="#fef3c7" stroke="#e5e7eb" stroke-width="1"/><ellipse cx="64" cy="18" rx="10" ry="26" fill="#fef3c7" stroke="#e5e7eb" stroke-width="1"/><ellipse cx="36" cy="18" rx="6" ry="20" fill="#fca5a5"/><ellipse cx="64" cy="18" rx="6" ry="20" fill="#fca5a5"/><circle cx="38" cy="58" r="5" fill="#fff"/><circle cx="62" cy="58" r="5" fill="#fff"/><circle cx="39" cy="59" r="3" fill="#dc2626"/><circle cx="63" cy="59" r="3" fill="#dc2626"/><circle cx="40" cy="57" r="1" fill="#fff"/><circle cx="64" cy="57" r="1" fill="#fff"/><ellipse cx="50" cy="66" rx="4" ry="3" fill="#fca5a5"/><path d="M46,70 Q50,74 54,70" fill="none" stroke="#94a3b8" stroke-width="1.5"/><circle cx="34" cy="68" r="8" fill="#fca5a5" opacity=".3"/><circle cx="66" cy="68" r="8" fill="#fca5a5" opacity=".3"/></svg>`,
+  '🐻': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="14" fill="#8B4513"/><circle cx="72" cy="28" r="14" fill="#8B4513"/><circle cx="28" cy="28" r="8" fill="#D2691E"/><circle cx="72" cy="28" r="8" fill="#D2691E"/><ellipse cx="50" cy="58" rx="34" ry="30" fill="#8B4513"/><ellipse cx="50" cy="64" rx="18" ry="14" fill="#D2B48C"/><circle cx="38" cy="50" r="5" fill="#fff"/><circle cx="62" cy="50" r="5" fill="#fff"/><circle cx="39" cy="51" r="3" fill="#1e293b"/><circle cx="63" cy="51" r="3" fill="#1e293b"/><ellipse cx="50" cy="62" rx="6" ry="4" fill="#1e293b"/><path d="M44,68 Q50,74 56,68" fill="none" stroke="#6b3a00" stroke-width="2"/></svg>`,
+  '🐸': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="62" rx="34" ry="26" fill="#22c55e"/><circle cx="32" cy="36" r="14" fill="#22c55e"/><circle cx="68" cy="36" r="14" fill="#22c55e"/><circle cx="32" cy="34" r="10" fill="#fff"/><circle cx="68" cy="34" r="10" fill="#fff"/><circle cx="33" cy="35" r="5" fill="#1e293b"/><circle cx="69" cy="35" r="5" fill="#1e293b"/><circle cx="34" cy="33" r="1.5" fill="#fff"/><circle cx="70" cy="33" r="1.5" fill="#fff"/><path d="M34,68 Q50,80 66,68" fill="none" stroke="#15803d" stroke-width="2.5"/><ellipse cx="50" cy="68" rx="14" ry="6" fill="#bbf7d0"/><circle cx="30" cy="60" r="6" fill="#fca5a5" opacity=".25"/><circle cx="70" cy="60" r="6" fill="#fca5a5" opacity=".25"/></svg>`,
+  '🐧': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="58" rx="28" ry="32" fill="#1e293b"/><ellipse cx="50" cy="64" rx="18" ry="22" fill="#fff"/><circle cx="40" cy="44" r="5" fill="#fff"/><circle cx="60" cy="44" r="5" fill="#fff"/><circle cx="41" cy="45" r="3" fill="#1e293b"/><circle cx="61" cy="45" r="3" fill="#1e293b"/><polygon points="50,52 44,58 56,58" fill="#f59e0b"/><ellipse cx="40" cy="90" rx="8" ry="4" fill="#f59e0b"/><ellipse cx="60" cy="90" rx="8" ry="4" fill="#f59e0b"/><path d="M22,52 Q18,68 26,78" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/><path d="M78,52 Q82,68 74,78" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/></svg>`,
+  '🦊': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="60" rx="30" ry="26" fill="#f97316"/><polygon points="20,40 14,8 38,34" fill="#f97316"/><polygon points="80,40 86,8 62,34" fill="#f97316"/><polygon points="20,40 18,14 32,34" fill="#1e293b"/><polygon points="80,40 82,14 68,34" fill="#1e293b"/><ellipse cx="50" cy="66" rx="18" ry="12" fill="#fff"/><circle cx="38" cy="52" r="5" fill="#fff"/><circle cx="62" cy="52" r="5" fill="#fff"/><circle cx="39" cy="53" r="3" fill="#d97706"/><circle cx="63" cy="53" r="3" fill="#d97706"/><ellipse cx="50" cy="62" rx="4" ry="3" fill="#1e293b"/><path d="M46,66 Q50,70 54,66" fill="none" stroke="#92400e" stroke-width="1.5"/></svg>`,
+  '🐼': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="58" rx="34" ry="30" fill="#fff" stroke="#e5e7eb" stroke-width="1"/><ellipse cx="34" cy="48" rx="12" ry="10" fill="#1e293b"/><ellipse cx="66" cy="48" rx="12" ry="10" fill="#1e293b"/><circle cx="34" cy="48" r="5" fill="#fff"/><circle cx="66" cy="48" r="5" fill="#fff"/><circle cx="35" cy="49" r="3" fill="#1e293b"/><circle cx="67" cy="49" r="3" fill="#1e293b"/><ellipse cx="50" cy="62" rx="5" ry="4" fill="#1e293b"/><path d="M44,68 Q50,74 56,68" fill="none" stroke="#374151" stroke-width="1.5"/><circle cx="24" cy="28" r="12" fill="#1e293b"/><circle cx="76" cy="28" r="12" fill="#1e293b"/></svg>`,
+  '🦁': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="52" r="38" fill="#f59e0b"/><circle cx="50" cy="56" r="26" fill="#fde68a"/><circle cx="38" cy="48" r="5" fill="#fff"/><circle cx="62" cy="48" r="5" fill="#fff"/><circle cx="39" cy="49" r="3" fill="#92400e"/><circle cx="63" cy="49" r="3" fill="#92400e"/><ellipse cx="50" cy="58" rx="5" ry="4" fill="#92400e"/><path d="M44,64 Q50,70 56,64" fill="none" stroke="#78350f" stroke-width="2"/><circle cx="38" cy="60" r="6" fill="#fca5a5" opacity=".25"/><circle cx="62" cy="60" r="6" fill="#fca5a5" opacity=".25"/></svg>`,
+  '🐵': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="56" rx="30" ry="28" fill="#8B4513"/><ellipse cx="50" cy="62" rx="20" ry="16" fill="#FDEBD0"/><circle cx="20" cy="50" r="10" fill="#FDEBD0"/><circle cx="80" cy="50" r="10" fill="#FDEBD0"/><circle cx="38" cy="48" r="5" fill="#fff"/><circle cx="62" cy="48" r="5" fill="#fff"/><circle cx="39" cy="49" r="3" fill="#1e293b"/><circle cx="63" cy="49" r="3" fill="#1e293b"/><ellipse cx="50" cy="62" rx="8" ry="6" fill="#FDEBD0" stroke="#D2691E" stroke-width="1"/><path d="M46,66 Q50,70 54,66" fill="none" stroke="#6b3a00" stroke-width="1.5"/></svg>`
+};
+
+const TOOL_SVG = {
+  '🌡️': `<svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><rect x="22" y="8" width="16" height="60" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><circle cx="30" cy="78" r="16" fill="#ef4444"/><circle cx="30" cy="78" r="10" fill="#fca5a5"/><rect x="26" y="30" width="8" height="38" rx="4" fill="#ef4444" opacity=".7"><animate attributeName="height" values="38;28;38" dur="2s" repeatCount="indefinite"/></rect></svg>`,
+  '💊': `<svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="10" width="90" height="40" rx="20" fill="#f472b6"/><rect x="50" y="10" width="45" height="40" rx="20" fill="#fff" stroke="#f472b6" stroke-width="2"/><ellipse cx="30" cy="24" rx="12" ry="4" fill="#fda4af" opacity=".5" transform="rotate(-10 30 24)"/></svg>`,
+  '🩹': `<svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="5" width="100" height="40" rx="8" fill="#fbbf24"/><rect x="35" y="5" width="30" height="40" rx="4" fill="#fde68a"/><rect x="44" y="15" width="12" height="12" rx="2" fill="#f59e0b" opacity=".5"/><g fill="#d97706" opacity=".3"><circle cx="15" cy="18" r="2"/><circle cx="25" cy="32" r="2"/><circle cx="75" cy="18" r="2"/><circle cx="85" cy="32" r="2"/></g></svg>`,
+  '🧊': `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="60" height="60" rx="8" fill="#7dd3fc" opacity=".7"/><rect x="10" y="10" width="60" height="60" rx="8" fill="none" stroke="#38bdf8" stroke-width="2"/><line x1="20" y1="20" x2="35" y2="35" stroke="#fff" stroke-width="2" opacity=".6"/><line x1="25" y1="18" x2="30" y2="28" stroke="#fff" stroke-width="1.5" opacity=".4"/><path d="M50,50 L60,40" stroke="#bae6fd" stroke-width="1.5" opacity=".5"/></svg>`,
+  '🍵': `<svg viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="60" rx="28" ry="12" fill="#a16207"/><rect x="12" y="30" width="56" height="32" rx="4" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/><ellipse cx="40" cy="32" rx="28" ry="8" fill="#fbbf24"/><ellipse cx="40" cy="32" rx="22" ry="5" fill="#92400e" opacity=".3"/><path d="M68,38 Q82,38 82,50 Q82,62 68,58" fill="none" stroke="#d97706" stroke-width="2.5"/><path d="M30,20 Q32,10 36,20" fill="none" stroke="#94a3b8" stroke-width="1.5" opacity=".5"><animate attributeName="d" values="M30,20 Q32,10 36,20;M30,18 Q33,8 36,18;M30,20 Q32,10 36,20" dur="2s" repeatCount="indefinite"/></path></svg>`,
+  '❤️‍🩹': `<svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg"><path d="M50,82 C20,60 2,40 2,24 C2,10 14,2 26,2 C36,2 44,8 50,18 C56,8 64,2 74,2 C86,2 98,10 98,24 C98,40 80,60 50,82Z" fill="#ef4444"/><rect x="38" y="30" width="24" height="8" rx="2" fill="#fff"/><rect x="46" y="22" width="8" height="24" rx="2" fill="#fff"/></svg>`,
+  '🍯': `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="25" width="50" height="55" rx="10" fill="#fbbf24"/><rect x="15" y="25" width="50" height="55" rx="10" fill="none" stroke="#d97706" stroke-width="1.5"/><rect x="20" y="18" width="40" height="12" rx="4" fill="#78350f"/><ellipse cx="40" cy="18" rx="16" ry="4" fill="#92400e"/><text x="40" y="60" text-anchor="middle" font-size="14" fill="#78350f" font-weight="700">HONEY</text><ellipse cx="40" cy="38" rx="12" ry="3" fill="#fde68a" opacity=".5"/></svg>`,
+  '🧣': `<svg viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg"><path d="M10,20 Q10,10 20,10 L70,10 Q80,10 80,20 L80,30 Q80,35 75,35 L60,35 L60,70 Q60,75 55,75 L45,75 Q40,75 40,70 L40,35 L20,35 Q15,35 15,30Z" fill="#ef4444"/><g stroke="#dc2626" stroke-width="1.5" fill="none"><line x1="20" y1="14" x2="20" y2="32"/><line x1="30" y1="14" x2="30" y2="32"/><line x1="40" y1="14" x2="40" y2="32"/><line x1="50" y1="14" x2="50" y2="32"/><line x1="60" y1="14" x2="60" y2="32"/></g><g stroke="#dc2626" stroke-width="1" fill="none"><line x1="44" y1="40" x2="44" y2="72"/><line x1="50" y1="40" x2="50" y2="72"/><line x1="56" y1="40" x2="56" y2="72"/></g></svg>`
+};
+
+const FOOD_SVG = {
+  '🥕': `<svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M30,95 L10,40 Q30,35 50,40Z" fill="#f97316"/><g stroke="#ea580c" stroke-width="1" fill="none"><line x1="20" y1="55" x2="36" y2="52"/><line x1="18" y1="68" x2="34" y2="66"/><line x1="22" y1="80" x2="32" y2="78"/></g><g fill="#22c55e"><ellipse cx="30" cy="36" rx="12" ry="8"/><ellipse cx="22" cy="30" rx="6" ry="12" transform="rotate(-20 22 30)"/><ellipse cx="38" cy="30" rx="6" ry="12" transform="rotate(20 38 30)"/></g></svg>`,
+  '🐟': `<svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg"><ellipse cx="48" cy="30" rx="35" ry="20" fill="#60a5fa"/><polygon points="85,30 100,14 100,46" fill="#3b82f6"/><circle cx="30" cy="26" r="4" fill="#fff"/><circle cx="31" cy="27" r="2" fill="#1e293b"/><path d="M20,35 Q35,42 55,35" fill="none" stroke="#2563eb" stroke-width="1.5"/><g stroke="#93c5fd" stroke-width="1" opacity=".5"><path d="M50,22 Q55,18 60,22"/><path d="M55,26 Q60,22 65,26"/></g></svg>`,
+  '🦴': `<svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="12" width="60" height="16" rx="8" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/><circle cx="16" cy="10" r="8" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/><circle cx="16" cy="30" r="8" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/><circle cx="84" cy="10" r="8" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/><circle cx="84" cy="30" r="8" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/></svg>`,
+  '🍖': `<svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg"><ellipse cx="55" cy="30" rx="35" ry="22" fill="#dc2626"/><ellipse cx="55" cy="30" rx="28" ry="16" fill="#fca5a5"/><rect x="8" y="22" width="24" height="16" rx="8" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/><circle cx="8" cy="22" r="6" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/><circle cx="8" cy="38" r="6" fill="#fef3c7" stroke="#d6d3d1" stroke-width="1"/></svg>`,
+  '🍌': `<svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg"><path d="M40,10 Q20,30 15,60 Q12,80 30,90 Q40,85 45,70 Q55,40 50,15Z" fill="#fde047"/><path d="M40,10 Q42,8 44,10 Q54,35 48,65 Q44,80 35,86" fill="none" stroke="#ca8a04" stroke-width="1.5"/><rect x="38" y="6" width="8" height="6" rx="3" fill="#78350f"/></svg>`,
+  '🎋': `<svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><rect x="26" y="5" width="8" height="90" rx="4" fill="#22c55e"/><g fill="#4ade80"><ellipse cx="18" cy="25" rx="14" ry="4" transform="rotate(-20 18 25)"/><ellipse cx="42" cy="40" rx="14" ry="4" transform="rotate(15 42 40)"/><ellipse cx="16" cy="55" rx="14" ry="4" transform="rotate(-25 16 55)"/><ellipse cx="44" cy="70" rx="12" ry="3.5" transform="rotate(20 44 70)"/></g><line x1="30" y1="22" x2="30" y2="24" stroke="#15803d" stroke-width="6"/><line x1="30" y1="42" x2="30" y2="44" stroke="#15803d" stroke-width="6"/><line x1="30" y1="62" x2="30" y2="64" stroke="#15803d" stroke-width="6"/></svg>`,
+  '🍎': `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="55" rx="30" ry="30" fill="#ef4444"/><ellipse cx="30" cy="50" rx="10" ry="8" fill="#fca5a5" opacity=".4"/><rect x="37" y="14" width="6" height="16" rx="3" fill="#78350f"/><ellipse cx="48" cy="18" rx="8" ry="5" fill="#22c55e" transform="rotate(20 48 18)"/></svg>`,
+  '🧀': `<svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="50,5 95,70 5,70" fill="#fde047"/><polygon points="50,5 95,70 5,70" fill="none" stroke="#ca8a04" stroke-width="1.5"/><circle cx="40" cy="50" r="6" fill="#fbbf24"/><circle cx="60" cy="55" r="5" fill="#fbbf24"/><circle cx="50" cy="40" r="4" fill="#fbbf24"/><circle cx="70" cy="60" r="3" fill="#fbbf24"/></svg>`,
+  '🍕': `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 L90,85 L10,85Z" fill="#fde68a"/><path d="M50,10 L90,85 L10,85Z" fill="none" stroke="#d97706" stroke-width="2"/><path d="M16,80 Q50,72 84,80" fill="#ef4444" stroke="#dc2626" stroke-width="1"/><circle cx="40" cy="50" r="6" fill="#dc2626"/><circle cx="60" cy="55" r="5" fill="#dc2626"/><circle cx="50" cy="68" r="5" fill="#dc2626"/><circle cx="45" cy="40" r="3" fill="#22c55e"/><circle cx="65" cy="45" r="2" fill="#22c55e"/></svg>`
+};
+
+function getAnimalSVG(emoji, size) {
+  const svg = ANIMAL_SVG[emoji];
+  if (svg) return `<div style="width:${size}px;height:${size}px;display:flex;align-items:center;justify-content:center">${svg}</div>`;
+  return `<span style="font-size:${size}px">${emoji}</span>`;
+}
+function getToolSVG(emoji, size) {
+  const svg = TOOL_SVG[emoji];
+  if (svg) return `<div style="width:${size}px;height:${size}px;display:flex;align-items:center;justify-content:center">${svg}</div>`;
+  return `<span style="font-size:${size}px">${emoji}</span>`;
+}
+function getFoodSVG(emoji, size) {
+  const svg = FOOD_SVG[emoji];
+  if (svg) return `<div style="width:${size}px;height:${size}px;display:flex;align-items:center;justify-content:center">${svg}</div>`;
+  return `<span style="font-size:${size}px">${emoji}</span>`;
+}
 
 // ===== TTS =====
 let audioQueue = [];
 let isSpeaking = false;
 function speak(text) {
   if (!soundEnabled) return;
+  speechSynthesis.cancel();
+  audioQueue = [];
+  isSpeaking = false;
   audioQueue.push(text);
   processQueue();
 }
@@ -747,7 +925,7 @@ function processQueue() {
   if (isSpeaking || !audioQueue.length) return;
   isSpeaking = true;
   const u = new SpeechSynthesisUtterance(audioQueue.shift());
-  u.lang = 'ko-KR'; u.rate = 0.9; u.pitch = 1.1;
+  u.lang = 'ko-KR'; u.rate = 1.0; u.pitch = 1.1;
   u.onend = () => { isSpeaking = false; processQueue(); };
   u.onerror = () => { isSpeaking = false; processQueue(); };
   speechSynthesis.speak(u);
@@ -796,15 +974,15 @@ function setMascotEmotion(mouthId, bubbleId, emotion) {
   const bubble = document.getElementById(bubbleId);
   if (!mouth) return;
   if (emotion === 'happy') {
-    mouth.setAttribute('d', 'M22,36 Q27,44 32,36');
+    mouth.setAttribute('d', 'M40,80 Q50,92 60,80');
     if (bubble) { bubble.textContent = ['좋아!','대박!','짱!','멋져!'][Math.floor(Math.random()*4)]; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 2000); }
   } else if (emotion === 'worried') {
-    mouth.setAttribute('d', 'M24,40 Q27,35 30,40');
+    mouth.setAttribute('d', 'M44,86 Q50,80 56,86');
     if (bubble) { bubble.textContent = '앗!'; bubble.classList.add('show'); setTimeout(() => bubble.classList.remove('show'), 1500); }
   } else {
-    mouth.setAttribute('d', 'M24,36 Q27,42 30,36');
+    mouth.setAttribute('d', 'M44,80 Q50,88 56,80');
   }
-  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M24,36 Q27,42 30,36'); }, 2500);
+  setTimeout(() => { if (mouth) mouth.setAttribute('d', 'M44,80 Q50,88 56,80'); }, 2500);
 }
 
 // ===== 프로필 =====
@@ -922,7 +1100,7 @@ function initVetGame() {
   vet.toolsApplied = 0;
   vet.toolsNeeded = animal.tools.length;
 
-  document.getElementById('vet-animal-display').innerHTML = animal.emoji + `<div class="vet-sick-indicator" id="vet-sick-indicator">${animal.sickEmoji}</div>`;
+  document.getElementById('vet-animal-display').innerHTML = getAnimalSVG(animal.emoji, 400) + `<div class="vet-sick-indicator" id="vet-sick-indicator">${animal.sickEmoji}</div>`;
   document.getElementById('vet-info').textContent = `🩺 ${animal.name}(이)가 ${animal.sick}! 치료해 주세요!`;
   document.getElementById('vet-patient').textContent = animal.emoji;
 
@@ -932,7 +1110,7 @@ function initVetGame() {
   const palette = document.getElementById('vet-tool-palette');
   palette.innerHTML = animal.tools.map((t, i) =>
     `<div class="vet-tool" id="vet-tool-${i}" draggable="false" data-idx="${i}">
-      ${t}
+      ${getToolSVG(t, 110)}
       <div class="vet-tool-label">${animal.toolNames[i]}</div>
     </div>`
   ).join('');
@@ -943,63 +1121,79 @@ function initVetGame() {
   document.getElementById('vet-hearts').innerHTML = '';
 }
 
+function getContainerScale() {
+  const c = document.querySelector('.container');
+  if (!c) return 1;
+  const t = getComputedStyle(c).transform;
+  if (!t || t === 'none') return 1;
+  const m = t.match(/matrix\(([^)]+)\)/);
+  if (m) return parseFloat(m[1].split(',')[0]);
+  return 1;
+}
 function setupVetDrag() {
   const tools = document.querySelectorAll('.vet-tool:not(.used)');
   const dropzone = document.getElementById('vet-dropzone');
+  const container = document.querySelector('.container');
 
   tools.forEach(tool => {
     let isDragging = false;
-    let startX, startY, origLeft, origTop;
+    let clone = null;
+    let offsetX, offsetY;
 
     const onStart = (e) => {
       if (tool.classList.contains('used')) return;
       isDragging = true;
       const touch = e.touches ? e.touches[0] : e;
-      const rect = tool.getBoundingClientRect();
-      startX = touch.clientX - rect.left;
-      startY = touch.clientY - rect.top;
-      origLeft = rect.left;
-      origTop = rect.top;
-      tool.style.position = 'fixed';
-      tool.style.zIndex = '100';
-      tool.style.left = (touch.clientX - startX) + 'px';
-      tool.style.top = (touch.clientY - startY) + 'px';
-      tool.style.transition = 'none';
+      const scale = getContainerScale();
+      const cRect = container.getBoundingClientRect();
+      const tRect = tool.getBoundingClientRect();
+      // 클론을 container에 직접 부착 (positioning 문제 해결)
+      clone = tool.cloneNode(true);
+      clone.style.position = 'absolute';
+      clone.style.zIndex = '9999';
+      clone.style.width = tRect.width / scale + 'px';
+      clone.style.height = tRect.height / scale + 'px';
+      clone.style.transition = 'none';
+      clone.style.pointerEvents = 'none';
+      clone.style.opacity = '0.9';
+      clone.style.boxShadow = '0 8px 24px rgba(0,0,0,.25)';
+      clone.style.transform = 'scale(1.1)';
+      offsetX = (touch.clientX - tRect.left) / scale;
+      offsetY = (touch.clientY - tRect.top) / scale;
+      const posX = (touch.clientX - cRect.left) / scale - offsetX;
+      const posY = (touch.clientY - cRect.top) / scale - offsetY;
+      clone.style.left = posX + 'px';
+      clone.style.top = posY + 'px';
+      container.appendChild(clone);
+      tool.style.opacity = '0.3';
       e.preventDefault();
     };
 
     const onMove = (e) => {
-      if (!isDragging) return;
+      if (!isDragging || !clone) return;
       const touch = e.touches ? e.touches[0] : e;
-      tool.style.left = (touch.clientX - startX) + 'px';
-      tool.style.top = (touch.clientY - startY) + 'px';
+      const scale = getContainerScale();
+      const cRect = container.getBoundingClientRect();
+      const posX = (touch.clientX - cRect.left) / scale - offsetX;
+      const posY = (touch.clientY - cRect.top) / scale - offsetY;
+      clone.style.left = posX + 'px';
+      clone.style.top = posY + 'px';
       e.preventDefault();
     };
 
     const onEnd = (e) => {
       if (!isDragging) return;
       isDragging = false;
+      if (clone) { clone.remove(); clone = null; }
+      tool.style.opacity = '';
       const touch = e.changedTouches ? e.changedTouches[0] : e;
       const dzRect = dropzone.getBoundingClientRect();
       const tx = touch.clientX;
       const ty = touch.clientY;
 
       if (tx >= dzRect.left && tx <= dzRect.right && ty >= dzRect.top && ty <= dzRect.bottom) {
-        // 드롭 성공!
-        tool.style.position = '';
-        tool.style.zIndex = '';
-        tool.style.left = '';
-        tool.style.top = '';
-        tool.style.transition = '';
         tool.classList.add('used');
         applyVetTool(parseInt(tool.dataset.idx));
-      } else {
-        // 원위치
-        tool.style.position = '';
-        tool.style.zIndex = '';
-        tool.style.left = '';
-        tool.style.top = '';
-        tool.style.transition = '';
       }
     };
 
@@ -1060,7 +1254,7 @@ function vetCureComplete() {
   const display = document.getElementById('vet-animal-display');
   const indicator = document.getElementById('vet-sick-indicator');
   if (indicator) indicator.remove();
-  display.innerHTML = vet.currentAnimal.emoji;
+  display.innerHTML = getAnimalSVG(vet.currentAnimal.emoji, 400);
 
   document.getElementById('vet-info').textContent = `🎉 ${vet.currentAnimal.name}(이)가 건강해졌어요!`;
   SFX.heal(); SFX.fanfare(); setMascotEmotion('mascot-vet-mouth','bubble-vet','happy');
@@ -1114,7 +1308,7 @@ function initFeedGame() {
 
   // 동물 표시
   const animalEl = document.getElementById('feed-animal');
-  animalEl.innerHTML = `<div class="feed-animal-speech" id="feed-speech">배고파요~</div>${animal.emoji}<div class="feed-type-badge ${animal.typeClass}" id="feed-type-badge">${animal.type}</div>`;
+  animalEl.innerHTML = `<div class="feed-animal-speech" id="feed-speech">배고파요~</div>${getAnimalSVG(animal.emoji, 280)}<div class="feed-type-badge ${animal.typeClass}" id="feed-type-badge">${animal.type}</div>`;
   document.getElementById('feed-info').textContent = `🍽 ${animal.name}에게 알맞은 먹이를 골라주세요!`;
   document.getElementById('feed-result').textContent = '';
   document.getElementById('feed-result').style.color = '';
@@ -1133,7 +1327,7 @@ function initFeedGame() {
 
   const grid = document.getElementById('food-choices');
   grid.innerHTML = choices.map(f =>
-    `<div class="food-choice" onclick="feedSelect(this,'${f}')">${f}</div>`
+    `<div class="food-choice" data-food="${f}" onclick="feedSelect(this,'${f}')">${getFoodSVG(f, 140)}</div>`
   ).join('');
 }
 
@@ -1158,7 +1352,7 @@ function feedSelect(el, food) {
     document.getElementById('feed-speech').textContent = '맛있다! 냠냠!';
     document.getElementById('feed-result').textContent = `🎉 정답! ${animal.name}은 ${animal.foodName}을 좋아해요!`;
     document.getElementById('feed-result').style.color = '#16a34a';
-    SFX.feed(); SFX.correct(); setMascotEmotion('mascot-vet-mouth','bubble-vet','happy');
+    SFX.feed(); SFX.correct(); setMascotEmotion('mascot-feed-mouth','bubble-feed','happy');
     speak(`정답! ${animal.name}은 ${animal.foodName}을 좋아해요!`);
 
     // 먹기 성공 이펙트 - 파티클
@@ -1185,7 +1379,7 @@ function feedSelect(el, food) {
     document.getElementById('feed-speech').textContent = '이건 아니야~!';
     document.getElementById('feed-result').textContent = `❌ ${animal.name}은 이걸 안 먹어요! ${animal.foodName}을 줘야 해요`;
     document.getElementById('feed-result').style.color = '#dc2626';
-    SFX.wrong(); setMascotEmotion('mascot-vet-mouth','bubble-vet','worried');
+    SFX.wrong(); setMascotEmotion('mascot-feed-mouth','bubble-feed','worried');
     speak(`틀렸어요! ${animal.name}은 ${animal.foodName}을 좋아해요`);
 
     // 뱉어냄 애니메이션
@@ -1201,7 +1395,7 @@ function feedSelect(el, food) {
     // 정답 강조
     setTimeout(() => {
       document.querySelectorAll('.food-choice').forEach(fc => {
-        if (fc.textContent.trim() === animal.food) fc.classList.add('correct');
+        if (fc.dataset.food === animal.food) fc.classList.add('correct');
       });
     }, 800);
 
@@ -1334,7 +1528,7 @@ function tfSelectCard(card) {
     // 오답 - 웃긴 결과물
     slot.classList.add('wrong-slot');
     slot.innerHTML = `<div class="slot-num">${tf.nextSlotIdx+1}번째</div><span style="font-size:100px">${cardEmoji}</span>`;
-    SFX.wrong(); setMascotEmotion('mascot-vet-mouth','bubble-vet','worried');
+    SFX.wrong(); setMascotEmotion('mascot-tf-mouth','bubble-tf','worried');
     speak('앗! 순서가 달라요!');
 
     const area = document.getElementById('transform-area');
@@ -1365,7 +1559,7 @@ function tfComplete() {
   profile.totalCorrect++;
 
   document.getElementById('transform-info').textContent = `🎉 ${tf.currentSet.name} 완성!`;
-  SFX.fanfare(); setMascotEmotion('mascot-vet-mouth','bubble-vet','happy');
+  SFX.fanfare(); setMascotEmotion('mascot-tf-mouth','bubble-tf','happy');
   speak(`대단해요! ${tf.currentSet.name} 완성!`);
 
   // 변신 애니메이션
@@ -1430,6 +1624,7 @@ function updateRecords() {
 
 // ===== 히어로: 서식지 분류왕 =====
 function startHeroGame() {
+  try{document.documentElement.requestFullscreen?.()}catch(e){}
   document.getElementById('hero-game').classList.remove('hidden');
   document.getElementById('hg-start').classList.remove('hidden');
   document.getElementById('hg-over').classList.add('hidden');
@@ -1578,8 +1773,14 @@ function hgSpawn() {
 
   const el = document.createElement('div');
   el.className = 'falling-animal';
-  el.textContent = animalEmoji;
-  el.style.left = (40 + Math.random() * (w - 120)) + 'px';
+  const animalSvg = ANIMAL_SVG[animalEmoji];
+  if (animalSvg) {
+    el.innerHTML = `<div style="width:180px;height:180px">${animalSvg}</div>`;
+  } else {
+    el.textContent = animalEmoji;
+    el.style.fontSize = '150px';
+  }
+  el.style.left = (40 + Math.random() * (w - 200)) + 'px';
   el.style.top = '-80px';
   arena.appendChild(el);
 
@@ -1592,6 +1793,13 @@ function hgSpawn() {
   setupAnimalDrag(el, item);
 }
 
+// 히어로 이벤트 리스너 관리 (누적 방지)
+let _hgDocListeners = [];
+function _hgCleanListeners() {
+  _hgDocListeners.forEach(([ev, fn, opts]) => document.removeEventListener(ev, fn, opts));
+  _hgDocListeners = [];
+}
+
 function setupAnimalDrag(el, item) {
   let isDragging = false;
   let offsetX = 0, offsetY = 0;
@@ -1602,9 +1810,10 @@ function setupAnimalDrag(el, item) {
     item.dragging = true;
     el.classList.add('dragging');
     const touch = e.touches ? e.touches[0] : e;
+    const scale = getContainerScale();
     const rect = el.getBoundingClientRect();
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
+    offsetX = (touch.clientX - rect.left) / scale;
+    offsetY = (touch.clientY - rect.top) / scale;
     e.preventDefault();
     e.stopPropagation();
   };
@@ -1612,10 +1821,11 @@ function setupAnimalDrag(el, item) {
   const onMove = (e) => {
     if (!isDragging) return;
     const touch = e.touches ? e.touches[0] : e;
+    const scale = getContainerScale();
     const arena = document.getElementById('hg-arena');
     const arenaRect = arena.getBoundingClientRect();
-    const newX = touch.clientX - arenaRect.left - offsetX;
-    const newY = touch.clientY - arenaRect.top - offsetY;
+    const newX = (touch.clientX - arenaRect.left) / scale - offsetX;
+    const newY = (touch.clientY - arenaRect.top) / scale - offsetY;
     item.x = newX;
     item.y = newY;
     el.style.left = newX + 'px';
@@ -1638,11 +1848,14 @@ function setupAnimalDrag(el, item) {
   };
 
   el.addEventListener('mousedown', onStart);
-  document.addEventListener('mousemove', onMove);
-  document.addEventListener('mouseup', onEnd);
   el.addEventListener('touchstart', onStart, { passive: false });
-  document.addEventListener('touchmove', onMove, { passive: false });
-  document.addEventListener('touchend', onEnd);
+  const moveFn = onMove;
+  const endFn = onEnd;
+  document.addEventListener('mousemove', moveFn);
+  document.addEventListener('mouseup', endFn);
+  document.addEventListener('touchmove', moveFn, { passive: false });
+  document.addEventListener('touchend', endFn);
+  _hgDocListeners.push(['mousemove', moveFn], ['mouseup', endFn], ['touchmove', moveFn, { passive: false }], ['touchend', endFn]);
 }
 
 function getBiomeAtPoint(clientX, clientY) {
@@ -1710,30 +1923,42 @@ function hgPlaceAnimal(item, targetBiome) {
   } else {
     // 오답!
     hg.combo = 0;
-    hg.lives--;
 
-    // 당황 애니메이션
-    item.el.classList.add('hg-animal-confused');
-    setTimeout(() => item.el.classList.remove('hg-animal-confused'), 1000);
+    if (hg.shielded) {
+      hg.shielded = false;
+      speak('울타리로 막았어요!');
+      // 동물 제거 (보호됨)
+      item.placed = true;
+      item.el.style.transition = 'all .4s ease-out';
+      item.el.style.transform = 'scale(0)';
+      item.el.style.opacity = '0';
+      setTimeout(() => item.el.remove(), 400);
+    } else {
+      hg.lives--;
 
-    const flash = document.createElement('div');
-    flash.className = 'hg-flash-red';
-    arena.appendChild(flash);
-    setTimeout(() => flash.remove(), 400);
+      // 당황 애니메이션
+      item.el.classList.add('hg-animal-confused');
+      setTimeout(() => item.el.classList.remove('hg-animal-confused'), 1000);
 
-    arena.classList.add('hg-arena-shake');
-    setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
+      const flash = document.createElement('div');
+      flash.className = 'hg-flash-red';
+      arena.appendChild(flash);
+      setTimeout(() => flash.remove(), 400);
 
-    SFX.wrong();
-    speak('앗! 여기가 아니에요!');
+      arena.classList.add('hg-arena-shake');
+      setTimeout(() => arena.classList.remove('hg-arena-shake'), 400);
 
-    // 동물 원래 위치로 복귀
-    item.placed = false;
-    item.el.classList.remove('placed');
+      SFX.wrong();
+      speak('앗! 여기가 아니에요!');
 
-    if (hg.lives <= 0) {
-      hgEnd();
-      return;
+      // 동물 원래 위치로 복귀
+      item.placed = false;
+      item.el.classList.remove('placed');
+
+      if (hg.lives <= 0) {
+        hgEnd();
+        return;
+      }
     }
   }
 
@@ -1845,8 +2070,14 @@ function hgEnd() {
   hg.running = false;
   if (hg.spawnTimer) clearInterval(hg.spawnTimer);
   if (hg.animId) cancelAnimationFrame(hg.animId);
+  _hgCleanListeners();
   hg.animals.forEach(a => a.el.remove());
   hg.animals = [];
+  // 히어로 점수 저장
+  const prevBest = parseInt(LS.getItem('hgBestScore')) || 0;
+  if (hg.score > prevBest) LS.setItem('hgBestScore', hg.score);
+  const prevMaxCombo = parseInt(LS.getItem('hgMaxCombo')) || 0;
+  if (hg.maxCombo > prevMaxCombo) LS.setItem('hgMaxCombo', hg.maxCombo);
   document.getElementById('hg-final-score').textContent = hg.score;
   let msg = '잘했어요!';
   if (hg.score >= 30) msg = '대단해요! 동물 박사!';
@@ -1859,6 +2090,7 @@ function hgEnd() {
 }
 
 function hgRestart() {
+  _hgCleanListeners();
   SFX.gameStart();
   document.getElementById('hg-over').classList.add('hidden');
   const arena = document.getElementById('hg-arena');
@@ -1877,12 +2109,14 @@ function hgExit() {
   hg.running = false;
   if (hg.spawnTimer) clearInterval(hg.spawnTimer);
   if (hg.animId) cancelAnimationFrame(hg.animId);
+  _hgCleanListeners();
   hg.animals.forEach(a => a.el.remove());
   hg.animals = [];
   document.getElementById('hg-over').classList.add('hidden');
   document.getElementById('hg-pause-screen').classList.add('hidden');
   document.getElementById('hg-start').classList.remove('hidden');
   document.getElementById('hero-game').classList.add('hidden');
+  if(document.fullscreenElement)document.exitFullscreen?.();
 }
 
 // ===== 초기화 =====
@@ -1922,6 +2156,18 @@ document.addEventListener('touchend', function(e) {
   if (now - lastTouchEnd <= 300) e.preventDefault();
   lastTouchEnd = now;
 }, false);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
+window.matchMedia('(orientation: portrait)').addEventListener('change', e => {
+  if (e.matches) {
+    speechSynthesis.cancel(); audioQueue = []; isSpeaking = false;
+    if (hg.running && !hg.paused) hgPause();
+  }
+});
 </script>
 </body>
 </html>
