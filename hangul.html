@@ -4139,16 +4139,17 @@
           function fitScale() {
               const container = document.querySelector('.container');
               if (!container || getComputedStyle(container).display === 'none') return;
+              const vp = window.visualViewport || {width: window.innerWidth, height: window.innerHeight};
               const MARGIN = 0.03;
-              const availW = window.innerWidth * (1 - MARGIN * 2);
-              const availH = window.innerHeight * (1 - MARGIN * 2);
+              const availW = vp.width * (1 - MARGIN * 2);
+              const availH = vp.height * (1 - MARGIN * 2);
               const scaleX = availW / 1920;
               const scaleY = availH / 1080;
               const scale = Math.min(scaleX, scaleY);
               container.style.transform = `scale(${scale})`;
               container.style.transformOrigin = '0 0';
-              container.style.left = ((window.innerWidth - 1920 * scale) / 2) + 'px';
-              container.style.top = ((window.innerHeight - 1080 * scale) / 2) + 'px';
+              container.style.left = ((vp.width - 1920 * scale) / 2) + 'px';
+              container.style.top = ((vp.height - 1080 * scale) / 2) + 'px';
           }
           fitScale();
           window.addEventListener('resize', fitScale);

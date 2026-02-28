@@ -2345,12 +2345,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const c = document.querySelector('.container');
     if (!c || getComputedStyle(c).display === 'none') return;
     const M = 0.03;
-    const aW = window.innerWidth * (1 - M * 2);
-    const aH = window.innerHeight * (1 - M * 2);
+    const vp = window.visualViewport || {width: window.innerWidth, height: window.innerHeight};
+    const aW = vp.width * (1 - M * 2);
+    const aH = vp.height * (1 - M * 2);
     const s = Math.min(aW / 1920, aH / 1080);
     c.style.transform = `scale(${s})`;
-    c.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
-    c.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+    c.style.left = ((vp.width - 1920 * s) / 2) + 'px';
+    c.style.top = ((vp.height - 1080 * s) / 2) + 'px';
   }
   fitScale();
   window.addEventListener('resize', fitScale);
